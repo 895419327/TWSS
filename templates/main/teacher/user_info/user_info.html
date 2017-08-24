@@ -1,6 +1,6 @@
 {% load staticfiles %}
 <link rel="stylesheet" href={% static "main/teacher/user_info/user_info.css" %}>
-<script src={% static "main/modules/../../../../static/main/teacher/user_info/user_info.js" %}></script>
+<script src={% static "main/teacher/user_info/user_info.js" %}></script>
 
 <div class="user_info_content main_interface">
 
@@ -40,26 +40,23 @@
     <table class="user_info_content_table" cellspacing="0">
         <tr>
             <th>所属系</th>
-            <td>{{ user.department.name }}</td>
+            <td>{{ user.department }}</td>
         </tr>
     </table>
-
-
-
 
     {# 这里一行分成一个table因为tr的行间距用css不好做 #}
 
     <table class="user_info_content_table" cellspacing="0">
         <tr>
             <th>手机号</th>
-            <td class="can_modify" id="user_info_phone_number">{{ user.phone_number }}</td>
+            <td class="user_info_can_modify" id="user_info_phone_number">{{ user.phone_number }}</td>
         </tr>
     </table>
 
     <table class="user_info_content_table" cellspacing="0">
         <tr>
             <th>邮箱</th>
-            <td class="can_modify" id="user_info_phone_email">{{ user.email }}</td>
+            <td class="user_info_can_modify" id="user_info_phone_email">{{ user.email }}</td>
         </tr>
     </table>
 

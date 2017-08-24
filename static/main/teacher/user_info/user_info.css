@@ -42,7 +42,8 @@
     background-color: rgba(255,255,255,0.5);
 }
 
-.modify_area{
+.user_info_modify_area{
+    width: 300px;
     height: 43px;
     padding: 0;
     font-size: 20px;

@@ -5,10 +5,7 @@ $(document).ready(function () {
         $('.user_info_content').show();
     });
 
-    $('#user_info_change_password').click(function () {
-        $('.main_interface').hide();
-        //...show();
-    });
+
 
     // 修改按钮下拉菜单动画
     var modify_button = $('#user_info_modify');
@@ -48,10 +45,10 @@ $(document).ready(function () {
             modifying = true;
             modify_button.text('保存');
             modify_button.css('color','red');
-            $('.can_modify').each(function () {
+            $('.user_info_can_modify').each(function () {
                 var data = $(this).text();
                 var width = $(this).css('width');
-                $(this).html("<input class='modify_area' value="+ data +">");
+                $(this).html("<input class='user_info_modify_area' value="+ data +">");
                 $(this).css('width', width);
                 $(this).children().css('width', width);
                 // 这里要手动设置width避免td自动调整宽度
@@ -83,7 +80,7 @@ $(document).ready(function () {
             modify_button.css('color','black');
             // 将数据储存为json字符串
             var datas_jsonstr = '{';
-            $('.can_modify').each(function () {
+            $('.user_info_can_modify').each(function () {
                 var title = $(this).prev('th').text();
                 var data = $(this).children().val();
                 datas_jsonstr += '"'+ title +'": "' + data + '",';

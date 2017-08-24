@@ -1,62 +1,62 @@
-.theory_class_content{
+.pratice_course_content {
     width: 1030px;
     min-height: 600px;
     height: 100%;
 }
 
-.theory_class_search_bar{
+.pratice_course_search_bar {
     width: 975px;
     height: 50px;
     margin: 25px 0;
     padding: 0 0 0 15px;
     font-size: 20px;
     line-height: 50px;
-    background: rgba(255,255,255,0.3);
+    background: rgba(255, 255, 255, 0.3);
 }
 
-.theory_class_search_bar_item{
+.pratice_course_search_bar_item {
     float: left;
     margin: 0 12px;
 }
 
-#theory_class_search_button{
+#pratice_course_search_button {
     width: 100px;
     height: 50px;
     font-size: 21px;
     line-height: 50px;
     text-align: center;
-    background: rgba(255,255,255,0.35);
+    background: rgba(255, 255, 255, 0.35);
     float: right;
     cursor: pointer;
 }
 
-#theory_class_search_button:hover{
-    background: rgba(255,255,255,0.7);
+#pratice_course_search_button:hover {
+    background: rgba(255, 255, 255, 0.7);
 }
 
-.theory_class_table{
+.pratice_course_table {
     width: 990px;
     text-align: center;
-    background: rgba(255,255,255,0.2);
+    background: rgba(255, 255, 255, 0.2);
     overflow: visible;
 }
 
-.theory_class_table th{
-    background: rgba(255,255,255,0.6);
+.pratice_course_table th {
+    background: rgba(255, 255, 255, 0.6);
     height: 38px;
     font-size: 18px;
     line-height: 38px;
     overflow: hidden;
 }
 
-.theory_class_table td{
+.pratice_course_table td {
     max-width: 120px;
     height: 80px;
     line-height: 32px;
     font-size: 16px;
 }
 
-.theory_class_content img{
+.pratice_course_content img {
     height: 30px;
     width: 30px;
     margin: 0 5px;
@@ -64,24 +64,24 @@
     cursor: pointer;
 }
 
-.theory_class_content img:hover{
+.pratice_course_content img:hover {
     opacity: 1;
 }
 
-.even{
-    background: rgba(255,255,255,0.15);
+.even {
+    background: rgba(255, 255, 255, 0.15);
 }
 
-.theory_class_add_button{
+.pratice_course_add_button {
     width: 990px;
     height: 60px;
     line-height: 60px;
     text-align: center;
     font-size: 24px;
-    background: rgba(255,255,255,0.4);
+    background: rgba(255, 255, 255, 0.4);
     cursor: pointer;
 }
 
-.theory_class_add_button:hover {
-    background: rgba(255,255,255,0.7);
+.pratice_course_add_button:hover {
+    background: rgba(255, 255, 255, 0.7);
 }

@@ -1,13 +1,13 @@
 {% load staticfiles %}
-<link rel="stylesheet" href={% static "main/teacher/workload_input/theory_class/theory_class_add.css" %}>
+<link rel="stylesheet" href={% static "main/teacher/workload_input/pratice_course/pratice_course_add.css" %}>
 
-<div class="theory_class_add popup">
+<div class="pratice_course_add popup">
 
-    <div class="theory_class_add_cross">
+    <div class="pratice_course_add_cross">
         <img src={% static "main/resourse/cross.png" %}>
     </div>
 
-    <div class="theory_class_add_title">新 增</div>
+    <div class="pratice_course_add_title">新 增</div>
 
     <div>
         <span>学年 </span>
@@ -44,10 +44,10 @@
 
     <div>
         <span>课程名 </span>
-        <input type="text" id="theory_class_add_class_name">
+        <input type="text" id="pratice_course_add_class_name">
 
         <span>课程属性 </span>
-        <select id="theory_class_add_class_attr">
+        <select id="pratice_course_add_class_attr">
             <option>必修</option>
             <option>限选</option>
             <option>选修</option>
@@ -56,16 +56,16 @@
 
     <div>
         <span>学时 </span>
-        <input type="text" id="theory_class_add_class_period">
+        <input type="text" id="pratice_course_add_class_period">
 
         <span>学分 </span>
-        <input type="text" id="theory_class_add_class_credit">
+        <input type="text" id="pratice_course_add_class_credit">
     </div>
 
-    <div class="theory_class_add_buttons_area">
-        <div id="theory_class_add_submit" class="theory_class_add_buttons">提交</div>
+    <div class="pratice_course_add_buttons_area">
+        <div id="pratice_course_add_submit" class="pratice_course_add_buttons">提交</div>
 
-        <div id="theory_class_add_cancel" class="theory_class_add_buttons">取消</div>
+        <div id="pratice_course_add_cancel" class="pratice_course_add_buttons">取消</div>
     </div>
 
 </div>
