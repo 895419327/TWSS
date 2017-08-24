@@ -32,12 +32,39 @@ $(document).ready(function () {
 
         // 点击标题后 显示本模块子菜单但不隐藏其他模块的
         $(this).next().slideToggle('fast');
-
-        // 隐藏其他模块的主界面 显示本模块的主界面
-        // $('.main_interface').hide();
-        // var title_name = $(this).attr('id');
-        // var content_name = title_name.replace('_title','_content');
-        // $('.'+content_name).show();
     });
 
 });
+
+function MyAjax(action, forwhat, data_json) {
+        var form = $('#request_form');
+        var requestfor = $('#requestfor');
+        var requestdata = $('#request_data');
+
+        // 配置目标url
+        form.attr('action', action);
+        // 配置请求
+        requestfor.val(forwhat);
+        // 附上数据
+        requestdata.val(data_json);
+
+        // 提交
+        form.ajaxSubmit({
+            target: '#message',
+            success: function () {
+                var message = $('#message');
+                message.slideDown('fast');
+                setTimeout(function () {
+                    message.slideUp('fast').text('');
+                }, 5000);
+            },
+            error: function () {
+                alert('未知错误');
+            }
+        });
+
+        // 提交后重置目标url及请求
+        form.attr('action', '');
+        requestfor.val('');
+        requestdata.val('');
+    }

@@ -1,23 +1,23 @@
-.theory_class_add{
+.theory_course_add {
     width: 800px;
     height: 480px;
     padding: 0 50px;
     font-size: 22px;
     line-height: 30px;
-    background: rgba(255,255,255,0.6);
+    background: rgba(255, 255, 255, 0.6);
     position: absolute;
     top: 90px;
     left: 75px;
 }
 
-.theory_class_add_title{
+.theory_course_add_title {
     width: 700px;
     margin: 25px auto 40px;
     font-size: 30px;
     text-align: center;
 }
 
-.theory_class_add_cross{
+.theory_course_add_cross {
     height: 25px;
     width: 25px;
     position: absolute;
@@ -25,64 +25,67 @@
     right: 15px;
 }
 
-.theory_class_add_cross img{
+.theory_course_add_cross img {
     height: 25px;
     width: 25px;
     cursor: pointer;
     opacity: 0.6;
 }
 
-.theory_class_add_cross img:hover{
+.theory_course_add_cross img:hover {
     opacity: 1;
 }
 
-.theory_class_add select{
-    width: 180px;
-    margin: 0 100px 30px 10px;
-}
-
-.theory_class_add input{
-    height: 26px;
-    margin: 0 30px 0 0;
-    border: none;
-}
-
-#theory_class_add_class_name{
-    width: 240px;
-}
-
-#theory_class_add_class_attr{
-    width: 100px;
-}
-
-#theory_class_add_class_period{
-    margin: 0 170px 0 0;
-}
-
-#theory_class_add_class_credit{
-
-}
-
-.theory_class_add_buttons_area{
+.theory_course_add_left {
     width: 350px;
-    height: 40px;
-    margin: 80px auto 50px;
-}
-
-.theory_class_add_buttons{
-    width: 120px;
-    height: 40px;
-    line-height: 40px;
-    background: rgb(255,255,255);
-    cursor: pointer;
-    text-align: center;
-    border: 1px rgb(100,100,100);
-}
-
-#theory_class_add_submit{
+    margin: 0 0 0 50px;
     float: left;
 }
 
-#theory_class_add_cancel{
+.theory_course_add_right {
+    width: 350px;
+    float: left;
+}
+
+.theory_course_add select {
+    width: 180px;
+    margin: 0 0 30px 0;
+}
+
+.theory_course_add input {
+    height: 26px;
+    margin: 0 0 30px 0;
+    border: none;
+}
+
+#theory_course_add_class_name {
+    width: 240px;
+}
+
+#theory_course_add_class_attr {
+    width: 100px;
+}
+
+.theory_course_add_buttons_area {
+    width: 350px;
+    height: 40px;
+    margin: 350px auto 50px;
+}
+
+.theory_course_add_buttons {
+    width: 120px;
+    height: 40px;
+    line-height: 40px;
+    background: rgb(255, 255, 255);
+    cursor: pointer;
+    text-align: center;
+    border: 1px rgb(100, 100, 100);
+}
+
+#theory_course_add_submit {
+    float: left;
+}
+
+#theory_course_add_cancel {
     float: right;
 }

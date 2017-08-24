@@ -48,7 +48,6 @@ def user_info_to_excel(request, user):
     # 写入数据
     worksheet.write(2, 0, user.id, style)
     worksheet.write(2, 1, user.name, style)
-    worksheet.write(2, 2, user.sex, style)
     worksheet.write(2, 3, user.status, style)
     worksheet.write(2, 4, user.phone_number, style)
 

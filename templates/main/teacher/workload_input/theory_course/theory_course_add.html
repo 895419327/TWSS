@@ -1,0 +1,84 @@
+{% load staticfiles %}
+<link rel="stylesheet" href={% static "main/teacher/workload_input/theory_course/theory_course_add.css" %}>
+
+<div class="theory_course_add popup">
+
+    <div class="theory_course_add_cross">
+        <img src={% static "main/resourse/cross.png" %}>
+    </div>
+
+    <div class="theory_course_add_title">新 增</div>
+
+    <div class="theory_course_add_left">
+        <div>
+            <span>学年 </span>
+            <select title="year" class="theory_course_add_form_data">
+                <option>2016-2017学年</option>
+                <option>2017-2018学年</option>
+            </select>
+        </div>
+
+        <div>
+            <span>年级 </span>
+            <select title="grade" class="theory_course_add_form_data">
+                <option>2016级</option>
+                <option>2015级</option>
+                <option>2014级</option>
+            </select>
+        </div>
+
+        <div>
+            <span>课程名 </span>
+            <input type="text" title="course_name" class="theory_course_add_form_data">
+        </div>
+
+        <div>
+            <span>学时 </span>
+            <input type="text" title="period" class="theory_course_add_form_data">
+        </div>
+    </div>
+
+    <div class="theory_course_add_right">
+        <div>
+            <span>学期 </span>
+            <select title="semester" class="theory_course_add_form_data">
+                <option>第一学期</option>
+                <option>第二学期</option>
+            </select>
+        </div>
+
+        <div>
+            <span>班级 </span>
+            <select title="class" class="theory_course_add_form_data">
+                <option>生物工程1班</option>
+                <option>生物工程2班</option>
+                <option>生物技术1班</option>
+                <option>生物技术2班</option>
+                <option>生物信息1班</option>
+                <option>生物信息2班</option>
+            </select>
+        </div>
+
+        <div>
+            <span>课程属性 </span>
+            <select title="course_attribute" class="theory_course_add_form_data">
+                <option>必修</option>
+                <option>限选</option>
+                <option>选修</option>
+            </select>
+        </div>
+
+        <div>
+            <span>学分 </span>
+            <input type="text" title="credit" class="theory_course_add_form_data">
+        </div>
+    </div>
+
+    <div class="theory_course_add_buttons_area">
+        <div id="theory_course_add_submit" class="theory_course_add_buttons">提交</div>
+
+        <div id="theory_course_add_cancel" class="theory_course_add_buttons">取消</div>
+    </div>
+
+</div>
+

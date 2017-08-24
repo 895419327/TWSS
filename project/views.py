@@ -4,10 +4,6 @@ from django.shortcuts import render
 from django.http import HttpResponse
 
 
-# 测试开关
-PROJECT_TEST = True
-
-
 def index(request):
     return render(request, 'index/index.html', locals())
 
@@ -15,26 +11,12 @@ def index(request):
 def login(request):
     request.encoding = 'utf-8'
 
-
     # 如果表单为POST提交
     if request.POST:
         # 接收表单数据
         username_post = request.POST['username']
         password_post = request.POST['password']
         status_post = request.POST['status']
-
-        if PROJECT_TEST == True:
-            if status_post == u'教师':
-                return render(request, 'main/teacher/teacher.html', locals())
-            if status_post == u'系主任':
-                return render(request, 'main/head_of_department/head_of_department.html', locals())
-            if status_post == u'教务员':
-                return render(request, 'main/dean/dean.html', locals())
-            if status_post == u'系统管理员':
-                return render(request, 'main/admin/admin.html', locals())
-
-
-
 
         # 检查是否存在此用户
         # from models import User
@@ -58,8 +40,8 @@ def login(request):
                     if check_status != -1:
                         # 获取账号相关数据
                         # 课程信息
-                        from project.models import Course
-                        course_list = Course.objects.filter(lecture=user.id)
+                        from project.models import TheoryCourse
+                        theory_course_list = TheoryCourse.objects.filter(teacher_id=user.id)
 
                         # 生成unique_code
                         from hashlib import md5
