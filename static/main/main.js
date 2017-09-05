@@ -34,37 +34,92 @@ $(document).ready(function () {
         $(this).next().slideToggle('fast');
     });
 
+    $('#user_info_user_info').click(function () {
+        MyAjax_Get('/getpage', 'user_info', '');
+    });
+
+    $('#user_info_change_password').click(function () {
+        MyAjax_Get('/getpage', 'change_password', '');
+    });
+
+    $('#workload_input_theory_course').click(function () {
+        MyAjax_Get('/getpage', 'theory_course', '');
+    });
+
+    $('#workload_input_pratice_course').click(function () {
+        MyAjax_Get('/getpage', 'pratice_course', '');
+    });
+
+    $('#workload_input_teaching_achievement').click(function () {
+        MyAjax_Get('/getpage', 'teaching_achievement', '');
+    });
+
+    $('#workload_input_teaching_project').click(function () {
+        MyAjax_Get('/getpage', 'teaching_project', '');
+    });
+
+    $('#workload_input_competition_guide').click(function () {
+        MyAjax_Get('/getpage', 'competition_guide', '');
+    });
+
+    $('#workload_input_paper_guide').click(function () {
+        MyAjax_Get('/getpage', 'paper_guide', '');
+    });
+
+    $('#workload_count_title').click(function () {
+        MyAjax_Get('/getpage', 'workload_count', '');
+    });
 });
 
-function MyAjax(action, forwhat, data_json) {
-        var form = $('#request_form');
-        var requestfor = $('#requestfor');
-        var requestdata = $('#request_data');
+function MyAjax(action, forwhat, data) {
+    var form = $('#request_form');
+    var requestfor = $('#requestfor');
+    var requestdata = $('#request_data');
 
-        // 配置目标url
-        form.attr('action', action);
-        // 配置请求
-        requestfor.val(forwhat);
-        // 附上数据
-        requestdata.val(data_json);
+    // 配置目标url
+    form.attr('action', action);
+    // 配置请求
+    requestfor.val(forwhat);
+    // 附上数据
+    requestdata.val(data);
 
-        // 提交
-        form.ajaxSubmit({
-            target: '#message',
-            success: function () {
-                var message = $('#message');
-                message.slideDown('fast');
-                setTimeout(function () {
-                    message.slideUp('fast').text('');
-                }, 5000);
-            },
-            error: function () {
-                alert('未知错误');
-            }
-        });
+    // 提交
+    form.ajaxSubmit({
+        target: '.content_right',
+        error: function () {
+            alert('未知错误');
+        }
+    });
 
-        // 提交后重置目标url及请求
-        form.attr('action', '');
-        requestfor.val('');
-        requestdata.val('');
-    }
+    // 提交后重置目标url及请求
+    form.attr('action', '');
+    requestfor.val('');
+    requestdata.val('');
+}
+
+function MyAjax_Get(action, forwhat, data, towhere) {
+    var form = $('#request_form');
+    var requestfor = $('#requestfor');
+    var requestdata = $('#request_data');
+
+    // 配置目标url
+    form.attr('action', action);
+    // 配置请求
+    requestfor.val(forwhat);
+    // 附上数据
+    requestdata.val(data);
+
+    var towhere = arguments[3]?arguments[3]:'.content_right';
+    // 提交
+    form.ajaxSubmit({
+        target: towhere,
+        error: function () {
+            alert('未知错误');
+        }
+    });
+
+    // 提交后重置目标url及请求
+    form.attr('action', '');
+    requestfor.val('');
+    requestdata.val('');
+}

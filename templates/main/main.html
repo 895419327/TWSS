@@ -9,41 +9,42 @@
 
 {% block base_content %}
 
-<div class="top_bar">
-    <div class="top_bar_center">
-        <img id="logo_zzdx" src={% static "base/logo_zzdx.png" %}>
-        <div class="logo_title">生命科学学院</div>
-        <div class="logo_title">教师工作量统计系统</div>
-    </div>
-    <!--<div id="logout">[退出]</div>-->
-</div>
-
-<div class="content">
-    <div class="content_left">
-        <!--标题-->
-        {% block content_left %}
-
-        {% endblock %}
+    <div class="top_bar">
+        <div class="top_bar_center">
+            <img id="logo_zzdx" src={% static "base/logo_zzdx.png" %}>
+            <div class="logo_title">生命科学学院</div>
+            <div class="logo_title">教师工作量统计系统</div>
+        </div>
+        <!--<div id="logout">[退出]</div>-->
     </div>
 
-    <div class="content_right">
-        <div class="message_area">
-            <div id="message">保存成功</div>
+    <div class="message_area">
+        <div id="message">保存成功</div>
+    </div>
+
+    <div class="content">
+        <div class="content_left">
+            <!--标题-->
+            {% block content_left %}
+
+            {% endblock %}
         </div>
 
-        <!--这里根据点击不同标题展现不同内容-->
-        {% block content_right %}
+        <div class="content_right">
 
-        {% endblock %}
+            <!--这里根据点击不同标题展现不同内容-->
+            {% block content_right %}
+
+            {% endblock %}
+        </div>
     </div>
-</div>
 
-<form id="request_form" method="POST" autocomplete="off">
-{% csrf_token %}
-    <input name="unique_code" value={{ unique_code }}>
-    <input name="username" value="{{ username_post }}">
-    <input name="status" value="{{ status_post }}">
-    <input id="requestfor" name="requestfor" value="">
-    <input id="request_data" name="request_data" value="">
-</form>
+    <form id="request_form" method="POST" autocomplete="off">
+        {% csrf_token %}
+        <input name="unique_code" value={{ unique_code }}>
+        <input name="username" value="{{ username_post }}">
+        <input name="status" value="{{ status_post }}">
+        <input id="requestfor" name="requestfor" value="">
+        <input id="request_data" name="request_data" value="">
+    </form>
 {% endblock %}

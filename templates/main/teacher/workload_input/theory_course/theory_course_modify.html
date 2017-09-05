@@ -17,6 +17,7 @@
             <div>
                 <span>学年 </span>
                 <select name="year" class="theory_course_add_form_data">
+                    <option>{{ modified_course.year }}-{{ modified_course.year|add:1 }}学年</option>
                     <option>2016-2017</option>
                     <option>2017-2018</option>
                 </select>
@@ -25,14 +26,30 @@
             <div>
                 <span>学期 </span>
                 <select name="semester" class="theory_course_add_form_data">
-                    <option>第一学期</option>
-                    <option>第二学期</option>
+                    {% if modified_course.semester == 1 %}
+                        <option>第一学期</option>
+                        <option>第二学期</option>
+                    {% else %}
+                        <option>第一学期</option>
+                        <option>第二学期</option>
+                    {% endif %}
                 </select>
             </div>
 
             <div>
                 <span>课程属性 </span>
                 <select name="course_attribute" class="theory_course_add_form_data">
+                    <option>
+                        {% if modified_course.attribute == 1 %}
+                            <td>必修</td>
+                        {% elif modified_course.attribute == 2 %}
+                            <td>选修</td>
+                        {% elif modified_course.attribute == 3 %}
+                            <td>限选</td>
+                        {% else %}
+                            <td>ERROR</td>
+                        {% endif %}
+                    </option>
                     <option>必修</option>
                     <option>限选</option>
                     <option>选修</option>
@@ -41,30 +58,35 @@
 
             <div>
                 <span>课程名 </span>
-                <input type="text" name="course_name" class="theory_course_add_form_data">
+                <input type="text" name="course_name" class="theory_course_add_form_data"
+                       value="{{ modified_course.name }}">
             </div>
 
             <div>
                 <span>课程编号 </span>
-                <input type="text" name="course_id" class="theory_course_add_form_data">
+                <input type="text" name="course_id" class="theory_course_add_form_data"
+                       value="{{ modified_course.id }}">
             </div>
 
             <div>
                 <span>学时 </span>
-                <input type="text" name="period" class="theory_course_add_form_data">
+                <input type="text" name="period" class="theory_course_add_form_data"
+                       value="{{ modified_course.period }}">
             </div>
 
             <div>
                 <span>学分 </span>
-                <input type="text" name="credit" class="theory_course_add_form_data">
+                <input type="text" name="credit" class="theory_course_add_form_data"
+                       value="{{ modified_course.credit }}">
             </div>
         </div>
 
         <div class="theory_course_add_right">
 {#            <div style="height: 50px">#}
 {#                <span>人数： </span>#}
-{#                <span id="theory_course_add_sum">0</span>#}
-{#                <input type="text" name="student_sum" class="theory_course_add_form_data">#}
+                {#                <span id="theory_course_add_sum">0</span>#}
+{#                <input type="text" name="student_sum" class="theory_course_add_form_data"#}
+{#                       value="{{ modified_course.student_sum }}">#}
 {#            </div>#}
 
             {#            <div>#}

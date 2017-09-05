@@ -62,7 +62,7 @@ class Course(models.Model):
     # 课程名称
     name = models.CharField(max_length=32, default=undefine)
     # 学年
-    year = models.CharField(max_length=12, default=0000)
+    year = models.IntegerField(max_length=12, default=0000)
     # 学期
     semester = models.IntegerField(2, default=0)
     # 授课老师
@@ -74,11 +74,11 @@ class Course(models.Model):
     # 课时数
     period = models.IntegerField(128, default=0)
     # 学分
-    credit = models.IntegerField(16, default=0)
-    # 属性 (必修/选修/限选)
-    attribute = models.CharField(max_length=4, default=undefine)
-    # 审核状态 (已审核/未审核)
-    audit_status = models.CharField(max_length=4, default=undefine)
+    credit = models.IntegerField(8, default=0)
+    # 属性 (必修/选修/限选) (1/2/3)
+    attribute = models.IntegerField(max_length=4, default=0)
+    # 审核状态 (已审核/未审核) (False/True)
+    audit_status = models.BooleanField(max_length=4, default=False)
 
     class Meta:
         # 虚类

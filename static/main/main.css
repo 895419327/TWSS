@@ -138,13 +138,9 @@ body{
 }
 
 .main_interface{
-    display: none;
+    display: block;
     margin: 20px auto;
     padding: 0 20px;
-}
-
-.popup{
-    display: none;
 }
 
 .content_title{
@@ -152,6 +148,10 @@ body{
     margin: 30px auto 0;
     font-size: 32px;
     text-align: center;
+}
+
+.popup{
+    display: none;
 }
 
 .content_button{

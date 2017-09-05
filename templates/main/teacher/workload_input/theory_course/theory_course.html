@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load myfilters %}
 <link rel="stylesheet" href={% static "main/teacher/workload_input/theory_course/theory_course.css" %}>
 <script src={% static "main/teacher/workload_input/theory_course/theory_course.js" %}></script>
 
@@ -40,16 +41,15 @@
         <table class="theory_course_table" cellspacing="0">
             <tr>
                 {#            <th width="35px"><input type="checkbox" style="zoom: 1.3"></th>#}
-                <th width="125px">学年</th>
-                <th width="80px">学期</th>
-                <th width="200px">课程名</th>
-                <th width="80px">课程属性</th>
-                <th width="190px">上课班级</th>
-                <th width="50px">人数</th>
-                <th width="50px">学时</th>
-                <th width="50px">学分</th>
-                <th width="80px">审核状态</th>
-                <th width="95px">修改/删除</th>
+                <th width="160px">学年/学期</th>
+                <th width="220px">课程名</th>
+                <th width="90px">课程属性</th>
+                <th width="150px">上课班级</th>
+                <th width="60px">人数</th>
+                <th width="60px">学时</th>
+                <th width="60px">学分</th>
+                <th width="100px">审核状态</th>
+                <th width="100px">修改/删除</th>
             </tr>
 
             {% if theory_course_list %}
@@ -57,18 +57,32 @@
                 {% for theory_course in theory_course_list %}
 
                     <tr>
-                        <td>{{ theory_course.year }}学年</td>
-                        <td>第{{ theory_course.semester }}学期</td>
-                        <td>{{ theory_course.name }}</td>
-                        <td>{{ theory_course.attribute }}</td>
-                        <td class="classes_td">{{ theory_course.classes }}</td>
+                        <td><div>{{ theory_course.year }}-{{ theory_course.year | add:1 }}学年</div><div>第{{ theory_course.semester }}学期</div></td>
+                        <td><div>{{ theory_course.name }}</div><div>{{ theory_course.id }}</div></td>
+                        {% if theory_course.attribute == 1 %}
+                            <td>必修</td>
+                        {% elif theory_course.attribute == 2 %}
+                            <td>选修</td>
+                        {% elif theory_course.attribute == 3 %}
+                            <td>限选</td>
+                        {% else %}
+                            <td>ERROR</td>
+                        {% endif %}
+                        <td>{{ theory_course.classes | get_class_name }}</td>
                         <td>{{ theory_course.student_sum }}</td>
                         <td>{{ theory_course.period }}</td>
                         <td>{{ theory_course.credit }}</td>
-                        <td>{{ theory_course.audit_status }}</td>
+                        {% if theory_course.audit_status %}
+                            <td>已审核</td>
+                        {% else %}
+                            <td>未审核</td>
+                        {% endif %}
+
                         <td>
-                            <img class="theory_course_modify" id="{{ theory_course.id }}_modify" src={% static "main/resourse/modify.png" %}>
-                            <img class="theory_course_delete" id="{{ theory_course.id }}_delete"src={% static "main/resourse/delete.png" %}>
+                            <img class="theory_course_modify" id="{{ theory_course.id }}_modify"
+                                 src={% static "main/resourse/modify.png" %}>
+                            <img class="theory_course_delete" id="{{ theory_course.id }}_delete"
+                                 src={% static "main/resourse/delete.png" %}>
                         </td>
                     </tr>
 
@@ -94,9 +108,9 @@
 
     </div>
 
-    {% include "main/teacher/workload_input/theory_course/theory_course_add.html" %}
+    <div class="theory_course_add_content">
+        {#        {% include "main/teacher/workload_input/theory_course/theory_course_add.html" %}#}
+    </div>
 
-
-{#    <button id="test">test</button>#}
 </div>
 

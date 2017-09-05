@@ -1,12 +1,5 @@
 $(document).ready(function () {
 
-    $('#user_info_user_info').click(function () {
-        $('.main_interface').hide();
-        $('.user_info_content').show();
-    });
-
-
-
     // 修改按钮下拉菜单动画
     var modify_button = $('#user_info_modify');
     var modify_button_menu = $('.user_info_modify_menu');
