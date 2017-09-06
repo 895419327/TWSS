@@ -78,12 +78,16 @@
                             <td>未审核</td>
                         {% endif %}
 
+                        {% if not theory_course.audit_status %}
                         <td>
                             <img class="theory_course_modify" id="{{ theory_course.id }}_modify"
                                  src={% static "main/resourse/modify.png" %}>
                             <img class="theory_course_delete" id="{{ theory_course.id }}_delete"
                                  src={% static "main/resourse/delete.png" %}>
                         </td>
+                        {% else %}
+                            <td></td>
+                        {% endif %}
                     </tr>
 
                 {% endfor %}

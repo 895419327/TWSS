@@ -82,12 +82,12 @@
         </div>
 
         <div class="theory_course_add_right">
-{#            <div style="height: 50px">#}
-{#                <span>人数： </span>#}
-                {#                <span id="theory_course_add_sum">0</span>#}
-{#                <input type="text" name="student_sum" class="theory_course_add_form_data"#}
-{#                       value="{{ modified_course.student_sum }}">#}
-{#            </div>#}
+            {#            <div style="height: 50px">#}
+            {#                <span>人数： </span>#}
+            {#                <span id="theory_course_add_sum">0</span>#}
+            {#                <input type="text" name="student_sum" class="theory_course_add_form_data"#}
+            {#                       value="{{ modified_course.student_sum }}">#}
+            {#            </div>#}
 
             {#            <div>#}
             {#                <span>年级 </span>#}
@@ -102,7 +102,11 @@
             <div class="theory_course_add_classes">
                 {% if class_list %}
                     {% for clas in class_list %}
-                        <label><input type="checkbox" name="{{ clas.id }}"/> {{ clas.name }}</label>
+                        {% if clas.id in classes_checked %}
+                            <label><input type="checkbox" name="{{ clas.id }}" checked/> {{ clas.name }}</label>
+                        {% else %}
+                            <label><input type="checkbox" name="{{ clas.id }}"/> {{ clas.name }}</label>
+                        {% endif %}
                     {% endfor %}
                 {% endif %}
             </div>

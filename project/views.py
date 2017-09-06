@@ -137,7 +137,7 @@ def theory_course_add_modify(request, user):
     class_list = Class.objects.filter()
     # modify
     modified_course = TheoryCourse.objects.get(id=request.POST['request_data'])
-    print(modified_course.name)
+    classes_checked = modified_course.classes.split(',')
     return render(request, 'main/teacher/workload_input/theory_course/theory_course_modify.html', locals())
 
 
