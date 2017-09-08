@@ -80,31 +80,8 @@ def getpage(request):
     requestfor = request.POST['requestfor']
     return globals().get(requestfor)(request, user)
 
-    # ##### 系主任 #####
-    # # 教师管理
-    # if requestfor == 'teacher_management':
-    #     return teacher_management_page(request, user)
-    # # # 理论课
-    # if requestfor == 'workload_audit_theory_course':
-    #     return workload_audit_theory_course(request, user)
-    # # 实习实训课
-    # if requestfor == 'workload_audit_pratice_course':
-    #     return workload_audit_pratice_course(request, user)
-    # # 教学成果
-    # if requestfor == 'workload_audit_teaching_achievement':
-    #     return workload_audit_teaching_achievement(request, user)
-    # # 教学项目
-    # if requestfor == 'workload_audit_teaching_project':
-    #     return workload_audit_teaching_project(request, user)
-    # # 竞赛指导
-    # if requestfor == 'workload_audit_competition_guide':
-    #     return workload_audit_competition_guide(request, user)
-    # # 论文指导
-    # if requestfor == 'workload_audit_paper_guide':
-    #     return workload_audit_paper_guide(request, user)
-    # return False
 
-
+#####  教师  #####
 def user_info_user_info(request, user):
     status_post = request.POST['status']
     return render(request, 'main/teacher/user_info/user_info.html', locals())
@@ -112,7 +89,6 @@ def user_info_user_info(request, user):
 
 def user_info_change_password(request, user):
     return render(request, 'main/teacher/user_info/change_password.html', locals())
-
 
 # Theory Course
 
@@ -164,8 +140,29 @@ def workload_count(request, user):
     return render(request, 'main/teacher/workload_count/workload_count.html', locals())
 
 
+# ##### 系主任 #####
+
 # Teacher Management
-def teacher_management_page(request, user):
+def teacher_management(request, user):
     department = Department.objects.get(head_of_department=user.id)
     teacher_list = User.objects.filter(department=department)
     return render(request, 'main/head_of_department/teacher_management/teacher_management.html', locals())
+
+# 理论课
+def workload_audit_theory_course(request, user):
+    return render(request, 'main/head_of_department/workload_audit/theory_course/theory_course_audit.html', locals())
+# 实习实训课
+def workload_audit_pratice_course(request, user):
+    return render(request, 'main/head_of_department/workload_audit/pratice_course/pratice_course_audit.html', locals())
+# 教学成果
+def workload_audit_teaching_achievement(request, user):
+    return render(request, 'main/head_of_department/workload_audit/teaching_achievement/teaching_achievement_audit.html', locals())
+# 教学项目
+def workload_audit_teaching_project(request, user):
+    return render(request, 'main/head_of_department/workload_audit/teaching_project/teaching_project_audit.html', locals())
+# 竞赛指导
+def workload_audit_competition_guide(request, user):
+    return render(request, 'main/head_of_department/workload_audit/competition_guide/competition_guide_audit.html', locals())
+# 论文指导
+def workload_audit_paper_guide(request, user):
+    return render(request, 'main/head_of_department/workload_audit/paper_guide/paper_guide_audit.html', locals())
