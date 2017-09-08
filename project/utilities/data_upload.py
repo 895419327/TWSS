@@ -44,6 +44,9 @@ def upload(request):
     return False
 
 
+# TODO: 更改前要检查数据合法性
+# 比如系主任审核通过时 教师正好更改了数据 微小的时间差导致审核通过的不是系主任看到的数据
+
 def upload_user_info(request, user):
     # 获取json字符串
     data_jsonstr = request.POST[u'request_data']
@@ -205,7 +208,7 @@ def upload_pratice_course(request, user):
 
 def upload_pratice_course_delete(request, user):
     course_id = request.POST['request_data']
-    course = PraticeCourse.objects.get(id=course_id)
+    course = PraticeCourse.objects.get(id=course_id, teacher=user)
     if course.audit_status == 1:
         return render(request, 'main/utilities/upload_fail.html')
     else:

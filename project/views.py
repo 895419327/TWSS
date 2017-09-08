@@ -161,7 +161,7 @@ def workload_input_pratice_course_modify(request, user):
     # 获取班级信息
     class_list = Class.objects.filter()
     # modify
-    modified_course = PraticeCourse.objects.get(id=request.POST['request_data'])
+    modified_course = PraticeCourse.objects.get(id=request.POST['request_data'], teacher=user)
     classes_checked = modified_course.classes.split(',')
     return render(request, 'main/teacher/workload_input/pratice_course/pratice_course_modify.html', locals())
 
@@ -267,13 +267,44 @@ def workload_audit_theory_course_reject(request, user):
 
 # 实验课
 def workload_audit_experiment_course(request, user):
+    department = Department.objects.get(head_of_department=user.id)
+    course_list = ExperimentCourse.objects.filter(department=department)
     return render(request, 'main/head_of_department/workload_audit/experiment_course/experiment_course_audit.html',
                   locals())
 
 
+def workload_audit_experiment_course_pass(request, user):
+    course = ExperimentCourse.objects.get(id=request.POST['request_data'])
+    course.audit_status = 2
+    course.save()
+    return workload_audit_experiment_course(request, user)
+
+
+def workload_audit_experiment_course_reject(request, user):
+    course = ExperimentCourse.objects.get(id=request.POST['request_data'])
+    course.audit_status = 1
+    course.save()
+    return workload_audit_experiment_course(request, user)
+
+
 # 实习实训课
 def workload_audit_pratice_course(request, user):
+    department = Department.objects.get(head_of_department=user.id)
+    course_list = PraticeCourse.objects.filter(department=department)
     return render(request, 'main/head_of_department/workload_audit/pratice_course/pratice_course_audit.html', locals())
+
+def workload_audit_pratice_course_pass(request, user):
+    course = PraticeCourse.objects.get(id=request.POST['request_data'], teacher=user)
+    course.audit_status = 2
+    course.save()
+    return workload_audit_pratice_course(request, user)
+
+
+def workload_audit_pratice_course_reject(request, user):
+    course = PraticeCourse.objects.get(id=request.POST['request_data'], teacher=user)
+    course.audit_status = 1
+    course.save()
+    return workload_audit_pratice_course(request, user)
 
 
 # 教学成果
