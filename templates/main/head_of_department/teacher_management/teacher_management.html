@@ -5,12 +5,12 @@
 
 <div class="teacher_management_content main_interface">
 
-    <div class="content_title">{{ department.name }} 教师队伍信息</div>
+    <div class="content_title">{{ department.name }} 教师队伍管理</div>
 
     <table class="teacher_management_table" cellspacing="0">
         <tr>
-            <th>教师姓名</th>
             <th>教师编号</th>
+            <th>教师姓名</th>
             <th>职称</th>
             <th>联系方式</th>
         </tr>
@@ -18,8 +18,8 @@
         {% if teacher_list %}
             {% for teacher in teacher_list %}
                 <tr>
-                    <td>{{ teacher.name }}</td>
                     <td>{{ teacher.id }}</td>
+                    <td>{{ teacher.name }}</td>
                     <td>{{ teacher.title }}</td>
                     <td>{{ teacher.phone_number }}</td>
                 </tr>

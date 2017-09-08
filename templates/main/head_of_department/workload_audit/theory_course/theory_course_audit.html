@@ -68,8 +68,6 @@
                         <td>选修</td>
                     {% elif course.attribute == 3 %}
                         <td>限选</td>
-                    {% else %}
-                        <td>ERROR</td>
                     {% endif %}
                     <td>
                         <div>{{ course.classes | get_class_name }}</div>
@@ -85,6 +83,7 @@
                         </td>
                     {% elif course.audit_status == 1 %}
                         <td>审核未通过</td>
+                        <td></td>
                     {% elif course.audit_status == 2 %}
                         <td>已审核</td>
                         <td>

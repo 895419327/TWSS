@@ -1,0 +1,19 @@
+.class_management_table {
+    width: 980px;
+    margin: 30px auto;
+    font-size: 20px;
+    line-height: 50px;
+    text-align: center;
+}
+
+.class_management_table th {
+    background: rgba(255, 255, 255, 0.7);
+}
+
+.class_management_table td {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+.class_management_table_even {
+    background: rgba(255, 255, 255, 0.18);
+}

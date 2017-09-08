@@ -1,0 +1,32 @@
+{% load staticfiles %}
+
+<link rel="stylesheet" href={% static "main/head_of_department/class_management/class_management.css" %}>
+<script src={% static "main/head_of_department/class_management/class_management.js" %}></script>
+
+<div class="class_management_content main_interface">
+
+    <div class="content_title">{{ department.name }} 班级管理</div>
+
+    <table class="class_management_table" cellspacing="0" cellpadding="0">
+        <tr>
+            <th width="80px">班级编号</th>
+            <th width="150px">班级名称</th>
+            <th width="80px">学生人数</th>
+            <th width="80px">班主任</th>
+            <th width="150px">班主任联系方式</th>
+        </tr>
+
+        {% if class_list %}
+            {% for clas in class_list %}
+                <tr>
+                    <td>{{ clas.id }}</td>
+                    <td>{{ clas.name }}</td>
+                    <td>{{ clas.sum }}</td>
+                    <td>{{ clas.teacher.name }}</td>
+                    <td>{{ clas.teacher.phone_number }}</td>
+                </tr>
+            {% endfor %}
+        {% endif %}
+    </table>
+
+</div>

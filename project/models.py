@@ -42,8 +42,6 @@ class User(models.Model):
     phone_number = models.CharField(max_length=11, default=undefine)
     # 邮箱
     email = models.CharField(max_length=32, default=undefine)
-    # 备注(临时)
-    comment = models.CharField(max_length=16, null=True)
 
     class Meta:
         # 数据表名
@@ -59,6 +57,8 @@ class Class(models.Model):
     id = models.CharField(max_length=8, primary_key=True)
     # 班级名称
     name = models.CharField(max_length=16, default=undefine)
+    # 所属系
+    department = models.ForeignKey(Department, default=0)
     # 所属年级
     grade = models.IntegerField(2048, default=0000)
     # 班级人数
@@ -84,7 +84,7 @@ class Course(models.Model):
     year = models.IntegerField(default=0000)
     # 学期
     semester = models.IntegerField(2, default=0)
-    # 授课老师
+    # 授课老师 联合主键 因为有多位老师上同一门实习课的情况
     teacher = models.ForeignKey(User)
     # 所属系
     department = models.ForeignKey(Department, default=0)
@@ -96,14 +96,21 @@ class Course(models.Model):
     period = models.IntegerField(128, default=0)
     # 学分
     credit = models.IntegerField(8, default=0)
-    # 属性 (必修/选修/限选) (1/2/3)
-    attribute = models.IntegerField(default=0)
+    # 属性
+    # 理论课 (必修/选修/限选)
+    # 实验课 (专业课实验/计算机上机实验/开放实验)
+    # 实习/实训课 (市区内认识实习 / 外地认识实习、市区内生产实习 / 外地生产实习、毕业实习、毕业设计(论文))
+    attribute = models.IntegerField(4, default=0)
     # 审核状态 (未审核/审核未通过/已审核) (0/1/2)
     audit_status = models.IntegerField(2, default=0)
+    # 备注(审核未通过原因)
+    comment = models.CharField(max_length=32, null=True)
 
     class Meta:
         # 虚类
         abstract = True
+        # 联合主键
+        unique_together = ('id', 'teacher')
 
     def __unicode__(self):
         return self.id + ' ' + self.name + self.teacher.name
@@ -139,6 +146,13 @@ class TheoryCourse(Course):
     class Meta:
         # 数据表名
         db_table = 'TWSS_TheoryCourse'
+
+
+# 实验课
+class ExperimentCourse(Course):
+    class Meta:
+        # 数据表名
+        db_table = 'TWSS_ExperimentCourse'
 
 
 # 实习实训课

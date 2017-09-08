@@ -23,13 +23,23 @@ def upload(request):
 
     # 获取需求
     requestfor = request.POST['requestfor']
-
     if requestfor == 'user_info':
         return upload_user_info(request, user)
+
     if requestfor == 'theory_course_add':
         return upload_theory_course(request, user)
     if requestfor == 'theory_course_delete':
         return upload_theory_course_delete(request, user)
+
+    if requestfor == 'experiment_course_add':
+        return upload_experiment_course(request, user)
+    if requestfor == 'experiment_course_delete':
+        return upload_experiment_course_delete(request, user)
+
+    if requestfor == 'pratice_course_add':
+        return upload_pratice_course(request, user)
+    if requestfor == 'pratice_course_delete':
+        return upload_pratice_course_delete(request, user)
 
     return False
 
@@ -47,6 +57,8 @@ def upload_user_info(request, user):
     return render(request, 'main/utilities/upload_success.html')
 
 
+# Theory Course
+
 def upload_theory_course(request, user):
     semester = 0
     if request.POST['semester'] == u'第一学期':
@@ -61,7 +73,7 @@ def upload_theory_course(request, user):
     student_sum = 0
     for clas in class_list:
         if clas.id in request.POST:
-            classes += clas.id+','
+            classes += clas.id + ','
             student_sum += clas.sum
 
     attribute = 0
@@ -95,3 +107,107 @@ def upload_theory_course_delete(request, user):
     else:
         course.delete()
     return workload_input_theory_course(request, user)
+
+
+# Experiment Course
+
+def upload_experiment_course(request, user):
+    semester = 0
+    if request.POST['semester'] == u'第一学期':
+        semester = 1
+    elif request.POST['semester'] == u'第二学期':
+        semester = 2
+    else:
+        return render(request, 'main/utilities/upload_fail.html')
+
+    class_list = Class.objects.all()
+    classes = ''
+    student_sum = 0
+    for clas in class_list:
+        if clas.id in request.POST:
+            classes += clas.id + ','
+            student_sum += clas.sum
+
+    attribute = 0
+    if request.POST['course_attribute'] == u'专业课实验':
+        attribute = 1
+    elif request.POST['course_attribute'] == u'计算机上机实验':
+        attribute = 2
+    elif request.POST['course_attribute'] == u'开放实验':
+        attribute = 3
+    new = ExperimentCourse(name=request.POST['course_name'],
+                           id=request.POST['course_id'],
+                           year=request.POST['year'][:4],
+                           semester=semester,
+                           teacher=user,
+                           department=user.department,
+                           classes=classes,
+                           student_sum=student_sum,
+                           period=request.POST['period'],
+                           credit=request.POST['credit'],
+                           attribute=attribute,
+                           )
+    new.save()
+    return workload_input_experiment_course(request, user)
+
+
+def upload_experiment_course_delete(request, user):
+    course_id = request.POST['request_data']
+    course = ExperimentCourse.objects.get(id=course_id)
+    if course.audit_status == 1:
+        return render(request, 'main/utilities/upload_fail.html')
+    else:
+        course.delete()
+    return workload_input_experiment_course(request, user)
+
+
+# Pratice Course
+
+def upload_pratice_course(request, user):
+    semester = 0
+    if request.POST['semester'] == u'第一学期':
+        semester = 1
+    elif request.POST['semester'] == u'第二学期':
+        semester = 2
+    else:
+        return render(request, 'main/utilities/upload_fail.html')
+
+    class_list = Class.objects.all()
+    classes = ''
+    student_sum = 0
+    for clas in class_list:
+        if clas.id in request.POST:
+            classes += clas.id + ','
+            student_sum += clas.sum
+
+    attribute = 0
+    if request.POST['course_attribute'] == u'市区内认识实习':
+        attribute = 1
+    elif request.POST['course_attribute'] == u'外地认识实习/市区内生产实习':
+        attribute = 2
+    elif request.POST['course_attribute'] == u'外地生产实习/毕业实习/毕业设计(论文)':
+        attribute = 3
+    new = PraticeCourse(name=request.POST['course_name'],
+                           id=request.POST['course_id'],
+                           year=request.POST['year'][:4],
+                           semester=semester,
+                           teacher=user,
+                           department=user.department,
+                           classes=classes,
+                           student_sum=student_sum,
+                           period=request.POST['period'],
+                           credit=request.POST['credit'],
+                           attribute=attribute,
+                           )
+    new.save()
+    return workload_input_pratice_course(request, user)
+
+
+def upload_pratice_course_delete(request, user):
+    course_id = request.POST['request_data']
+    course = PraticeCourse.objects.get(id=course_id)
+    if course.audit_status == 1:
+        return render(request, 'main/utilities/upload_fail.html')
+    else:
+        course.delete()
+    return workload_input_pratice_course(request, user)

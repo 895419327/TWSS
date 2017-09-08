@@ -116,12 +116,54 @@ def workload_input_theory_course_modify(request, user):
     return render(request, 'main/teacher/workload_input/theory_course/theory_course_modify.html', locals())
 
 
+# Experiment Course
+
 def workload_input_experiment_course(request, user):
+    # 获取账号课程信息
+    course_list = ExperimentCourse.objects.filter(teacher_id=user.id)
+    # 获取班级信息
+    class_list = Class.objects.filter()
     return render(request, 'main/teacher/workload_input/experiment_course/experiment_course.html', locals())
 
 
+def workload_input_experiment_course_add(request, user):
+    # 获取班级信息
+    class_list = Class.objects.filter()
+    return render(request, 'main/teacher/workload_input/experiment_course/experiment_course_add.html', locals())
+
+
+def workload_input_experiment_course_modify(request, user):
+    # 获取班级信息
+    class_list = Class.objects.filter()
+    # modify
+    modified_course = ExperimentCourse.objects.get(id=request.POST['request_data'])
+    classes_checked = modified_course.classes.split(',')
+    return render(request, 'main/teacher/workload_input/experiment_course/experiment_course_modify.html', locals())
+
+
+# Pratice Course
+
 def workload_input_pratice_course(request, user):
+    # 获取账号课程信息
+    course_list = PraticeCourse.objects.filter(teacher_id=user.id)
+    # 获取班级信息
+    class_list = Class.objects.filter()
     return render(request, 'main/teacher/workload_input/pratice_course/pratice_course.html', locals())
+
+
+def workload_input_pratice_course_add(request, user):
+    # 获取班级信息
+    class_list = Class.objects.filter()
+    return render(request, 'main/teacher/workload_input/pratice_course/pratice_course_add.html', locals())
+
+
+def workload_input_pratice_course_modify(request, user):
+    # 获取班级信息
+    class_list = Class.objects.filter()
+    # modify
+    modified_course = PraticeCourse.objects.get(id=request.POST['request_data'])
+    classes_checked = modified_course.classes.split(',')
+    return render(request, 'main/teacher/workload_input/pratice_course/pratice_course_modify.html', locals())
 
 
 def workload_input_teaching_achievement(request, user):
@@ -141,10 +183,8 @@ def workload_input_paper_guide(request, user):
 
 
 def workload_count(request, user):
-    theory_course_list = TheoryCourse.objects.filter(teacher=user)
-    pratice_course_list = PraticeCourse.objects.filter(teacher=user)
-
     theory_course_W = 0
+    theory_course_list = TheoryCourse.objects.filter(teacher=user)
     for course in theory_course_list:
         K = 0
         if course.student_sum <= 40:
@@ -159,8 +199,31 @@ def workload_count(request, user):
             K = 3.6
         theory_course_W += 6 + course.period * K
 
-    pratice_course_W = 0
     experiment_course_W = 0
+    experiment_course_list = ExperimentCourse.objects.filter(teacher=user)
+    for course in experiment_course_list:
+        L = 0
+        if course.attribute == 1:
+            L = 0.045
+        elif course.attribute == 2:
+            L = 0.020
+        elif course.attribute == 3:
+            L = 0.065
+        experiment_course_W += course.period * course.student_sum * L
+
+    pratice_course_W = 0
+    pratice_course_list = PraticeCourse.objects.filter(teacher=user)
+    for course in pratice_course_list:
+        S = 0
+        if course.attribute == 1:
+            S = 0.05
+        if course.attribute == 2:
+            S = 0.07
+        if course.attribute == 3:
+            S = 0.09
+        teacher_num = len(PraticeCourse.objects.filter(id=course.id))
+        pratice_course_W += course.period * course.student_sum * S / teacher_num
+
     course_total_W = theory_course_W + pratice_course_W + experiment_course_W
     return render(request, 'main/teacher/workload_count/workload_count.html', locals())
 
@@ -172,6 +235,13 @@ def teacher_management(request, user):
     department = Department.objects.get(head_of_department=user.id)
     teacher_list = User.objects.filter(department=department)
     return render(request, 'main/head_of_department/teacher_management/teacher_management.html', locals())
+
+
+# Class Management
+def class_management(request, user):
+    department = Department.objects.get(head_of_department=user.id)
+    class_list = Class.objects.filter(department=department)
+    return render(request, 'main/head_of_department/class_management/class_management.html', locals())
 
 
 # 理论课
@@ -197,7 +267,9 @@ def workload_audit_theory_course_reject(request, user):
 
 # 实验课
 def workload_audit_experiment_course(request, user):
-    return render(request, 'main/head_of_department/workload_audit/experiment_course/experiment_course_audit.html', locals())
+    return render(request, 'main/head_of_department/workload_audit/experiment_course/experiment_course_audit.html',
+                  locals())
+
 
 # 实习实训课
 def workload_audit_pratice_course(request, user):

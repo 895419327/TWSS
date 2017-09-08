@@ -50,6 +50,10 @@ $(document).ready(function () {
         MyAjax_Get('/getpage', 'teacher_management', '');
     });
 
+    $('#class_management_title').click(function () {
+        MyAjax_Get('/getpage', 'class_management', '');
+    });
+
 
 
 });

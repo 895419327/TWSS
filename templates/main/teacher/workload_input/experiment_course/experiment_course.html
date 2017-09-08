@@ -40,9 +40,9 @@
 
         <table class="experiment_course_table" cellspacing="0">
             <tr>
-                <th width="160px">学年/学期</th>
-                <th width="220px">课程名</th>
-                <th width="90px">课程属性</th>
+                <th width="150px">学年/学期</th>
+                <th width="200px">课程名</th>
+                <th width="120px">类别</th>
                 <th width="150px">上课班级</th>
                 <th width="60px">人数</th>
                 <th width="60px">学时</th>
@@ -51,23 +51,62 @@
                 <th width="100px">修改/删除</th>
             </tr>
 
-            <tr>
-                {#            <td><input type="checkbox" style="zoom: 1.3"></td>#}
-                <td><div>2016-2017学年</div><div>第一学期</div></td>
-                <td>高级语言程序设计(C语言程序设计）</td>
-                <td>限选</td>
-                <td>
-                    <div>2016生物信息1班</div>
-                    <div>2016生物信息2班</div>
-                </td>
-                <td>97</td>
-                <td>34</td>
-                <td>4</td>
-                <td>已审核</td>
-                <td><img title="修改" src={% static "main/resourse/modify.png" %}><img title="删除"
-                                                                                     src={% static "main/resourse/delete.png" %}>
-                </td>
-            </tr>
+            {% if course_list %}
+
+                {% for course in course_list %}
+
+                    <tr>
+                        <td><div>{{ course.year }}-{{ course.year | add:1 }}学年</div><div>第{{ course.semester }}学期</div></td>
+                        <td><div>{{ course.name }}</div><div>{{ course.id }}</div></td>
+                        {% if course.attribute == 1 %}
+                            <td>专业课实验</td>
+                        {% elif course.attribute == 2 %}
+                            <td>计算机上机实验</td>
+                        {% elif course.attribute == 3 %}
+                            <td>开放实验</td>
+                        {% else %}
+                            <td>ERROR</td>
+                        {% endif %}
+                        <td>{{ course.classes | get_class_name }}</td>
+                        <td>{{ course.student_sum }}</td>
+                        <td>{{ course.period }}</td>
+                        <td>{{ course.credit }}</td>
+                        {% if course.audit_status == 0 %}
+                            <td>未审核</td>
+                        {% elif course.audit_status == 1 %}
+                            <td>审核未通过</td>
+                        {% elif course.audit_status == 2 %}
+                            <td>已审核</td>
+                        {% endif %}
+
+                        {% if course.audit_status < 2 %}
+                        <td>
+                            <img class="experiment_course_modify" id="{{ course.id }}_modify"
+                                 src={% static "main/resourse/modify.png" %}>
+                            <img class="experiment_course_delete" id="{{ course.id }}_delete"
+                                 src={% static "main/resourse/delete.png" %}>
+                        </td>
+                        {% else %}
+                            <td></td>
+                        {% endif %}
+                    </tr>
+
+                {% endfor %}
+
+            {% else %}
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td><h2>暂</h2></td>
+                    <td><h2>无</h2></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+            {% endif %}
 
         </table>
         <div class="experiment_course_add_button">新 增</div>
@@ -75,7 +114,7 @@
     </div>
 
     <div class="experiment_course_add_content">
-        {#        {% include "main/teacher/workload_input/experiment_course/experiment_course_add.html" %}#}
+
     </div>
 
 </div>
