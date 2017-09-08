@@ -90,11 +90,12 @@ def user_info_user_info(request, user):
 def user_info_change_password(request, user):
     return render(request, 'main/teacher/user_info/change_password.html', locals())
 
+
 # Theory Course
 
 def workload_input_theory_course(request, user):
     # 获取账号课程信息
-    theory_course_list = TheoryCourse.objects.filter(teacher_id=user.id)
+    course_list = TheoryCourse.objects.filter(teacher_id=user.id)
     # 获取班级信息
     class_list = Class.objects.filter()
     return render(request, 'main/teacher/workload_input/theory_course/theory_course.html', locals())
@@ -114,6 +115,9 @@ def workload_input_theory_course_modify(request, user):
     classes_checked = modified_course.classes.split(',')
     return render(request, 'main/teacher/workload_input/theory_course/theory_course_modify.html', locals())
 
+
+def workload_input_experiment_course(request, user):
+    return render(request, 'main/teacher/workload_input/experiment_course/experiment_course.html', locals())
 
 
 def workload_input_pratice_course(request, user):
@@ -137,6 +141,27 @@ def workload_input_paper_guide(request, user):
 
 
 def workload_count(request, user):
+    theory_course_list = TheoryCourse.objects.filter(teacher=user)
+    pratice_course_list = PraticeCourse.objects.filter(teacher=user)
+
+    theory_course_W = 0
+    for course in theory_course_list:
+        K = 0
+        if course.student_sum <= 40:
+            K = 1.0
+        elif course.student_sum <= 85:
+            K = 1.6
+        elif course.student_sum <= 125:
+            K = 2.3
+        elif course.student_sum <= 200:
+            K = 3.0
+        elif course.student_sum > 200:
+            K = 3.6
+        theory_course_W += 6 + course.period * K
+
+    pratice_course_W = 0
+    experiment_course_W = 0
+    course_total_W = theory_course_W + pratice_course_W + experiment_course_W
     return render(request, 'main/teacher/workload_count/workload_count.html', locals())
 
 
@@ -148,21 +173,56 @@ def teacher_management(request, user):
     teacher_list = User.objects.filter(department=department)
     return render(request, 'main/head_of_department/teacher_management/teacher_management.html', locals())
 
+
 # 理论课
 def workload_audit_theory_course(request, user):
+    department = Department.objects.get(head_of_department=user.id)
+    course_list = TheoryCourse.objects.filter(department=department)
     return render(request, 'main/head_of_department/workload_audit/theory_course/theory_course_audit.html', locals())
+
+
+def workload_audit_theory_course_pass(request, user):
+    course = TheoryCourse.objects.get(id=request.POST['request_data'])
+    course.audit_status = 2
+    course.save()
+    return workload_audit_theory_course(request, user)
+
+
+def workload_audit_theory_course_reject(request, user):
+    course = TheoryCourse.objects.get(id=request.POST['request_data'])
+    course.audit_status = 1
+    course.save()
+    return workload_audit_theory_course(request, user)
+
+
+# 实验课
+def workload_audit_experiment_course(request, user):
+    return render(request, 'main/head_of_department/workload_audit/experiment_course/experiment_course_audit.html', locals())
+
 # 实习实训课
 def workload_audit_pratice_course(request, user):
     return render(request, 'main/head_of_department/workload_audit/pratice_course/pratice_course_audit.html', locals())
+
+
 # 教学成果
 def workload_audit_teaching_achievement(request, user):
-    return render(request, 'main/head_of_department/workload_audit/teaching_achievement/teaching_achievement_audit.html', locals())
+    return render(request,
+                  'main/head_of_department/workload_audit/teaching_achievement/teaching_achievement_audit.html',
+                  locals())
+
+
 # 教学项目
 def workload_audit_teaching_project(request, user):
-    return render(request, 'main/head_of_department/workload_audit/teaching_project/teaching_project_audit.html', locals())
+    return render(request, 'main/head_of_department/workload_audit/teaching_project/teaching_project_audit.html',
+                  locals())
+
+
 # 竞赛指导
 def workload_audit_competition_guide(request, user):
-    return render(request, 'main/head_of_department/workload_audit/competition_guide/competition_guide_audit.html', locals())
+    return render(request, 'main/head_of_department/workload_audit/competition_guide/competition_guide_audit.html',
+                  locals())
+
+
 # 论文指导
 def workload_audit_paper_guide(request, user):
     return render(request, 'main/head_of_department/workload_audit/paper_guide/paper_guide_audit.html', locals())

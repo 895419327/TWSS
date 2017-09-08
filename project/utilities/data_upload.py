@@ -76,6 +76,7 @@ def upload_theory_course(request, user):
                        year=request.POST['year'][:4],
                        semester=semester,
                        teacher=user,
+                       department=user.department,
                        classes=classes,
                        student_sum=student_sum,
                        period=request.POST['period'],

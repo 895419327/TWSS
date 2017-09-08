@@ -86,6 +86,8 @@ class Course(models.Model):
     semester = models.IntegerField(2, default=0)
     # 授课老师
     teacher = models.ForeignKey(User)
+    # 所属系
+    department = models.ForeignKey(Department, default=0)
     # 上课班级
     classes = models.CharField(max_length=128, default=undefine)
     # 上课人数
@@ -96,8 +98,8 @@ class Course(models.Model):
     credit = models.IntegerField(8, default=0)
     # 属性 (必修/选修/限选) (1/2/3)
     attribute = models.IntegerField(default=0)
-    # 审核状态 (已审核/未审核) (False/True)
-    audit_status = models.BooleanField(max_length=4, default=False)
+    # 审核状态 (未审核/审核未通过/已审核) (0/1/2)
+    audit_status = models.IntegerField(2, default=0)
 
     class Meta:
         # 虚类

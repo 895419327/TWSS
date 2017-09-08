@@ -51,37 +51,39 @@
                 <th width="100px">修改/删除</th>
             </tr>
 
-            {% if theory_course_list %}
+            {% if course_list %}
 
-                {% for theory_course in theory_course_list %}
+                {% for course in course_list %}
 
                     <tr>
-                        <td><div>{{ theory_course.year }}-{{ theory_course.year | add:1 }}学年</div><div>第{{ theory_course.semester }}学期</div></td>
-                        <td><div>{{ theory_course.name }}</div><div>{{ theory_course.id }}</div></td>
-                        {% if theory_course.attribute == 1 %}
+                        <td><div>{{ course.year }}-{{ course.year | add:1 }}学年</div><div>第{{ course.semester }}学期</div></td>
+                        <td><div>{{ course.name }}</div><div>{{ course.id }}</div></td>
+                        {% if course.attribute == 1 %}
                             <td>必修</td>
-                        {% elif theory_course.attribute == 2 %}
+                        {% elif course.attribute == 2 %}
                             <td>选修</td>
-                        {% elif theory_course.attribute == 3 %}
+                        {% elif course.attribute == 3 %}
                             <td>限选</td>
                         {% else %}
                             <td>ERROR</td>
                         {% endif %}
-                        <td>{{ theory_course.classes | get_class_name }}</td>
-                        <td>{{ theory_course.student_sum }}</td>
-                        <td>{{ theory_course.period }}</td>
-                        <td>{{ theory_course.credit }}</td>
-                        {% if theory_course.audit_status %}
-                            <td>已审核</td>
-                        {% else %}
+                        <td>{{ course.classes | get_class_name }}</td>
+                        <td>{{ course.student_sum }}</td>
+                        <td>{{ course.period }}</td>
+                        <td>{{ course.credit }}</td>
+                        {% if course.audit_status == 0 %}
                             <td>未审核</td>
+                        {% elif course.audit_status == 1 %}
+                            <td>审核未通过</td>
+                        {% elif course.audit_status == 2 %}
+                            <td>已审核</td>
                         {% endif %}
 
-                        {% if not theory_course.audit_status %}
+                        {% if course.audit_status < 2 %}
                         <td>
-                            <img class="theory_course_modify" id="{{ theory_course.id }}_modify"
+                            <img class="theory_course_modify" id="{{ course.id }}_modify"
                                  src={% static "main/resourse/modify.png" %}>
-                            <img class="theory_course_delete" id="{{ theory_course.id }}_delete"
+                            <img class="theory_course_delete" id="{{ course.id }}_delete"
                                  src={% static "main/resourse/delete.png" %}>
                         </td>
                         {% else %}
