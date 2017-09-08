@@ -34,41 +34,24 @@ $(document).ready(function () {
         $(this).next().slideToggle('fast');
     });
 
-    $('#user_info_user_info').click(function () {
-        MyAjax_Get('/getpage', 'user_info', '');
+    // 一般情况下点击二级菜单返回相应页面
+    $('.unit_detail').click(function () {
+        MyAjax_Get('/getpage', $(this).attr('id'), '');
     });
 
-    $('#user_info_change_password').click(function () {
-        MyAjax_Get('/getpage', 'change_password', '');
-    });
-
-    $('#workload_input_theory_course').click(function () {
-        MyAjax_Get('/getpage', 'theory_course', '');
-    });
-
-    $('#workload_input_pratice_course').click(function () {
-        MyAjax_Get('/getpage', 'pratice_course', '');
-    });
-
-    $('#workload_input_teaching_achievement').click(function () {
-        MyAjax_Get('/getpage', 'teaching_achievement', '');
-    });
-
-    $('#workload_input_teaching_project').click(function () {
-        MyAjax_Get('/getpage', 'teaching_project', '');
-    });
-
-    $('#workload_input_competition_guide').click(function () {
-        MyAjax_Get('/getpage', 'competition_guide', '');
-    });
-
-    $('#workload_input_paper_guide').click(function () {
-        MyAjax_Get('/getpage', 'paper_guide', '');
-    });
-
+    // 特殊情况下无二级菜单 则点击一级菜单时返回相应页面
+    // Teacher
     $('#workload_count_title').click(function () {
         MyAjax_Get('/getpage', 'workload_count', '');
     });
+
+    // Head of Department
+    $('#teacher_management_title').click(function () {
+        MyAjax_Get('/getpage', 'teacher_management', '');
+    });
+
+
+
 });
 
 function MyAjax(action, forwhat, data) {

@@ -48,10 +48,10 @@ def login(request):
                         # 返回相应页面
                         if status_post == u'教师':
                             return render(request, 'main/teacher/teacher.html', locals())
-                        if status_post == u'系负责人':
-                            return render(request, 'main/dean/dean.html', locals())
+                        if status_post == u'系主任':
+                            return render(request, 'main/head_of_department/head_of_department.html', locals())
                         if status_post == u'教务员':
-                            return render(request, 'main/admin/admin.html', locals())
+                            return render(request, 'main/dean/dean.html', locals())
                         if status_post == u'系统管理员':
                             return render(request, 'main/admin/admin.html', locals())
                     # 身份错误
@@ -78,47 +78,45 @@ def getpage(request):
 
     # 获取需求
     requestfor = request.POST['requestfor']
+    return globals().get(requestfor)(request, user)
 
-    if requestfor == 'user_info':
-        return user_info_page(request, user, )
-    if requestfor == 'change_password':
-        return change_password_page(request, user)
-
-    if requestfor == 'theory_course':
-        return theory_course_page(request, user)
-    if requestfor == 'theory_course_add':
-        return theory_course_add_page(request, user)
-    if requestfor == 'theory_course_modify':
-        return theory_course_add_modify(request, user)
-
-    if requestfor == 'pratice_course':
-        return pratice_course_page(request, user)
-    if requestfor == 'teaching_achievement':
-        return teaching_achievement_page(request, user)
-    if requestfor == 'teaching_project':
-        return teaching_project_page(request, user)
-    if requestfor == 'competition_guide':
-        return competition_guide_page(request, user)
-    if requestfor == 'paper_guide':
-        return paper_guide_page(request, user)
-    if requestfor == 'workload_count':
-        return workload_count_page(request, user)
-
-    return False
+    # ##### 系主任 #####
+    # # 教师管理
+    # if requestfor == 'teacher_management':
+    #     return teacher_management_page(request, user)
+    # # # 理论课
+    # if requestfor == 'workload_audit_theory_course':
+    #     return workload_audit_theory_course(request, user)
+    # # 实习实训课
+    # if requestfor == 'workload_audit_pratice_course':
+    #     return workload_audit_pratice_course(request, user)
+    # # 教学成果
+    # if requestfor == 'workload_audit_teaching_achievement':
+    #     return workload_audit_teaching_achievement(request, user)
+    # # 教学项目
+    # if requestfor == 'workload_audit_teaching_project':
+    #     return workload_audit_teaching_project(request, user)
+    # # 竞赛指导
+    # if requestfor == 'workload_audit_competition_guide':
+    #     return workload_audit_competition_guide(request, user)
+    # # 论文指导
+    # if requestfor == 'workload_audit_paper_guide':
+    #     return workload_audit_paper_guide(request, user)
+    # return False
 
 
-def user_info_page(request, user):
+def user_info_user_info(request, user):
     status_post = request.POST['status']
     return render(request, 'main/teacher/user_info/user_info.html', locals())
 
 
-def change_password_page(request, user):
+def user_info_change_password(request, user):
     return render(request, 'main/teacher/user_info/change_password.html', locals())
 
 
 # Theory Course
 
-def theory_course_page(request, user):
+def workload_input_theory_course(request, user):
     # 获取账号课程信息
     theory_course_list = TheoryCourse.objects.filter(teacher_id=user.id)
     # 获取班级信息
@@ -126,13 +124,13 @@ def theory_course_page(request, user):
     return render(request, 'main/teacher/workload_input/theory_course/theory_course.html', locals())
 
 
-def theory_course_add_page(request, user):
+def workload_input_theory_course_add(request, user):
     # 获取班级信息
     class_list = Class.objects.filter()
     return render(request, 'main/teacher/workload_input/theory_course/theory_course_add.html', locals())
 
 
-def theory_course_add_modify(request, user):
+def workload_input_theory_course_modify(request, user):
     # 获取班级信息
     class_list = Class.objects.filter()
     # modify
@@ -141,27 +139,33 @@ def theory_course_add_modify(request, user):
     return render(request, 'main/teacher/workload_input/theory_course/theory_course_modify.html', locals())
 
 
-# Pratice Course
 
-def pratice_course_page(request, user):
+def workload_input_pratice_course(request, user):
     return render(request, 'main/teacher/workload_input/pratice_course/pratice_course.html', locals())
 
 
-def teaching_achievement_page(request, user):
+def workload_input_teaching_achievement(request, user):
     return render(request, 'main/teacher/workload_input/teaching_achievement/teaching_achievement.html', locals())
 
 
-def teaching_project_page(request, user):
+def workload_input_teaching_project(request, user):
     return render(request, 'main/teacher/workload_input/teaching_project/teaching_project.html', locals())
 
 
-def competition_guide_page(request, user):
+def workload_input_competition_guide(request, user):
     return render(request, 'main/teacher/workload_input/competition_guide/competition_guide.html', locals())
 
 
-def paper_guide_page(request, user):
+def workload_input_paper_guide(request, user):
     return render(request, 'main/teacher/workload_input/paper_guide/paper_guide.html', locals())
 
 
-def workload_count_page(request, user):
+def workload_count(request, user):
     return render(request, 'main/teacher/workload_count/workload_count.html', locals())
+
+
+# Teacher Management
+def teacher_management_page(request, user):
+    department = Department.objects.get(head_of_department=user.id)
+    teacher_list = User.objects.filter(department=department)
+    return render(request, 'main/head_of_department/teacher_management/teacher_management.html', locals())

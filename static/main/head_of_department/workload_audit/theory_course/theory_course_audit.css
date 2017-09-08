@@ -5,7 +5,7 @@
 }
 
 .theory_class_audit_search_bar {
-    width: 550px;
+    width: 700px;
     height: 50px;
     margin: 25px auto;
     padding: 0 0 0 15px;
@@ -59,8 +59,4 @@
 .theory_class_audit_table button {
     font-size: 16px;
     cursor: pointer;
-}
-
-.even {
-    background: rgba(255, 255, 255, 0.18);
 }

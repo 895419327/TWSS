@@ -7,6 +7,23 @@ import unittest
 undefine = u'未记录'
 
 
+# 系部表
+class Department(models.Model):
+    # 系部编号
+    id = models.IntegerField(4, default=0, primary_key=True)
+    # 系部名称
+    name = models.CharField(max_length=8, default=undefine)
+    # 系主任
+    head_of_department = models.CharField(max_length=16, default=0)
+
+    class Meta:
+        # 数据表名
+        db_table = 'TWSS_Department'
+
+    def __unicode__(self):
+        return self.name
+
+
 # 用户表
 class User(models.Model):
     # 用户名  即教工卡卡号
@@ -16,8 +33,8 @@ class User(models.Model):
     # 职称
     title = models.CharField(max_length=16, default=undefine)
     # 所属系
-    department = models.CharField(max_length=8, default=undefine)
-    # 身份 (教师/系负责人/教务员)
+    department = models.ForeignKey(Department)
+    # 身份 (教师/系主任/教务员)
     status = models.CharField(max_length=16, default=undefine)
     # 密码 md5加密后的字符串
     password = models.CharField(max_length=32, default=undefine)
@@ -25,6 +42,8 @@ class User(models.Model):
     phone_number = models.CharField(max_length=11, default=undefine)
     # 邮箱
     email = models.CharField(max_length=32, default=undefine)
+    # 备注(临时)
+    comment = models.CharField(max_length=16, null=True)
 
     class Meta:
         # 数据表名
@@ -62,7 +81,7 @@ class Course(models.Model):
     # 课程名称
     name = models.CharField(max_length=32, default=undefine)
     # 学年
-    year = models.IntegerField(max_length=12, default=0000)
+    year = models.IntegerField(default=0000)
     # 学期
     semester = models.IntegerField(2, default=0)
     # 授课老师
@@ -76,7 +95,7 @@ class Course(models.Model):
     # 学分
     credit = models.IntegerField(8, default=0)
     # 属性 (必修/选修/限选) (1/2/3)
-    attribute = models.IntegerField(max_length=4, default=0)
+    attribute = models.IntegerField(default=0)
     # 审核状态 (已审核/未审核) (False/True)
     audit_status = models.BooleanField(max_length=4, default=False)
 
@@ -142,14 +161,14 @@ class TeachingAchievement(Project):
 
 
 # 指导竞赛
-class CompetitionGuide:
+class CompetitionGuide(Project):
     class Meta:
         # 数据表名
         db_table = 'TWSS_CompetitionGuide'
 
 
 # 指导论文
-class PaperGuide:
+class PaperGuide(Project):
     class Meta:
         # 数据表名
         db_table = 'TWSS_PaperGuide'

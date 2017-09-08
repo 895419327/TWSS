@@ -6,7 +6,7 @@
 
     <div class="theory_course_add_cross"><img src={% static "main/resourse/cross.png" %}></div>
 
-    <div class="theory_course_add_title">新 增</div>
+    <div class="theory_course_add_title">修 改</div>
 
     <form id="theory_course_add_form" method="post" action="/upload" name="theory_course" autocomplete="off">
         {% csrf_token %}
@@ -103,9 +103,9 @@
                 {% if class_list %}
                     {% for clas in class_list %}
                         {% if clas.id in classes_checked %}
-                            <label><input type="checkbox" name="{{ clas.id }}" checked/> {{ clas.name }}</label>
+                            <div><label><input type="checkbox" name="{{ clas.id }}" checked/> {{ clas.name }}</label></div>
                         {% else %}
-                            <label><input type="checkbox" name="{{ clas.id }}"/> {{ clas.name }}</label>
+                            <div><label><input type="checkbox" name="{{ clas.id }}"/> {{ clas.name }}</label></div>
                         {% endif %}
                     {% endfor %}
                 {% endif %}

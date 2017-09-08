@@ -83,10 +83,14 @@ def upload_theory_course(request, user):
                        attribute=attribute,
                        )
     new.save()
-    return theory_course_page(request, user)
+    return workload_input_theory_course(request, user)
 
 
 def upload_theory_course_delete(request, user):
     course_id = request.POST['request_data']
-    TheoryCourse.objects.filter(id=course_id).delete()
-    return theory_course_page(request, user)
+    course = TheoryCourse.objects.get(id=course_id)
+    if course.audit_status == 1:
+        return render(request, 'main/utilities/upload_fail.html')
+    else:
+        course.delete()
+    return workload_input_theory_course(request, user)

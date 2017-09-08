@@ -154,6 +154,10 @@ body{
     display: none;
 }
 
+.even{
+    background: rgba(255,255,255,0.15);
+}
+
 .content_button{
     width: 150px;
     height: 50px;

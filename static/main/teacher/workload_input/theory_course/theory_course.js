@@ -3,13 +3,13 @@ $(document).ready(function () {
     $('tr:even').addClass('even');
 
     $('.theory_course_add_button').click(function () {
-        MyAjax_Get('getpage', 'theory_course_add', null, '.theory_course_add_content')
+        MyAjax_Get('getpage', 'workload_input_theory_course_add', null, '.theory_course_add_content')
     });
 
     $('.theory_course_modify').click(function () {
         var id = this.id;
         id = id.substring(0, id.length - 7);
-        MyAjax_Get('getpage', 'theory_course_modify', id, '.theory_course_add_content');
+        MyAjax_Get('getpage', 'workload_input_theory_course_modify', id, '.theory_course_add_content');
     });
 
     $('.theory_course_delete').click(function () {

@@ -5,7 +5,7 @@
 
 <div class="teacher_management_content main_interface">
 
-    <div class="content_title">生物____ 教师队伍信息</div>
+    <div class="content_title">{{ department.name }} 教师队伍信息</div>
 
     <table class="teacher_management_table" cellspacing="0">
         <tr>
@@ -14,30 +14,17 @@
             <th>职称</th>
             <th>联系方式</th>
         </tr>
-        <tr>
-            <td>...</td>
-            <td>...</td>
-            <td>...</td>
-            <td>...</td>
-        </tr>
-        <tr class="teacher_management_table_even">
-            <td>...</td>
-            <td>...</td>
-            <td>...</td>
-            <td>...</td>
-        </tr>
-        <tr>
-            <td>...</td>
-            <td>...</td>
-            <td>...</td>
-            <td>...</td>
-        </tr>
-        <tr class="teacher_management_table_even">
-            <td>...</td>
-            <td>...</td>
-            <td>...</td>
-            <td>...</td>
-        </tr>
+
+        {% if teacher_list %}
+            {% for teacher in teacher_list %}
+                <tr>
+                    <td>{{ teacher.name }}</td>
+                    <td>{{ teacher.id }}</td>
+                    <td>{{ teacher.title }}</td>
+                    <td>{{ teacher.phone_number }}</td>
+                </tr>
+            {% endfor %}
+        {% endif %}
     </table>
 
 </div>

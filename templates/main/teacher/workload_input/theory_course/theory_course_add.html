@@ -2,7 +2,7 @@
 <link rel="stylesheet" href={% static "main/teacher/workload_input/theory_course/theory_course_add.css" %}>
 <script src={% static 'main/teacher/workload_input/theory_course/theory_course_add.js' %}></script>
 
-<div class="theory_course_add popup">
+<div class="theory_course_add">
 
     <div class="theory_course_add_cross"><img src={% static "main/resourse/cross.png" %}></div>
 
@@ -80,7 +80,7 @@
             <div class="theory_course_add_classes">
                 {% if class_list %}
                     {% for clas in class_list %}
-                        <label><input type="checkbox" name="{{ clas.id }}"/> {{ clas.name }}</label>
+                        <div><label><input type="checkbox" name="{{ clas.id }}"/> {{ clas.name }}</label></div>
                     {% endfor %}
                 {% endif %}
             </div>
