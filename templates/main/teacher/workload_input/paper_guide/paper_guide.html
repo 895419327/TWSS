@@ -6,33 +6,55 @@
 
     <div class="content_title">指导本科学术论文 工作量录入</div>
 
-    <div class="paper_guide_blur_area">
+    <div class="paper_guide_content_blur_area">
 
         <div class="paper_guide_item">
-            <div class="paper_guide_item_title">指导本科生发表学术论文</div>
+            <div class="paper_guide_item_title">指导本科学术论文</div>
 
             <table class="paper_guide_item_table" cellspacing="0">
                 <tr>
-                    <th width="350px">论文名称</th>
-                    <th width="50px">作者</th>
-                    <th width="300px">所获奖项</th>
+                    <th width="400px">论文名称</th>
+                    <th width="150px">作者</th>
+                    <th width="100px">级别</th>
                     <th width="100px">审核状态</th>
                     <th width="100px">修改/删除</th>
                 </tr>
 
-                <tr>
-                    <td>基于Web的教师工作量统计系统的设计与实现</td>
-                    <td>...</td>
-                    <td>暂无</td>
-                    <td>未审核</td>
-                    <td>
-                        <img src={% static "main/resourse/modify.png" %}>
-                        <img src={% static "main/resourse/delete.png" %}>
-                    </td>
-                </tr>
+                {% if project_list %}
+                    {% for project in project_list %}
+                        <tr>
+                            <td>{{ project.name }}</td>
+                            <td>{{ project.author }}</td>
+                            <td>{{ project.level }}</td>
+
+                            {% if project.audit_status == 0 %}
+                                <td>未审核</td>
+                            {% elif project.audit_status == 1 %}
+                                <td>审核未通过</td>
+                            {% elif project.audit_status == 2 %}
+                                <td>已审核</td>
+                            {% endif %}
+
+                            {% if project.audit_status < 2 %}
+                                <td>
+                                    <img class="paper_guide_modify" id="{{ project.id }}_modify"
+                                         src={% static "main/resourse/modify.png" %}>
+                                    <img class="paper_guide_delete" id="{{ project.id }}_delete"
+                                         src={% static "main/resourse/delete.png" %}>
+                                </td>
+                            {% else %}
+                                <td></td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                {% endif %}
             </table>
             <div class="paper_guide_add_button">新 增</div>
         </div>
+    </div>
+
+    <div class="paper_guide_add_content">
+
     </div>
 
 </div>

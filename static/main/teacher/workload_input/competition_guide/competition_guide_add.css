@@ -1,0 +1,81 @@
+.competition_guide_add {
+    width: 800px;
+    height: 350px;
+    padding: 0 50px;
+    font-size: 22px;
+    line-height: 30px;
+    background: rgba(255, 255, 255, 0.6);
+    position: absolute;
+    top: 90px;
+    left: 75px;
+}
+
+.competition_guide_add_title {
+    width: 700px;
+    margin: 25px auto 40px;
+    font-size: 30px;
+    text-align: center;
+}
+
+.competition_guide_add_cross {
+    height: 25px;
+    width: 25px;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+}
+
+.competition_guide_add_cross img {
+    height: 25px;
+    width: 25px;
+    cursor: pointer;
+    opacity: 0.6;
+}
+
+.competition_guide_add_cross img:hover {
+    opacity: 1;
+}
+
+.competition_guide_add_left {
+    width: 600px;
+    height: 500px;
+    margin: 0 0 0 50px;
+    float: left;
+}
+
+.competition_guide_add select {
+    width: 180px;
+    margin: 0 0 22px 0;
+}
+
+.competition_guide_add input {
+    height: 26px;
+    margin: 0 0 22px 0;
+    border: none;
+}
+
+.competition_guide_add_buttons_area {
+    width: 350px;
+    height: 40px;
+    position: absolute;
+    bottom: 30px;
+    left: 280px;
+}
+
+.competition_guide_add_buttons {
+    width: 120px;
+    height: 40px;
+    line-height: 40px;
+    background: rgb(255, 255, 255);
+    cursor: pointer;
+    text-align: center;
+    border: 1px rgb(100, 100, 100);
+}
+
+#competition_guide_add_submit {
+    float: left;
+}
+
+#competition_guide_add_cancel {
+    float: right;
+}

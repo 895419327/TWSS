@@ -166,21 +166,73 @@ def workload_input_pratice_course_modify(request, user):
     return render(request, 'main/teacher/workload_input/pratice_course/pratice_course_modify.html', locals())
 
 
+# Teaching Achievement
+
 def workload_input_teaching_achievement(request, user):
+    project_list = TeachingAchievement.objects.filter(teacher_id=user.id)
     return render(request, 'main/teacher/workload_input/teaching_achievement/teaching_achievement.html', locals())
 
 
+def workload_input_teaching_achievement_add(request, user):
+    return render(request, 'main/teacher/workload_input/teaching_achievement/teaching_achievement_add.html', locals())
+
+
+def workload_input_teaching_achievement_modify(request, user):
+    modified_project = TeachingAchievement.objects.get(id=request.POST['request_data'])
+    return render(request, 'main/teacher/workload_input/teaching_achievement/teaching_achievement_modify.html',
+                  locals())
+
+
+# Teaching Project
+
 def workload_input_teaching_project(request, user):
+    project_list = TeachingProject.objects.filter(teacher_id=user.id)
     return render(request, 'main/teacher/workload_input/teaching_project/teaching_project.html', locals())
 
 
+def workload_input_teaching_project_add(request, user):
+    return render(request, 'main/teacher/workload_input/teaching_project/teaching_project_add.html', locals())
+
+
+def workload_input_teaching_project_modify(request, user):
+    modified_project = TeachingProject.objects.get(id=request.POST['request_data'])
+    return render(request, 'main/teacher/workload_input/teaching_project/teaching_project_modify.html',
+                  locals())
+
+
+# Competition Guide
+
 def workload_input_competition_guide(request, user):
+    project_list = CompetitionGuide.objects.filter(teacher_id=user.id)
     return render(request, 'main/teacher/workload_input/competition_guide/competition_guide.html', locals())
 
 
+def workload_input_competition_guide_add(request, user):
+    return render(request, 'main/teacher/workload_input/competition_guide/competition_guide_add.html', locals())
+
+
+def workload_input_competition_guide_modify(request, user):
+    modified_project = CompetitionGuide.objects.get(id=request.POST['request_data'])
+    return render(request, 'main/teacher/workload_input/competition_guide/competition_guide_modify.html',
+                  locals())
+
+
+# Paper Guide
+
 def workload_input_paper_guide(request, user):
+    project_list = PaperGuide.objects.filter(teacher_id=user.id)
     return render(request, 'main/teacher/workload_input/paper_guide/paper_guide.html', locals())
 
+def workload_input_paper_guide_add(request, user):
+    return render(request, 'main/teacher/workload_input/paper_guide/paper_guide_add.html', locals())
+
+
+def workload_input_paper_guide_modify(request, user):
+    modified_project = PaperGuide.objects.get(id=request.POST['request_data'])
+    return render(request, 'main/teacher/workload_input/paper_guide/paper_guide_modify.html',
+                  locals())
+
+# Workload Count
 
 def workload_count(request, user):
     theory_course_W = 0
@@ -198,6 +250,7 @@ def workload_count(request, user):
         elif course.student_sum > 200:
             K = 3.6
         theory_course_W += 6 + course.period * K
+    theory_course_W = round(theory_course_W, 2)
 
     experiment_course_W = 0
     experiment_course_list = ExperimentCourse.objects.filter(teacher=user)
@@ -210,6 +263,7 @@ def workload_count(request, user):
         elif course.attribute == 3:
             L = 0.065
         experiment_course_W += course.period * course.student_sum * L
+    experiment_course_W = round(experiment_course_W, 2)
 
     pratice_course_W = 0
     pratice_course_list = PraticeCourse.objects.filter(teacher=user)
@@ -223,6 +277,7 @@ def workload_count(request, user):
             S = 0.09
         teacher_num = len(PraticeCourse.objects.filter(id=course.id))
         pratice_course_W += course.period * course.student_sum * S / teacher_num
+    pratice_course_W = round(pratice_course_W, 2)
 
     course_total_W = theory_course_W + pratice_course_W + experiment_course_W
     return render(request, 'main/teacher/workload_count/workload_count.html', locals())
@@ -265,6 +320,7 @@ def workload_audit_theory_course_reject(request, user):
     return workload_audit_theory_course(request, user)
 
 
+# TODO:驳回时可填写理由
 # 实验课
 def workload_audit_experiment_course(request, user):
     department = Department.objects.get(head_of_department=user.id)
@@ -292,6 +348,7 @@ def workload_audit_pratice_course(request, user):
     department = Department.objects.get(head_of_department=user.id)
     course_list = PraticeCourse.objects.filter(department=department)
     return render(request, 'main/head_of_department/workload_audit/pratice_course/pratice_course_audit.html', locals())
+
 
 def workload_audit_pratice_course_pass(request, user):
     course = PraticeCourse.objects.get(id=request.POST['request_data'], teacher=user)

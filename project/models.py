@@ -7,6 +7,8 @@ import unittest
 undefine = u'未记录'
 
 
+# TODO: Workload_K table
+
 # 系部表
 class Department(models.Model):
     # 系部编号
@@ -118,20 +120,40 @@ class Course(models.Model):
 
 # 项目表 父类
 class Project(models.Model):
+    id = models.CharField(max_length=16, primary_key=True, auto_created=True)
     # 项目名称
     name = models.CharField(max_length=128, default=undefine)
     # 类型
+    # 教学成果 (教研论文/教改项目结项/教学成果/教材)
+    # 教学项目 (专业、团队及实验中心类/课程类/工程实践教育类/教学名师/大学生创新创业训练)
+    # 竞赛指导 (全国性大学生学科竞赛/省部级大学生竞赛)
+    # 论文指导 (指导本科生发表学术论文)
     type = models.CharField(max_length=16, default=undefine)
     # 老师
     teacher = models.ForeignKey(User)
-    # 作者
-    author = models.CharField(max_length=16, default=undefine)
-    # 发表期刊
-    publish = models.CharField(max_length=128, default=undefine)
-    # 所获奖项
-    award = models.CharField(max_length=256, default=undefine)
-    # 审核状态
-    audit_status = models.CharField(max_length=4, default=undefine)
+    # 分类
+    ############# 教学成果
+    # 教研论文    (核心期刊/一般期刊)
+    # 教改项目结项 (国家级/省部级/校级)
+    # 教学成果*   (国家级/省部级/校级)
+    # 教材        (全国统编教材、国家级规划教材、全国教学专业指导委员会指定教材、全国优秀教材 / 其他正式出版教材)
+    ############# 教学项目
+    # 专业、团队及实验中心类 (国家级/省部级/校级)
+    # 课程类      (国家级/省部级/校级)
+    # 工程实践教育类 (国家级)
+    # 教学名师    (国家级/省部级/校级)
+    # 大学生创新创业训练 (国家级/省部级/校级)
+    ############# 竞赛指导
+    # 全国性大学生学科竞赛 (特等/一等/二等)
+    # 省部级大学生竞赛    (特等/一等/二等)
+    ############# 论文指导
+    # 指导本科学术论文 (SCI/核心期刊/一般期刊)
+    level = models.CharField(max_length=16, default=undefine)
+    # 级别
+    # 教学成果      (特等/一等/二等)
+    rank = models.CharField(max_length=4, default=' ', null=True)
+    # 审核状态 (未审核/审核未通过/已审核) (0/1/2)
+    audit_status = models.IntegerField(2, default=0)
 
     class Meta:
         # 虚类
@@ -162,13 +184,6 @@ class PraticeCourse(Course):
         db_table = 'TWSS_PraticeCourse'
 
 
-# 教学项目
-class TeachingProject(Project):
-    class Meta:
-        # 数据表名
-        db_table = 'TWSS_TeachingProject'
-
-
 # 教学成果
 class TeachingAchievement(Project):
     class Meta:
@@ -176,8 +191,18 @@ class TeachingAchievement(Project):
         db_table = 'TWSS_TeachingAchievement'
 
 
+# 教学项目
+class TeachingProject(Project):
+    class Meta:
+        # 数据表名
+        db_table = 'TWSS_TeachingProject'
+
+
 # 指导竞赛
 class CompetitionGuide(Project):
+    # 参赛学生
+    students = models.CharField(max_length=32, default=undefine)
+
     class Meta:
         # 数据表名
         db_table = 'TWSS_CompetitionGuide'
@@ -185,6 +210,9 @@ class CompetitionGuide(Project):
 
 # 指导论文
 class PaperGuide(Project):
+    # 作者
+    author = models.CharField(max_length=16, default=undefine)
+
     class Meta:
         # 数据表名
         db_table = 'TWSS_PaperGuide'

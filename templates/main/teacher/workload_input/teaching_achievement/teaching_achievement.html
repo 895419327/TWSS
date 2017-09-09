@@ -13,23 +13,43 @@
 
             <table class="teaching_achievement_item_table" cellspacing="0">
                 <tr>
-                    <th width="350px">题目</th>
-                    <th width="150px">发表期刊</th>
-                    <th width="200px">所获奖项</th>
+                    <th width="400px">题目</th>
+                    <th width="200px">级别</th>
                     <th width="100px">审核状态</th>
                     <th width="100px">修改/删除</th>
                 </tr>
 
-                <tr>
-                    <td>基于Web的教师工作量统计系统的设计与实现</td>
-                    <td>暂无</td>
-                    <td>暂无</td>
-                    <td>已审核</td>
-                    <td>
-                        <img src={% static "main/resourse/modify.png" %}>
-                        <img src={% static "main/resourse/delete.png" %}>
-                    </td>
-                </tr>
+                {% if project_list %}
+                    {% for project in project_list %}
+                        {% if project.type == '教研论文' %}
+                            <tr>
+                                <td>{{ project.name }}</td>
+                                <td>{{ project.level }}</td>
+
+                                {% if project.audit_status == 0 %}
+                                    <td>未审核</td>
+                                {% elif project.audit_status == 1 %}
+                                    <td>审核未通过</td>
+                                {% elif project.audit_status == 2 %}
+                                    <td>已审核</td>
+                                {% endif %}
+
+                                {% if project.audit_status < 2 %}
+                                    <td>
+                                        <img class="teaching_achievement_modify" id="{{ project.id }}_modify"
+                                             src={% static "main/resourse/modify.png" %}>
+                                        <img class="teaching_achievement_delete" id="{{ project.id }}_delete"
+                                             src={% static "main/resourse/delete.png" %}>
+                                    </td>
+                                {% else %}
+                                    <td></td>
+                                {% endif %}
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+
+
             </table>
             <div class="teaching_achievement_add_button">新 增</div>
         </div>
@@ -40,20 +60,40 @@
             <table class="teaching_achievement_item_table" cellspacing="0">
                 <tr>
                     <th width="400px">项目名称</th>
-                    <th width="300px">所获奖项</th>
+                    <th width="200px">级别</th>
                     <th width="100px">审核状态</th>
                     <th width="100px">修改/删除</th>
                 </tr>
 
-                <tr>
-                    <td>基于Web的教师工作量统计系统的设计与实现</td>
-                    <td>暂无</td>
-                    <td>已审核</td>
-                    <td>
-                        <img src={% static "main/resourse/modify.png" %}>
-                        <img src={% static "main/resourse/delete.png" %}>
-                    </td>
-                </tr>
+                {% if project_list %}
+                    {% for project in project_list %}
+                        {% if project.type == '教改项目结项' %}
+                            <tr>
+                                <td>{{ project.name }}</td>
+                                <td>{{ project.level }}</td>
+
+                                {% if project.audit_status == 0 %}
+                                    <td>未审核</td>
+                                {% elif project.audit_status == 1 %}
+                                    <td>审核未通过</td>
+                                {% elif project.audit_status == 2 %}
+                                    <td>已审核</td>
+                                {% endif %}
+
+                                {% if project.audit_status < 2 %}
+                                    <td>
+                                        <img class="teaching_achievement_modify" id="{{ project.id }}_modify"
+                                             src={% static "main/resourse/modify.png" %}>
+                                        <img class="teaching_achievement_delete" id="{{ project.id }}_delete"
+                                             src={% static "main/resourse/delete.png" %}>
+                                    </td>
+                                {% else %}
+                                    <td></td>
+                                {% endif %}
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
             </table>
             <div class="teaching_achievement_add_button">新 增</div>
 
@@ -65,47 +105,91 @@
             <table class="teaching_achievement_item_table" cellspacing="0">
                 <tr>
                     <th width="400px">项目名称</th>
-                    <th width="300px">所获奖项</th>
+                    <th width="200px">级别</th>
                     <th width="100px">审核状态</th>
                     <th width="100px">修改/删除</th>
                 </tr>
 
-                <tr>
-                    <td>基于Web的教师工作量统计系统的设计与实现</td>
-                    <td>暂无</td>
-                    <td>未审核</td>
-                    <td>
-                        <img src={% static "main/resourse/modify.png" %}>
-                        <img src={% static "main/resourse/delete.png" %}>
-                    </td>
-                </tr>
+                {% if project_list %}
+                    {% for project in project_list %}
+                        {% if project.type == '教学成果' %}
+                            <tr>
+                                <td>{{ project.name }}</td>
+                                <td>{{ project.level }} {{ project.rank }}</td>
+
+                                {% if project.audit_status == 0 %}
+                                    <td>未审核</td>
+                                {% elif project.audit_status == 1 %}
+                                    <td>审核未通过</td>
+                                {% elif project.audit_status == 2 %}
+                                    <td>已审核</td>
+                                {% endif %}
+
+                                {% if project.audit_status < 2 %}
+                                    <td>
+                                        <img class="teaching_achievement_modify" id="{{ project.id }}_modify"
+                                             src={% static "main/resourse/modify.png" %}>
+                                        <img class="teaching_achievement_delete" id="{{ project.id }}_delete"
+                                             src={% static "main/resourse/delete.png" %}>
+                                    </td>
+                                {% else %}
+                                    <td></td>
+                                {% endif %}
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
             </table>
             <div class="teaching_achievement_add_button">新 增</div>
         </div>
 
         <div class="teaching_achievement_item">
-            <div class="teaching_achievement_item_title">教学成果</div>
+            <div class="teaching_achievement_item_title">教材</div>
 
             <table class="teaching_achievement_item_table" cellspacing="0">
                 <tr>
                     <th width="400px">项目名称</th>
-                    <th width="300px">所获奖项</th>
+                    <th width="200px">级别</th>
                     <th width="100px">审核状态</th>
                     <th width="100px">修改/删除</th>
                 </tr>
 
-                <tr>
-                    <td>基于Web的教师工作量统计系统的设计与实现</td>
-                    <td>暂无</td>
-                    <td>未审核</td>
-                    <td>
-                        <img src={% static "main/resourse/modify.png" %}>
-                        <img src={% static "main/resourse/delete.png" %}>
-                    </td>
-                </tr>
+                {% if project_list %}
+                    {% for project in project_list %}
+                        {% if project.type == '教材' %}
+                            <tr>
+                                <td>{{ project.name }}</td>
+                                <td>{{ project.level }}</td>
+
+                                {% if project.audit_status == 0 %}
+                                    <td>未审核</td>
+                                {% elif project.audit_status == 1 %}
+                                    <td>审核未通过</td>
+                                {% elif project.audit_status == 2 %}
+                                    <td>已审核</td>
+                                {% endif %}
+
+                                {% if project.audit_status < 2 %}
+                                    <td>
+                                        <img class="teaching_achievement_modify" id="{{ project.id }}_modify"
+                                             src={% static "main/resourse/modify.png" %}>
+                                        <img class="teaching_achievement_delete" id="{{ project.id }}_delete"
+                                             src={% static "main/resourse/delete.png" %}>
+                                    </td>
+                                {% else %}
+                                    <td></td>
+                                {% endif %}
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
             </table>
             <div class="teaching_achievement_add_button">新 增</div>
         </div>
+
+    </div>
+
+    <div class="teaching_achievement_add_content">
 
     </div>
 

@@ -1,0 +1,81 @@
+.teaching_project_add {
+    width: 800px;
+    height: 300px;
+    padding: 0 50px;
+    font-size: 22px;
+    line-height: 30px;
+    background: rgba(255, 255, 255, 0.6);
+    position: absolute;
+    top: 90px;
+    left: 75px;
+}
+
+.teaching_project_add_title {
+    width: 700px;
+    margin: 25px auto 40px;
+    font-size: 30px;
+    text-align: center;
+}
+
+.teaching_project_add_cross {
+    height: 25px;
+    width: 25px;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+}
+
+.teaching_project_add_cross img {
+    height: 25px;
+    width: 25px;
+    cursor: pointer;
+    opacity: 0.6;
+}
+
+.teaching_project_add_cross img:hover {
+    opacity: 1;
+}
+
+.teaching_project_add_left {
+    width: 600px;
+    height: 500px;
+    margin: 0 0 0 50px;
+    float: left;
+}
+
+.teaching_project_add select {
+    width: 180px;
+    margin: 0 0 22px 0;
+}
+
+.teaching_project_add input {
+    height: 26px;
+    margin: 0 0 22px 0;
+    border: none;
+}
+
+.teaching_project_add_buttons_area {
+    width: 350px;
+    height: 40px;
+    position: absolute;
+    bottom: 30px;
+    left: 280px;
+}
+
+.teaching_project_add_buttons {
+    width: 120px;
+    height: 40px;
+    line-height: 40px;
+    background: rgb(255, 255, 255);
+    cursor: pointer;
+    text-align: center;
+    border: 1px rgb(100, 100, 100);
+}
+
+#teaching_project_add_submit {
+    float: left;
+}
+
+#teaching_project_add_cancel {
+    float: right;
+}

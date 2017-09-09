@@ -2,6 +2,7 @@
 
 import os
 import json
+import time
 
 BASE_DIR = os.path.dirname(os.path.abspath(__name__))
 MEDIA_PATH = os.path.join(BASE_DIR, 'media')
@@ -41,6 +42,25 @@ def upload(request):
     if requestfor == 'pratice_course_delete':
         return upload_pratice_course_delete(request, user)
 
+    if requestfor == 'teaching_achievement_add':
+        return upload_teaching_achievement(request, user)
+    if requestfor == 'teaching_achievement_delete':
+        return upload_teaching_achievement_delete(request, user)
+
+    if requestfor == 'teaching_project_add':
+        return upload_teaching_project(request, user)
+    if requestfor == 'teaching_project_delete':
+        return upload_teaching_project_delete(request, user)
+
+    if requestfor == 'competition_guide_add':
+        return upload_competition_guide(request, user)
+    if requestfor == 'competition_guide_delete':
+        return upload_competition_guide_delete(request, user)
+
+    if requestfor == 'paper_guide_add':
+        return upload_paper_guide(request, user)
+    if requestfor == 'paper_guide_delete':
+        return upload_paper_guide_delete(request, user)
     return False
 
 
@@ -96,8 +116,7 @@ def upload_theory_course(request, user):
                        student_sum=student_sum,
                        period=request.POST['period'],
                        credit=request.POST['credit'],
-                       attribute=attribute,
-                       )
+                       attribute=attribute)
     new.save()
     return workload_input_theory_course(request, user)
 
@@ -105,7 +124,7 @@ def upload_theory_course(request, user):
 def upload_theory_course_delete(request, user):
     course_id = request.POST['request_data']
     course = TheoryCourse.objects.get(id=course_id)
-    if course.audit_status == 1:
+    if course.audit_status == 2:
         return render(request, 'main/utilities/upload_fail.html')
     else:
         course.delete()
@@ -148,8 +167,7 @@ def upload_experiment_course(request, user):
                            student_sum=student_sum,
                            period=request.POST['period'],
                            credit=request.POST['credit'],
-                           attribute=attribute,
-                           )
+                           attribute=attribute)
     new.save()
     return workload_input_experiment_course(request, user)
 
@@ -157,7 +175,7 @@ def upload_experiment_course(request, user):
 def upload_experiment_course_delete(request, user):
     course_id = request.POST['request_data']
     course = ExperimentCourse.objects.get(id=course_id)
-    if course.audit_status == 1:
+    if course.audit_status == 2:
         return render(request, 'main/utilities/upload_fail.html')
     else:
         course.delete()
@@ -191,17 +209,16 @@ def upload_pratice_course(request, user):
     elif request.POST['course_attribute'] == u'外地生产实习/毕业实习/毕业设计(论文)':
         attribute = 3
     new = PraticeCourse(name=request.POST['course_name'],
-                           id=request.POST['course_id'],
-                           year=request.POST['year'][:4],
-                           semester=semester,
-                           teacher=user,
-                           department=user.department,
-                           classes=classes,
-                           student_sum=student_sum,
-                           period=request.POST['period'],
-                           credit=request.POST['credit'],
-                           attribute=attribute,
-                           )
+                        id=request.POST['course_id'],
+                        year=request.POST['year'][:4],
+                        semester=semester,
+                        teacher=user,
+                        department=user.department,
+                        classes=classes,
+                        student_sum=student_sum,
+                        period=request.POST['period'],
+                        credit=request.POST['credit'],
+                        attribute=attribute)
     new.save()
     return workload_input_pratice_course(request, user)
 
@@ -209,8 +226,109 @@ def upload_pratice_course(request, user):
 def upload_pratice_course_delete(request, user):
     course_id = request.POST['request_data']
     course = PraticeCourse.objects.get(id=course_id, teacher=user)
-    if course.audit_status == 1:
+    if course.audit_status == 2:
         return render(request, 'main/utilities/upload_fail.html')
     else:
         course.delete()
     return workload_input_pratice_course(request, user)
+
+
+def upload_teaching_achievement(request, user):
+    id = ''
+    if 'project_id' in request.POST:
+        id = request.POST['project_id']
+    else:
+        id = int(time.time())
+    new = TeachingAchievement(id=id,
+                              name=request.POST['project_name'],
+                              type=request.POST['type'],
+                              level=request.POST['level'],
+                              teacher=user)
+    new.save()
+    return workload_input_teaching_achievement(request, user)
+
+
+def upload_teaching_achievement_delete(request, user):
+    project_id = request.POST['request_data']
+    project = TeachingAchievement.objects.get(id=project_id)
+    if project.audit_status == 2:
+        return render(request, 'main/utilities/upload_fail.html')
+    else:
+        project.delete()
+    return workload_input_teaching_achievement(request, user)
+
+
+def upload_teaching_project(request, user):
+    id = ''
+    if 'project_id' in request.POST:
+        id = request.POST['project_id']
+    else:
+        id = int(time.time())
+    new = TeachingProject(id=id,
+                          name=request.POST['project_name'],
+                          type=request.POST['type'],
+                          level=request.POST['level'],
+                          teacher=user)
+    new.save()
+    return workload_input_teaching_project(request, user)
+
+
+def upload_teaching_project_delete(request, user):
+    project_id = request.POST['request_data']
+    project = TeachingProject.objects.get(id=project_id)
+    if project.audit_status == 2:
+        return render(request, 'main/utilities/upload_fail.html')
+    else:
+        project.delete()
+    return workload_input_teaching_project(request, user)
+
+
+def upload_competition_guide(request, user):
+    id = ''
+    if 'project_id' in request.POST:
+        id = request.POST['project_id']
+    else:
+        id = int(time.time())
+    new = CompetitionGuide(id=id,
+                           name=request.POST['project_name'],
+                           type=request.POST['type'],
+                           level=request.POST['level'],
+                           students=request.POST['project_students'],
+                           teacher=user)
+    new.save()
+    return workload_input_competition_guide(request, user)
+
+
+def upload_competition_guide_delete(request, user):
+    project_id = request.POST['request_data']
+    project = CompetitionGuide.objects.get(id=project_id)
+    if project.audit_status == 2:
+        return render(request, 'main/utilities/upload_fail.html')
+    else:
+        project.delete()
+    return workload_input_competition_guide(request, user)
+
+
+def upload_paper_guide(request, user):
+    id = ''
+    if 'project_id' in request.POST:
+        id = request.POST['project_id']
+    else:
+        id = int(time.time())
+    new = PaperGuide(id=id,
+                     name=request.POST['project_name'],
+                     level=request.POST['level'],
+                     author=request.POST['author'],
+                     teacher=user)
+    new.save()
+    return workload_input_paper_guide(request, user)
+
+
+def upload_paper_guide_delete(request, user):
+    project_id = request.POST['request_data']
+    project = PaperGuide.objects.get(id=project_id)
+    if project.audit_status == 2:
+        return render(request, 'main/utilities/upload_fail.html')
+    else:
+        project.delete()
+    return workload_input_paper_guide(request, user)

@@ -1,0 +1,57 @@
+{% load staticfiles %}
+<link rel="stylesheet"
+      href={% static "main/teacher/workload_input/teaching_achievement/teaching_achievement_add.css" %}>
+<script src={% static 'main/teacher/workload_input/teaching_achievement/teaching_achievement_add.js' %}></script>
+
+<div class="teaching_achievement_add">
+
+    <div class="teaching_achievement_add_cross"><img src={% static "main/resourse/cross.png" %}></div>
+
+    <div class="teaching_achievement_add_title">新 增</div>
+
+    <form id="teaching_achievement_add_form" method="post" action="/upload" name="teaching_achievement"
+          autocomplete="off">
+        {% csrf_token %}
+        <input type="hidden" name="username" value="{{ user.id }}">
+        <input type="hidden" name="requestfor" value="teaching_achievement_add">
+
+        <div class="teaching_achievement_add_left">
+
+            <div>
+                <span>项目名称 </span>
+                <input type="text" name="project_name" class="teaching_achievement_add_form_data" style="width: 500px">
+            </div>
+
+            <div style="float: left">
+                <span>类别 </span>
+                <select name="type" class="teaching_achievement_add_form_data">
+                    <option>教研论文</option>
+                    <option>教改项目结项</option>
+                    <option>教学成果</option>
+                    <option>教材</option>
+                </select>
+            </div>
+
+            <div style="float: right">
+                <span>级别 </span>
+                <select name="level" class="teaching_achievement_add_form_data">
+                    <option>核心期刊</option>
+                    <option>一般期刊</option>
+                    <option>国家级</option>
+                    <option>省部级</option>
+                    <option>校级</option>
+                    <option>全国统编教材、国家级规划教材、全国教学专业指导委员会指定教材、全国优秀教材</option>
+                    <option>其他正式出版教材</option>
+                </select>
+            </div>
+
+        </div>
+    </form>
+
+    <div class="teaching_achievement_add_buttons_area">
+        <div id="teaching_achievement_add_submit" class="teaching_achievement_add_buttons">提交</div>
+        <div id="teaching_achievement_add_cancel" class="teaching_achievement_add_buttons">取消</div>
+    </div>
+
+
+</div>

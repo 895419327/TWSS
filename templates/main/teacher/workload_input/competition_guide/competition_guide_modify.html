@@ -1,0 +1,60 @@
+{% load staticfiles %}
+<link rel="stylesheet"
+      href={% static "main/teacher/workload_input/competition_guide/competition_guide_add.css" %}>
+<script src={% static 'main/teacher/workload_input/competition_guide/competition_guide_add.js' %}></script>
+
+<div class="competition_guide_add">
+
+    <div class="competition_guide_add_cross"><img src={% static "main/resourse/cross.png" %}></div>
+
+    <div class="competition_guide_add_title">新 增</div>
+
+    <form id="competition_guide_add_form" method="post" action="/upload" name="competition_guide"
+          autocomplete="off">
+        {% csrf_token %}
+        <input type="hidden" name="username" value="{{ user.id }}">
+        <input type="hidden" name="requestfor" value="competition_guide_add">
+
+        <div class="competition_guide_add_left">
+
+            <div>
+                <span>项目名称 </span>
+                <input type="text" name="project_name" class="competition_guide_add_form_data" style="width: 500px" value="{{ modified_project.name }}">
+            </div>
+
+            <div>
+                <span>参赛学生 </span>
+                <input type="text" name="project_students" class="competition_guide_add_form_data" style="width: 500px" value="{{ modified_project.students }}">
+            </div>
+
+            <div hidden><span>项目编号</span><input type="text" name="project_id" class="competition_guide_add_form_data" value="{{ modified_project.id }}"></div>
+
+            <div style="float: left">
+                <span>类别 </span>
+                <select name="type" class="competition_guide_add_form_data">
+                    <option>{{ modified_project.type }}</option>
+                    <option>全国性大学生学科竞赛</option>
+                    <option>省部级大学生竞赛</option>
+                </select>
+            </div>
+
+            <div style="float: right">
+                <span>级别 </span>
+                <select name="level" class="competition_guide_add_form_data">
+                    <option>{{ modified_project.level }}</option>
+                    <option>特等</option>
+                    <option>一等</option>
+                    <option>二等</option>
+                </select>
+            </div>
+
+        </div>
+    </form>
+
+    <div class="competition_guide_add_buttons_area">
+        <div id="competition_guide_add_submit" class="competition_guide_add_buttons">提交</div>
+        <div id="competition_guide_add_cancel" class="competition_guide_add_buttons">取消</div>
+    </div>
+
+
+</div>

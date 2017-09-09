@@ -1,6 +1,20 @@
 $(document).ready(function () {
-    $('#workload_input_teaching_project').click(function () {
-        $('.main_interface').hide();
-        $('.teaching_project_content').show();
+    $('tr:even').addClass('even');
+
+    $('.teaching_project_add_button').click(function () {
+        MyAjax_Get('getpage', 'workload_input_teaching_project_add', null, '.teaching_project_add_content')
+    });
+
+    $('.teaching_project_modify').click(function () {
+        var id = this.id;
+        id = id.substring(0, id.length - 7);
+        MyAjax_Get('getpage', 'workload_input_teaching_project_modify', id, '.teaching_project_add_content');
+    });
+
+    $('.teaching_project_delete').click(function () {
+        var id = this.id;
+        id = id.substring(0, id.length - 7);
+        if (confirm("确认删除？"))
+            MyAjax('/upload', 'teaching_project_delete', id);
     });
 });

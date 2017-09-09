@@ -1,0 +1,54 @@
+{% load staticfiles %}
+<link rel="stylesheet"
+      href={% static "main/teacher/workload_input/paper_guide/paper_guide_add.css" %}>
+<script src={% static 'main/teacher/workload_input/paper_guide/paper_guide_add.js' %}></script>
+
+<div class="paper_guide_add">
+
+    <div class="paper_guide_add_cross"><img src={% static "main/resourse/cross.png" %}></div>
+
+    <div class="paper_guide_add_title">新 增</div>
+
+    <form id="paper_guide_add_form" method="post" action="/upload" name="paper_guide"
+          autocomplete="off">
+        {% csrf_token %}
+        <input type="hidden" name="username" value="{{ user.id }}">
+        <input type="hidden" name="requestfor" value="paper_guide_add">
+
+        <div class="paper_guide_add_left">
+
+            <div>
+                <span>项目名称 </span>
+                <input type="text" name="project_name" class="paper_guide_add_form_data" style="width: 500px"
+                       value="{{ modified_project.name }}">
+            </div>
+
+            <div hidden><span>项目编号</span><input type="text" name="project_id" class="paper_guide_add_form_data"
+                                                value="{{ modified_project.id }}"></div>
+
+            <div style="float: left">
+                <span>论文作者 </span>
+                <input type="text" name="author" class="paper_guide_add_form_data" style="width: 200px"
+                       value="{{ modified_project.author }}">
+            </div>
+
+            <div style="float: right">
+                <span>级别 </span>
+                <select name="level" class="paper_guide_add_form_data">
+                    <option>{{ modified_project.level }}</option>
+                    <option>特等</option>
+                    <option>一等</option>
+                    <option>二等</option>
+                </select>
+            </div>
+
+        </div>
+    </form>
+
+    <div class="paper_guide_add_buttons_area">
+        <div id="paper_guide_add_submit" class="paper_guide_add_buttons">提交</div>
+        <div id="paper_guide_add_cancel" class="paper_guide_add_buttons">取消</div>
+    </div>
+
+
+</div>
