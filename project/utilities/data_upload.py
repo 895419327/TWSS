@@ -24,50 +24,13 @@ def upload(request):
 
     # 获取需求
     requestfor = request.POST['requestfor']
-    if requestfor == 'user_info':
-        return upload_user_info(request, user)
-
-    if requestfor == 'theory_course_add':
-        return upload_theory_course(request, user)
-    if requestfor == 'theory_course_delete':
-        return upload_theory_course_delete(request, user)
-
-    if requestfor == 'experiment_course_add':
-        return upload_experiment_course(request, user)
-    if requestfor == 'experiment_course_delete':
-        return upload_experiment_course_delete(request, user)
-
-    if requestfor == 'pratice_course_add':
-        return upload_pratice_course(request, user)
-    if requestfor == 'pratice_course_delete':
-        return upload_pratice_course_delete(request, user)
-
-    if requestfor == 'teaching_achievement_add':
-        return upload_teaching_achievement(request, user)
-    if requestfor == 'teaching_achievement_delete':
-        return upload_teaching_achievement_delete(request, user)
-
-    if requestfor == 'teaching_project_add':
-        return upload_teaching_project(request, user)
-    if requestfor == 'teaching_project_delete':
-        return upload_teaching_project_delete(request, user)
-
-    if requestfor == 'competition_guide_add':
-        return upload_competition_guide(request, user)
-    if requestfor == 'competition_guide_delete':
-        return upload_competition_guide_delete(request, user)
-
-    if requestfor == 'paper_guide_add':
-        return upload_paper_guide(request, user)
-    if requestfor == 'paper_guide_delete':
-        return upload_paper_guide_delete(request, user)
-    return False
+    return globals().get(requestfor)(request, user)
 
 
 # TODO: 更改前要检查数据合法性
 # 比如系主任审核通过时 教师正好更改了数据 微小的时间差导致审核通过的不是系主任看到的数据
 
-def upload_user_info(request, user):
+def user_info(request, user):
     # 获取json字符串
     data_jsonstr = request.POST[u'request_data']
     # 解析为对象
@@ -82,7 +45,7 @@ def upload_user_info(request, user):
 
 # Theory Course
 
-def upload_theory_course(request, user):
+def theory_course_add(request, user):
     semester = 0
     if request.POST['semester'] == u'第一学期':
         semester = 1
@@ -121,7 +84,7 @@ def upload_theory_course(request, user):
     return workload_input_theory_course(request, user)
 
 
-def upload_theory_course_delete(request, user):
+def theory_course_delete(request, user):
     course_id = request.POST['request_data']
     course = TheoryCourse.objects.get(id=course_id)
     if course.audit_status == 2:
@@ -133,7 +96,7 @@ def upload_theory_course_delete(request, user):
 
 # Experiment Course
 
-def upload_experiment_course(request, user):
+def experiment_course_add(request, user):
     semester = 0
     if request.POST['semester'] == u'第一学期':
         semester = 1
@@ -172,7 +135,7 @@ def upload_experiment_course(request, user):
     return workload_input_experiment_course(request, user)
 
 
-def upload_experiment_course_delete(request, user):
+def experiment_course_delete(request, user):
     course_id = request.POST['request_data']
     course = ExperimentCourse.objects.get(id=course_id)
     if course.audit_status == 2:
@@ -184,7 +147,7 @@ def upload_experiment_course_delete(request, user):
 
 # Pratice Course
 
-def upload_pratice_course(request, user):
+def pratice_course_add(request, user):
     semester = 0
     if request.POST['semester'] == u'第一学期':
         semester = 1
@@ -223,7 +186,7 @@ def upload_pratice_course(request, user):
     return workload_input_pratice_course(request, user)
 
 
-def upload_pratice_course_delete(request, user):
+def pratice_course_delete_add(request, user):
     course_id = request.POST['request_data']
     course = PraticeCourse.objects.get(id=course_id, teacher=user)
     if course.audit_status == 2:
@@ -233,7 +196,7 @@ def upload_pratice_course_delete(request, user):
     return workload_input_pratice_course(request, user)
 
 
-def upload_teaching_achievement(request, user):
+def teaching_achievement_add(request, user):
     id = ''
     if 'project_id' in request.POST:
         id = request.POST['project_id']
@@ -248,7 +211,7 @@ def upload_teaching_achievement(request, user):
     return workload_input_teaching_achievement(request, user)
 
 
-def upload_teaching_achievement_delete(request, user):
+def teaching_achievement_delete(request, user):
     project_id = request.POST['request_data']
     project = TeachingAchievement.objects.get(id=project_id)
     if project.audit_status == 2:
@@ -258,7 +221,7 @@ def upload_teaching_achievement_delete(request, user):
     return workload_input_teaching_achievement(request, user)
 
 
-def upload_teaching_project(request, user):
+def teaching_project_add(request, user):
     id = ''
     if 'project_id' in request.POST:
         id = request.POST['project_id']
@@ -273,7 +236,7 @@ def upload_teaching_project(request, user):
     return workload_input_teaching_project(request, user)
 
 
-def upload_teaching_project_delete(request, user):
+def teaching_project_delete(request, user):
     project_id = request.POST['request_data']
     project = TeachingProject.objects.get(id=project_id)
     if project.audit_status == 2:
@@ -283,7 +246,7 @@ def upload_teaching_project_delete(request, user):
     return workload_input_teaching_project(request, user)
 
 
-def upload_competition_guide(request, user):
+def competition_guide_add(request, user):
     id = ''
     if 'project_id' in request.POST:
         id = request.POST['project_id']
@@ -299,7 +262,7 @@ def upload_competition_guide(request, user):
     return workload_input_competition_guide(request, user)
 
 
-def upload_competition_guide_delete(request, user):
+def competition_guide_delete(request, user):
     project_id = request.POST['request_data']
     project = CompetitionGuide.objects.get(id=project_id)
     if project.audit_status == 2:
@@ -309,7 +272,7 @@ def upload_competition_guide_delete(request, user):
     return workload_input_competition_guide(request, user)
 
 
-def upload_paper_guide(request, user):
+def paper_guide_add(request, user):
     id = ''
     if 'project_id' in request.POST:
         id = request.POST['project_id']
@@ -324,7 +287,7 @@ def upload_paper_guide(request, user):
     return workload_input_paper_guide(request, user)
 
 
-def upload_paper_guide_delete(request, user):
+def paper_guide_delete(request, user):
     project_id = request.POST['request_data']
     project = PaperGuide.objects.get(id=project_id)
     if project.audit_status == 2:
