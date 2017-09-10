@@ -11,6 +11,7 @@ from django.shortcuts import render
 from project.views import *
 from project.models import *
 
+# TODO: 以后要把这些都整合到views
 
 def upload(request):
     request.encoding = 'utf-8'
@@ -30,6 +31,7 @@ def upload(request):
 # TODO: 更改前要检查数据合法性
 # 比如系主任审核通过时 教师正好更改了数据 微小的时间差导致审核通过的不是系主任看到的数据
 
+# TODO: user_info改ajax
 def user_info(request, user):
     # 获取json字符串
     data_jsonstr = request.POST[u'request_data']
@@ -41,6 +43,16 @@ def user_info(request, user):
     user.save()
     # 返回成功状态
     return render(request, 'main/utilities/upload_success.html')
+
+
+def change_password(request, user):
+    print(request.POST)
+    if user.password == request.POST['original_password']:
+        user.password = request.POST['new_password']
+        user.save()
+        return render(request, 'main/utilities/upload_success.html')
+    else:
+        return False
 
 
 # Theory Course
