@@ -1,6 +1,6 @@
 .teacher_management_table {
     width: 980px;
-    margin: 30px auto;
+    margin: 30px auto 0;
     font-size: 20px;
     line-height: 50px;
     text-align: center;
@@ -13,9 +13,20 @@
 
 .teacher_management_table td {
     width: 600px;
-    background: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.2);
 }
 
-.teacher_management_table_even {
-    background: rgba(255, 255, 255, 0.18);
+.teacher_management_add_button{
+    width: 980px;
+    height: 60px;
+    margin: 0 auto;
+    line-height: 60px;
+    text-align: center;
+    font-size: 24px;
+    background: rgba(255,255,255,0.5);
+    cursor: pointer;
+}
+
+.teacher_management_add_button:hover {
+    background: rgba(255,255,255,0.7);
 }

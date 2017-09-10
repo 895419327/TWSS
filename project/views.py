@@ -223,6 +223,7 @@ def workload_input_paper_guide(request, user):
     project_list = PaperGuide.objects.filter(teacher_id=user.id)
     return render(request, 'main/teacher/workload_input/paper_guide/paper_guide.html', locals())
 
+
 def workload_input_paper_guide_add(request, user):
     return render(request, 'main/teacher/workload_input/paper_guide/paper_guide_add.html', locals())
 
@@ -231,6 +232,7 @@ def workload_input_paper_guide_modify(request, user):
     modified_project = PaperGuide.objects.get(id=request.POST['request_data'])
     return render(request, 'main/teacher/workload_input/paper_guide/paper_guide_modify.html',
                   locals())
+
 
 # Workload Count
 
@@ -279,11 +281,130 @@ def workload_count(request, user):
         pratice_course_W += course.period * course.student_sum * S / teacher_num
     pratice_course_W = round(pratice_course_W, 2)
 
+    teaching_achievement_W = 0
+    teaching_achievement_list = TeachingAchievement.objects.filter(teacher=user)
+    for project in teaching_achievement_list:
+        if project.type == '教研论文':
+            if project.level == '核心期刊':
+                teaching_achievement_W += 100
+            if project.level == '一般期刊':
+                teaching_achievement_W += 30
+
+        if project.type == '教改项目结项':
+            if project.level == '国家级':
+                teaching_achievement_W += 2000
+            if project.level == '省部级':
+                teaching_achievement_W += 800
+            if project.level == '校级':
+                teaching_achievement_W += 50
+
+        if project.type == '教学成果':
+            if project.level == '国家级':
+                if project.rank == '特等':
+                    teaching_achievement_W += 20000
+                if project.rank == '一等':
+                    teaching_achievement_W += 10000
+                if project.rank == '二等':
+                    teaching_achievement_W += 5000
+
+            if project.level == '省部级':
+                if project.rank == '特等':
+                    teaching_achievement_W += 3000
+                if project.rank == '一等':
+                    teaching_achievement_W += 2000
+                if project.rank == '二等':
+                    teaching_achievement_W += 1000
+
+            if project.level == '校级':
+                if project.rank == '特等':
+                    teaching_achievement_W += 300
+                if project.rank == '一等':
+                    teaching_achievement_W += 150
+                if project.rank == '二等':
+                    teaching_achievement_W += 50
+
+        if project.type == '教材':
+            if project.level == '全国统编教材、国家级规划教材、全国教学专业指导委员会指定教材、全国优秀教材':
+                teaching_achievement_W += 1500
+            if project.level == '其他正式出版教材':
+                teaching_achievement_W += 500
+
+    teaching_project_W = 0
+    teaching_project_list = TeachingProject.objects.filter(teacher=user)
+    for project in teaching_project_list:
+        if project.type == '专业、团队及实验中心类':
+            if project.level == '国家级':
+                teaching_project_W += 10000
+            if project.level == '省部级':
+                teaching_project_W += 5000
+            if project.level == '校级':
+                teaching_project_W += 1000
+
+        if project.type == '课程类':
+            if project.level == '国家级':
+                teaching_project_W += 10000
+            if project.level == '省部级':
+                teaching_project_W += 2000
+            if project.level == '校级':
+                teaching_project_W += 400
+
+        if project.type == '工程实践教育中心':
+            if project.level == '国家级':
+                teaching_project_W += 10000
+
+        if project.type == '教学名师':
+            if project.level == '国家级':
+                teaching_project_W += 5000
+            if project.level == '省部级':
+                teaching_project_W += 1000
+            if project.level == '校级':
+                teaching_project_W += 200
+
+        if project.type == '大学生创新创业训练':
+            if project.level == '国家级':
+                teaching_project_W += 300
+            if project.level == '省部级':
+                teaching_project_W += 160
+            if project.level == '校级':
+                teaching_project_W += 50
+
+    competition_guide_W = 0
+    competition_guide_list = CompetitionGuide.objects.filter(teacher=user)
+    for project in competition_guide_list:
+        if project.type == '全国性大学生学科竞赛':
+            if project.level == '特等':
+                competition_guide_W += 1000
+            if project.level == '一等':
+                competition_guide_W += 600
+            if project.level == '二等':
+                competition_guide_W += 400
+
+        if project.type == '省部级大学生竞赛':
+            if project.level == '特等':
+                competition_guide_W += 300
+            if project.level == '一等':
+                competition_guide_W += 200
+            if project.level == '二等':
+                competition_guide_W += 100
+
+    paper_guide_W = 0
+    paper_guide_list = PaperGuide.objects.filter(teacher=user)
+    for project in paper_guide_list:
+        # TODO:按科研论文奖励外？
+        if project.level == 'SCI':
+            paper_guide_W += 100
+        if project.level == '核心期刊':
+            paper_guide_W += 30
+        if project.level == '一般期刊':
+            paper_guide_W += 10
+
     course_total_W = theory_course_W + pratice_course_W + experiment_course_W
+    project_total_W = teaching_achievement_W + teaching_project_W + competition_guide_W + paper_guide_W
     return render(request, 'main/teacher/workload_count/workload_count.html', locals())
 
 
 # ##### 系主任 #####
+# TODO:驳回时可填写理由
 
 # Teacher Management
 def teacher_management(request, user):
@@ -320,7 +441,6 @@ def workload_audit_theory_course_reject(request, user):
     return workload_audit_theory_course(request, user)
 
 
-# TODO:驳回时可填写理由
 # 实验课
 def workload_audit_experiment_course(request, user):
     department = Department.objects.get(head_of_department=user.id)
@@ -366,23 +486,87 @@ def workload_audit_pratice_course_reject(request, user):
 
 # 教学成果
 def workload_audit_teaching_achievement(request, user):
+    department = Department.objects.get(head_of_department=user.id)
+    project_list = TeachingAchievement.objects.filter(department=department)
     return render(request,
                   'main/head_of_department/workload_audit/teaching_achievement/teaching_achievement_audit.html',
                   locals())
 
 
+def workload_audit_teaching_achievement_pass(request, user):
+    course = TeachingAchievement.objects.get(id=request.POST['request_data'], teacher=user)
+    course.audit_status = 2
+    course.save()
+    return workload_audit_teaching_achievement(request, user)
+
+
+def workload_audit_teaching_achievement_reject(request, user):
+    course = TeachingAchievement.objects.get(id=request.POST['request_data'], teacher=user)
+    course.audit_status = 1
+    course.save()
+    return workload_audit_teaching_achievement(request, user)
+
+
 # 教学项目
 def workload_audit_teaching_project(request, user):
+    department = Department.objects.get(head_of_department=user.id)
+    project_list = TeachingProject.objects.filter(department=department)
     return render(request, 'main/head_of_department/workload_audit/teaching_project/teaching_project_audit.html',
                   locals())
 
 
+def workload_audit_teaching_project_pass(request, user):
+    course = TeachingProject.objects.get(id=request.POST['request_data'], teacher=user)
+    course.audit_status = 2
+    course.save()
+    return workload_audit_teaching_project(request, user)
+
+
+def workload_audit_teaching_project_reject(request, user):
+    course = TeachingProject.objects.get(id=request.POST['request_data'], teacher=user)
+    course.audit_status = 1
+    course.save()
+    return workload_audit_teaching_project(request, user)
+
+
 # 竞赛指导
 def workload_audit_competition_guide(request, user):
+    department = Department.objects.get(head_of_department=user.id)
+    project_list = CompetitionGuide.objects.filter(department=department)
     return render(request, 'main/head_of_department/workload_audit/competition_guide/competition_guide_audit.html',
                   locals())
 
 
+def workload_audit_competition_guide_pass(request, user):
+    course = CompetitionGuide.objects.get(id=request.POST['request_data'], teacher=user)
+    course.audit_status = 2
+    course.save()
+    return workload_audit_competition_guide(request, user)
+
+
+def workload_audit_competition_guide_reject(request, user):
+    course = CompetitionGuide.objects.get(id=request.POST['request_data'], teacher=user)
+    course.audit_status = 1
+    course.save()
+    return workload_audit_competition_guide(request, user)
+
+
 # 论文指导
 def workload_audit_paper_guide(request, user):
+    department = Department.objects.get(head_of_department=user.id)
+    project_list = PaperGuide.objects.filter(department=department)
     return render(request, 'main/head_of_department/workload_audit/paper_guide/paper_guide_audit.html', locals())
+
+
+def workload_audit_paper_guide_pass(request, user):
+    course = PaperGuide.objects.get(id=request.POST['request_data'], teacher=user)
+    course.audit_status = 2
+    course.save()
+    return workload_audit_paper_guide(request, user)
+
+
+def workload_audit_paper_guide_reject(request, user):
+    course = PaperGuide.objects.get(id=request.POST['request_data'], teacher=user)
+    course.audit_status = 1
+    course.save()
+    return workload_audit_paper_guide(request, user)

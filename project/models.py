@@ -131,6 +131,8 @@ class Project(models.Model):
     type = models.CharField(max_length=16, default=undefine)
     # 老师
     teacher = models.ForeignKey(User)
+    # 所属系
+    department = models.ForeignKey(Department, default=1)
     # 分类
     ############# 教学成果
     # 教研论文    (核心期刊/一般期刊)
@@ -148,7 +150,7 @@ class Project(models.Model):
     # 省部级大学生竞赛    (特等/一等/二等)
     ############# 论文指导
     # 指导本科学术论文 (SCI/核心期刊/一般期刊)
-    level = models.CharField(max_length=16, default=undefine)
+    level = models.CharField(max_length=64, default=undefine)
     # 级别
     # 教学成果      (特等/一等/二等)
     rank = models.CharField(max_length=4, default=' ', null=True)

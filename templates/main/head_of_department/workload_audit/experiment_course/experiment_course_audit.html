@@ -1,6 +1,7 @@
 {% load staticfiles %}
 {% load myfilters %}
-<link rel="stylesheet" href={% static "main/head_of_department/workload_audit/experiment_course/experiment_course_audit.css" %}>
+<link rel="stylesheet"
+      href={% static "main/head_of_department/workload_audit/experiment_course/experiment_course_audit.css" %}>
 <script src={% static "main/head_of_department/workload_audit/experiment_course/experiment_course_audit.js" %}></script>
 
 <div class="experiment_course_audit_content main_interface">
@@ -30,14 +31,15 @@
     <table class="experiment_course_audit_table" cellspacing="0">
         <tr>
             <th width="150px">学年/学期</th>
-                <th width="200px">课程名</th>
-                <th width="120px">类别</th>
-                <th width="150px">上课班级</th>
-                <th width="60px">人数</th>
-                <th width="60px">学时</th>
-                <th width="60px">学分</th>
-                <th width="100px">审核状态</th>
-                <th width="100px">操作</th>
+            <th width="180px">课程名</th>
+            <th width="60px">教师</th>
+            <th width="120px">类别</th>
+            <th width="150px">上课班级</th>
+            <th width="50px">人数</th>
+            <th width="50px">学时</th>
+            <th width="50px">学分</th>
+            <th width="100px">审核状态</th>
+            <th width="135px">操作</th>
         </tr>
         {% if course_list %}
             {% for course in course_list %}
@@ -50,6 +52,10 @@
                     <td>
                         <div>{{ course.name }}</div>
                         <div>{{ course.id }}</div>
+                    </td>
+                    <td>
+                        <div>{{ course.teacher.name }}</div>
+                        <div>{{ course.teacher.id }}</div>
                     </td>
                     {% if course.attribute == 1 %}
                         <td>专业课实验</td>
@@ -72,7 +78,9 @@
                         </td>
                     {% elif course.audit_status == 1 %}
                         <td>审核未通过</td>
-                        <td></td>
+                        <td>
+                            <button class="experiment_course_audit_pass" id="{{ course.id }}_pass">通过</button>
+                        </td>
                     {% elif course.audit_status == 2 %}
                         <td>已审核</td>
                         <td>
@@ -81,6 +89,18 @@
                     {% endif %}
                 </tr>
             {% endfor %}
+        {% else %}
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><h2>暂</h2></td>
+                <td><h2>无</h2></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
         {% endif %}
     </table>
 

@@ -9,22 +9,48 @@
 
     <table class="paper_guide_audit_table" cellspacing="0">
         <tr>
-            <th width="350px">论文名称</th>
-            <th width="50px">作者</th>
-            <th width="300px">所获奖项</th>
+            <th width="250px">论文名称</th>
+            <th width="80px">教师</th>
+            <th width="100px">作者</th>
+            <th width="80px">级别</th>
             <th width="100px">审核状态</th>
-            <th width="100px">修改/删除</th>
+            <th width="80px">操作</th>
         </tr>
 
-        <tr>
-            <td>基于Web的教师工作量统计系统的设计与实现</td>
-            <td>...</td>
-            <td>暂无</td>
-            <td>未审核</td>
-            <td>
-                <button>通过</button>
-                <button>驳回</button>
-            </td>
-        </tr>
+        {% if project_list %}
+            {% for project in project_list %}
+                <tr>
+                    <td>{{ project.name }}</td>
+                    <td>
+                        <div>{{ project.teacher.name }}</div>
+                        <div>{{ project.teacher.id }}</div>
+                    </td>
+                    <td>{{ project.author }}</td>
+                    <td>{{ project.level }}</td>
+
+                    {% if project.audit_status == 0 %}
+                        <td>未审核</td>
+                        <td>
+                            <button class="paper_guide_audit_pass" id="{{ project.id }}_pass">通过
+                            </button>
+                            <button class="paper_guide_audit_reject" id="{{ project.id }}_reject">驳回
+                            </button>
+                        </td>
+                    {% elif project.audit_status == 1 %}
+                        <td>审核未通过</td>
+                        <td>
+                            <button class="paper_guide_audit_pass" id="{{ project.id }}_pass">通过
+                            </button>
+                        </td>
+                    {% elif project.audit_status == 2 %}
+                        <td>已审核</td>
+                        <td>
+                            <button class="paper_guide_audit_reject" id="{{ project.id }}_reject">驳回
+                            </button>
+                        </td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        {% endif %}
     </table>
 </div>
