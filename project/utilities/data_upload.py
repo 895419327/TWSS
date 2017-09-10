@@ -31,7 +31,6 @@ def upload(request):
 # TODO: 更改前要检查数据合法性
 # 比如系主任审核通过时 教师正好更改了数据 微小的时间差导致审核通过的不是系主任看到的数据
 
-# TODO: user_info改ajax
 def user_info(request, user):
     user.phone_number = request.POST['phone_number']
     user.email = request.POST['email']

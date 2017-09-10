@@ -23,45 +23,32 @@ def login(request):
         # from models import User
         from project.models import User
 
-        user_list = User.objects.filter(id=username_post)
-        '''
-        用filter而不是get的原因：
-        当此用户不存在的时候get会报错"DoesNotExist"
-        而filer只会返回一个空对象列表
-        '''
-        # 用户存在
-        if user_list:
-            # 遍历列表 虽然列表里只有一个对象
-            for user in user_list:
-                # 密码正确
-                if password_post == user.password:
-                    # 验证身份
-                    check_status = user.status.find(status_post)
-                    # 身份正确
-                    if check_status != -1:
-                        # 生成unique_code
-                        from hashlib import md5
-                        unique_code_src = username_post + password_post + status_post
-                        generater = md5(unique_code_src.encode("utf8"))
-                        unique_code = generater.hexdigest()
-                        # 返回相应页面
-                        if status_post == u'教师':
-                            return render(request, 'main/teacher/teacher.html', locals())
-                        if status_post == u'系主任':
-                            return render(request, 'main/head_of_department/head_of_department.html', locals())
-                        if status_post == u'教务员':
-                            return render(request, 'main/dean/dean.html', locals())
-                        if status_post == u'系统管理员':
-                            return render(request, 'main/admin/admin.html', locals())
-                    # 身份错误
-                    else:
-                        return render(request, 'index/loginfailed.html')
+        try:
+            user = User.objects.get(id=username_post)
+            if password_post == user.password:
+                # 验证身份
+                check_status = user.status.find(status_post)
+                # 身份正确
+                if check_status != -1:
+                    # 生成unique_code
+                    from hashlib import md5
+                    unique_code_src = username_post + password_post + status_post
+                    generater = md5(unique_code_src.encode("utf8"))
+                    unique_code = generater.hexdigest()
+                    # 返回相应页面
+                    if status_post == u'教师':
+                        return render(request, 'main/teacher/teacher.html', locals())
+                    if status_post == u'系主任':
+                        return render(request, 'main/head_of_department/head_of_department.html', locals())
+                    if status_post == u'教务员':
+                        return render(request, 'main/dean/dean.html', locals())
+                    if status_post == u'系统管理员':
+                        return render(request, 'main/admin/admin.html', locals())
 
-                # 防止意外: user_list里有多个user
-                # TODO: 打log报错
-                return render(request, 'index/loginfailed.html')
+        except:
+            return render(request, 'index/loginfailed.html')
 
-    # 不是为POST提交时(如直接输入URL=/main试图直接进入系统时)
+    # 任何意外
     return render(request, 'index/loginfailed.html')
 
 
