@@ -33,16 +33,10 @@ def upload(request):
 
 # TODO: user_info改ajax
 def user_info(request, user):
-    # 获取json字符串
-    data_jsonstr = request.POST[u'request_data']
-    # 解析为对象
-    data_json = json.loads(data_jsonstr, encoding='utf-8')
-    # 获取数据
-    user.phone_number = data_json[u'手机号']
-    # 保存
+    user.phone_number = request.POST['phone_number']
+    user.email = request.POST['email']
     user.save()
-    # 返回成功状态
-    return render(request, 'main/utilities/upload_success.html')
+    return render(request, 'main/teacher/user_info/user_info.html', locals())
 
 
 def change_password(request, user):

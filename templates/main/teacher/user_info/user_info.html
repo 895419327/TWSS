@@ -6,67 +6,48 @@
 
     <div class="content_title">用户信息</div>
 
-    <table class="user_info_content_table" cellspacing="0">
-        <tr>
-            <th>用户名</th>
-            <td>{{ user.id }}</td>
-        </tr>
-    </table>
+    <form id="user_info_form" method="post" action="/upload" name="user_info" autocomplete="off">
+        {% csrf_token %}
+        <input type="hidden" name="username" value="{{ user.id }}">
+        <input type="hidden" name="requestfor" value="user_info">
 
-    <table class="user_info_content_table" cellspacing="0">
-        <tr>
-            <th>登录身份</th>
-            <td>{{ status_post }}</td>
-        </tr>
-    </table>
-
-
-
-    <table class="user_info_content_table" cellspacing="0">
-        <tr>
-            <th>姓名</th>
-            <td>{{ user.name }}</td>
-        </tr>
-    </table>
-
-
-    <table class="user_info_content_table" cellspacing="0">
-        <tr>
-            <th>职称</th>
-            <td>{{ user.title }}</td>
-        </tr>
-    </table>
-
-    <table class="user_info_content_table" cellspacing="0">
-        <tr>
-            <th>所属系</th>
-            <td>{{ user.department.name }}</td>
-        </tr>
-    </table>
-
-    {# 这里一行分成一个table因为tr的行间距用css不好做 #}
-
-    <table class="user_info_content_table" cellspacing="0">
-        <tr>
-            <th>手机号</th>
-            <td class="user_info_can_modify" id="user_info_phone_number">{{ user.phone_number }}</td>
-        </tr>
-    </table>
-
-    <table class="user_info_content_table" cellspacing="0">
-        <tr>
-            <th>邮箱</th>
-            <td class="user_info_can_modify" id="user_info_phone_email">{{ user.email }}</td>
-        </tr>
-    </table>
-
-    <div class="user_info_content_buttons">
-        <div class="content_button" id="user_info_modify">修改</div>
-        <div class="content_button" id="user_info_export">导出
-            <div class="content_button user_info_export_menu" id="user_info_to_image">为图片</div>
-            <div class="content_button user_info_export_menu" id="user_info_to_excel">为Excel</div>
-            <div class="content_button user_info_export_menu" id="user_info_to_pdf">为PDF</div>
+        <div class="user_info_item">
+            <div class="user_info_content_title">用户名</div>
+            <div class="user_info_content_value">{{ user.id }}</div>
         </div>
-    </div>
+
+        <div class="user_info_item">
+            <div class="user_info_content_title">登录身份</div>
+            <div class="user_info_content_value">教师</div>
+        </div>
+
+        <div class="user_info_item">
+            <div class="user_info_content_title">姓名</div>
+            <div class="user_info_content_value">{{ user.name }}</div>
+        </div>
+
+        <div class="user_info_item">
+            <div class="user_info_content_title">职称</div>
+            <div class="user_info_content_value">{{ user.title }}</div>
+        </div>
+
+        <div class="user_info_item">
+            <div class="user_info_content_title">所属系</div>
+            <div class="user_info_content_value">{{ user.department.name }}</div>
+        </div>
+
+        <div class="user_info_item">
+            <div class="user_info_content_title">手机号</div>
+            <div class="user_info_content_value user_info_can_modify" name="phone_number">{{ user.phone_number }}</div>
+        </div>
+
+        <div class="user_info_item">
+            <div class="user_info_content_title">邮箱</div>
+            <div class="user_info_content_value user_info_can_modify" name="email">{{ user.email }}</div>
+        </div>
+
+    </form>
+
+    <div class="content_button" id="user_info_modify">修改</div>
 
 </div>

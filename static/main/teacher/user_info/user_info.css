@@ -4,42 +4,35 @@
     height: 100%;
 }
 
-.user_info_content_table{
-    width: 750px;
-    margin: 20px auto 0;
+#user_info_form{
+    margin: 30px auto 0;
 }
 
-.user_info_content_table tr{
-    width: 900px;
-    height: 45px;
-    line-height: 45px;
+.user_info_item{
+    width: 700px;
+    height: 50px;
+    margin: 15px auto 0;
 }
 
-.user_info_content_table th{
+.user_info_content_title {
     width: 250px;
+    height: 45px;
+    font-weight: bold;
     font-size: 20px;
-    background-color: rgba(255,255,255,0.4);
-    cursor: default;
-}
-
-.user_info_content_table td{
-    width: 500px;
-    font-size: 20px;
-    background-color: rgba(255,255,255,0.2);
+    line-height: 45px;
     text-align: center;
+    background-color: rgba(255, 255, 255, 0.4);
+    float: left;
 }
 
-.user_info_content_buttons{
-    width: 300px;
-    margin: 50px auto 20px;
-}
-
-.user_info_export_menu{
-    display: none;
-}
-
-.user_info_export_menu:hover{
-    background-color: rgba(255,255,255,0.5);
+.user_info_content_value {
+    width: 450px;
+    height: 45px;
+    font-size: 20px;
+    line-height: 45px;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.2);
+    float: left;
 }
 
 .user_info_modify_area{
@@ -49,4 +42,9 @@
     font-size: 20px;
     border: none;
     background: rgba(255,255,255,0.9);
+}
+
+#user_info_modify {
+    margin: 50px auto 0;
+    float: none;
 }
