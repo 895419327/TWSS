@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 from django.shortcuts import render
-from django.http import HttpResponse
 
 from project.models import *
 
@@ -413,11 +412,33 @@ def teacher_management(request, user):
     return render(request, 'main/head_of_department/teacher_management/teacher_management.html', locals())
 
 
+def teacher_management_add(request, user):
+    return render(request, 'main/head_of_department/teacher_management/teacher_management_add.html', locals())
+
+
+def teacher_management_modify(request, user):
+    modified_teacher = User.objects.get(id=request.POST['request_data'])
+    return render(request, 'main/head_of_department/teacher_management/teacher_management_modify.html', locals())
+
+
 # Class Management
 def class_management(request, user):
     department = Department.objects.get(head_of_department=user.id)
     class_list = Class.objects.filter(department=department)
     return render(request, 'main/head_of_department/class_management/class_management.html', locals())
+
+
+def class_management_add(request, user):
+    department = Department.objects.get(head_of_department=user.id)
+    teacher_list = User.objects.filter(department=department)
+    return render(request, 'main/head_of_department/class_management/class_management_add.html', locals())
+
+
+def class_management_modify(request, user):
+    department = Department.objects.get(head_of_department=user.id)
+    teacher_list = User.objects.filter(department=department)
+    modified_class = Class.objects.get(id=request.POST['request_data'])
+    return render(request, 'main/head_of_department/class_management/class_management_modify.html', locals())
 
 
 # 理论课

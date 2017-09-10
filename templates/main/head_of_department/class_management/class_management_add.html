@@ -1,0 +1,72 @@
+{% load staticfiles %}
+<link rel="stylesheet"
+      href={% static "main/head_of_department/class_management/class_management_add.css" %}>
+<script src={% static 'main/head_of_department/class_management/class_management_add.js' %}></script>
+
+<div class="class_management_add">
+
+    <div class="class_management_add_cross"><img src={% static "main/resourse/cross.png" %}></div>
+
+    <div class="class_management_add_title">新 增</div>
+
+    <form id="class_management_add_form" method="post" action="/upload" name="class_management"
+          autocomplete="off">
+        {% csrf_token %}
+        <input type="hidden" name="username" value="{{ user.id }}">
+        <input type="hidden" name="requestfor" value="class_management_add">
+
+        <div class="class_management_add_left">
+            <div>
+                <span>年级 </span>
+                <select name="grade">
+                    <option>2016级</option>
+                    <option>2017级</option>
+                </select>
+            </div>
+
+            <div>
+                <span>班级编号 </span>
+                <input type="text" name="class_id" class="class_management_add_form_data" style="width: 200px">
+            </div>
+
+
+
+            <div>
+                <span>班主任 </span>
+                <select name="teacher" style="width: 225px">
+                    {% if teacher_list %}
+                        {% for teacher in teacher_list %}
+                            <option>{{ teacher.name }} {{ teacher.id }}</option>
+                        {% endfor %}
+                    {% endif %}
+                </select>
+            </div>
+        </div>
+
+        <div class="class_management_add_right">
+            <div>
+                <span>所属系</span>
+                <select disabled>
+                    <option>{{ user.department.name }}</option>
+                </select>
+            </div>
+
+            <div>
+                <span>班级名称 </span>
+                <input type="text" name="name" class="class_management_add_form_data" style="width: 200px">
+            </div>
+
+            <div>
+                <span>班级人数 </span>
+                <input type="text" name="student_sum" class="class_management_add_form_data" style="width: 200px; text-align: center">
+            </div>
+        </div>
+    </form>
+
+    <div class="class_management_add_buttons_area">
+        <div id="class_management_add_submit" class="class_management_add_buttons">提交</div>
+        <div id="class_management_add_cancel" class="class_management_add_buttons">取消</div>
+    </div>
+
+
+</div>

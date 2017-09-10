@@ -1,0 +1,70 @@
+{% load staticfiles %}
+<link rel="stylesheet"
+      href={% static "main/head_of_department/teacher_management/teacher_management_add.css" %}>
+<script src={% static 'main/head_of_department/teacher_management/teacher_management_add.js' %}></script>
+
+<div class="teacher_management_add">
+
+    <div class="teacher_management_add_cross"><img src={% static "main/resourse/cross.png" %}></div>
+
+    <div class="teacher_management_add_title">新 增</div>
+
+    <form id="teacher_management_add_form" method="post" action="/upload" name="teacher_management"
+          autocomplete="off">
+        {% csrf_token %}
+        <input type="hidden" name="username" value="{{ user.id }}">
+        <input type="hidden" name="requestfor" value="teacher_management_add">
+
+        <div class="teacher_management_add_left">
+            <div>
+                <span>教工号 </span>
+                <input type="text" name="teacher_id" class="teacher_management_add_form_data" style="width: 200px"
+                       value="{{ modified_teacher.id }}">
+            </div>
+
+            <div>
+                <input type="text" name="original_teacher_id" class="teacher_management_add_form_data"
+                       style="width: 200px" value="{{ modified_teacher.id }}" hidden>
+            </div>
+
+            <div>
+                <span>职 称 </span>
+                <input type="text" name="title" class="teacher_management_add_form_data" style="width: 200px"
+                       value="{{ modified_teacher.title }}">
+            </div>
+
+            <div>
+                <span>手机号 </span>
+                <input type="text" name="phone_number" class="teacher_management_add_form_data" style="width: 200px"
+                       value="{{ modified_teacher.phone_number }}">
+            </div>
+        </div>
+
+        <div class="teacher_management_add_right">
+            <div>
+                <span>姓名 </span>
+                <input type="text" name="name" class="teacher_management_add_form_data" style="width: 200px"
+                       value="{{ modified_teacher.name }}">
+            </div>
+
+            <div>
+                <span>密码 </span>
+                <input type="text" name="password" class="teacher_management_add_form_data"
+                       style="width: 200px; text-align: center" value="不修改则放空">
+            </div>
+
+            <div>
+                <span>邮箱 </span>
+                <input type="text" name="email" class="teacher_management_add_form_data" style="width: 200px"
+                       value="{{ modified_teacher.email }}">
+            </div>
+        </div>
+    </form>
+
+    <div class="teacher_management_add_buttons_area">
+        <div id="teacher_management_add_submit" class="teacher_management_add_buttons">提交</div>
+        <div id="teacher_management_add_cancel" class="teacher_management_add_buttons">取消</div>
+    </div>
+
+
+</div>

@@ -206,7 +206,8 @@ def teaching_achievement_add(request, user):
                               name=request.POST['project_name'],
                               type=request.POST['type'],
                               level=request.POST['level'],
-                              teacher=user)
+                              teacher=user,
+                              department=user.department, )
     new.save()
     return workload_input_teaching_achievement(request, user)
 
@@ -231,7 +232,8 @@ def teaching_project_add(request, user):
                           name=request.POST['project_name'],
                           type=request.POST['type'],
                           level=request.POST['level'],
-                          teacher=user)
+                          teacher=user,
+                          department=user.department, )
     new.save()
     return workload_input_teaching_project(request, user)
 
@@ -257,7 +259,8 @@ def competition_guide_add(request, user):
                            type=request.POST['type'],
                            level=request.POST['level'],
                            students=request.POST['project_students'],
-                           teacher=user)
+                           teacher=user,
+                           department=user.department, )
     new.save()
     return workload_input_competition_guide(request, user)
 
@@ -282,7 +285,8 @@ def paper_guide_add(request, user):
                      name=request.POST['project_name'],
                      level=request.POST['level'],
                      author=request.POST['author'],
-                     teacher=user)
+                     teacher=user,
+                     department=user.department, )
     new.save()
     return workload_input_paper_guide(request, user)
 
@@ -295,3 +299,69 @@ def paper_guide_delete(request, user):
     else:
         project.delete()
     return workload_input_paper_guide(request, user)
+
+
+# Teacher Management
+
+def teacher_management_add(request, user):
+    # 先假设使用手机号作为密码
+    password = request.POST['phone_number']
+    # 如果是在更改界面修改密码则使用该密码
+    if 'password' in request.POST:
+        if request.POST['password'] and request.POST['password'] != u'不修改则放空':
+            password = request.POST['password']
+
+    from hashlib import md5
+    generater = md5(password.encode("utf8"))
+    password = generater.hexdigest()
+
+    new = User(id=request.POST['teacher_id'],
+               name=request.POST['name'],
+               title=request.POST['title'],
+               department=user.department,
+               status=u'教师',
+               password=password,
+               phone_number=request.POST['phone_number'],
+               email=request.POST['email'], )
+    new.save()
+
+    if 'original_teacher_id' in request.POST:
+        if request.POST['original_teacher_id'] != request.POST['teacher_id']:
+            old = User.objects.get(id=request.POST['original_teacher_id'])
+            old.delete()
+
+    return teacher_management(request, user)
+
+
+def teacher_management_delete(request, user):
+    teacher_id = request.POST['request_data']
+    teacher = User.objects.get(id=teacher_id)
+    teacher.delete()
+    return teacher_management(request, user)
+
+
+# Class Management
+
+def class_management_add(request, user):
+    # TODO:根据实际id长度修改
+    teacher = User.objects.get(id=request.POST['teacher'][-11:])
+    new = Class(id=request.POST['class_id'],
+                name=request.POST['name'],
+                department=user.department,
+                grade=request.POST['grade'][:-1],
+                sum=request.POST['student_sum'],
+                teacher=teacher)
+    new.save()
+
+    if 'original_class_id' in request.POST:
+        if request.POST['original_class_id'] != request.POST['class_id']:
+            old = Class.objects.get(id=request.POST['original_class_id'])
+            old.delete()
+    return class_management(request, user)
+
+
+def class_management_delete(request, user):
+    class_id = request.POST['request_data']
+    clas = Class.objects.get(id=class_id)
+    clas.delete()
+    return class_management(request, user)

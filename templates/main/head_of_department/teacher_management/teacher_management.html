@@ -7,24 +7,39 @@
 
     <div class="content_title">{{ department.name }} 教师队伍管理</div>
 
-    <table class="teacher_management_table" cellspacing="0">
-        <tr>
-            <th>教师编号</th>
-            <th>教师姓名</th>
-            <th>职称</th>
-            <th>联系方式</th>
-        </tr>
+    <div class="teacher_management_content_blur_area">
+        <table class="teacher_management_table" cellspacing="0">
+            <tr>
+                <th width="120px">教师编号</th>
+                <th width="100px">教师姓名</th>
+                <th width="80px">职称</th>
+                <th width="100px">联系方式</th>
+                <th width="120px">邮箱</th>
+                <th width="100px">操作</th>
+            </tr>
 
-        {% if teacher_list %}
-            {% for teacher in teacher_list %}
-                <tr>
-                    <td>{{ teacher.id }}</td>
-                    <td>{{ teacher.name }}</td>
-                    <td>{{ teacher.title }}</td>
-                    <td>{{ teacher.phone_number }}</td>
-                </tr>
-            {% endfor %}
-        {% endif %}
-    </table>
-    <div class="teacher_management_add_button">新 增</div>
+            {% if teacher_list %}
+                {% for teacher in teacher_list %}
+                    <tr>
+                        <td>{{ teacher.id }}</td>
+                        <td>{{ teacher.name }}</td>
+                        <td>{{ teacher.title }}</td>
+                        <td>{{ teacher.phone_number }}</td>
+                        <td>{{ teacher.email }}</td>
+                        <td>
+                            <img class="teacher_management_modify" id="{{ teacher.id }}_modify"
+                                 src={% static "main/resourse/modify.png" %}>
+                            <img class="teacher_management_delete" id="{{ teacher.id }}_delete"
+                                 src={% static "main/resourse/delete.png" %}>
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
+        </table>
+        <div class="teacher_management_add_button">新 增</div>
+    </div>
+
+    <div class="teacher_management_add_content">
+
+    </div>
 </div>
