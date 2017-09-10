@@ -54,6 +54,11 @@ $(document).ready(function () {
         MyAjax_Get('/getpage', 'class_management', '');
     });
 
+    $('#workload_statistics_title').click(function () {
+        MyAjax_Get('/getpage', 'workload_statistics', '');
+    });
+
+
 
 
 });
