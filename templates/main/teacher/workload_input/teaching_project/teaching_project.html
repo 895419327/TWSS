@@ -9,6 +9,39 @@
 
     <div class="teaching_project_content_blur_area">
 
+        <div class="teaching_project_search_bar">
+            <form id="teaching_project_search_form" method="post" action="/getpage" name="teaching_project_search"
+                  autocomplete="off">
+                {% csrf_token %}
+                <input type="hidden" name="username" value="{{ user.id }}">
+                <input type="hidden" name="requestfor" value="workload_input_teaching_project">
+
+                <div class="teaching_project_search_bar_item">
+                    <span>学年</span>
+                    <select name="search_year">
+                        {% if year != '所有' %}
+                            <option>{{ year }}-{{ year|add:1 }}学年</option>
+                        {% endif %}
+                        <option>所有</option>
+                        <option>2016-2017学年</option>
+                        <option>2017-2018学年</option>
+                    </select>
+                </div>
+
+                <div class="teaching_project_search_bar_item">
+                    <span>学期</span>
+                    <select name="search_semester">
+                        <option>{{ semester }}</option>
+                        <option>所有</option>
+                        <option>第一学期</option>
+                        <option>第二学期</option>
+                    </select>
+                </div>
+            </form>
+
+            <div id="teaching_project_search_button">查询</div>
+        </div>
+    
         <div class="teaching_project_item">
             <div class="teaching_project_item_title">专业、团队及实验中心类</div>
 

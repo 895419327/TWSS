@@ -17,4 +17,13 @@ $(document).ready(function () {
         if (confirm("确认删除？"))
             MyAjax('/upload', 'paper_guide_delete', id);
     });
+    
+    $('#paper_guide_search_button').click(function () {
+        $('#paper_guide_search_form').ajaxSubmit({
+            target: '.content_right',
+            error:function () {
+                alert('error!');
+            }
+        })
+    });
 });

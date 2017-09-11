@@ -1,7 +1,8 @@
 from project.models import GlobalValue
 
 
-def course_search(request, course_list):
+def search(request, course_list):
+
     year = ''
     if 'search_year' in request.POST:
         year = request.POST['search_year'][:4]

@@ -4,6 +4,32 @@
     height: 100%;
 }
 
+.teaching_achievement_search_bar{
+    width: 550px;
+    height: 50px;
+    margin: 25px auto;
+    padding: 0 0 0 15px;
+    font-size: 20px;
+    line-height: 50px;
+    background: rgba(255,255,255,0.3);
+}
+
+.teaching_achievement_search_bar_item{
+    float: left;
+    margin: 0 12px;
+}
+
+#teaching_achievement_search_button{
+    width: 100px;
+    height: 50px;
+    font-size: 21px;
+    line-height: 50px;
+    text-align: center;
+    background: rgba(255,255,255,0.35);
+    float: right;
+    cursor: pointer;
+}
+
 .teaching_achievement_item {
     width: 1000px;
     min-height: 180px;

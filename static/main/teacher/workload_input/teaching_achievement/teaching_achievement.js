@@ -17,4 +17,13 @@ $(document).ready(function () {
         if (confirm("确认删除？"))
             MyAjax('/upload', 'teaching_achievement_delete', id);
     });
+    
+    $('#teaching_achievement_search_button').click(function () {
+        $('#teaching_achievement_search_form').ajaxSubmit({
+            target: '.content_right',
+            error:function () {
+                alert('error!');
+            }
+        })
+    });
 });

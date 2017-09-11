@@ -80,7 +80,7 @@ def user_info_change_password(request, user):
     return render(request, 'main/teacher/user_info/change_password.html', locals())
 
 
-from project.utilities.search import *
+from project.utilities.search import search
 
 # TODO: 所有新增界面改为fixed
 
@@ -89,7 +89,7 @@ from project.utilities.search import *
 def workload_input_theory_course(request, user):
     # 获取账号课程信息
     course_list = TheoryCourse.objects.filter(teacher_id=user.id)
-    course_list, year, semester = course_search(request, course_list)
+    course_list, year, semester = search(request, course_list)
     return render(request, 'main/teacher/workload_input/theory_course/theory_course.html', locals())
 
 
@@ -113,7 +113,7 @@ def workload_input_theory_course_modify(request, user):
 def workload_input_experiment_course(request, user):
     # 获取账号课程信息
     course_list = ExperimentCourse.objects.filter(teacher_id=user.id)
-    course_list, year, semester = course_search(request, course_list)
+    course_list, year, semester = search(request, course_list)
     return render(request, 'main/teacher/workload_input/experiment_course/experiment_course.html', locals())
 
 
@@ -137,7 +137,7 @@ def workload_input_experiment_course_modify(request, user):
 def workload_input_pratice_course(request, user):
     # 获取账号课程信息
     course_list = PraticeCourse.objects.filter(teacher_id=user.id)
-    course_list, year, semester = course_search(request, course_list)
+    course_list, year, semester = search(request, course_list)
     return render(request, 'main/teacher/workload_input/pratice_course/pratice_course.html', locals())
 
 
@@ -156,13 +156,17 @@ def workload_input_pratice_course_modify(request, user):
     return render(request, 'main/teacher/workload_input/pratice_course/pratice_course_modify.html', locals())
 
 
-# TODO:教研工作量精简html for type in type_list
+# TODO: search bar 精简 可考虑用{% include %}
+# TODO: 新增自动识别type
+# TODO: 教研工作量精简html for type in type_list
+
 
 
 # Teaching Achievement
 
 def workload_input_teaching_achievement(request, user):
     project_list = TeachingAchievement.objects.filter(teacher_id=user.id)
+    project_list, year, semester = search(request, project_list)
     return render(request, 'main/teacher/workload_input/teaching_achievement/teaching_achievement.html', locals())
 
 
@@ -177,9 +181,9 @@ def workload_input_teaching_achievement_modify(request, user):
 
 
 # Teaching Project
-# TODO: 自动识别type
 def workload_input_teaching_project(request, user):
     project_list = TeachingProject.objects.filter(teacher_id=user.id)
+    project_list, year, semester = search(request, project_list)
     return render(request, 'main/teacher/workload_input/teaching_project/teaching_project.html', locals())
 
 
@@ -197,6 +201,7 @@ def workload_input_teaching_project_modify(request, user):
 
 def workload_input_competition_guide(request, user):
     project_list = CompetitionGuide.objects.filter(teacher_id=user.id)
+    project_list, year, semester = search(request, project_list)
     return render(request, 'main/teacher/workload_input/competition_guide/competition_guide.html', locals())
 
 
@@ -214,6 +219,7 @@ def workload_input_competition_guide_modify(request, user):
 
 def workload_input_paper_guide(request, user):
     project_list = PaperGuide.objects.filter(teacher_id=user.id)
+    project_list, year, semester = search(request, project_list)
     return render(request, 'main/teacher/workload_input/paper_guide/paper_guide.html', locals())
 
 
