@@ -82,6 +82,7 @@ def user_info_change_password(request, user):
 
 from project.utilities.search import *
 
+# TODO: 所有新增界面改为fixed
 
 # Theory Course
 

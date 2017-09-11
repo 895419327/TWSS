@@ -42,6 +42,33 @@
                 </select>
             </div>
 
+            {# float修正 #}
+            <div style="float: left; width: 700px; height: 2px"></div>
+
+            <div style="float: left">
+                <span>学年 </span>
+                <select name="year" class="paper_guide_add_form_data">
+                    <option>{{ modified_project.year }}-{{ modified_project.year|add:1 }}</option>
+                    <option>2016-2017</option>
+                    <option>2017-2018</option>
+                </select>
+            </div>
+
+            <div style="float: right">
+                <span>学期 </span>
+                <select name="semester" class="paper_guide_add_form_data">
+                    {% if modified_project.semester == 1 %}
+                        <option>第一学期</option>
+                        <option>第二学期</option>
+                    {% else %}
+                        <option>第二学期</option>
+                        <option>第一学期</option>
+                    {% endif %}
+                </select>
+            </div>
+
+
+
         </div>
     </form>
 
