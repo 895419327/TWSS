@@ -10,7 +10,6 @@ undefine = u'未记录'
 # TODO: Workload_K table (待定)
 
 
-
 class GlobalValue(models.Model):
     # 键
     key = models.CharField(max_length=32, primary_key=True, default=undefine)
@@ -18,6 +17,7 @@ class GlobalValue(models.Model):
     value = models.CharField(max_length=32, null=True)
     # 注释
     comment = models.CharField(max_length=32, null=True)
+
     class Meta:
         # 数据表名
         db_table = 'TWSS_GlobalValue'

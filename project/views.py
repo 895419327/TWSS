@@ -8,9 +8,15 @@ from project.models import *
 def index(request):
     return render(request, 'index/index.html')
 
+# TODO: 教务员身份
 
+# FIXME: BUG!!! 修改/删除/审核后会跳回默认查询的界面而不是审核时的界面
+
+# TODO: 数据库备份
 # TODO: 测试覆盖
 # TODO: 日志系统
+
+# TODO: 如果有空的话...把MyAjax和MyAjax_Get优化掉...
 
 def login(request):
     request.encoding = 'utf-8'
@@ -80,7 +86,7 @@ def user_info_change_password(request, user):
     return render(request, 'main/teacher/user_info/change_password.html', locals())
 
 
-from project.utilities.search import search
+from project.utilities.search import *
 
 # TODO: 所有新增界面改为fixed
 
@@ -248,7 +254,8 @@ def workload_count(request, user):
 
 
 # ##### 系主任 #####
-# TODO:驳回时可填写理由
+# TODO: 驳回时可填写理由
+# TODO: pass和reject可整合
 
 # Teacher Management
 def teacher_management(request, user):
@@ -290,6 +297,7 @@ def class_management_modify(request, user):
 def workload_audit_theory_course(request, user):
     department = Department.objects.get(head_of_department=user.id)
     course_list = TheoryCourse.objects.filter(department=department)
+    course_list, year, semester, audit_status = audit_search(request, course_list)
     return render(request, 'main/head_of_department/workload_audit/theory_course/theory_course_audit.html', locals())
 
 
@@ -311,6 +319,7 @@ def workload_audit_theory_course_reject(request, user):
 def workload_audit_experiment_course(request, user):
     department = Department.objects.get(head_of_department=user.id)
     course_list = ExperimentCourse.objects.filter(department=department)
+    course_list, year, semester, audit_status = audit_search(request, course_list)
     return render(request, 'main/head_of_department/workload_audit/experiment_course/experiment_course_audit.html',
                   locals())
 
@@ -333,6 +342,7 @@ def workload_audit_experiment_course_reject(request, user):
 def workload_audit_pratice_course(request, user):
     department = Department.objects.get(head_of_department=user.id)
     course_list = PraticeCourse.objects.filter(department=department)
+    course_list, year, semester, audit_status = audit_search(request, course_list)
     return render(request, 'main/head_of_department/workload_audit/pratice_course/pratice_course_audit.html', locals())
 
 
@@ -354,6 +364,7 @@ def workload_audit_pratice_course_reject(request, user):
 def workload_audit_teaching_achievement(request, user):
     department = Department.objects.get(head_of_department=user.id)
     project_list = TeachingAchievement.objects.filter(department=department)
+    project_list, year, semester, audit_status = audit_search(request, project_list)
     return render(request,
                   'main/head_of_department/workload_audit/teaching_achievement/teaching_achievement_audit.html',
                   locals())
@@ -377,6 +388,7 @@ def workload_audit_teaching_achievement_reject(request, user):
 def workload_audit_teaching_project(request, user):
     department = Department.objects.get(head_of_department=user.id)
     project_list = TeachingProject.objects.filter(department=department)
+    project_list, year, semester, audit_status = audit_search(request, project_list)
     return render(request, 'main/head_of_department/workload_audit/teaching_project/teaching_project_audit.html',
                   locals())
 
@@ -399,6 +411,7 @@ def workload_audit_teaching_project_reject(request, user):
 def workload_audit_competition_guide(request, user):
     department = Department.objects.get(head_of_department=user.id)
     project_list = CompetitionGuide.objects.filter(department=department)
+    project_list, year, semester, audit_status = audit_search(request, project_list)
     return render(request, 'main/head_of_department/workload_audit/competition_guide/competition_guide_audit.html',
                   locals())
 
@@ -421,6 +434,7 @@ def workload_audit_competition_guide_reject(request, user):
 def workload_audit_paper_guide(request, user):
     department = Department.objects.get(head_of_department=user.id)
     project_list = PaperGuide.objects.filter(department=department)
+    project_list, year, semester, audit_status = audit_search(request, project_list)
     return render(request, 'main/head_of_department/workload_audit/paper_guide/paper_guide_audit.html', locals())
 
 

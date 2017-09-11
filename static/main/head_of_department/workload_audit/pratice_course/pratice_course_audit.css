@@ -4,8 +4,8 @@
     height: 100%;
 }
 
-.pratice_class_audit_search_bar {
-    width: 550px;
+.pratice_course_audit_search_bar {
+    width: 800px;
     height: 50px;
     margin: 25px auto;
     padding: 0 0 0 15px;
@@ -14,12 +14,12 @@
     background: rgba(255, 255, 255, 0.3);
 }
 
-.pratice_class_audit_search_bar_item {
+.pratice_course_audit_search_bar_item {
     float: left;
     margin: 0 12px;
 }
 
-#pratice_class_audit_search_button {
+#pratice_course_audit_search_button {
     width: 100px;
     height: 50px;
     font-size: 21px;
@@ -30,7 +30,7 @@
     cursor: pointer;
 }
 
-#pratice_class_audit_search_button:hover {
+#pratice_course_audit_search_button:hover {
     background: rgba(255, 255, 255, 0.7);
 }
 
