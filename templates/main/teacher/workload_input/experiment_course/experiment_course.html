@@ -56,7 +56,7 @@
                 {% for course in course_list %}
 
                     <tr>
-                        <td><div>{{ course.year }}-{{ course.year | add:1 }}学年</div><div>第{{ course.semester }}学期</div></td>
+                        <td><div>{{ course.year }}-{{ course.year | add:1 }}学年</div><div>第{{ course.semester|itoc }}学期</div></td>
                         <td><div>{{ course.name }}</div><div>{{ course.id }}</div></td>
                         {% if course.attribute == 1 %}
                             <td>专业课实验</td>

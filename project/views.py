@@ -81,17 +81,22 @@ def user_info_change_password(request, user):
 
 def workload_input_theory_course(request, user):
     print(request.POST)
-
     # 获取账号课程信息
     course_list = TheoryCourse.objects.filter(teacher_id=user.id)
 
     # TODO:实验性做法 后期换成Global Value
-    year = False
+    year = ''
     if 'search_year' in request.POST:
         year = request.POST['search_year'][:4]
+        if year == u'所有':
+            pass
+        elif year != u'所有':
+            course_list = course_list.filter(year=year)
+    else:
+        year = GlobalValue.objects.get(key='current_year').value
         course_list = course_list.filter(year=year)
 
-    semester = False
+    semester = ''
     if 'search_semester' in request.POST:
         semester = request.POST['search_semester']
         if semester == u'所有':
@@ -100,6 +105,14 @@ def workload_input_theory_course(request, user):
             course_list = course_list.filter(semester=1)
         elif semester == u'第二学期':
             course_list = course_list.filter(semester=2)
+    else:
+        current_semester = GlobalValue.objects.get(key='current_semester').value
+        course_list = course_list.filter(semester=current_semester)
+        if current_semester in [1, '1']:
+            semester = u'第一学期'
+        if current_semester in [2, '2']:
+            semester = u'第二学期'
+
 
     return render(request, 'main/teacher/workload_input/theory_course/theory_course.html', locals())
 

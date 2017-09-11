@@ -33,8 +33,19 @@ def workload_count_project(id):
     return teaching_achievement_W + teaching_project_W + competition_guide_W + paper_guide_W
 
 
+# 尽量别用 多算一次 暂时没想到更好方法
 @register.filter()
 def workload_count_total(id):
     theory_course_W, experiment_course_W, pratice_course_W, teaching_achievement_W, teaching_project_W, competition_guide_W, paper_guide_W = workload_count_func(
         id)
     return theory_course_W + experiment_course_W + pratice_course_W + teaching_achievement_W + teaching_project_W + competition_guide_W + paper_guide_W
+
+
+@register.filter()
+def itoc(integer):
+    if integer in [1, '1']:
+        return u'一'
+    elif integer in [2, '2']:
+        return u'二'
+    else:
+        return 'error'
