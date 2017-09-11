@@ -9,6 +9,9 @@ def index(request):
     return render(request, 'index/index.html')
 
 
+# TODO: 测试覆盖
+# TODO: 日志系统
+
 def login(request):
     request.encoding = 'utf-8'
 
@@ -77,43 +80,15 @@ def user_info_change_password(request, user):
     return render(request, 'main/teacher/user_info/change_password.html', locals())
 
 
+from project.utilities.search import *
+
+
 # Theory Course
 
 def workload_input_theory_course(request, user):
-    print(request.POST)
     # 获取账号课程信息
     course_list = TheoryCourse.objects.filter(teacher_id=user.id)
-
-    # TODO:实验性做法 后期换成Global Value
-    year = ''
-    if 'search_year' in request.POST:
-        year = request.POST['search_year'][:4]
-        if year == u'所有':
-            pass
-        elif year != u'所有':
-            course_list = course_list.filter(year=year)
-    else:
-        year = GlobalValue.objects.get(key='current_year').value
-        course_list = course_list.filter(year=year)
-
-    semester = ''
-    if 'search_semester' in request.POST:
-        semester = request.POST['search_semester']
-        if semester == u'所有':
-            pass
-        elif semester == u'第一学期':
-            course_list = course_list.filter(semester=1)
-        elif semester == u'第二学期':
-            course_list = course_list.filter(semester=2)
-    else:
-        current_semester = GlobalValue.objects.get(key='current_semester').value
-        course_list = course_list.filter(semester=current_semester)
-        if current_semester in [1, '1']:
-            semester = u'第一学期'
-        if current_semester in [2, '2']:
-            semester = u'第二学期'
-
-
+    course_list, year, semester = course_search(request, course_list)
     return render(request, 'main/teacher/workload_input/theory_course/theory_course.html', locals())
 
 
@@ -137,8 +112,7 @@ def workload_input_theory_course_modify(request, user):
 def workload_input_experiment_course(request, user):
     # 获取账号课程信息
     course_list = ExperimentCourse.objects.filter(teacher_id=user.id)
-    # 获取班级信息
-    class_list = Class.objects.filter()
+    course_list, year, semester = course_search(request, course_list)
     return render(request, 'main/teacher/workload_input/experiment_course/experiment_course.html', locals())
 
 
@@ -162,8 +136,7 @@ def workload_input_experiment_course_modify(request, user):
 def workload_input_pratice_course(request, user):
     # 获取账号课程信息
     course_list = PraticeCourse.objects.filter(teacher_id=user.id)
-    # 获取班级信息
-    class_list = Class.objects.filter()
+    course_list, year, semester = course_search(request, course_list)
     return render(request, 'main/teacher/workload_input/pratice_course/pratice_course.html', locals())
 
 
@@ -253,6 +226,7 @@ def workload_input_paper_guide_modify(request, user):
 # Workload Count
 
 def workload_count(request, user):
+    # TODO: 导出功能
     from project.utilities.workload_count import workload_count_func
 
     theory_course_W, experiment_course_W, pratice_course_W, teaching_achievement_W, teaching_project_W, competition_guide_W, paper_guide_W = workload_count_func(

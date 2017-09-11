@@ -18,4 +18,13 @@ $(document).ready(function () {
         if (confirm("确认删除？"))
             MyAjax('/upload', 'experiment_course_delete', id);
     });
+    
+    $('#experiment_course_search_button').click(function () {
+        $('#experiment_course_search_form').ajaxSubmit({
+            target: '.content_right',
+            error:function () {
+                alert('error!');
+            }
+        })
+    });
 });
