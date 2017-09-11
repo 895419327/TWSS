@@ -155,6 +155,9 @@ def workload_input_pratice_course_modify(request, user):
     return render(request, 'main/teacher/workload_input/pratice_course/pratice_course_modify.html', locals())
 
 
+# TODO:教研工作量精简html for type in type_list
+
+
 # Teaching Achievement
 
 def workload_input_teaching_achievement(request, user):

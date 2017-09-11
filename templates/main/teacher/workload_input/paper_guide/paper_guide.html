@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load myfilters %}
 <link rel="stylesheet" href={% static "main/teacher/workload_input/paper_guide/paper_guide.css" %}>
 <script src={% static "main/teacher/workload_input/paper_guide/paper_guide.js" %}></script>
 
@@ -13,8 +14,9 @@
 
             <table class="paper_guide_item_table" cellspacing="0">
                 <tr>
-                    <th width="400px">论文名称</th>
-                    <th width="150px">作者</th>
+                    <th width="120px">学年/学期</th>
+                    <th width="300px">论文名称</th>
+                    <th width="120px">作者</th>
                     <th width="100px">级别</th>
                     <th width="100px">审核状态</th>
                     <th width="100px">修改/删除</th>
@@ -23,6 +25,10 @@
                 {% if project_list %}
                     {% for project in project_list %}
                         <tr>
+                            <td>
+                                <div>{{ project.year }}-{{ project.year|add:1 }}学年</div>
+                                <div>第{{ project.semester|itoc }}学期</div>
+                            </td>
                             <td>{{ project.name }}</td>
                             <td>{{ project.author }}</td>
                             <td>{{ project.level }}</td>

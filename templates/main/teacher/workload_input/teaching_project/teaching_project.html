@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load myfilters %}
 <link rel="stylesheet" href={% static "main/teacher/workload_input/teaching_project/teaching_project.css" %}>
 <script src={% static "main/teacher/workload_input/teaching_project/teaching_project.js" %}></script>
 
@@ -13,8 +14,9 @@
 
             <table class="teaching_project_item_table" cellspacing="0">
                 <tr>
-                    <th width="400px">项目名称</th>
-                    <th width="200px">级别</th>
+                    <th width="120px">学年/学期</th>
+                    <th width="300px">项目名称</th>
+                    <th width="150px">级别</th>
                     <th width="100px">审核状态</th>
                     <th width="100px">修改/删除</th>
                 </tr>
@@ -23,6 +25,10 @@
                     {% for project in project_list %}
                         {% if project.type == '专业、团队及实验中心类' %}
                             <tr>
+                                <td>
+                                    <div>{{ project.year }}-{{ project.year|add:1 }}学年</div>
+                                    <div>第{{ project.semester|itoc }}学期</div>
+                                </td>
                                 <td>{{ project.name }}</td>
                                 <td>{{ project.level }}</td>
 
@@ -58,8 +64,9 @@
 
             <table class="teaching_project_item_table" cellspacing="0">
                 <tr>
-                    <th width="400px">项目名称</th>
-                    <th width="200px">级别</th>
+                    <th width="120px">学年/学期</th>
+                    <th width="300px">项目名称</th>
+                    <th width="150px">级别</th>
                     <th width="100px">审核状态</th>
                     <th width="100px">修改/删除</th>
                 </tr>
@@ -68,6 +75,10 @@
                     {% for project in project_list %}
                         {% if project.type == '课程类' %}
                             <tr>
+                                <td>
+                                    <div>{{ project.year }}-{{ project.year|add:1 }}学年</div>
+                                    <div>第{{ project.semester|itoc }}学期</div>
+                                </td>
                                 <td>{{ project.name }}</td>
                                 <td>{{ project.level }}</td>
 
@@ -102,8 +113,9 @@
 
             <table class="teaching_project_item_table" cellspacing="0">
                 <tr>
-                    <th width="400px">项目名称</th>
-                    <th width="200px">级别</th>
+                    <th width="120px">学年/学期</th>
+                    <th width="300px">项目名称</th>
+                    <th width="150px">级别</th>
                     <th width="100px">审核状态</th>
                     <th width="100px">修改/删除</th>
                 </tr>
@@ -112,6 +124,10 @@
                     {% for project in project_list %}
                         {% if project.type == '工程实践教育类' %}
                             <tr>
+                                <td>
+                                    <div>{{ project.year }}-{{ project.year|add:1 }}学年</div>
+                                    <div>第{{ project.semester|itoc }}学期</div>
+                                </td>
                                 <td>{{ project.name }}</td>
                                 <td>{{ project.level }}</td>
 
@@ -146,8 +162,9 @@
 
             <table class="teaching_project_item_table" cellspacing="0">
                 <tr>
-                    <th width="400px">项目名称</th>
-                    <th width="200px">级别</th>
+                    <th width="120px">学年/学期</th>
+                    <th width="300px">项目名称</th>
+                    <th width="150px">级别</th>
                     <th width="100px">审核状态</th>
                     <th width="100px">修改/删除</th>
                 </tr>
@@ -156,6 +173,10 @@
                     {% for project in project_list %}
                         {% if project.type == '教学名师' %}
                             <tr>
+                                <td>
+                                    <div>{{ project.year }}-{{ project.year|add:1 }}学年</div>
+                                    <div>第{{ project.semester|itoc }}学期</div>
+                                </td>
                                 <td>{{ project.name }}</td>
                                 <td>{{ project.level }}</td>
 
@@ -190,8 +211,9 @@
 
             <table class="teaching_project_item_table" cellspacing="0">
                 <tr>
-                    <th width="400px">项目名称</th>
-                    <th width="200px">级别</th>
+                    <th width="120px">学年/学期</th>
+                    <th width="300px">项目名称</th>
+                    <th width="150px">级别</th>
                     <th width="100px">审核状态</th>
                     <th width="100px">修改/删除</th>
                 </tr>
@@ -200,6 +222,10 @@
                     {% for project in project_list %}
                         {% if project.type == '大学生创新创业训练' %}
                             <tr>
+                                <td>
+                                    <div>{{ project.year }}-{{ project.year|add:1 }}学年</div>
+                                    <div>第{{ project.semester|itoc }}学期</div>
+                                </td>
                                 <td>{{ project.name }}</td>
                                 <td>{{ project.level }}</td>
 
