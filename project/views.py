@@ -173,7 +173,7 @@ def workload_input_teaching_achievement_modify(request, user):
 
 
 # Teaching Project
-
+# TODO: 自动识别type
 def workload_input_teaching_project(request, user):
     project_list = TeachingProject.objects.filter(teacher_id=user.id)
     return render(request, 'main/teacher/workload_input/teaching_project/teaching_project.html', locals())
