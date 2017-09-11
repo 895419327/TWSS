@@ -80,10 +80,27 @@ def user_info_change_password(request, user):
 # Theory Course
 
 def workload_input_theory_course(request, user):
+    print(request.POST)
+
     # 获取账号课程信息
     course_list = TheoryCourse.objects.filter(teacher_id=user.id)
-    # 获取班级信息
-    class_list = Class.objects.filter()
+
+    # TODO:实验性做法 后期换成Global Value
+    year = False
+    if 'search_year' in request.POST:
+        year = request.POST['search_year'][:4]
+        course_list = course_list.filter(year=year)
+
+    semester = False
+    if 'search_semester' in request.POST:
+        semester = request.POST['search_semester']
+        if semester == u'所有':
+            pass
+        elif semester == u'第一学期':
+            course_list = course_list.filter(semester=1)
+        elif semester == u'第二学期':
+            course_list = course_list.filter(semester=2)
+
     return render(request, 'main/teacher/workload_input/theory_course/theory_course.html', locals())
 
 

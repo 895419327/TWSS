@@ -8,6 +8,7 @@ undefine = u'未记录'
 
 
 # TODO: Workload_K table
+# TODO: Global Value
 
 # 系部表
 class Department(models.Model):

@@ -24,12 +24,6 @@ $(document).ready(function () {
 
     //左侧菜单动画
     $('.unit_title').click(function () {
-        // 点击标题后 隐藏其他模块的子菜单 显示本模块的子菜单
-        // $('.unit_options').slideUp('fast');
-        // if($(this).next().css('display') === 'none'){
-        //     $(this).next().slideDown('fast');
-        // }
-
         // 点击标题后 显示本模块子菜单但不隐藏其他模块的
         $(this).next().slideToggle('fast');
     });

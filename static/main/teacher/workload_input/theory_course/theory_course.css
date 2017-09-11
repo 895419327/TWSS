@@ -5,9 +5,9 @@
 }
 
 .theory_course_search_bar{
-    width: 975px;
+    width: 550px;
     height: 50px;
-    margin: 25px 0;
+    margin: 25px auto;
     padding: 0 0 0 15px;
     font-size: 20px;
     line-height: 50px;

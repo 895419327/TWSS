@@ -15,6 +15,7 @@ def check_identity(request):
 
     if user_list:
         for user in user_list:
+            # TODO: 添加身份确认
             if user.status.find(u'教师') != -1:
                 # from hashlib import md5
                 # check_unique_code_src = username_post + user.password + status_post
