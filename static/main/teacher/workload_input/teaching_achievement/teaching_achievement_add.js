@@ -13,6 +13,9 @@ $(document).ready(function () {
     });
 
     $('#teaching_achievement_add_submit').click(function () {
+        $('#location_year_post').val($('#location_year').val());
+        $('#location_semester_post').val($('#location_semester').val());
+
         var form = $('#teaching_achievement_add_form');
         form.ajaxSubmit({
             target: '.content_right',

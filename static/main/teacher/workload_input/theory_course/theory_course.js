@@ -22,9 +22,10 @@ $(document).ready(function () {
     $('#theory_course_search_button').click(function () {
         $('#theory_course_search_form').ajaxSubmit({
             target: '.content_right',
-            error:function () {
+            error: function () {
                 alert('error!');
             }
         })
     });
+
 });

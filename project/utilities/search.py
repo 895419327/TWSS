@@ -1,10 +1,52 @@
 from project.models import GlobalValue
 
 
-def search(request, source_list):
+# DO NOT TOUCH THESE FUCKING CODE !
+# DO NOT TOUCH THESE FUCKING CODE !
+# DO NOT TOUCH THESE FUCKING CODE !
 
+# 我自己都讲不清这边是怎么运行的了
+
+# BUT IT JUST FUCKING WORK !
+# BUT IT JUST FUCKING WORK !
+# BUT IT JUST FUCKING WORK !
+
+# 本项目两万行代码我只怕这一百行
+
+# VIC CHEN 2017.9.12
+
+
+#                             _ooOoo_
+#                            o8888888o
+#                            88" . "88
+#                            (| -_- |)
+#                            O\  =  /O
+#                         ____/`---'\____
+#                       .'  \\|     |//  `.
+#                      /  \\|||  :  |||//  \
+#                     /  _||||| -:- |||||-  \
+#                     |   | \\\  -  /// |   |
+#                     | \_|  ''\---/''  |   |
+#                     \  .-\__  `-`  ___/-. /
+#                   ___`. .'  /--.--\  `. . __
+#                ."" '<  `.___\_<|>_/___.'  >'"".
+#               | | :  `- \`.;`\ _ /`;.`/ - ` : | |
+#               \  \ `-.   \_ __\ /__ _/   .-` /  /
+#          ======`-.____`-.___\_____/___.-`____.-'======
+#                             `=---='
+#          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+#                     佛祖保佑        永无BUG
+
+
+def search(request, source_list):
     year = ''
-    if 'search_year' in request.POST:
+    if 'location_year_post' in request.POST:
+        year = request.POST['location_year_post']
+        if year == u'所有':
+            pass
+        else:
+            source_list = source_list.filter(year=year)
+    elif 'search_year' in request.POST:
         year = request.POST['search_year'][:4]
         if year == u'所有':
             pass
@@ -15,7 +57,15 @@ def search(request, source_list):
         source_list = source_list.filter(year=year)
 
     semester = ''
-    if 'search_semester' in request.POST:
+    if 'location_semester_post' in request.POST:
+        semester = request.POST['location_semester_post']
+        if semester == u'所有':
+            pass
+        elif semester == u'第一学期':
+            source_list = source_list.filter(semester=1)
+        elif semester == u'第二学期':
+            source_list = source_list.filter(semester=2)
+    elif 'search_semester' in request.POST:
         semester = request.POST['search_semester']
         if semester == u'所有':
             pass
@@ -35,7 +85,6 @@ def search(request, source_list):
 
 
 def audit_search(request, source_list):
-
     year = ''
     if 'search_year' in request.POST:
         year = request.POST['search_year'][:4]

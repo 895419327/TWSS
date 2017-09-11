@@ -13,6 +13,9 @@
         <input type="hidden" name="username" value="{{ user.id }}">
         <input type="hidden" name="requestfor" value="theory_course_add">
 
+        <input hidden id="location_year_post" name="location_year_post">
+        <input hidden id="location_semester_post" name="location_semester_post">
+
         <div class="theory_course_add_left">
             <div>
                 <span>学年 </span>
@@ -88,7 +91,8 @@
                 {% if class_list %}
                     {% for clas in class_list %}
                         {% if clas.id in classes_checked %}
-                            <div><label><input type="checkbox" name="{{ clas.id }}" checked/> {{ clas.name }}</label></div>
+                            <div><label><input type="checkbox" name="{{ clas.id }}" checked/> {{ clas.name }}</label>
+                            </div>
                         {% else %}
                             <div><label><input type="checkbox" name="{{ clas.id }}"/> {{ clas.name }}</label></div>
                         {% endif %}
