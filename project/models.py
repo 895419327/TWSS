@@ -119,8 +119,8 @@ class Course(models.Model):
     attribute = models.IntegerField(4, default=0)
     # 审核状态 (未审核/审核未通过/已审核) (0/1/2)
     audit_status = models.IntegerField(2, default=0)
-    # 备注(审核未通过原因)
-    comment = models.CharField(max_length=32, null=True)
+    # 审核未通过原因
+    reject_reason = models.CharField(max_length=32, null=True)
 
     class Meta:
         # 虚类
@@ -174,6 +174,8 @@ class Project(models.Model):
     rank = models.CharField(max_length=4, default=' ', null=True)
     # 审核状态 (未审核/审核未通过/已审核) (0/1/2)
     audit_status = models.IntegerField(2, default=0)
+    # 审核未通过原因
+    reject_reason = models.CharField(max_length=32, null=True)
 
     class Meta:
         # 虚类
