@@ -1,0 +1,4 @@
+INSERT INTO twss.TWSS_CompetitionGuide (students, audit_status, level, name, teacher_id, type, rank, department_id, semester, year, reject_reason) VALUES ('学生A,学生C,学生F,学生G', 0, '特等', 'XXXXX竞赛', '20160000001', '全国性大学生学科竞赛', ' ', 1, 1, 2017, null);
+INSERT INTO twss.TWSS_CompetitionGuide (students, audit_status, level, name, teacher_id, type, rank, department_id, semester, year, reject_reason) VALUES ('学生B', 0, '一等', 'XXXXX竞赛', '20160000001', '省部级大学生竞赛', ' ', 1, 2, 2017, null);
+INSERT INTO twss.TWSS_CompetitionGuide (students, audit_status, level, name, teacher_id, type, rank, department_id, semester, year, reject_reason) VALUES ('学生B', 2, '特等', '新增竞赛', '20160000001', '全国性大学生学科竞赛', ' ', 1, 2, 2017, null);
+INSERT INTO twss.TWSS_CompetitionGuide (students, audit_status, level, name, teacher_id, type, rank, department_id, semester, year, reject_reason) VALUES ('学生H', 0, '二等', '新增竞赛', '20160000001', '省部级大学生竞赛', ' ', 1, 2, 2017, null);
