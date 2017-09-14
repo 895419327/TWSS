@@ -10,7 +10,7 @@ def index(request):
 
 # TODO: 教务员身份
 
-# TODO: Welcome page
+# FIXME: 修改/删除/审核后会跳回默认查询的界面而不是审核时的界面
 
 # TODO: 数据库备份
 # TODO: 测试覆盖
@@ -256,7 +256,6 @@ def workload_count(request, user):
 # ##### 系主任 #####
 # TODO: 驳回时可填写理由
 # TODO: pass和reject可整合
-# FIXME: 审核后会跳回默认查询的界面而不是审核时的界面
 
 # Teacher Management
 def teacher_management(request, user):

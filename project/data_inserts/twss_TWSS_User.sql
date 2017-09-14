@@ -1,4 +1,0 @@
-INSERT INTO twss.TWSS_User (id, name, title, status, password, phone_number, email, department_id) VALUES ('20160000001', '教师A', '教授', '教师,系主任,教务员', 'd820e68d6feed0eeb70dfe0873083c98', '18012345678', '18012345678@zzu.edu', 1);
-INSERT INTO twss.TWSS_User (id, name, title, status, password, phone_number, email, department_id) VALUES ('20160000002', '教师B', '教授', '教师,系主任', '3fb53bee6b17ea134ea174c8f6c03316', '18012345678', '18012345678@zzu.edu', 2);
-INSERT INTO twss.TWSS_User (id, name, title, status, password, phone_number, email, department_id) VALUES ('20160000003', '教师C', '教授', '教师,系主任', 'bc45ba006918401167376632a8ab115e', '18012345678', '18012345678@zzu.edu', 3);
-INSERT INTO twss.TWSS_User (id, name, title, status, password, phone_number, email, department_id) VALUES ('20160000004', '教师D', '教授', '教师', 'c7f4a8c56b9c57cc921eec3572763dd9', '18012345678', '18012345678@zzu.edu', 1);
