@@ -203,10 +203,8 @@ def workload_input_paper_guide(request, user):
 
 def workload_input_paper_guide_add(request, user):
     modified_project = ''
-    print(request.POST['request_data'])
     if (request.POST['request_data']):
         modified_project = PaperGuide.objects.get(id=request.POST['request_data'])
-    # print(modified_project.name)
     return render(request, 'main/teacher/workload_input/paper_guide/paper_guide_add.html', locals())
 
 # Workload Count
