@@ -8,7 +8,7 @@ $(document).ready(function () {
     $('.competition_guide_modify').click(function () {
         var id = this.id;
         id = id.substring(0, id.length - 7);
-        MyAjax_Get('getpage', 'workload_input_competition_guide_modify', id, '.competition_guide_add_content');
+        MyAjax_Get('getpage', 'workload_input_competition_guide_add', id, '.competition_guide_add_content');
     });
 
     $('.competition_guide_delete').click(function () {

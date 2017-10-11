@@ -20,7 +20,10 @@
         <div class="theory_course_add_left">
             <div>
                 <span>学年 </span>
-                <select name="year" class="theory_course_add_form_data">
+                <select name="year">
+                    {% if modified_course %}
+                        <option>{{ modified_course.year }}-{{ modified_course.year|add:1 }}学年</option>
+                    {% endif %}
                     <option>2016-2017</option>
                     <option>2017-2018</option>
                 </select>
@@ -28,39 +31,65 @@
 
             <div>
                 <span>学期 </span>
-                <select name="semester" class="theory_course_add_form_data">
-                    <option>第一学期</option>
-                    <option>第二学期</option>
+                <select name="semester">
+                    {% if modified_course %}
+                        {% if modified_course.semester == 1 %}
+                            <option>第一学期</option>
+                            <option>第二学期</option>
+                        {% else %}
+                            <option>第二学期</option>
+                            <option>第一学期</option>
+                        {% endif %}
+                    {% else %}
+                        <option>第一学期</option>
+                        <option>第二学期</option>
+                    {% endif %}
                 </select>
             </div>
 
             <div>
                 <span>课程属性 </span>
-                <select name="course_attribute" class="theory_course_add_form_data">
-                    <option>必修</option>
-                    <option>限选</option>
-                    <option>选修</option>
+                <select name="course_attribute">
+                    {% if modified_course %}
+                        {% if modified_course.attribute == 1 %}
+                            <option>必修</option>
+                            <option>选修</option>
+                            <option>限选</option>
+                        {% elif modified_course.attribute == 2 %}
+                            <option>选修</option>
+                            <option>必修</option>
+                            <option>限选</option>
+                        {% elif modified_course.attribute == 3 %}
+                            <option>限选</option>
+                            <option>必修</option>
+                            <option>限选</option>
+                        {% endif %}
+                    {% else %}
+                        <option>必修</option>
+                        <option>选修</option>
+                        <option>限选</option>
+                    {% endif %}
                 </select>
             </div>
 
             <div>
                 <span>课程名 </span>
-                <input type="text" name="course_name" class="theory_course_add_form_data">
+                <input type="text" name="course_name" value="{{ modified_course.name }}">
             </div>
 
             <div>
                 <span>课程编号 </span>
-                <input type="text" name="course_id" class="theory_course_add_form_data">
+                <input type="text" name="course_id" value="{{ modified_course.id }}">
             </div>
 
             <div>
                 <span>学时 </span>
-                <input type="text" name="period" class="theory_course_add_form_data">
+                <input type="text" name="period" value="{{ modified_course.period }}">
             </div>
 
             <div>
                 <span>学分 </span>
-                <input type="text" name="credit" class="theory_course_add_form_data">
+                <input type="text" name="credit" value="{{ modified_course.credit }}">
             </div>
         </div>
 
@@ -70,7 +99,11 @@
             <div class="theory_course_add_classes">
                 {% if class_list %}
                     {% for clas in class_list %}
-                        <div><label><input type="checkbox" name="{{ clas.id }}"/> {{ clas.name }}</label></div>
+                        {% if clas.id in classes_checked %}
+                            <div><input type="checkbox" name="{{ clas.id }}" checked/> {{ clas.name }}</div>
+                        {% else %}
+                            <div><input type="checkbox" name="{{ clas.id }}"/> {{ clas.name }}</div>
+                        {% endif %}
                     {% endfor %}
                 {% endif %}
             </div>

@@ -39,7 +39,7 @@
         </div>
     </div>
 
-    <form id="request_form" method="POST" autocomplete="off">
+    <form id="request_form" method="POST" autocomplete="off" hidden>
         {% csrf_token %}
         <input name="unique_code" value={{ unique_code }}>
         <input name="username" value="{{ username_post }}">

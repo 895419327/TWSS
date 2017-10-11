@@ -204,8 +204,9 @@ def pratice_course_delete_add(request, user):
 def teaching_achievement_add(request, user):
     id = ''
     if 'project_id' in request.POST:
-        id = request.POST['project_id']
-    else:
+        if request.POST['project_id']:
+            id = request.POST['project_id']
+    if id == '':
         id = int(time.time())
 
     semester = 0
@@ -241,8 +242,9 @@ def teaching_achievement_delete(request, user):
 def teaching_project_add(request, user):
     id = ''
     if 'project_id' in request.POST:
-        id = request.POST['project_id']
-    else:
+        if request.POST['project_id']:
+            id = request.POST['project_id']
+    if id == '':
         id = int(time.time())
 
     semester = 0
@@ -278,8 +280,9 @@ def teaching_project_delete(request, user):
 def competition_guide_add(request, user):
     id = ''
     if 'project_id' in request.POST:
-        id = request.POST['project_id']
-    else:
+        if request.POST['project_id' ]:
+            id = request.POST['project_id']
+    if id == '':
         id = int(time.time())
 
     semester = 0
@@ -314,10 +317,14 @@ def competition_guide_delete(request, user):
 
 
 def paper_guide_add(request, user):
+
+    print(request.POST)
+
     id = ''
     if 'project_id' in request.POST:
-        id = request.POST['project_id']
-    else:
+        if request.POST['project_id']:
+            id = request.POST['project_id']
+    if id == '':
         id = int(time.time())
 
     semester = 0

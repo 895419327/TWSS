@@ -9,7 +9,7 @@ $(document).ready(function () {
     $('.pratice_course_modify').click(function () {
         var id = this.id;
         id = id.substring(0, id.length - 7);
-        MyAjax_Get('getpage', 'workload_input_pratice_course_modify', id, '.pratice_course_add_content');
+        MyAjax_Get('getpage', 'workload_input_pratice_course_add', id, '.pratice_course_add_content')
     });
 
     $('.pratice_course_delete').click(function () {
@@ -18,11 +18,11 @@ $(document).ready(function () {
         if (confirm("确认删除？"))
             MyAjax('/upload', 'pratice_course_delete', id);
     });
-    
+
     $('#pratice_course_search_button').click(function () {
         $('#pratice_course_search_form').ajaxSubmit({
             target: '.content_right',
-            error:function () {
+            error: function () {
                 alert('error!');
             }
         })

@@ -8,7 +8,7 @@ $(document).ready(function () {
     $('.teaching_achievement_modify').click(function () {
         var id = this.id;
         id = id.substring(0, id.length - 7);
-        MyAjax_Get('getpage', 'workload_input_teaching_achievement_modify', id, '.teaching_achievement_add_content');
+        MyAjax_Get('getpage', 'workload_input_teaching_achievement_add', id, '.teaching_achievement_add_content')
     });
 
     $('.teaching_achievement_delete').click(function () {
@@ -17,11 +17,11 @@ $(document).ready(function () {
         if (confirm("确认删除？"))
             MyAjax('/upload', 'teaching_achievement_delete', id);
     });
-    
+
     $('#teaching_achievement_search_button').click(function () {
         $('#teaching_achievement_search_form').ajaxSubmit({
             target: '.content_right',
-            error:function () {
+            error: function () {
                 alert('error!');
             }
         })

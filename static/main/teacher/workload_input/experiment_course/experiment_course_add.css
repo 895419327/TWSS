@@ -2,12 +2,12 @@
     width: 800px;
     height: 650px;
     padding: 0 50px;
+    margin: 0 0 0 50px;
     font-size: 22px;
     line-height: 30px;
     background: rgba(255, 255, 255, 0.6);
-    position: absolute;
-    top: 90px;
-    left: 75px;
+    position: fixed;
+    top: 150px;
 }
 
 .experiment_course_add_title {
@@ -50,7 +50,7 @@
     float: left;
 }
 
-.experiment_course_add_classes{
+.experiment_course_add_classes {
     width: 300px;
     height: 150px;
     float: right;

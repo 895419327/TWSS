@@ -102,17 +102,11 @@ def workload_input_theory_course(request, user):
 def workload_input_theory_course_add(request, user):
     # 获取班级信息
     class_list = Class.objects.filter()
+    modified_course = ''
+    if(request.POST['request_data']):
+        modified_course = TheoryCourse.objects.get(id=request.POST['request_data'])
+        classes_checked = modified_course.classes.split(',')
     return render(request, 'main/teacher/workload_input/theory_course/theory_course_add.html', locals())
-
-
-def workload_input_theory_course_modify(request, user):
-    # 获取班级信息
-    class_list = Class.objects.filter()
-    # modify
-    modified_course = TheoryCourse.objects.get(id=request.POST['request_data'])
-    classes_checked = modified_course.classes.split(',')
-    return render(request, 'main/teacher/workload_input/theory_course/theory_course_modify.html', locals())
-
 
 # Experiment Course
 
@@ -126,16 +120,11 @@ def workload_input_experiment_course(request, user):
 def workload_input_experiment_course_add(request, user):
     # 获取班级信息
     class_list = Class.objects.filter()
+    modified_course = ''
+    if (request.POST['request_data']):
+        modified_course = ExperimentCourse.objects.get(id=request.POST['request_data'])
+        classes_checked = modified_course.classes.split(',')
     return render(request, 'main/teacher/workload_input/experiment_course/experiment_course_add.html', locals())
-
-
-def workload_input_experiment_course_modify(request, user):
-    # 获取班级信息
-    class_list = Class.objects.filter()
-    # modify
-    modified_course = ExperimentCourse.objects.get(id=request.POST['request_data'])
-    classes_checked = modified_course.classes.split(',')
-    return render(request, 'main/teacher/workload_input/experiment_course/experiment_course_modify.html', locals())
 
 
 # Pratice Course
@@ -150,23 +139,18 @@ def workload_input_pratice_course(request, user):
 def workload_input_pratice_course_add(request, user):
     # 获取班级信息
     class_list = Class.objects.filter()
+    modified_course = ''
+    if (request.POST['request_data']):
+        modified_course = PraticeCourse.objects.get(id=request.POST['request_data'])
+        classes_checked = modified_course.classes.split(',')
     return render(request, 'main/teacher/workload_input/pratice_course/pratice_course_add.html', locals())
-
-
-def workload_input_pratice_course_modify(request, user):
-    # 获取班级信息
-    class_list = Class.objects.filter()
-    # modify
-    modified_course = PraticeCourse.objects.get(id=request.POST['request_data'], teacher=user)
-    classes_checked = modified_course.classes.split(',')
-    return render(request, 'main/teacher/workload_input/pratice_course/pratice_course_modify.html', locals())
 
 
 # TODO: search bar 精简 可考虑用{% include %}
 # TODO: 新增自动识别type和相应level
 # TODO: 教研工作量精简html for type in type_list
 
-
+# TODO: 教学成果:教学成果 细分级别未实现
 
 # Teaching Achievement
 
@@ -177,14 +161,10 @@ def workload_input_teaching_achievement(request, user):
 
 
 def workload_input_teaching_achievement_add(request, user):
+    modified_project = ''
+    if(request.POST['request_data']):
+        modified_project = TeachingAchievement.objects.get(id=request.POST['request_data'])
     return render(request, 'main/teacher/workload_input/teaching_achievement/teaching_achievement_add.html', locals())
-
-
-def workload_input_teaching_achievement_modify(request, user):
-    modified_project = TeachingAchievement.objects.get(id=request.POST['request_data'])
-    return render(request, 'main/teacher/workload_input/teaching_achievement/teaching_achievement_modify.html',
-                  locals())
-
 
 # Teaching Project
 def workload_input_teaching_project(request, user):
@@ -194,14 +174,10 @@ def workload_input_teaching_project(request, user):
 
 
 def workload_input_teaching_project_add(request, user):
+    modified_project = ''
+    if (request.POST['request_data']):
+        modified_project = TeachingProject.objects.get(id=request.POST['request_data'])
     return render(request, 'main/teacher/workload_input/teaching_project/teaching_project_add.html', locals())
-
-
-def workload_input_teaching_project_modify(request, user):
-    modified_project = TeachingProject.objects.get(id=request.POST['request_data'])
-    return render(request, 'main/teacher/workload_input/teaching_project/teaching_project_modify.html',
-                  locals())
-
 
 # Competition Guide
 
@@ -212,14 +188,10 @@ def workload_input_competition_guide(request, user):
 
 
 def workload_input_competition_guide_add(request, user):
+    modified_project = ''
+    if (request.POST['request_data']):
+        modified_project = CompetitionGuide.objects.get(id=request.POST['request_data'])
     return render(request, 'main/teacher/workload_input/competition_guide/competition_guide_add.html', locals())
-
-
-def workload_input_competition_guide_modify(request, user):
-    modified_project = CompetitionGuide.objects.get(id=request.POST['request_data'])
-    return render(request, 'main/teacher/workload_input/competition_guide/competition_guide_modify.html',
-                  locals())
-
 
 # Paper Guide
 
@@ -230,14 +202,12 @@ def workload_input_paper_guide(request, user):
 
 
 def workload_input_paper_guide_add(request, user):
+    modified_project = ''
+    print(request.POST['request_data'])
+    if (request.POST['request_data']):
+        modified_project = PaperGuide.objects.get(id=request.POST['request_data'])
+    # print(modified_project.name)
     return render(request, 'main/teacher/workload_input/paper_guide/paper_guide_add.html', locals())
-
-
-def workload_input_paper_guide_modify(request, user):
-    modified_project = PaperGuide.objects.get(id=request.POST['request_data'])
-    return render(request, 'main/teacher/workload_input/paper_guide/paper_guide_modify.html',
-                  locals())
-
 
 # Workload Count
 

@@ -8,7 +8,7 @@ $(document).ready(function () {
     $('.paper_guide_modify').click(function () {
         var id = this.id;
         id = id.substring(0, id.length - 7);
-        MyAjax_Get('getpage', 'workload_input_paper_guide_modify', id, '.paper_guide_add_content');
+        MyAjax_Get('getpage', 'workload_input_paper_guide_add', id, '.paper_guide_add_content');
     });
 
     $('.paper_guide_delete').click(function () {

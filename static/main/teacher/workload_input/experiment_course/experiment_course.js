@@ -9,7 +9,8 @@ $(document).ready(function () {
     $('.experiment_course_modify').click(function () {
         var id = this.id;
         id = id.substring(0, id.length - 7);
-        MyAjax_Get('getpage', 'workload_input_experiment_course_modify', id, '.experiment_course_add_content');
+        MyAjax_Get('getpage', 'workload_input_experiment_course_add', id, '.experiment_course_add_content')
+        // MyAjax_Get('getpage', 'workload_input_experiment_course_modify', id, '.experiment_course_add_content');
     });
 
     $('.experiment_course_delete').click(function () {

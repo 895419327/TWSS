@@ -25,7 +25,9 @@ SECRET_KEY = '8gwrgd5j1mjeu%yrg-klrq3izjh^g7v^e6c)4kh6sk)2ldlo_t'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost',
+                 'vicchen.club', 'www.vicchen.club',
+                 'dva-loveyou.top', 'www.dva-loveyou.top']
 
 
 # Application definition
@@ -82,7 +84,7 @@ DATABASES = {
         'USER': 'root',
         'PASSWORD': 'zql',
         'HOST': '127.0.0.1',
-        'PORT': '3306',
+        'PORT': '3306' or '3307',
     }
 }
 
