@@ -19,6 +19,9 @@
             <div>
                 <span>年级 </span>
                 <select name="grade">
+                    {% if modified_class %}
+                        <option selected>{{ modified_class.grade }}级</option>
+                    {% endif %}
                     <option>2016级</option>
                     <option>2017级</option>
                 </select>
@@ -26,14 +29,24 @@
 
             <div>
                 <span>班级编号 </span>
-                <input type="text" name="class_id" class="class_management_add_form_data" style="width: 200px">
+                <input type="text" name="class_id" style="width: 200px" value="{{ modified_class.id }}">
             </div>
 
-
+            {% if modified_class %}
+                <div>
+                    <input type="text" name="original_class_id" style="width: 200px" hidden
+                           value="{{ modified_class.id }}">
+                </div>
+            {% endif %}
 
             <div>
                 <span>班主任 </span>
                 <select name="teacher" style="width: 225px">
+                    {% if modified_class %}
+                        <option selected>{{ modified_class.teacher.name }} {{ modified_class.teacher.id }}</option>
+                        {% else %}
+                        <option selected> </option>
+                    {% endif %}
                     {% if teacher_list %}
                         {% for teacher in teacher_list %}
                             <option>{{ teacher.name }} {{ teacher.id }}</option>
@@ -53,12 +66,14 @@
 
             <div>
                 <span>班级名称 </span>
-                <input type="text" name="name" class="class_management_add_form_data" style="width: 200px">
+                <input type="text" name="name" style="width: 200px" value="{{ modified_class.name }}">
             </div>
 
             <div>
                 <span>班级人数 </span>
-                <input type="text" name="student_sum" class="class_management_add_form_data" style="width: 200px; text-align: center">
+                <input type="text" name="student_sum"
+                       style="width: 200px; text-align: center"
+                       value="{{ modified_class.sum }}">
             </div>
         </div>
     </form>

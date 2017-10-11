@@ -8,6 +8,7 @@ from project.models import *
 def index(request):
     return render(request, 'index/index.html')
 
+
 # TODO: 教务员身份
 
 # FIXME: 修改/删除/审核后会跳回默认查询的界面而不是审核时的界面
@@ -88,6 +89,7 @@ def user_info_change_password(request, user):
 
 from project.utilities.search import *
 
+
 # TODO: 所有新增界面改为fixed
 
 # Theory Course
@@ -103,10 +105,11 @@ def workload_input_theory_course_add(request, user):
     # 获取班级信息
     class_list = Class.objects.filter()
     modified_course = ''
-    if(request.POST['request_data']):
+    if (request.POST['request_data']):
         modified_course = TheoryCourse.objects.get(id=request.POST['request_data'])
         classes_checked = modified_course.classes.split(',')
     return render(request, 'main/teacher/workload_input/theory_course/theory_course_add.html', locals())
+
 
 # Experiment Course
 
@@ -162,9 +165,10 @@ def workload_input_teaching_achievement(request, user):
 
 def workload_input_teaching_achievement_add(request, user):
     modified_project = ''
-    if(request.POST['request_data']):
+    if (request.POST['request_data']):
         modified_project = TeachingAchievement.objects.get(id=request.POST['request_data'])
     return render(request, 'main/teacher/workload_input/teaching_achievement/teaching_achievement_add.html', locals())
+
 
 # Teaching Project
 def workload_input_teaching_project(request, user):
@@ -178,6 +182,7 @@ def workload_input_teaching_project_add(request, user):
     if (request.POST['request_data']):
         modified_project = TeachingProject.objects.get(id=request.POST['request_data'])
     return render(request, 'main/teacher/workload_input/teaching_project/teaching_project_add.html', locals())
+
 
 # Competition Guide
 
@@ -193,6 +198,7 @@ def workload_input_competition_guide_add(request, user):
         modified_project = CompetitionGuide.objects.get(id=request.POST['request_data'])
     return render(request, 'main/teacher/workload_input/competition_guide/competition_guide_add.html', locals())
 
+
 # Paper Guide
 
 def workload_input_paper_guide(request, user):
@@ -206,6 +212,7 @@ def workload_input_paper_guide_add(request, user):
     if (request.POST['request_data']):
         modified_project = PaperGuide.objects.get(id=request.POST['request_data'])
     return render(request, 'main/teacher/workload_input/paper_guide/paper_guide_add.html', locals())
+
 
 # Workload Count
 
@@ -233,13 +240,10 @@ def teacher_management(request, user):
 
 
 def teacher_management_add(request, user):
+    modified_teacher = ''
+    if (request.POST['request_data']):
+        modified_teacher = User.objects.get(id=request.POST['request_data'])
     return render(request, 'main/head_of_department/teacher_management/teacher_management_add.html', locals())
-
-
-def teacher_management_modify(request, user):
-    modified_teacher = User.objects.get(id=request.POST['request_data'])
-    return render(request, 'main/head_of_department/teacher_management/teacher_management_modify.html', locals())
-
 
 # Class Management
 def class_management(request, user):
@@ -251,15 +255,10 @@ def class_management(request, user):
 def class_management_add(request, user):
     department = Department.objects.get(head_of_department=user.id)
     teacher_list = User.objects.filter(department=department)
+    modified_class = ''
+    if (request.POST['request_data']):
+        modified_class = Class.objects.get(id=request.POST['request_data'])
     return render(request, 'main/head_of_department/class_management/class_management_add.html', locals())
-
-
-def class_management_modify(request, user):
-    department = Department.objects.get(head_of_department=user.id)
-    teacher_list = User.objects.filter(department=department)
-    modified_class = Class.objects.get(id=request.POST['request_data'])
-    return render(request, 'main/head_of_department/class_management/class_management_modify.html', locals())
-
 
 # 理论课
 def workload_audit_theory_course(request, user):
