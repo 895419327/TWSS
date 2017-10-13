@@ -1,0 +1,28 @@
+{% load staticfiles %}
+<link rel="stylesheet"
+      href={% static "main/head_of_department/workload_audit/workload_audit_reject.css" %}>
+<script src={% static 'main/head_of_department/workload_audit/workload_audit_reject.js' %}></script>
+
+<div class="workload_audit_reject">
+
+    <div class="workload_audit_reject_cross"><img src={% static "main/resourse/cross.png" %}></div>
+
+    <div class="workload_audit_reject_title">驳回原因</div>
+
+    <form id="workload_audit_reject_form" method="post" action="/upload" name="department_management"
+          autocomplete="off">
+        {% csrf_token %}
+        <input type="hidden" name="username" value="{{ user.id }}">
+        <input type="hidden" name="requestfor" value="change_head_of_department_upload">
+
+        <div class="workload_audit_reject_reason">
+            <textarea name="reject_reason">驳回原因：</textarea>
+        </div>
+    </form>
+
+    <div class="workload_audit_reject_buttons_area">
+        <div id="workload_audit_reject_submit" class="workload_audit_reject_buttons">提交</div>
+        <div id="workload_audit_reject_cancel" class="workload_audit_reject_buttons">取消</div>
+    </div>
+
+</div>

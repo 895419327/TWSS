@@ -11,12 +11,13 @@ from django.shortcuts import render
 from project.views import *
 from project.models import *
 
+
 # TODO: 以后要把这些都整合到views
 
 def upload(request):
     request.encoding = 'utf-8'
     # 校验身份
-    from project.utilities.check_indentity import check_identity
+    from project.utilities.indentity import check_identity
     check_return = check_identity(request)
     if check_return:
         user = check_return
@@ -280,7 +281,7 @@ def teaching_project_delete(request, user):
 def competition_guide_add(request, user):
     id = ''
     if 'project_id' in request.POST:
-        if request.POST['project_id' ]:
+        if request.POST['project_id']:
             id = request.POST['project_id']
     if id == '':
         id = int(time.time())
@@ -317,7 +318,6 @@ def competition_guide_delete(request, user):
 
 
 def paper_guide_add(request, user):
-
     print(request.POST)
 
     id = ''
@@ -421,3 +421,26 @@ def class_management_delete(request, user):
     clas = Class.objects.get(id=class_id)
     clas.delete()
     return class_management(request, user)
+
+
+##### 教务员 #####
+
+def change_head_of_department_upload(request, user):
+    department = Department.objects.get(id=request.POST['department_id'])
+
+    # 修改两账户身份
+    original_head_id = department.head_of_department
+    original_head = User.objects.get(id=original_head_id)
+    original_head.status = original_head.status.replace(',系主任', '')
+    original_head.save()
+
+    # TODO: 根据实际id长度修改-11
+    new_head_id = request.POST['teacher'][-11:]
+    new_head = User.objects.get(id=new_head_id)
+    if new_head.status.find('系主任') == -1:
+        new_head.status += ',系主任'
+    new_head.save()
+
+    department.head_of_department = new_head_id
+    department.save()
+    return department_management(request, user)

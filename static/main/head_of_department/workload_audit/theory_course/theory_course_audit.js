@@ -11,8 +11,8 @@ $(document).ready(function () {
     $('.theory_course_audit_reject').click(function () {
         var id = this.id;
         id = id.substring(0, id.length - 7);
-        if (confirm("确认驳回？"))
-            MyAjax_Get('getpage', 'workload_audit_theory_course_reject', id);
+        // if (confirm("确认驳回？"))
+        MyAjax_Get('getpage', 'workload_audit_reject', id, '.workload_audit_reject_content');
     });
 
     $('#theory_course_audit_search_button').click(function () {

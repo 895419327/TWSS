@@ -1,15 +1,14 @@
 {% load staticfiles %}
 {% load myfilters %}
-<link rel="stylesheet" href={% static "main/teacher/workload_input/pratice_course/pratice_course.css" %}>
 <script src={% static "main/teacher/workload_input/pratice_course/pratice_course.js" %}></script>
 
-<div class="pratice_course_content main_interface">
+<div class="main_content">
 
     <div class="content_title">实习/实训课 工作量录入</div>
 
     <div class="pratice_course_content_blur_area">
 
-        <div class="pratice_course_search_bar">
+        <div class="search_bar">
             <form id="pratice_course_search_form" method="post" action="/getpage" name="pratice_course_search"
                   autocomplete="off">
                 {% csrf_token %}
@@ -19,7 +18,7 @@
                 <input hidden id="location_year" value="{{ year }}">
                 <input hidden id="location_semester" value="{{ semester }}">
 
-                <div class="pratice_course_search_bar_item">
+                <div class="search_bar_item">
                     <span>学年</span>
                     <select name="search_year">
                         {% if year != '所有' %}
@@ -31,7 +30,7 @@
                     </select>
                 </div>
 
-                <div class="pratice_course_search_bar_item">
+                <div class="search_bar_item">
                     <span>学期</span>
                     <select name="search_semester">
                         <option>{{ semester }}</option>
@@ -42,7 +41,7 @@
                 </div>
             </form>
 
-            <div id="pratice_course_search_button">查询</div>
+            <div class="search_button">查询</div>
         </div>
 
         <table class="pratice_course_table" cellspacing="0">
@@ -124,7 +123,7 @@
 
 
         </table>
-        <div class="pratice_course_add_button">新 增</div>
+        <div class="add_button">新 增</div>
 
     </div>
 

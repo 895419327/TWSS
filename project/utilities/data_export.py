@@ -14,7 +14,7 @@ from wsgiref.util import FileWrapper
 def download(request):
     request.encoding = 'utf-8'
 
-    from project.utilities.check_indentity import check_identity
+    from project.utilities.indentity import check_identity
     check_return = check_identity(request)
     if check_return == False:
         return False  # 返回错误信息

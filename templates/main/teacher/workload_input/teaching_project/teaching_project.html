@@ -1,15 +1,14 @@
 {% load staticfiles %}
 {% load myfilters %}
-<link rel="stylesheet" href={% static "main/teacher/workload_input/teaching_project/teaching_project.css" %}>
 <script src={% static "main/teacher/workload_input/teaching_project/teaching_project.js" %}></script>
 
-<div class="teaching_project_content main_interface">
+<div class="main_content">
 
     <div class="content_title">本科教学工程项目 工作量录入</div>
 
     <div class="teaching_project_content_blur_area">
 
-        <div class="teaching_project_search_bar">
+        <div class="search_bar">
             <form id="teaching_project_search_form" method="post" action="/getpage" name="teaching_project_search"
                   autocomplete="off">
                 {% csrf_token %}
@@ -19,7 +18,7 @@
                 <input hidden id="location_year" value="{{ year }}">
                 <input hidden id="location_semester" value="{{ semester }}">
 
-                <div class="teaching_project_search_bar_item">
+                <div class="search_bar_item">
                     <span>学年</span>
                     <select name="search_year">
                         {% if year != '所有' %}
@@ -31,7 +30,7 @@
                     </select>
                 </div>
 
-                <div class="teaching_project_search_bar_item">
+                <div class="search_bar_item">
                     <span>学期</span>
                     <select name="search_semester">
                         <option>{{ semester }}</option>
@@ -42,13 +41,13 @@
                 </div>
             </form>
 
-            <div id="teaching_project_search_button">查询</div>
+            <div class="search_button">查询</div>
         </div>
 
-        <div class="teaching_project_item">
-            <div class="teaching_project_item_title">专业、团队及实验中心类</div>
+        <div class="project_item">
+            <div class="project_item_title">专业、团队及实验中心类</div>
 
-            <table class="teaching_project_item_table" cellspacing="0">
+            <table cellspacing="0">
                 <tr>
                     <th width="120px">学年/学期</th>
                     <th width="300px">项目名称</th>
@@ -91,14 +90,14 @@
                     {% endfor %}
                 {% endif %}
             </table>
-            <div class="teaching_project_add_button">新 增</div>
+            <div class="add_button">新 增</div>
         </div>
 
 
-        <div class="teaching_project_item">
-            <div class="teaching_project_item_title">课程类</div>
+        <div class="project_item">
+            <div class="project_item_title">课程类</div>
 
-            <table class="teaching_project_item_table" cellspacing="0">
+            <table cellspacing="0">
                 <tr>
                     <th width="120px">学年/学期</th>
                     <th width="300px">项目名称</th>
@@ -141,13 +140,13 @@
                     {% endfor %}
                 {% endif %}
             </table>
-            <div class="teaching_project_add_button">新 增</div>
+            <div class="add_button">新 增</div>
         </div>
 
-        <div class="teaching_project_item">
-            <div class="teaching_project_item_title">工程实践教育类</div>
+        <div class="project_item">
+            <div class="project_item_title">工程实践教育类</div>
 
-            <table class="teaching_project_item_table" cellspacing="0">
+            <table cellspacing="0">
                 <tr>
                     <th width="120px">学年/学期</th>
                     <th width="300px">项目名称</th>
@@ -190,13 +189,13 @@
                     {% endfor %}
                 {% endif %}
             </table>
-            <div class="teaching_project_add_button">新 增</div>
+            <div class="add_button">新 增</div>
         </div>
 
-        <div class="teaching_project_item">
-            <div class="teaching_project_item_title">教学名师</div>
+        <div class="project_item">
+            <div class="project_item_title">教学名师</div>
 
-            <table class="teaching_project_item_table" cellspacing="0">
+            <table cellspacing="0">
                 <tr>
                     <th width="120px">学年/学期</th>
                     <th width="300px">项目名称</th>
@@ -239,13 +238,13 @@
                     {% endfor %}
                 {% endif %}
             </table>
-            <div class="teaching_project_add_button">新 增</div>
+            <div class="add_button">新 增</div>
         </div>
 
-        <div class="teaching_project_item">
-            <div class="teaching_project_item_title">大学生创新创业训练</div>
+        <div class="project_item">
+            <div class="project_item_title">大学生创新创业训练</div>
 
-            <table class="teaching_project_item_table" cellspacing="0">
+            <table cellspacing="0">
                 <tr>
                     <th width="120px">学年/学期</th>
                     <th width="300px">项目名称</th>
@@ -288,7 +287,7 @@
                     {% endfor %}
                 {% endif %}
             </table>
-            <div class="teaching_project_add_button">新 增</div>
+            <div class="add_button">新 增</div>
         </div>
 
     </div>

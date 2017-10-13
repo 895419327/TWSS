@@ -9,15 +9,26 @@ def index(request):
     return render(request, 'index/index.html')
 
 
+# FIXME: URGENT 删除/审核后会跳回默认查询的界面而不是审核时的界面
+# 原因：MyAjax不发送含有搜索定位的表单
+# 因此
+# TODO: 如果有空的话...把MyAjax和MyAjax_Get优化掉...
+
+
 # TODO: 教务员身份
 
-# FIXME: 修改/删除/审核后会跳回默认查询的界面而不是审核时的界面
+# TODO: 教师/系主任身份下工作量统计的搜索功能
+
+# TODO: 欢迎界面 可以写一些使用帮助
 
 # TODO: 数据库备份
 # TODO: 测试覆盖
 # TODO: 日志系统
 
-# TODO: 如果有空的话...把MyAjax和MyAjax_Get优化掉...
+
+# TODO: 删除班级、教师信息时检查是否有相关引用
+
+# TODO: 防爆破 输入多次密码错误后封ip
 
 def login(request):
     request.encoding = 'utf-8'
@@ -37,9 +48,7 @@ def login(request):
             user = User.objects.get(id=username_post)
             if password_post == user.password:
                 # 验证身份
-                check_status = user.status.find(status_post)
-                # 身份正确
-                if check_status != -1:
+                if user.status.find(status_post) != -1:
                     # 生成unique_code
                     from hashlib import md5
                     unique_code_src = username_post + password_post + status_post
@@ -65,7 +74,7 @@ def login(request):
 def getpage(request):
     request.encoding = 'utf-8'
     # 校验身份
-    from project.utilities.check_indentity import check_identity
+    from project.utilities.indentity import check_identity
     check_return = check_identity(request)
     if check_return:
         user = check_return
@@ -90,7 +99,7 @@ def user_info_change_password(request, user):
 from project.utilities.search import *
 
 
-# TODO: 所有新增界面改为fixed
+# TODO: 选择班级后更新人数
 
 # Theory Course
 
@@ -153,7 +162,7 @@ def workload_input_pratice_course_add(request, user):
 # TODO: 新增自动识别type和相应level
 # TODO: 教研工作量精简html for type in type_list
 
-# TODO: 教学成果:教学成果 细分级别未实现
+# FIXME: 教学成果:教学成果 细分级别未实现
 
 # Teaching Achievement
 
@@ -231,6 +240,9 @@ def workload_count(request, user):
 # ##### 系主任 #####
 # TODO: 驳回时可填写理由
 # TODO: pass和reject可整合
+# TODO: 班级管理搜索功能  默认只显示当前四届
+# TODO: 考虑在教师表里缓存工作量统计
+# TODO: 考虑在系主任查看工作量统计时只统计已审核工作量
 
 # Teacher Management
 def teacher_management(request, user):
@@ -244,6 +256,7 @@ def teacher_management_add(request, user):
     if (request.POST['request_data']):
         modified_teacher = User.objects.get(id=request.POST['request_data'])
     return render(request, 'main/head_of_department/teacher_management/teacher_management_add.html', locals())
+
 
 # Class Management
 def class_management(request, user):
@@ -259,6 +272,11 @@ def class_management_add(request, user):
     if (request.POST['request_data']):
         modified_class = Class.objects.get(id=request.POST['request_data'])
     return render(request, 'main/head_of_department/class_management/class_management_add.html', locals())
+
+
+def workload_audit_reject(request, user):
+    return render(request, 'main/head_of_department/workload_audit/workload_audit_reject.html', locals())
+
 
 # 理论课
 def workload_audit_theory_course(request, user):
@@ -423,3 +441,23 @@ def workload_statistics(request, user):
     department = Department.objects.get(head_of_department=user.id)
     teacher_list = User.objects.filter(department=department)
     return render(request, 'main/head_of_department/workload_statistics/workload_statistics.html', locals())
+
+
+###### 教务员 #####
+
+def department_management(request, user):
+    department_list = Department.objects.all()
+    # 因为不能互相引用
+    # 因此系表的系主任值记录的是id字符串而不是外键
+    # 在此要转为外键
+    for department in department_list:
+        department.head_of_department = User.objects.get(id=department.head_of_department)
+    return render(request, 'main/dean/department_management/department_management.html', locals())
+
+
+def department_management_modify(request, user):
+    department_id = request.POST['request_data']
+    department = Department.objects.get(id=department_id)
+    original_head = User.objects.get(id=department.head_of_department)
+    teacher_list = User.objects.all()
+    return render(request, 'main/dean/department_management/department_management_modify.html', locals())

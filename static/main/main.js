@@ -30,29 +30,33 @@ $(document).ready(function () {
 
     // 一般情况下点击二级菜单返回相应页面
     $('.unit_detail').click(function () {
-        MyAjax_Get('/getpage', $(this).attr('id'), '');
+        MyAjax_Get('/getpage', $(this).attr('id'));
     });
 
     // 特殊情况下无二级菜单 则点击一级菜单时返回相应页面
+    // TODO: 可优化
+    // TODO: 服务器需检查权限 防止未登录直接发送表单得到数据
     // Teacher
     $('#workload_count_title').click(function () {
-        MyAjax_Get('/getpage', 'workload_count', '');
+        MyAjax_Get('/getpage', 'workload_count');
     });
 
     // Head of Department
     $('#teacher_management_title').click(function () {
-        MyAjax_Get('/getpage', 'teacher_management', '');
+        MyAjax_Get('/getpage', 'teacher_management');
     });
 
     $('#class_management_title').click(function () {
-        MyAjax_Get('/getpage', 'class_management', '');
+        MyAjax_Get('/getpage', 'class_management');
     });
 
     $('#workload_statistics_title').click(function () {
-        MyAjax_Get('/getpage', 'workload_statistics', '');
+        MyAjax_Get('/getpage', 'workload_statistics');
     });
 
-
+    $('#department_management_title').click(function () {
+        MyAjax_Get('/getpage', 'department_management');
+    })
 
 
 });

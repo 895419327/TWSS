@@ -1,6 +1,11 @@
 # -*- coding: utf-8 -*-
 
 
+# TODO: 生成unique_code
+def generate_unique_code(user):
+    pass
+
+
 def check_identity(request):
     request.encoding = 'utf-8'
 
@@ -11,10 +16,10 @@ def check_identity(request):
 
     # 校验身份
     from project.models import User
-    user_list = User.objects.filter(id=username_post)
+    try:
+        user = User.objects.get(id=username_post)
 
-    if user_list:
-        for user in user_list:
+        if user:
             # TODO: 添加身份确认
             if user.status.find(u'教师') != -1:
                 # from hashlib import md5
@@ -24,7 +29,7 @@ def check_identity(request):
                 #
                 # if unique_code == check_unique_code:
                 #     return user
-
                 return user
 
-    return False
+    except:
+        return False

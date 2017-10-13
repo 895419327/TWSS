@@ -10,7 +10,7 @@
 {% block base_content %}
 
     <div class="top_bar">
-        <div class="top_bar_center">
+        <div class="top_bar_content">
             <img id="logo_zzdx" src={% static "base/logo_zzdx.png" %}>
             <div class="logo_title">生命科学学院</div>
             <div class="logo_title">教师工作量统计系统</div>
@@ -24,14 +24,13 @@
 
     <div class="content">
         <div class="content_left">
-            <!--标题-->
+            <!--左边标题-->
             {% block content_left %}
 
             {% endblock %}
         </div>
 
         <div class="content_right">
-
             <!--这里根据点击不同标题展现不同内容-->
             {% block content_right %}
 
@@ -39,6 +38,7 @@
         </div>
     </div>
 
+    <!--全局表单-->
     <form id="request_form" method="POST" autocomplete="off" hidden>
         {% csrf_token %}
         <input name="unique_code" value={{ unique_code }}>

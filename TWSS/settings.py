@@ -84,7 +84,7 @@ DATABASES = {
         'USER': 'root',
         'PASSWORD': 'zql',
         'HOST': '127.0.0.1',
-        'PORT': '3306' or '3307',
+        'PORT': '3306',
     }
 }
 

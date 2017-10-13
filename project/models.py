@@ -26,7 +26,7 @@ class GlobalValue(models.Model):
 # 系部表
 class Department(models.Model):
     # 系部编号
-    id = models.IntegerField(4, default=0, primary_key=True)
+    id = models.CharField(max_length=3, default=000, primary_key=True)
     # 系部名称
     name = models.CharField(max_length=8, default=undefine)
     # 系主任

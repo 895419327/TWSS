@@ -1,15 +1,14 @@
 {% load staticfiles %}
 {% load myfilters %}
-<link rel="stylesheet" href={% static "main/teacher/workload_input/experiment_course/experiment_course.css" %}>
 <script src={% static "main/teacher/workload_input/experiment_course/experiment_course.js" %}></script>
 
-<div class="experiment_course_content main_interface">
+<div class="main_content">
 
     <div class="content_title">实验课 工作量录入</div>
 
     <div class="experiment_course_content_blur_area">
 
-        <div class="experiment_course_search_bar">
+        <div class="search_bar">
             <form id="experiment_course_search_form" method="post" action="/getpage" name="experiment_course_search"
                   autocomplete="off">
                 {% csrf_token %}
@@ -19,7 +18,7 @@
                 <input hidden id="location_year" value="{{ year }}">
                 <input hidden id="location_semester" value="{{ semester }}">
 
-                <div class="experiment_course_search_bar_item">
+                <div class="search_bar_item">
                     <span>学年</span>
                     <select name="search_year">
                         {% if year != '所有' %}
@@ -31,7 +30,7 @@
                     </select>
                 </div>
 
-                <div class="experiment_course_search_bar_item">
+                <div class="search_bar_item">
                     <span>学期</span>
                     <select name="search_semester">
                         <option>{{ semester }}</option>
@@ -42,10 +41,10 @@
                 </div>
             </form>
 
-            <div id="experiment_course_search_button">查询</div>
+            <div class="search_button">查询</div>
         </div>
 
-        <table class="experiment_course_table" cellspacing="0">
+        <table cellspacing="0">
             <tr>
                 <th width="150px">学年/学期</th>
                 <th width="200px">课程名</th>
@@ -122,7 +121,7 @@
             {% endif %}
 
         </table>
-        <div class="experiment_course_add_button">新 增</div>
+        <div class="add_button">新 增</div>
 
     </div>
 

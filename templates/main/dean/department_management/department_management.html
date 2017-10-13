@@ -1,0 +1,40 @@
+{% load staticfiles %}
+
+<link rel="stylesheet" href={% static "main/dean/department_management/department_management.css" %}>
+<script src={% static "main/dean/department_management/department_management.js" %}></script>
+
+<div class="department_management_content main_interface">
+
+    <div class="content_title">专业管理</div>
+
+    <div class="department_management_content_blur_area">
+
+        <table class="department_management_table" cellspacing="0" cellpadding="0">
+            <tr>
+                <th width="60px">专业编号</th>
+                <th width="100px">专业名称</th>
+                <th width="150px">系主任</th>
+                <th width="120px">系主任联系方式</th>
+                <th width="100px">更改系主任</th>
+            </tr>
+
+            {% if department_list %}
+                {% for department in department_list %}
+                    <tr>
+                        <td>{{ department.id }}</td>
+                        <td>{{ department.name }}</td>
+                        <td>{{ department.head_of_department.name }} {{ department.head_of_department.id }}
+                        </td>
+                        <td>{{ department.head_of_department.phone_number }}</td>
+                        <td><img class="change_head_of_department" id="{{ department.id }}_modify"
+                                 src={% static "main/resourse/modify.png" %}></td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
+        </table>
+    </div>
+
+    <div class="department_management_add_content">
+
+    </div>
+</div>

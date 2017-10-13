@@ -1,16 +1,15 @@
 {% load staticfiles %}
 {% load myfilters %}
-<link rel="stylesheet" href={% static "main/teacher/workload_input/paper_guide/paper_guide.css" %}>
 <script src={% static "main/teacher/workload_input/paper_guide/paper_guide.js" %}></script>
 
-<div class="paper_guide_content main_interface">
+<div class="main_content">
 
     <div class="content_title">指导本科学术论文 工作量录入</div>
 
     <div class="paper_guide_content_blur_area">
 
 
-        <div class="paper_guide_search_bar">
+        <div class="search_bar">
             <form id="paper_guide_search_form" method="post" action="/getpage" name="paper_guide_search"
                   autocomplete="off">
                 {% csrf_token %}
@@ -20,7 +19,7 @@
                 <input hidden id="location_year" value="{{ year }}">
                 <input hidden id="location_semester" value="{{ semester }}">
 
-                <div class="paper_guide_search_bar_item">
+                <div class="search_bar_item">
                     <span>学年</span>
                     <select name="search_year">
                         {% if year != '所有' %}
@@ -32,7 +31,7 @@
                     </select>
                 </div>
 
-                <div class="paper_guide_search_bar_item">
+                <div class="search_bar_item">
                     <span>学期</span>
                     <select name="search_semester">
                         <option>{{ semester }}</option>
@@ -43,13 +42,13 @@
                 </div>
             </form>
 
-            <div id="paper_guide_search_button">查询</div>
+            <div class="search_button">查询</div>
         </div>
 
-        <div class="paper_guide_item">
-            <div class="paper_guide_item_title">指导本科学术论文</div>
+        <div class="project_item">
+            <div class="project_item_title">指导本科学术论文</div>
 
-            <table class="paper_guide_item_table" cellspacing="0">
+            <table cellspacing="0">
                 <tr>
                     <th width="120px">学年/学期</th>
                     <th width="300px">论文名称</th>
@@ -92,7 +91,7 @@
                     {% endfor %}
                 {% endif %}
             </table>
-            <div class="paper_guide_add_button">新 增</div>
+            <div class="add_button">新 增</div>
         </div>
     </div>
 
