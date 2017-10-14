@@ -1,13 +1,11 @@
 # -*- coding: utf-8 -*-
 
 import os
-import json
 import time
 
 BASE_DIR = os.path.dirname(os.path.abspath(__name__))
 MEDIA_PATH = os.path.join(BASE_DIR, 'media')
 
-from django.shortcuts import render
 from project.views import *
 from project.models import *
 
@@ -26,7 +24,11 @@ def upload(request):
 
     # 获取需求
     requestfor = request.POST['requestfor']
-    return globals().get(requestfor)(request, user)
+    try:
+        return eval(requestfor)(request, user)
+    except:
+        print('data_upload.py upload() exception')
+        return False
 
 
 # TODO: 更改前要检查数据合法性
@@ -358,6 +360,17 @@ def paper_guide_delete(request, user):
 
 
 # Teacher Management
+
+# FIXME: MEDIUM 如果系主任修改了自己的id
+#               会导致浏览器上还记载着原来的id  于是发送表单时还用原来的 id
+#               数据库查无此人  于是无法正确加载页面
+#               触发条件过于严苛 暂不修复
+
+# FIXME: URGENT 如果系主任修改了其他教师的id
+#               目前逻辑无法迁移密码 会默认将手机号设为密码
+#               导致无法正常登陆
+#               紧急解决方案：应在修改界面予以提醒
+# TODO:         后期应重写逻辑 或 考虑给User表增加一个无法被任何用户修改的id
 
 def teacher_management_add(request, user):
     # 先假设使用手机号作为密码

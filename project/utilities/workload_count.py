@@ -1,6 +1,6 @@
 from project.models import *
 
-
+# TODO: 算法复杂度太高 应优化
 def workload_count_func(user, course=True, project=True):
     theory_course_W = 0
     experiment_course_W = 0
@@ -159,7 +159,7 @@ def workload_count_func(user, course=True, project=True):
 
         paper_guide_list = PaperGuide.objects.filter(teacher=user)
         for project in paper_guide_list:
-            # TODO:按科研论文奖励外？
+            # TODO:按科研论文奖励除外是什么意思？
             if project.level == 'SCI':
                 paper_guide_W += 100
             if project.level == '核心期刊':

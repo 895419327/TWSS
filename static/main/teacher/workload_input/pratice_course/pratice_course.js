@@ -19,7 +19,7 @@ $(document).ready(function () {
             MyAjax('/upload', 'pratice_course_delete', id);
     });
 
-    $('#pratice_course_search_button').click(function () {
+    $('.search_button').click(function () {
         $('#pratice_course_search_form').ajaxSubmit({
             target: '.content_right',
             error: function () {

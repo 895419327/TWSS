@@ -134,7 +134,7 @@ body {
     background: rgba(255, 255, 255, 0.15);
 }
 
-/* TODO: 把下面这俩优化掉*/
+/*  TODO: 把下面这俩优化掉*/
 
 .content_button {
     width: 150px;
@@ -178,7 +178,8 @@ select {
 }
 
 .search_bar {
-    width: 550px;
+    /* TODO: 工作量录入和工作量审核自适应*/
+    width: 985px;
     height: 50px;
     margin: 25px auto;
     padding: 0 0 0 15px;

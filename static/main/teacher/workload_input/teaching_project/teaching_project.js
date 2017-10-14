@@ -18,7 +18,7 @@ $(document).ready(function () {
             MyAjax('/upload', 'teaching_project_delete', id);
     });
 
-    $('#teaching_project_search_button').click(function () {
+    $('.search_button').click(function () {
         $('#teaching_project_search_form').ajaxSubmit({
             target: '.content_right',
             error: function () {

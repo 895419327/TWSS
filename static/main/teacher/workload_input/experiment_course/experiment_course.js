@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    
+
     $('tr:even').addClass('even');
 
     $('.experiment_course_add_button').click(function () {
@@ -19,11 +19,11 @@ $(document).ready(function () {
         if (confirm("确认删除？"))
             MyAjax('/upload', 'experiment_course_delete', id);
     });
-    
-    $('#experiment_course_search_button').click(function () {
+
+    $('.search_button').click(function () {
         $('#experiment_course_search_form').ajaxSubmit({
             target: '.content_right',
-            error:function () {
+            error: function () {
                 alert('error!');
             }
         })

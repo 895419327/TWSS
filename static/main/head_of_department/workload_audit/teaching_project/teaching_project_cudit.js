@@ -1,6 +1,6 @@
 $(document).ready(function () {
     $('tr:even').addClass('even');
-    
+
     $('.teaching_project_audit_pass').click(function () {
         var id = this.id;
         id = id.substring(0, id.length - 5);
@@ -13,11 +13,11 @@ $(document).ready(function () {
         if (confirm("确认驳回？"))
             MyAjax_Get('getpage', 'workload_audit_teaching_project_reject', id);
     });
-    
-    $('#teaching_project_audit_search_button').click(function () {
+
+    $('.search_button').click(function () {
         $('#teaching_project_audit_search_form').ajaxSubmit({
             target: '.content_right',
-            error:function () {
+            error: function () {
                 alert('error!');
             }
         })

@@ -15,7 +15,7 @@ def index(request):
 # TODO: 如果有空的话...把MyAjax和MyAjax_Get优化掉...
 
 
-# TODO: 教务员身份
+# TODO: 教务员身份   调K值
 
 # TODO: 教师/系主任身份下工作量统计的搜索功能
 
@@ -29,6 +29,9 @@ def index(request):
 # TODO: 删除班级、教师信息时检查是否有相关引用
 
 # TODO: 防爆破 输入多次密码错误后封ip
+
+
+# TODO: 移动端可做成微信小程序
 
 def login(request):
     request.encoding = 'utf-8'
@@ -83,7 +86,11 @@ def getpage(request):
 
     # 获取需求
     requestfor = request.POST['requestfor']
-    return globals().get(requestfor)(request, user)
+    try:
+        return eval(requestfor)(request, user)
+    except:
+        print('views.py getpage() exception')
+        return False
 
 
 #####  教师  #####

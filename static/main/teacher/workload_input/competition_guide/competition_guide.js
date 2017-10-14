@@ -17,11 +17,11 @@ $(document).ready(function () {
         if (confirm("确认删除？"))
             MyAjax('/upload', 'competition_guide_delete', id);
     });
-    
-    $('#competition_guide_search_button').click(function () {
+
+    $('.search_button').click(function () {
         $('#competition_guide_search_form').ajaxSubmit({
             target: '.content_right',
-            error:function () {
+            error: function () {
                 alert('error!');
             }
         })

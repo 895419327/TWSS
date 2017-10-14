@@ -18,7 +18,7 @@ $(document).ready(function () {
             MyAjax('/upload', 'teaching_achievement_delete', id);
     });
 
-    $('#teaching_achievement_search_button').click(function () {
+    $('.search_button').click(function () {
         $('#teaching_achievement_search_form').ajaxSubmit({
             target: '.content_right',
             error: function () {

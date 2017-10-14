@@ -32,4 +32,5 @@ def check_identity(request):
                 return user
 
     except:
+        print('identify error')
         return False

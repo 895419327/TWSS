@@ -14,8 +14,8 @@ $(document).ready(function () {
         if (confirm("确认驳回？"))
             MyAjax_Get('getpage', 'workload_audit_competition_guide_reject', id);
     });
-    
-    $('#competition_guide_audit_search_button').click(function () {
+
+    $('.search_button').click(function () {
         $('#competition_guide_audit_search_form').ajaxSubmit({
             target: '.content_right',
             error:function () {

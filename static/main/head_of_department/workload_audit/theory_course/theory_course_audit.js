@@ -15,7 +15,7 @@ $(document).ready(function () {
         MyAjax_Get('getpage', 'workload_audit_reject', id, '.workload_audit_reject_content');
     });
 
-    $('#theory_course_audit_search_button').click(function () {
+    $('.search_button').click(function () {
         $('#theory_course_audit_search_form').ajaxSubmit({
             target: '.content_right',
             error:function () {

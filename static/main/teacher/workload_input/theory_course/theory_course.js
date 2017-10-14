@@ -2,7 +2,7 @@ $(document).ready(function () {
 
     $('tr:even').addClass('even');
 
-    $('.theory_course_add_button').click(function () {
+    $('.add_button').click(function () {
         MyAjax_Get('getpage', 'workload_input_theory_course_add', null, '.theory_course_add_content')
     });
 
@@ -20,7 +20,7 @@ $(document).ready(function () {
             MyAjax('/upload', 'theory_course_delete', id);
     });
 
-    $('#theory_course_search_button').click(function () {
+    $('.search_button').click(function () {
         $('#theory_course_search_form').ajaxSubmit({
             target: '.content_right',
             error: function () {

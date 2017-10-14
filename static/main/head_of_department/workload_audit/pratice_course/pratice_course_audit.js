@@ -13,8 +13,8 @@ $(document).ready(function () {
         if (confirm("确认驳回？"))
             MyAjax_Get('getpage', 'workload_audit_pratice_course_reject', id);
     });
-    
-    $('#pratice_course_audit_search_button').click(function () {
+
+    $('.search_button').click(function () {
         $('#pratice_course_audit_search_form').ajaxSubmit({
             target: '.content_right',
             error:function () {
