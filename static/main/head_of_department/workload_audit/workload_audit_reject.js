@@ -9,7 +9,12 @@ $(document).ready(function () {
     });
 
     $('#workload_audit_reject_submit').click(function () {
-        alert('fuck');
+        $('#workload_audit_reject_form').ajaxSubmit({
+            target: '.content_right',
+            error:function () {
+                alert('error!');
+            }
+        })
     });
 
 

@@ -1,12 +1,11 @@
 {% load staticfiles %}
-<link rel="stylesheet" href={% static "main/teacher/workload_input/pratice_course/pratice_course_add.css" %}>
 <script src={% static 'main/teacher/workload_input/pratice_course/pratice_course_add.js' %}></script>
 
-<div class="pratice_course_add">
+<div class="add_popup">
 
-    <div class="pratice_course_add_cross"><img src={% static "main/resourse/cross.png" %}></div>
+    <div class="add_cross"><img src={% static "main/resourse/cross.png" %}></div>
 
-    <div class="pratice_course_add_title">新 增</div>
+    <div class="add_title">新 增</div>
 
     <form id="pratice_course_add_form" method="post" action="/upload" name="pratice_course" autocomplete="off">
         {% csrf_token %}
@@ -16,7 +15,7 @@
         <input hidden id="location_year_post" name="location_year_post">
         <input hidden id="location_semester_post" name="location_semester_post">
 
-        <div class="pratice_course_add_left">
+        <div class="add_left">
             <div>
                 <span>学年 </span>
                 <select name="year">
@@ -92,10 +91,10 @@
             </div>
         </div>
 
-        <div class="pratice_course_add_right">
+        <div class="add_right">
 
             <span style="height: 40px">班级</span>
-            <div class="pratice_course_add_classes">
+            <div class="add_classes">
                 {% if class_list %}
                     {% for clas in class_list %}
                         {% if clas.id in classes_checked %}
@@ -111,9 +110,9 @@
 
     </form>
 
-    <div class="pratice_course_add_buttons_area">
-        <div id="pratice_course_add_submit" class="pratice_course_add_buttons">提交</div>
-        <div id="pratice_course_add_cancel" class="pratice_course_add_buttons">取消</div>
+    <div class="add_buttons_area">
+        <div class="add_buttons add_submit">提交</div>
+        <div class="add_buttons add_cancel">取消</div>
     </div>
 
 

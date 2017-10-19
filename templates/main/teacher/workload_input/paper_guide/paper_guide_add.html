@@ -1,13 +1,11 @@
 {% load staticfiles %}
-<link rel="stylesheet"
-      href={% static "main/teacher/workload_input/paper_guide/paper_guide_add.css" %}>
 <script src={% static 'main/teacher/workload_input/paper_guide/paper_guide_add.js' %}></script>
 
-<div class="paper_guide_add">
+<div class="add_popup" style="height: 350px;">
 
-    <div class="paper_guide_add_cross"><img src={% static "main/resourse/cross.png" %}></div>
+    <div class="add_cross"><img src={% static "main/resourse/cross.png" %}></div>
 
-    <div class="paper_guide_add_title">新 增</div>
+    <div class="add_title">新 增</div>
 
     <form id="paper_guide_add_form" method="post" action="/upload" name="paper_guide"
           autocomplete="off">
@@ -18,36 +16,15 @@
         <input hidden id="location_year_post" name="location_year_post">
         <input hidden id="location_semester_post" name="location_semester_post">
 
-        <div class="paper_guide_add_left">
+        <div>
+            <span>项目名称 </span>
+            <input type="text" name="project_name" style="width: 500px" value="{{ modified_project.name }}">
+        </div>
 
+        <div hidden><span>项目编号</span><input type="text" name="project_id" value="{{ modified_project.id }}"></div>
+
+        <div class="add_left">
             <div>
-                <span>项目名称 </span>
-                <input type="text" name="project_name" style="width: 500px" value="{{ modified_project.name }}">
-            </div>
-
-            <div hidden><span>项目编号</span><input type="text" name="project_id" value="{{ modified_project.id }}"></div>
-
-            <div style="float: left">
-                <span>论文作者 </span>
-                <input type="text" name="author" style="width: 200px" value="{{ modified_project.author }}">
-            </div>
-
-            <div style="float: right">
-                <span>级别 </span>
-                <select name="level">
-                    {% if modified_project %}
-                        <option>{{ modified_project.level }}</option>
-                    {% endif %}
-                    <option>SCI</option>
-                    <option>核心期刊</option>
-                    <option>一般期刊</option>
-                </select>
-            </div>
-
-            {# float修正 #}
-            <div style="float: left; width: 700px; height: 2px"></div>
-
-            <div style="float: left">
                 <span>学年 </span>
                 <select name="year">
                     {% if modified_project %}
@@ -58,7 +35,14 @@
                 </select>
             </div>
 
-            <div style="float: right">
+            <div>
+                <span>论文作者 </span>
+                <input type="text" name="author" style="width: 200px" value="{{ modified_project.author }}">
+            </div>
+        </div>
+
+        <div class="add_right">
+            <div>
                 <span>学期 </span>
                 <select name="semester">
                     {% if modified_project %}
@@ -76,13 +60,23 @@
                 </select>
             </div>
 
-
+            <div>
+                <span>级别 </span>
+                <select name="level">
+                    {% if modified_project %}
+                        <option>{{ modified_project.level }}</option>
+                    {% endif %}
+                    <option>SCI</option>
+                    <option>核心期刊</option>
+                    <option>一般期刊</option>
+                </select>
+            </div>
         </div>
     </form>
 
-    <div class="paper_guide_add_buttons_area">
-        <div id="paper_guide_add_submit" class="paper_guide_add_buttons">提交</div>
-        <div id="paper_guide_add_cancel" class="paper_guide_add_buttons">取消</div>
+    <div class="add_buttons_area">
+        <div class="add_buttons add_submit">提交</div>
+        <div class="add_buttons add_cancel">取消</div>
     </div>
 
 

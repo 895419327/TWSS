@@ -194,7 +194,7 @@ def pratice_course_add(request, user):
     return workload_input_pratice_course(request, user)
 
 
-def pratice_course_delete_add(request, user):
+def pratice_course_delete(request, user):
     course_id = request.POST['request_data']
     course = PraticeCourse.objects.get(id=course_id, teacher=user)
     if course.audit_status == 2:

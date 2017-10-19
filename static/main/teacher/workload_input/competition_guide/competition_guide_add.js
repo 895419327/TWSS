@@ -1,18 +1,17 @@
 $(document).ready(function () {
-    $('.competition_guide_content_blur_area').css('filter', 'blur(10px)');
-    $('.competition_guide_add').show();
+    $('.blur_area').css('filter', 'blur(10px)');
 
-    $('.competition_guide_add_cross').click(function () {
-        $('.competition_guide_content_blur_area').css('filter', 'none');
-        $('.competition_guide_add').hide();
+    $('.add_cross').click(function () {
+        $('.blur_area').css('filter', 'none');
+        $('.add_popup').hide();
     });
 
-    $('#competition_guide_add_cancel').click(function () {
-        $('.competition_guide_content_blur_area').css('filter', 'none');
-        $('.competition_guide_add').hide();
+    $('.add_cancel').click(function () {
+        $('.blur_area').css('filter', 'none');
+        $('.add_popup').hide();
     });
 
-    $('#competition_guide_add_submit').click(function () {
+    $('.add_submit').click(function () {
         $('#location_year_post').val($('#location_year').val());
         $('#location_semester_post').val($('#location_semester').val());
 

@@ -13,7 +13,7 @@
           autocomplete="off">
         {% csrf_token %}
         <input type="hidden" name="username" value="{{ user.id }}">
-        <input type="hidden" name="requestfor" value="change_head_of_department_upload">
+        <input type="hidden" id="reject_form_requestfor" name="requestfor" value="">
 
         <div class="workload_audit_reject_reason">
             <textarea name="reject_reason">驳回原因：</textarea>

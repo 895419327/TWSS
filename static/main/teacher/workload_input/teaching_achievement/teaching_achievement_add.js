@@ -1,18 +1,17 @@
 $(document).ready(function () {
-    $('.teaching_achievement_content_blur_area').css('filter', 'blur(10px)');
-    $('.teaching_achievement_add').show();
+    $('.blur_area').css('filter', 'blur(10px)');
 
-    $('.teaching_achievement_add_cross').click(function () {
-        $('.teaching_achievement_content_blur_area').css('filter', 'none');
-        $('.teaching_achievement_add').hide();
+    $('.add_cross').click(function () {
+        $('.blur_area').css('filter', 'none');
+        $('.add_popup').hide();
     });
 
-    $('#teaching_achievement_add_cancel').click(function () {
-        $('.teaching_achievement_content_blur_area').css('filter', 'none');
-        $('.teaching_achievement_add').hide();
+    $('.add_cancel').click(function () {
+        $('.blur_area').css('filter', 'none');
+        $('.add_popup').hide();
     });
 
-    $('#teaching_achievement_add_submit').click(function () {
+    $('.add_submit').click(function () {
         $('#location_year_post').val($('#location_year').val());
         $('#location_semester_post').val($('#location_semester').val());
 

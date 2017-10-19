@@ -1,7 +1,7 @@
 $(document).ready(function () {
     $('tr:even').addClass('even');
 
-    $('.paper_guide_add_button').click(function () {
+    $('.add_button').click(function () {
         MyAjax_Get('getpage', 'workload_input_paper_guide_add', null, '.paper_guide_add_content')
     });
 

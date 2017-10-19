@@ -156,8 +156,6 @@ select {
     line-height: 28px;
     font-size: 20px;
     background-color: rgba(255, 255, 255, 0.7);
-    border: none;
-    border-radius: 0;
 }
 
 /* * * * */
@@ -271,3 +269,100 @@ table img:hover {
 }
 
 /* TODO: modify 和 delete 图片可以写进css*/
+
+
+/* * * * * * */
+
+.add_popup {
+    width: 800px;
+    height: 600px;
+    padding: 0 0 0 50px;
+    margin: 0 0 0 50px;
+    font-size: 22px;
+    line-height: 30px;
+    background: rgba(255, 255, 255, 0.6);
+    position: fixed;
+    top: 150px;
+}
+
+.add_title {
+    width: 700px;
+    margin: 25px auto 40px;
+    font-size: 30px;
+    text-align: center;
+}
+
+.add_cross {
+    height: 25px;
+    width: 25px;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+}
+
+.add_cross img {
+    height: 25px;
+    width: 25px;
+    cursor: pointer;
+    opacity: 0.6;
+}
+
+.add_cross img:hover {
+    opacity: 1;
+}
+
+.add_left {
+    width: 350px;
+    height: 500px;
+    margin: 0 0 0 50px;
+    float: left;
+}
+
+.add_right {
+    width: 350px;
+    height: 500px;
+    float: right;
+}
+
+.add_classes{
+    width: 300px;
+    height: 150px;
+    float: right;
+}
+
+.add_popup select {
+    width: 180px;
+    margin: 0 0 22px 0;
+}
+
+.add_popup input {
+    height: 26px;
+    margin: 0 0 22px 0;
+    border: none;
+}
+
+.add_buttons_area {
+    width: 350px;
+    height: 40px;
+    position: absolute;
+    bottom: 30px;
+    left: 280px;
+}
+
+.add_buttons {
+    width: 120px;
+    height: 40px;
+    line-height: 40px;
+    background: rgb(255, 255, 255);
+    cursor: pointer;
+    text-align: center;
+    border: 1px rgb(100, 100, 100);
+}
+
+.add_submit{
+    float: left;
+}
+
+.add_cancel{
+    float: right;
+}

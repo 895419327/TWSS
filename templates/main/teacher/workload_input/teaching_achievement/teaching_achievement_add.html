@@ -1,13 +1,11 @@
 {% load staticfiles %}
-<link rel="stylesheet"
-      href={% static "main/teacher/workload_input/teaching_achievement/teaching_achievement_add.css" %}>
 <script src={% static 'main/teacher/workload_input/teaching_achievement/teaching_achievement_add.js' %}></script>
 
-<div class="teaching_achievement_add">
+<div class="add_popup" style="height: 350px">
 
-    <div class="teaching_achievement_add_cross"><img src={% static "main/resourse/cross.png" %}></div>
+    <div class="add_cross"><img src={% static "main/resourse/cross.png" %}></div>
 
-    <div class="teaching_achievement_add_title">新 增</div>
+    <div class="add_title">新 增</div>
 
     <form id="teaching_achievement_add_form" method="post" action="/upload" name="teaching_achievement"
           autocomplete="off">
@@ -18,16 +16,15 @@
         <input hidden id="location_year_post" name="location_year_post">
         <input hidden id="location_semester_post" name="location_semester_post">
 
-        <div class="teaching_achievement_add_left">
+        <div>
+            <span>项目名称 </span>
+            <input type="text" name="project_name" style="width: 500px" value="{{ modified_project.name }}">
+        </div>
 
+        <div hidden><span>项目编号</span><input type="text" name="project_id" value="{{ modified_project.id }}"></div>
+
+        <div class="add_left">
             <div>
-                <span>项目名称 </span>
-                <input type="text" name="project_name" style="width: 500px" value="{{ modified_project.name }}">
-            </div>
-
-            <div hidden><span>项目编号</span><input type="text" name="project_id" value="{{ modified_project.id }}"></div>
-
-            <div style="float: left">
                 <span>学年 </span>
                 <select name="year">
                     {% if modified_project %}
@@ -38,7 +35,22 @@
                 </select>
             </div>
 
-            <div style="float: right">
+            <div>
+                <span>类别 </span>
+                <select name="type">
+                    {% if modified_project %}
+                        <option>{{ modified_project.type }}</option>
+                    {% endif %}
+                    <option>教研论文</option>
+                    <option>教改项目结项</option>
+                    <option>教学成果</option>
+                    <option>教材</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="add_right">
+            <div>
                 <span>学期 </span>
                 <select name="semester">
                     {% if modified_project %}
@@ -56,20 +68,7 @@
                 </select>
             </div>
 
-            <div style="float: left">
-                <span>类别 </span>
-                <select name="type">
-                    {% if modified_project %}
-                        <option>{{ modified_project.type }}</option>
-                    {% endif %}
-                    <option>教研论文</option>
-                    <option>教改项目结项</option>
-                    <option>教学成果</option>
-                    <option>教材</option>
-                </select>
-            </div>
-
-            <div style="float: right">
+            <div>
                 <span>级别 </span>
                 <select name="level">
                     {% if modified_project %}
@@ -84,13 +83,14 @@
                     <option>其他正式出版教材</option>
                 </select>
             </div>
-
         </div>
+
+
     </form>
 
-    <div class="teaching_achievement_add_buttons_area">
-        <div id="teaching_achievement_add_submit" class="teaching_achievement_add_buttons">提交</div>
-        <div id="teaching_achievement_add_cancel" class="teaching_achievement_add_buttons">取消</div>
+    <div class="add_buttons_area">
+        <div class="add_buttons add_submit">提交</div>
+        <div class="add_buttons add_cancel">取消</div>
     </div>
 
 

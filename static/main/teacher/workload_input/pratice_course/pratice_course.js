@@ -2,7 +2,7 @@ $(document).ready(function () {
 
     $('tr:even').addClass('even');
 
-    $('.pratice_course_add_button').click(function () {
+    $('.add_button').click(function () {
         MyAjax_Get('getpage', 'workload_input_pratice_course_add', null, '.pratice_course_add_content')
     });
 

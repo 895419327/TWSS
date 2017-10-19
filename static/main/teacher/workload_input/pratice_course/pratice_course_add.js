@@ -1,18 +1,17 @@
 $(document).ready(function () {
-    $('.pratice_course_content_blur_area').css('filter', 'blur(10px)');
-    $('.pratice_course_add').show();
+    $('.blur_area').css('filter', 'blur(10px)');
 
-    $('.pratice_course_add_cross').click(function () {
-        $('.pratice_course_content_blur_area').css('filter', 'none');
-        $('.pratice_course_add').hide();
+    $('.add_cross').click(function () {
+        $('.blur_area').css('filter', 'none');
+        $('.add_popup').hide();
     });
 
-    $('#pratice_course_add_cancel').click(function () {
-        $('.pratice_course_content_blur_area').css('filter', 'none');
-        $('.pratice_course_add').hide();
+    $('.add_cancel').click(function () {
+        $('.blur_area').css('filter', 'none');
+        $('.add_popup').hide();
     });
 
-    $('#pratice_course_add_submit').click(function () {
+    $('.add_submit').click(function () {
         $('#location_year_post').val($('#location_year').val());
         $('#location_semester_post').val($('#location_semester').val());
 
