@@ -3,55 +3,60 @@
 
 {% block headmeta %}
     <link rel="stylesheet" href={% static "index/index.css" %}>
-    <script src={% static "index/index.js" %}></script>
 {% endblock %}
 
 {% block base_content %}
-<div class="content">
-    <div class="left">
-        <img id="logo_zzdx" src={% static "base/logo_zzdx.png" %}>
-        <div class="logo_title">生命科学学院</div>
-        <div class="logo_title">教师工作量统计系统</div>
-        <!--<div id="developer">郑州大学生命科学学院提供技术支持</div>-->
-    </div>
-    <div class="right">
-        <div class="right_content">
-            <form id="login_form" action="/main" method="post" autocomplete="off">
-                {% csrf_token %}
-                <div class="input_row">
-                    <div class="input_title">账号</div>
-                    <input id="username" name="username" autofocus autocomplete="on">
-                </div>
 
-                <div class="input_row">
-                    <div class="input_title">密码</div>
-                    <input id="password" name="password" type="password" autocomplete="off">
-                </div>
+    <div class="index_top_bar">
+        <img id="logo" src={% static "base/logo.png" %}>
+        <div class="index_link">
+            <a href="http://www.zzu.edu.cn" target="_blank">郑大官网</a> /
+            <a href="http://www5.zzu.edu.cn/lifesci/" target="_blank">生科主页</a> /
+            <a href="http://jw.zzu.edu.cn" target="_blank">教务在线</a>
 
-                <div class="input_row">
-                    <div class="input_title">身份</div>
-                    <select id="status" name="status">
-                        <option value="教师" selected>教师</option>
-                        <option value="系主任">系主任</option>
-                        <option value="教务员">教务员</option>
-                        <option value="系统管理员">系统管理员</option>
-                    </select>
-                </div>
-
-                <div class="input_row">
-                    <div class="input_title">验证码</div>
-                    <input id="captcha" title="captcha" autocomplete="off">
-                    <div id="captcha_img" ondragstart="return false" oncontextmenu="return false"></div>
-                    <div id="warnings"></div>
-                </div>
-
-                <button id="login" type="button">登录</button>
-        </form>
         </div>
     </div>
-</div>
+
+    <div class="login_contain">
+        <form id="login_form" action="/main" method="post" autocomplete="off">
+            {% csrf_token %}
+
+            <div class="input_row">
+                <input id="username" name="username" placeholder="账号" autofocus>
+            </div>
+
+            <div class="input_row">
+                <input id="password" name="password" type="password" placeholder="密码">
+            </div>
+
+            <div class="input_row">
+                <select id="status" name="status">
+                    <option value="教师">教师</option>
+                    <option value="系主任">系主任</option>
+                    <option value="教务员">教务员</option>
+                    <option value="系统管理员">系统管理员</option>
+                </select>
+            </div>
+
+            <div class="input_row">
+                <input id="captcha" title="captcha" autocomplete="off" placeholder="验证码">
+                <div id="captcha_img" ondragstart="return false" oncontextmenu="return false"></div>
+                <div id="warnings"></div>
+            </div>
+
+            <button id="login_button" type="button">登录</button>
+        </form>
+    </div>
+
+    <div class="index_fotter">
+        <div class="index_fotter_contain">
+            郑州大学 生命科学学院 2017-2021
+        </div>
+    </div>
+
 {% endblock %}
 
 {% block base_footer %}
     <script src={% static "base/../../static/library/md5.js" %}></script>
+    <script src={% static "index/index.js" %}></script>
 {% endblock %}

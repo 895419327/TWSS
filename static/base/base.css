@@ -2,9 +2,6 @@ body{
     width: 1360px;
     height: 600px;
     margin: 0 auto;
-    background: url('background.jpg') repeat-y fixed;
-    background-size: 100%;
-    font-family: 'Microsoft YaHei';
 }
 
 a,a:link,a:hover,a:visited {

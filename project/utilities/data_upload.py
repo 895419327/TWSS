@@ -11,6 +11,7 @@ from project.models import *
 
 
 # TODO: 以后要把这些都整合到views
+# update 2017.10.20: 再说...
 
 def upload(request):
     request.encoding = 'utf-8'
@@ -42,7 +43,6 @@ def user_info(request, user):
 
 
 def change_password(request, user):
-    print(request.POST)
     if user.password == request.POST['original_password']:
         user.password = request.POST['new_password']
         user.save()
@@ -320,8 +320,6 @@ def competition_guide_delete(request, user):
 
 
 def paper_guide_add(request, user):
-    print(request.POST)
-
     id = ''
     if 'project_id' in request.POST:
         if request.POST['project_id']:

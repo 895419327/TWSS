@@ -1,7 +1,5 @@
-body {
-    width: 1360px;
-    margin: 0 auto;
-    background: url('../base/background.jpg') no-repeat fixed;
+body{
+    background: url('../base/background.jpg') repeat-y fixed;
     background-size: 100%;
     font-family: 'Microsoft YaHei';
 }

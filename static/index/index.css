@@ -1,124 +1,124 @@
-.content{
-    width: 900px;
-    height: 400px;
-    margin: 150px auto 0;
-    padding: 20px;
-    background-color: rgba(255,255,255,0.4);
-    border-radius: 15px;
+body {
+    background: url('../base/background2.jpg') no-repeat fixed;
+    background-size: cover;
+    font-family: 'Microsoft YaHei';
+    color: #DDDDDD;
 }
 
-.left{
-    width: 450px;
-    height: 400px;
-    user-select: none;
+.index_top_bar {
+    width: 100%;
+    height: 100px;
+    background: #262F40;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+#logo {
+    height: 75px;
+    margin: 18px 0 0 80px;
     float: left;
 }
 
-#logo_zzdx{
-    width: 350px;
-    margin: 60px 50px 20px;
-}
-
-.logo_title{
-    width: 400px;
-    height: 60px;
-    margin: 0 25px;
-    line-height: 60px;
-    text-align: center;
-    font-size: 40px;
-    cursor: default;
-}
-
-#developer{
-    width: 400px;
-    margin: 80px auto;
-    text-align: center;
-    cursor: default;
-    opacity: 0.5;
-}
-
-.right{
-    width: 450px;
-    height: 400px;
-    float: right;
-}
-
-.right_content{
+.index_link {
     width: 250px;
-    height: 250px;
-    margin: 50px 80px 0 50px;
-    padding: 30px;
-    line-height: 35px;
+    height: 30px;
+    margin: 65px 0 0;
     float: right;
 }
 
-.input_row{
+.index_link a {
+    color: #DDDDDD;
+}
+
+.login_contain {
+    width: 200px;
+    height: 240px;
+    margin: 200px auto 0;
+    line-height: 35px;
+}
+
+.input_row {
     height: 50px;
 }
 
-.input_title{
-    width: 70px;
-    font-size: 20px;
-    user-select: none;
-    cursor: default;
+.login_contain input, select {
+    width: 180px;
+    height: 24px;
+    padding: 2px 5px;
+    font-size: 18px;
+    opacity: 0.7;
+    border: none;
+    border-radius: 3px;
+}
+
+.login_contain select {
+    width: 190px;
+    height: 30px;
+}
+
+.login_contain input:focus{
+    opacity: 1;
+}
+
+#captcha {
+    width: 80px;
+    text-align: center;
     float: left;
 }
 
-.right input,select{
-    width: 150px;
-    padding: 2px 5px;
-    font-size: 18px;
-    background-color: rgba(255,255,255,0.7);
-    border: none;
-    border-radius: 5px;
-}
-
-.right select{
-    width: 160px;
-    height: 26px;
-}
-
-#captcha{
-    width: 65px;
-    text-align: center;
-}
-
-#captcha_img{
-    width: 75px;
-    height: 25px;
-    margin: 5px 20px 0 0;
-    line-height: 25px;
+#captcha_img {
+    width: 85px;
+    height: 28px;
+    margin: 0 0 0 15px;
+    line-height: 28px;
     font-size: 20px;
     font-family: 'Comic Sans MS';
     user-select: none;
     text-align: center;
     color: #333333;
     letter-spacing: 2px;
-    background-color: rgba(255,255,255,0.7);
-    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 3px;
     cursor: pointer;
-    float: right;
+    float: left;
 }
 
-#warnings{
+#warnings {
     width: 160px;
     height: 20px;
-    margin: -10px 20px;
     color: #ff0000;
-    float: right;
+    float: left;
 }
 
-#login{
+#login_button {
     width: 60px;
-    margin: 10px 20px;
+    margin: 0 0 0 130px;
     font-size: 18px;
-    background-color: rgba(255,255,255,0.8);
+    background-color: rgba(255, 255, 255, 0.8);
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    float: right;
+    float: left;
 }
 
-#login:active{
+#login_button:active {
     color: #666666;
+}
+
+.index_fotter {
+    width: 100%;
+    height: 80px;
+    background: #262F40;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+}
+
+.index_fotter_contain{
+    width: 300px;
+    height: 60px;
+    margin: 10px auto 0;
+    text-align: center;
+    font-size: 15px;
 }

@@ -46,13 +46,13 @@ $(document).ready(function () {
     // 输完验证码按回车 模拟点击登录按钮
     captcha.bind('keydown',function (event) {
        if(event.keyCode == '13'){
-           $('#login').trigger('click');
+           $('#login_button').trigger('click');
        }
     });
     
 
     // 点击登录
-    $('#login').click(function () {
+    $('#login_button').click(function () {
 
         // 测试开关
         // 自动填充 跳过验证码

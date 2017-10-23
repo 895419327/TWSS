@@ -9,8 +9,7 @@
 
     <div class="workload_audit_reject_title">驳回原因</div>
 
-    <form id="workload_audit_reject_form" method="post" action="/upload" name="department_management"
-          autocomplete="off">
+    <form id="workload_audit_reject_form" method="post" action="/upload" autocomplete="off">
         {% csrf_token %}
         <input type="hidden" name="username" value="{{ user.id }}">
         <input type="hidden" id="reject_form_requestfor" name="requestfor" value="">
