@@ -7,9 +7,10 @@
     <div class="content_title">教学成果 工作量录入</div>
 
     <div class="blur_area">
-    
+
         <div class="search_bar">
-            <form id="teaching_achievement_search_form" method="post" action="/getpage" name="teaching_achievement_search"
+            <form id="teaching_achievement_search_form" method="post" action="/getpage"
+                  name="teaching_achievement_search"
                   autocomplete="off">
                 {% csrf_token %}
                 <input type="hidden" name="username" value="{{ user.id }}">
@@ -90,9 +91,13 @@
                     {% endfor %}
                 {% endif %}
 
+                <tr>
+                    <td colspan="5">
+                        <div class="add_button">新 增</div>
+                    </td>
+                </tr>
 
             </table>
-            <div class="add_button">新 增</div>
         </div>
 
         <div class="project_item">
@@ -140,9 +145,14 @@
                         {% endif %}
                     {% endfor %}
                 {% endif %}
-            </table>
-            <div class="add_button">新 增</div>
 
+                <tr>
+                    <td colspan="5">
+                        <div class="add_button">新 增</div>
+                    </td>
+                </tr>
+
+            </table>
         </div>
 
         <div class="project_item">
@@ -190,8 +200,14 @@
                         {% endif %}
                     {% endfor %}
                 {% endif %}
+
+                <tr>
+                    <td colspan="5">
+                        <div class="add_button">新 增</div>
+                    </td>
+                </tr>
+
             </table>
-            <div class="add_button">新 增</div>
         </div>
 
         <div class="project_item">
@@ -239,8 +255,14 @@
                         {% endif %}
                     {% endfor %}
                 {% endif %}
+
+                <tr>
+                    <td colspan="5">
+                        <div class="add_button">新 增</div>
+                    </td>
+                </tr>
+
             </table>
-            <div class="add_button">新 增</div>
         </div>
 
     </div>

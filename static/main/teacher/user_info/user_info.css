@@ -11,27 +11,27 @@
 .user_info_item{
     width: 700px;
     height: 50px;
-    margin: 15px auto 0;
+    margin: 25px auto 25px;
+    box-shadow: 0 0 20px #aaaaaa;
 }
 
 .user_info_content_title {
     width: 250px;
-    height: 45px;
+    height: 50px;
     font-weight: bold;
     font-size: 20px;
-    line-height: 45px;
+    line-height: 50px;
     text-align: center;
-    background-color: rgba(255, 255, 255, 0.4);
+    background: #ffffff;
     float: left;
 }
 
 .user_info_content_value {
     width: 450px;
-    height: 45px;
+    height: 50px;
     font-size: 20px;
-    line-height: 45px;
+    line-height: 50px;
     text-align: center;
-    background-color: rgba(255, 255, 255, 0.2);
     float: left;
 }
 

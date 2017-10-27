@@ -4,28 +4,28 @@
     height: 100%;
 }
 
-#workload_count_search_button:hover {
-    background: rgba(255, 255, 255, 0.7);
-}
-
 .workload_count_item {
-    width: 900px;
-    margin: 0 auto 35px;
+    width: 1000px;
+    margin: 10px auto 40px;
     text-align: center;
+    box-shadow: 0 0 50px #aaaaaa;
 }
 
 .workload_count_item_title {
-    width: 180px;
+    width: 220px;
     font-size: 26px;
     color: #444444;
-    background: rgba(255, 255, 255, 0.8);
+    background: #f0f0f0;
     float: left;
 }
 
 .workload_count_table {
-    width: 700px;
+    width: 760px;
     font-size: 20px;
     line-height: 72px;
+    box-shadow: none;
+    position: relative;
+    left: -10px;
 }
 
 .workload_count_table_margin {
@@ -34,12 +34,12 @@
 
 .workload_count_table th {
     width: 300px;
-    background: rgba(255, 255, 255, 0.6);
+    background: #ffffff;
 }
 
 .workload_count_table td {
     width: 600px;
-    background: rgba(255, 255, 255, 0.4);
+    background: #ffffff;
 }
 
 #workload_count_item_title_teaching {

@@ -2,6 +2,7 @@ from project.models import *
 
 # TODO: 算法复杂度太高 应优化
 def workload_count_func(user, course=True, project=True):
+
     theory_course_W = 0
     experiment_course_W = 0
     pratice_course_W = 0
@@ -10,6 +11,8 @@ def workload_count_func(user, course=True, project=True):
     teaching_project_W = 0
     competition_guide_W = 0
     paper_guide_W = 0
+
+    # TODO: 学年搜索
 
     if course:
         theory_course_list = TheoryCourse.objects.filter(teacher=user)
