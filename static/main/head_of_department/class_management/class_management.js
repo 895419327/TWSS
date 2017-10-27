@@ -1,7 +1,7 @@
 $(document).ready(function () {
     $('tr:even').addClass('even');
     
-    $('.class_management_add_button').click(function () {
+    $('.add_button').click(function () {
         MyAjax_Get('getpage', 'class_management_add', null, '.class_management_add_content')
     });
     

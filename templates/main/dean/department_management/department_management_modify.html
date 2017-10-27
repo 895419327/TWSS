@@ -1,13 +1,11 @@
 {% load staticfiles %}
-<link rel="stylesheet"
-      href={% static "main/dean/department_management/department_management_modify.css" %}>
 <script src={% static 'main/dean/department_management/department_management_modify.js' %}></script>
 
-<div class="department_management_add">
+<div class="add_popup" style="height: 250px;">
 
-    <div class="department_management_add_cross"><img src={% static "main/resourse/cross.png" %}></div>
+    <div class="add_cross"><img src={% static "main/resourse/cross.png" %}></div>
 
-    <div class="department_management_add_title">指定 {{ department.name }} 新系主任</div>
+    <div class="add_title">指定 {{ department.name }} 新系主任</div>
 
     <form id="department_management_add_form" method="post" action="/upload" name="department_management"
           autocomplete="off">
@@ -15,7 +13,7 @@
         <input type="hidden" name="username" value="{{ user.id }}">
         <input type="hidden" name="requestfor" value="change_head_of_department_upload">
 
-        <div class="department_management_add_left">
+        <div class="add_left">
 
             <div hidden>
                 <span>所修改专业</span>
@@ -31,7 +29,7 @@
 
         </div>
 
-        <div class="department_management_add_right">
+        <div class="add_right">
             <div>
                 <span>新系主任 </span>
                 <select name="teacher" style="width: 225px">
@@ -45,9 +43,9 @@
         </div>
     </form>
 
-    <div class="department_management_add_buttons_area">
-        <div id="department_management_add_submit" class="department_management_add_buttons">提交</div>
-        <div id="department_management_add_cancel" class="department_management_add_buttons">取消</div>
+    <div class="add_buttons_area">
+        <div class="add_buttons add_submit">提交</div>
+        <div class="add_buttons add_cancel">取消</div>
     </div>
 
 

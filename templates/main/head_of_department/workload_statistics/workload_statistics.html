@@ -1,14 +1,13 @@
 {% load staticfiles %}
 {% load myfilters %}
-<link rel="stylesheet" href={% static "main/head_of_department/workload_statistics/workload_statistics.css" %}>
 <script src={% static "main/head_of_department/workload_statistics/workload_statistics.js" %}></script>
 
-<div class="workload_statistics_content main_interface">
+<div class="main_content">
 
     <div class="content_title">{{ department.name }} 工作量统计</div>
 
-    <div class="workload_statistics_content_blur_area">
-        <table class="workload_statistics_table" cellspacing="0">
+    <div class="blur_area">
+        <table cellspacing="0" style="margin: 30px auto 0;">
             <tr>
                 <th width="120px">教师</th>
                 <th width="60px">职称</th>

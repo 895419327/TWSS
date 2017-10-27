@@ -1,18 +1,17 @@
 $(document).ready(function () {
-    $('.teacher_management_content_blur_area').css('filter', 'blur(10px)');
-    $('.teacher_management_add').show();
+    $('.blur_area').css('filter', 'blur(10px)');
 
-    $('.teacher_management_add_cross').click(function () {
-        $('.teacher_management_content_blur_area').css('filter', 'none');
-        $('.teacher_management_add').hide();
+    $('.add_cross').click(function () {
+        $('.blur_area').css('filter', 'none');
+        $('.add_popup').hide();
     });
 
-    $('#teacher_management_add_cancel').click(function () {
-        $('.teacher_management_content_blur_area').css('filter', 'none');
-        $('.teacher_management_add').hide();
+    $('.add_cancel').click(function () {
+        $('.blur_area').css('filter', 'none');
+        $('.add_popup').hide();
     });
 
-    $('#teacher_management_add_submit').click(function () {
+    $('.add_submit').click(function () {
         var form = $('#teacher_management_add_form');
         form.ajaxSubmit({
             target: '.content_right',

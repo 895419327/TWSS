@@ -1,15 +1,13 @@
 {% load staticfiles %}
-
-<link rel="stylesheet" href={% static "main/head_of_department/class_management/class_management.css" %}>
 <script src={% static "main/head_of_department/class_management/class_management.js" %}></script>
 
-<div class="class_management_content main_interface">
+<div class="main_content">
 
     <div class="content_title">{{ department.name }} 班级管理</div>
 
-    <div class="class_management_content_blur_area">
+    <div class="blur_area">
 
-        <table class="class_management_table" cellspacing="0" cellpadding="0">
+        <table cellspacing="0" cellpadding="0" style="margin: 30px auto 0">
             <tr>
                 <th width="80px">班级编号</th>
                 <th width="150px">班级名称</th>
@@ -40,7 +38,7 @@
 
             <tr>
                 <td colspan="6">
-                    <div class="class_management_add_button">新 增</div>
+                    <div class="add_button">新 增</div>
                 </td>
             </tr>
         </table>

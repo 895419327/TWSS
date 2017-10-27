@@ -1,14 +1,12 @@
 {% load staticfiles %}
-
-<link rel="stylesheet" href={% static "main/head_of_department/teacher_management/teacher_management.css" %}>
 <script src={% static "main/head_of_department/teacher_management/teacher_management.js" %}></script>
 
-<div class="teacher_management_content main_interface">
+<div class="main_content">
 
     <div class="content_title">{{ department.name }} 教师队伍管理</div>
 
-    <div class="teacher_management_content_blur_area">
-        <table class="teacher_management_table" cellspacing="0">
+    <div class="blur_area">
+        <table cellspacing="0" style="margin: 30px auto;">
             <tr>
                 <th width="120px">教师编号</th>
                 <th width="100px">教师姓名</th>
@@ -37,7 +35,7 @@
             {% endif %}
             <tr>
                 <td colspan="6">
-                    <div class="teacher_management_add_button">新 增</div>
+                    <div class="add_button">新 增</div>
 
                 </td>
             </tr>

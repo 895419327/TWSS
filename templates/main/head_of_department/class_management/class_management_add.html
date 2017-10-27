@@ -1,13 +1,11 @@
 {% load staticfiles %}
-<link rel="stylesheet"
-      href={% static "main/head_of_department/class_management/class_management_add.css" %}>
 <script src={% static 'main/head_of_department/class_management/class_management_add.js' %}></script>
 
-<div class="class_management_add">
+<div class="add_popup" style="height: 350px;">
 
-    <div class="class_management_add_cross"><img src={% static "main/resourse/cross.png" %}></div>
+    <div class="add_cross"><img src={% static "main/resourse/cross.png" %}></div>
 
-    <div class="class_management_add_title">新 增</div>
+    <div class="add_title">新 增</div>
 
     <form id="class_management_add_form" method="post" action="/upload" name="class_management"
           autocomplete="off">
@@ -15,7 +13,7 @@
         <input type="hidden" name="username" value="{{ user.id }}">
         <input type="hidden" name="requestfor" value="class_management_add">
 
-        <div class="class_management_add_left">
+        <div class="add_left">
             <div>
                 <span>年级 </span>
                 <select name="grade">
@@ -56,7 +54,7 @@
             </div>
         </div>
 
-        <div class="class_management_add_right">
+        <div class="add_right">
             <div>
                 <span>所属系</span>
                 <select disabled>
@@ -78,9 +76,9 @@
         </div>
     </form>
 
-    <div class="class_management_add_buttons_area">
-        <div id="class_management_add_submit" class="class_management_add_buttons">提交</div>
-        <div id="class_management_add_cancel" class="class_management_add_buttons">取消</div>
+    <div class="add_buttons_area">
+        <div class="add_buttons add_submit">提交</div>
+        <div class="add_buttons add_cancel">取消</div>
     </div>
 
 
