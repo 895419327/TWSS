@@ -116,8 +116,8 @@ body {
 .content_right {
     width: 1050px;
     height: 100%;
-    min-height: 750px;
-    padding: 10px 0 0 0;
+    min-height: 500px;
+    padding: 10px 0 50px 0;
     position: relative;
     float: right;
 }
@@ -260,7 +260,7 @@ table img:hover {
 
 .project_item_title {
     font-size: 24px;
-    margin: 30px 0 10px 20px;
+    margin: 40px 0 15px 20px;
 }
 
 /* TODO: modify 和 delete 图片可以写进css*/

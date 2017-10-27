@@ -30,17 +30,18 @@ $(document).ready(function () {
         MyAjax_Get('/getpage', 'teacher_management');
     });
 
-    $('#class_management_title').click(function () {
-        MyAjax_Get('/getpage', 'class_management');
-    });
-
     $('#workload_statistics_title').click(function () {
         MyAjax_Get('/getpage', 'workload_statistics');
     });
 
     $('#department_management_title').click(function () {
         MyAjax_Get('/getpage', 'department_management');
-    })
+    });
+
+    // Dean
+    $('#class_management_title').click(function () {
+        MyAjax_Get('/getpage', 'class_management');
+    });
 
 
 });
@@ -83,7 +84,7 @@ function MyAjax_Get(action, forwhat, data, towhere) {
     // 附上数据
     requestdata.val(data);
 
-    var towhere = arguments[3]?arguments[3]:'.content_right';
+    var towhere = arguments[3] ? arguments[3] : '.content_right';
     // 提交
     form.ajaxSubmit({
         target: towhere,
