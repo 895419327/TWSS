@@ -1,8 +1,8 @@
 from project.models import *
 
-# TODO: 算法复杂度太高 应优化
-def workload_count_func(user, course=True, project=True):
 
+# TODO: 算法复杂度太高 应优化
+def workload_count_func(user, course=True, project=True, year=GlobalValue.objects.get(key='current_year').value):
     theory_course_W = 0
     experiment_course_W = 0
     pratice_course_W = 0
@@ -12,10 +12,8 @@ def workload_count_func(user, course=True, project=True):
     competition_guide_W = 0
     paper_guide_W = 0
 
-    # TODO: 学年搜索
-
     if course:
-        theory_course_list = TheoryCourse.objects.filter(teacher=user)
+        theory_course_list = TheoryCourse.objects.filter(teacher=user, year=year)
         for course in theory_course_list:
             K = 0
             if course.student_sum <= 40:
@@ -31,7 +29,7 @@ def workload_count_func(user, course=True, project=True):
             theory_course_W += 6 + course.period * K
         theory_course_W = round(theory_course_W, 2)
 
-        experiment_course_list = ExperimentCourse.objects.filter(teacher=user)
+        experiment_course_list = ExperimentCourse.objects.filter(teacher=user, year=year)
         for course in experiment_course_list:
             L = 0
             if course.attribute == 1:
@@ -43,7 +41,7 @@ def workload_count_func(user, course=True, project=True):
             experiment_course_W += course.period * course.student_sum * L
         experiment_course_W = round(experiment_course_W, 2)
 
-        pratice_course_list = PraticeCourse.objects.filter(teacher=user)
+        pratice_course_list = PraticeCourse.objects.filter(teacher=user, year=year)
         for course in pratice_course_list:
             S = 0
             if course.attribute == 1:
@@ -57,7 +55,7 @@ def workload_count_func(user, course=True, project=True):
         pratice_course_W = round(pratice_course_W, 2)
 
     if project:
-        teaching_achievement_list = TeachingAchievement.objects.filter(teacher=user)
+        teaching_achievement_list = TeachingAchievement.objects.filter(teacher=user, year=year)
         for project in teaching_achievement_list:
             if project.type == '教研论文':
                 if project.level == '核心期刊':
@@ -104,7 +102,7 @@ def workload_count_func(user, course=True, project=True):
                 if project.level == '其他正式出版教材':
                     teaching_achievement_W += 500
 
-        teaching_project_list = TeachingProject.objects.filter(teacher=user)
+        teaching_project_list = TeachingProject.objects.filter(teacher=user, year=year)
         for project in teaching_project_list:
             if project.type == '专业、团队及实验中心类':
                 if project.level == '国家级':
@@ -142,7 +140,7 @@ def workload_count_func(user, course=True, project=True):
                 if project.level == '校级':
                     teaching_project_W += 50
 
-        competition_guide_list = CompetitionGuide.objects.filter(teacher=user)
+        competition_guide_list = CompetitionGuide.objects.filter(teacher=user, year=year)
         for project in competition_guide_list:
             if project.type == '全国性大学生学科竞赛':
                 if project.level == '特等':
@@ -160,7 +158,7 @@ def workload_count_func(user, course=True, project=True):
                 if project.level == '二等':
                     competition_guide_W += 100
 
-        paper_guide_list = PaperGuide.objects.filter(teacher=user)
+        paper_guide_list = PaperGuide.objects.filter(teacher=user, year=year)
         for project in paper_guide_list:
             # TODO:按科研论文奖励除外是什么意思？
             if project.level == 'SCI':
@@ -176,5 +174,3 @@ def workload_count_func(user, course=True, project=True):
         return theory_course_W, experiment_course_W, pratice_course_W
     elif project:
         return teaching_achievement_W, teaching_project_W, competition_guide_W, paper_guide_W
-
-

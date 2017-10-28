@@ -1,8 +1,12 @@
 # -*- coding: utf-8 -*-
 
 from django.shortcuts import render
+from hashlib import md5
 
 from project.models import *
+from project.utilities.search import *
+from project.utilities.indentity import check_identity
+from project.utilities.workload_count import workload_count_func
 
 
 def index(request):
@@ -46,8 +50,6 @@ def login(request):
         status_post = request.POST['status']
 
         # 检查是否存在此用户
-        # from models import User
-        from project.models import User
 
         try:
             user = User.objects.get(id=username_post)
@@ -55,7 +57,6 @@ def login(request):
                 # 验证身份
                 if user.status.find(status_post) != -1:
                     # 生成unique_code
-                    from hashlib import md5
                     unique_code_src = username_post + password_post + status_post
                     generater = md5(unique_code_src.encode("utf8"))
                     unique_code = generater.hexdigest()
@@ -79,7 +80,6 @@ def login(request):
 def getpage(request):
     request.encoding = 'utf-8'
     # 校验身份
-    from project.utilities.indentity import check_identity
     check_return = check_identity(request)
     if check_return:
         user = check_return
@@ -103,9 +103,6 @@ def user_info_user_info(request, user):
 
 def user_info_change_password(request, user):
     return render(request, 'main/teacher/user_info/change_password.html', locals())
-
-
-from project.utilities.search import *
 
 
 # TODO: 选择班级后更新人数
@@ -235,11 +232,21 @@ def workload_input_paper_guide_add(request, user):
 # Workload Count
 
 def workload_count(request, user):
-    # TODO: 导出功能
-    from project.utilities.workload_count import workload_count_func
+    year = GlobalValue.objects.get(key='current_year').value
+    if request.POST['request_data']:
+        year = request.POST['request_data'][:4]
 
-    theory_course_W, experiment_course_W, pratice_course_W, teaching_achievement_W, teaching_project_W, competition_guide_W, paper_guide_W = workload_count_func(
-        user)
+    # TODO: 导出功能
+
+
+    theory_course_W, \
+    experiment_course_W, \
+    pratice_course_W, \
+    teaching_achievement_W, \
+    teaching_project_W, \
+    competition_guide_W, \
+    paper_guide_W \
+        = workload_count_func(user, year=year)
 
     course_total_W = theory_course_W + pratice_course_W + experiment_course_W
     project_total_W = teaching_achievement_W + teaching_project_W + competition_guide_W + paper_guide_W
@@ -483,6 +490,10 @@ def class_management_add(request, user):
 # 工作量统计
 # 系主任有权调用
 def workload_statistics(request, user):
+    year = GlobalValue.objects.get(key='current_year').value
+    if request.POST['request_data']:
+        year = request.POST['request_data'][:4]
+
     department_list = []
     teacher_list = []
     # 若为教务员
@@ -494,6 +505,23 @@ def workload_statistics(request, user):
         department_list = Department.objects.filter(head_of_department=user.id)
         teacher_list = User.objects.filter(department=user.department)
 
+    workload_list = []
+    for tearcher in teacher_list:
+        theory_course_W, \
+        experiment_course_W, \
+        pratice_course_W, \
+        teaching_achievement_W, \
+        teaching_project_W, \
+        competition_guide_W, \
+        paper_guide_W \
+            = workload_count_func(user, year=year)
+
+        course_total_W = theory_course_W + pratice_course_W + experiment_course_W
+        project_total_W = teaching_achievement_W + teaching_project_W + competition_guide_W + paper_guide_W
+
+        workload = [tearcher.department.id, tearcher.name + tearcher.id, tearcher.title, course_total_W,
+                    project_total_W]
+        workload_list.append(workload)
     return render(request, 'main/head_of_department/workload_statistics/workload_statistics.html', locals())
 
 

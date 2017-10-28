@@ -11,7 +11,8 @@
         <div class="search_bar">
             <div class="search_bar_item">
                 <span>学年</span>
-                <select>
+                <select id="workload_statistics_year">
+                    <option>{{ year }}-{{ year|add:1 }}学年</option>
                     <option>2016-2017学年</option>
                     <option>2017-2018学年</option>
                 </select>
@@ -32,13 +33,23 @@
                         <th width="100px">教研工作量</th>
                     </tr>
 
-                    {% for teacher in teacher_list %}
-                        {% if teacher.department == department %}
+                    {#                    {% for teacher in teacher_list %}#}
+                    {#                        {% if teacher.department == department %}#}
+                    {#                            <tr>#}
+                    {#                                <td>{{ teacher.name }} {{ teacher.id }}</td>#}
+                    {#                                <td>{{ teacher.title }}</td>#}
+                    {#                                <td>{{ teacher.id | workload_count_course }}</td>#}
+                    {#                                <td>{{ teacher.id | workload_count_project }}</td>#}
+                    {#                            </tr>#}
+                    {#                        {% endif %}#}
+                    {#                    {% endfor %}#}
+                    {% for workload in workload_list %}
+                        {% if workload.0 == department.id %}
                             <tr>
-                                <td>{{ teacher.name }} {{ teacher.id }}</td>
-                                <td>{{ teacher.title }}</td>
-                                <td>{{ teacher.id | workload_count_course }}</td>
-                                <td>{{ teacher.id | workload_count_project }}</td>
+                                <td>{{ workload.1 }}</td>
+                                <td>{{ workload.2 }}</td>
+                                <td>{{ workload.3 }}</td>
+                                <td>{{ workload.4 }}</td>
                             </tr>
                         {% endif %}
                     {% endfor %}
