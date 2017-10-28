@@ -33,16 +33,6 @@
                         <th width="100px">教研工作量</th>
                     </tr>
 
-                    {#                    {% for teacher in teacher_list %}#}
-                    {#                        {% if teacher.department == department %}#}
-                    {#                            <tr>#}
-                    {#                                <td>{{ teacher.name }} {{ teacher.id }}</td>#}
-                    {#                                <td>{{ teacher.title }}</td>#}
-                    {#                                <td>{{ teacher.id | workload_count_course }}</td>#}
-                    {#                                <td>{{ teacher.id | workload_count_project }}</td>#}
-                    {#                            </tr>#}
-                    {#                        {% endif %}#}
-                    {#                    {% endfor %}#}
                     {% for workload in workload_list %}
                         {% if workload.0 == department.id %}
                             <tr>

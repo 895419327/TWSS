@@ -50,7 +50,6 @@ def login(request):
         status_post = request.POST['status']
 
         # 检查是否存在此用户
-
         try:
             user = User.objects.get(id=username_post)
             if password_post == user.password:
@@ -107,6 +106,31 @@ def user_info_change_password(request, user):
 
 # TODO: 选择班级后更新人数
 
+def get_classes(grade=GlobalValue.objects.get(key='current_year').value):
+    class_list = Class.objects.filter(grade=grade)
+    return class_list
+
+
+def get_classes_module(request, user):
+    # TODO: 修改时若选了其他年级再回来会丢失已选择的数据
+    print(request.POST['request_data'])
+    data = request.POST['request_data'].split(',')
+    grade = data[0]
+    type = data[1]
+    id = data[2]
+
+    class_list = Class.objects.filter(grade=grade)
+    classes_checked = ''
+    if id:
+        if type == 'TheoryCourse':
+            classes_checked = TheoryCourse.objects.get(id=id).classes.split(',')
+        elif type == 'ExperimentCourse':
+            classes_checked = ExperimentCourse.objects.get(id=id).classes.split(',')
+        elif type == 'PraticeCourse':
+            classes_checked = PraticeCourse.objects.get(id=id).classes.split(',')
+
+    return render(request, "main/utilities/classes.html", locals())
+
 # Theory Course
 
 def workload_input_theory_course(request, user):
@@ -118,7 +142,7 @@ def workload_input_theory_course(request, user):
 
 def workload_input_theory_course_add(request, user):
     # 获取班级信息
-    class_list = Class.objects.filter()
+    class_list = get_classes(2016)
     modified_course = ''
     if (request.POST['request_data']):
         modified_course = TheoryCourse.objects.get(id=request.POST['request_data'])
@@ -137,7 +161,7 @@ def workload_input_experiment_course(request, user):
 
 def workload_input_experiment_course_add(request, user):
     # 获取班级信息
-    class_list = Class.objects.filter()
+    class_list = get_classes(2016)
     modified_course = ''
     if (request.POST['request_data']):
         modified_course = ExperimentCourse.objects.get(id=request.POST['request_data'])
@@ -156,7 +180,7 @@ def workload_input_pratice_course(request, user):
 
 def workload_input_pratice_course_add(request, user):
     # 获取班级信息
-    class_list = Class.objects.filter()
+    class_list = get_classes(2016)
     modified_course = ''
     if (request.POST['request_data']):
         modified_course = PraticeCourse.objects.get(id=request.POST['request_data'])

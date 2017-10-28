@@ -79,7 +79,7 @@
 
             <div>
                 <span>课程编号 </span>
-                <input type="text" name="course_id" value="{{ modified_course.id }}">
+                <input type="text" name="course_id" id="course_id" value="{{ modified_course.id }}">
             </div>
 
             <div>
@@ -95,7 +95,13 @@
 
         <div class="add_right">
 
-            <span style="height: 40px">班级</span>
+            <span>班级</span>
+            <span>
+                <select id="add_classes_select">
+                    <option>2016级</option>
+                    <option>2017级</option>
+                </select>
+            </span>
             <div class="add_classes">
                 {% if class_list %}
                     {% for clas in class_list %}

@@ -318,12 +318,6 @@ table img:hover {
     float: right;
 }
 
-.add_classes {
-    width: 300px;
-    height: 150px;
-    float: right;
-}
-
 .add_popup select {
     width: 180px;
     margin: 0 0 22px 0;
@@ -337,9 +331,21 @@ table img:hover {
     font-size: 20px;
 }
 
+.add_classes {
+    width: 300px;
+    height: 150px;
+    margin: 0 0 0 25px;
+    float: left;
+}
+
 .add_classes input {
+    height: 20px;
     width: 20px;
     padding: 0;
+}
+
+.add_classes div{
+    height: 36px;
 }
 
 .add_buttons_area {

@@ -11,6 +11,13 @@ $(document).ready(function () {
         $('.add_popup').hide();
     });
 
+    $('#add_classes_select').change(function () {
+        var grade = $('#add_classes_select option:selected').val().substring(0, 4);
+        var course_id = $('#course_id').val();
+        var data = grade + ',ExperimentCourse,' + course_id;
+        MyAjax_Get('/getpage', 'get_classes_module', data, '.add_classes');
+    });
+
     $('.add_submit').click(function () {
         $('#location_year_post').val($('#location_year').val());
         $('#location_semester_post').val($('#location_semester').val());
