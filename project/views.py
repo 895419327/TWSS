@@ -417,12 +417,6 @@ def workload_audit_paper_guide_reject(request, user):
     return workload_audit_paper_guide(request, user)
 
 
-def workload_statistics(request, user):
-    department = Department.objects.get(head_of_department=user.id)
-    teacher_list = User.objects.filter(department=department)
-    return render(request, 'main/head_of_department/workload_statistics/workload_statistics.html', locals())
-
-
 ###### 教务员 #####
 
 # 专业管理
@@ -449,13 +443,13 @@ def department_management_modify(request, user):
 # 系主任有权调用
 def teacher_management(request, user):
     department_list = []
-    department_list = []
+    teacher_list = []
     # 若为教务员
-    if user.status.find(u'教务员') != -1:
+    if request.POST['status'] == u'教务员':
         department_list = Department.objects.all()
         teacher_list = User.objects.all()
     # 若为系主任
-    elif user.status.find(u'系主任') != -1:
+    elif request.POST['status'] == u'系主任':
         department_list = Department.objects.filter(head_of_department=user.id)
         teacher_list = User.objects.filter(department=user.department)
     return render(request, 'main/head_of_department/teacher_management/teacher_management.html', locals())
@@ -484,3 +478,24 @@ def class_management_add(request, user):
         modified_class = Class.objects.get(id=request.POST['request_data'])
     return render(request, 'main/dean/class_management/class_management_add.html',
                   locals())
+
+
+# 工作量统计
+# 系主任有权调用
+def workload_statistics(request, user):
+    department_list = []
+    teacher_list = []
+    # 若为教务员
+    if request.POST['status'] == u'教务员':
+        department_list = Department.objects.all()
+        teacher_list = User.objects.all()
+    # 若为系主任
+    elif request.POST['status'] == u'系主任':
+        department_list = Department.objects.filter(head_of_department=user.id)
+        teacher_list = User.objects.filter(department=user.department)
+
+    return render(request, 'main/head_of_department/workload_statistics/workload_statistics.html', locals())
+
+
+def workload_K_value(request, user):
+    return render(request, "main/dean/workload_K_value/workload_K_value.html", locals())

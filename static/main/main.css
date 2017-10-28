@@ -43,11 +43,14 @@ body {
     color: #DDDDDD;
 }
 
+.index_link a:hover {
+    text-decoration: underline;
+}
+
 .content {
     width: 1360px;
     min-height: 750px;
     margin: 100px auto 0;
-    /*background-color: rgba(255, 255, 255, 0.2);*/
     float: left;
 }
 
@@ -74,8 +77,6 @@ body {
     font-size: 24px;
     line-height: 50px;
     text-align: center;
-    /*color: #333333;*/
-    /*background-color: rgba(255, 255, 255, 0.5);*/
     background: #EEEEEE;
     user-select: none;
     z-index: 999;
@@ -102,8 +103,6 @@ body {
     font-size: 18px;
     line-height: 45px;
     text-align: center;
-    /*color: #333333;*/
-    /*background-color: rgba(255, 255, 255, 0.3);*/
     background: #DDDDDD;
     cursor: pointer;
 }
@@ -372,3 +371,6 @@ table img:hover {
 .add_cancel {
     float: right;
 }
+
+/* * * * * * */
+

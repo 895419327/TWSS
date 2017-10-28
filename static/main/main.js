@@ -34,16 +34,18 @@ $(document).ready(function () {
         MyAjax_Get('/getpage', 'workload_statistics');
     });
 
-    $('#department_management_title').click(function () {
-        MyAjax_Get('/getpage', 'department_management');
-    });
-
     // Dean
     $('#class_management_title').click(function () {
         MyAjax_Get('/getpage', 'class_management');
     });
 
+    $('#department_management_title').click(function () {
+        MyAjax_Get('/getpage', 'department_management');
+    });
 
+    $('#workload_K_value_title').click(function () {
+        MyAjax_Get('/getpage', 'workload_K_value');
+    });
 });
 
 function MyAjax(action, forwhat, data) {

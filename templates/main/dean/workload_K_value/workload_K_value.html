@@ -1,0 +1,232 @@
+{% load staticfiles %}
+
+<script src={% static "main/dean/workload_K_value/workload_K_value.js" %}></script>
+
+<div class="main_content">
+
+    <div class="content_title">工作量系数</div>
+
+    <div class="project_item">
+        <div class="project_item_title">理论课</div>
+        <div>W = 6 + T × K （T为该课学分，K为系数见下表）</div>
+        <table>
+            <tr>
+                <th width="100px"></th>
+                <th width="180px"><=40人</th>
+                <th width="180px">41-85人</th>
+                <th width="180px">86-125人</th>
+                <th width="180px">126-200人</th>
+                <th width="180px">>=200人</th>
+            </tr>
+            <tr>
+                <th>K值</th>
+                <td>1.0</td>
+                <td>1.6</td>
+                <td>2.3</td>
+                <td>3.0</td>
+                <td>3.6</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="project_item">
+        <div class="project_item_title">实验课</div>
+        <div>W = R × X × L （R为该课学生数，X为计划学时数，L为实验类型系数见下表）</div>
+        <table>
+            <tr>
+                <th width="100px"></th>
+                <th width="300px">专业课实验</th>
+                <th width="300px">计算机上机实验</th>
+                <th width="300px">开放实验</th>
+            </tr>
+            <tr>
+                <th>L值</th>
+                <td>0.045</td>
+                <td>0.020</td>
+                <td>0.065</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="project_item">
+        <div class="project_item_title">实习 / 实训课</div>
+        <div>W = R × Z × S / M （R为该课学生数，X为计划学时数，S为实践类型系数见下表）</div>
+        <table>
+            <tr>
+                <th width="100px"></th>
+                <th >市区内认识学习</th>
+                <th>外地认识学习 / 市区内生产学习 等</th>
+                <th>外地生产实习 / 毕业实习 / 毕业设计(论文) 等</th>
+            </tr>
+            <tr>
+                <th>S值</th>
+                <td>0.05</td>
+                <td>0.07</td>
+                <td>0.09</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="project_item">
+        <div class="project_item_title">教学成果</div>
+        <table>
+            <tr>
+                <th width="120px"></th>
+                <th>核心期刊</th>
+                <th>一般期刊</th>
+            </tr>
+            <tr>
+                <th>教研论文</th>
+                <td>100</td>
+                <td>30</td>
+            </tr>
+        </table>
+
+        <div style="height: 20px;"></div>
+
+        <table>
+            <tr>
+                <th width="120px"></th>
+                <th width="293px">国家级</th>
+                <th width="293px">省部级</th>
+                <th width="293px">校级</th>
+            </tr>
+            <tr>
+                <th>教改项目结项</th>
+                <td>2000</td>
+                <td>800</td>
+                <td>50</td>
+            </tr>
+        </table>
+
+        <div style="height: 20px;"></div>
+
+        <table>
+            <tr>
+                <th width="120px"></th>
+                <th width="293px">国家级</th>
+                <th width="293px">省部级</th>
+                <th width="293px">校级</th>
+            </tr>
+            <tr>
+                <th>教学成果</th>
+                <td>
+                    <div>特等 20000</div>
+                    <div>一等 10000</div>
+                    <div>二等 5000</div>
+                </td>
+                <td>
+                    <div>特等 3000</div>
+                    <div>一等 2000</div>
+                    <div>二等 1000</div>
+                </td>
+                <td>
+                    <div>特等 300</div>
+                    <div>一等 150</div>
+                    <div>二等 50</div>
+                </td>
+            </tr>
+        </table>
+
+        <div style="height: 20px;"></div>
+
+        <table>
+            <tr>
+                <th width="120px"></th>
+                <th>全国统编教材 / 国家级规划教材 / 全国教学专业委员会指定教材 / 全国优秀教材</th>
+                <th>其他正式出版教材</th>
+            </tr>
+            <tr>
+                <th>教材</th>
+                <td>1500</td>
+                <td>500</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="project_item">
+        <div class="project_item_title">本科教学工程项目</div>
+        <table>
+            <tr>
+                <th width="400px"></th>
+                <th width="200px">国家级</th>
+                <th width="200px">省部级</th>
+                <th width="200px">校级</th>
+            </tr>
+            <tr>
+                <th>专业、团队及实验中心类</th>
+                <td>10000</td>
+                <td>5000</td>
+                <td>1000</td>
+            </tr>
+            <tr>
+                <th>课程类</th>
+                <td>10000</td>
+                <td>2000</td>
+                <td>400</td>
+            </tr>
+            <tr>
+                <th>工程实践教育中心</th>
+                <td>10000</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <th>教学名师</th>
+                <td>5000</td>
+                <td>1000</td>
+                <td>200</td>
+            </tr>
+            <tr>
+                <th>大学生创新创业训练</th>
+                <td>300</td>
+                <td>160</td>
+                <td>50</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="project_item">
+        <div class="project_item_title">指导竞赛</div>
+        <table>
+            <tr>
+                <th width="400px"></th>
+                <th width="200px">特等</th>
+                <th width="200px">一等</th>
+                <th width="200px">二等</th>
+            </tr>
+            <tr>
+                <th>全国性大学生学科竞赛</th>
+                <td>1000</td>
+                <td>600</td>
+                <td>400</td>
+            </tr>
+            <tr>
+                <th>省部级大学生学科竞赛</th>
+                <td>300</td>
+                <td>200</td>
+                <td>100</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="project_item">
+        <div class="project_item_title">指导本科生发表学术论文</div>
+        <div>按科研论文奖励外另加</div>
+        <table>
+            <tr>
+                <th width="400px"></th>
+                <th width="200px">SCI</th>
+                <th width="200px">核心期刊</th>
+                <th width="200px">一般期刊</th>
+            </tr>
+            <tr>
+                <th>本科生学术论文</th>
+                <td>100</td>
+                <td>30</td>
+                <td>10</td>
+            </tr>
+        </table>
+    </div>
+</div>
+

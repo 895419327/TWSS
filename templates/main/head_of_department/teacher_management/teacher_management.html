@@ -22,6 +22,7 @@
 
                     {% if teacher_list %}
                         {% for teacher in teacher_list %}
+                            {% if teacher.department == department %}
                             <tr>
                                 <td>{{ teacher.id }}</td>
                                 <td>{{ teacher.name }}</td>
@@ -35,6 +36,7 @@
                                          src={% static "main/resourse/delete.png" %}>
                                 </td>
                             </tr>
+                            {% endif %}
                         {% endfor %}
                     {% endif %}
                     <tr>

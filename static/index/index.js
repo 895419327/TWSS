@@ -56,7 +56,7 @@ $(document).ready(function () {
 
         // 测试开关
         // 自动填充 跳过验证码
-        var PROJECT_TEST = false;
+        var PROJECT_TEST = true;
         if(PROJECT_TEST){
             username.val('20160000001');
             password.val(hex_md5('20160000001'));

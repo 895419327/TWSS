@@ -4,28 +4,47 @@
 
 <div class="main_content">
 
-    <div class="content_title">{{ department.name }} 工作量统计</div>
+    <div class="content_title">工作量统计</div>
 
     <div class="blur_area">
-        <table cellspacing="0" style="margin: 30px auto 0;">
-            <tr>
-                <th width="120px">教师</th>
-                <th width="60px">职称</th>
-                <th width="100px">教学工作量</th>
-                <th width="100px">教研工作量</th>
-            </tr>
 
-            {% if teacher_list %}
-                {% for teacher in teacher_list %}
+        <div class="search_bar">
+            <div class="search_bar_item">
+                <span>学年</span>
+                <select>
+                    <option>2016-2017学年</option>
+                    <option>2017-2018学年</option>
+                </select>
+            </div>
+
+            <div class="search_button">查询</div>
+        </div>
+
+
+        {% for department in department_list %}
+            <div class="project_item">
+                <div class="project_item_title">{{ department.name }}</div>
+                <table cellspacing="0">
                     <tr>
-                        <td>{{ teacher.name }} {{ teacher.id }}</td>
-                        <td>{{ teacher.title }}</td>
-                        <td>{{ teacher.id | workload_count_course }}</td>
-                        <td>{{ teacher.id | workload_count_project }}</td>
+                        <th width="120px">教师</th>
+                        <th width="60px">职称</th>
+                        <th width="100px">教学工作量</th>
+                        <th width="100px">教研工作量</th>
                     </tr>
-                {% endfor %}
-            {% endif %}
-        </table>
+
+                    {% for teacher in teacher_list %}
+                        {% if teacher.department == department %}
+                            <tr>
+                                <td>{{ teacher.name }} {{ teacher.id }}</td>
+                                <td>{{ teacher.title }}</td>
+                                <td>{{ teacher.id | workload_count_course }}</td>
+                                <td>{{ teacher.id | workload_count_project }}</td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                </table>
+            </div>
+        {% endfor %}
     </div>
 
 </div>
