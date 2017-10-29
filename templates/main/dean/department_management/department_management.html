@@ -19,15 +19,17 @@
 
             {% if department_list %}
                 {% for department in department_list %}
-                    <tr>
-                        <td>{{ department.id }}</td>
-                        <td>{{ department.name }}</td>
-                        <td>{{ department.head_of_department.name }} {{ department.head_of_department.id }}
-                        </td>
-                        <td>{{ department.head_of_department.phone_number }}</td>
-                        <td><img class="change_head_of_department" id="{{ department.id }}_modify"
-                                 src={% static "main/resourse/modify.png" %}></td>
-                    </tr>
+                    {% if department.id != 470 %}
+                        <tr>
+                            <td>{{ department.id }}</td>
+                            <td>{{ department.name }}</td>
+                            <td>{{ department.head_of_department.name }} {{ department.head_of_department.id }}
+                            </td>
+                            <td>{{ department.head_of_department.phone_number }}</td>
+                            <td><img class="change_head_of_department" id="{{ department.id }}_modify"
+                                     src={% static "main/resourse/modify.png" %}></td>
+                        </tr>
+                    {% endif %}
                 {% endfor %}
             {% endif %}
         </table>

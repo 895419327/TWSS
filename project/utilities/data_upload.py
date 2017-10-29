@@ -51,6 +51,8 @@ def change_password(request, user):
         return False
 
 
+# FIXME: URGENT 如果修改了课程/项目id 则原id不会被删除 会出现两个项目
+
 # Theory Course
 
 def theory_course_add(request, user):
@@ -77,6 +79,7 @@ def theory_course_add(request, user):
         attribute = 2
     elif request.POST['course_attribute'] == u'限选':
         attribute = 3
+
     new = TheoryCourse(name=request.POST['course_name'],
                        id=request.POST['course_id'],
                        year=request.POST['year'][:4],
@@ -128,6 +131,7 @@ def experiment_course_add(request, user):
         attribute = 2
     elif request.POST['course_attribute'] == u'开放实验':
         attribute = 3
+
     new = ExperimentCourse(name=request.POST['course_name'],
                            id=request.POST['course_id'],
                            year=request.POST['year'][:4],
@@ -179,6 +183,7 @@ def pratice_course_add(request, user):
         attribute = 2
     elif request.POST['course_attribute'] == u'外地生产实习/毕业实习/毕业设计(论文)':
         attribute = 3
+
     new = PraticeCourse(name=request.POST['course_name'],
                         id=request.POST['course_id'],
                         year=request.POST['year'][:4],
@@ -377,7 +382,6 @@ def teacher_management_add(request, user):
     from hashlib import md5
     generater = md5(password.encode("utf8"))
     password = generater.hexdigest()
-
 
     # 检测是新增还是修改
     id = request.POST['teacher_id']

@@ -58,7 +58,7 @@ body {
     width: 280px;
     height: 100%;
     min-height: 750px;
-    padding: 20px 0 0 0;
+    padding: 0px;
     background: #262F40;
     position: fixed;
     left: 0;
@@ -67,9 +67,10 @@ body {
 .copyright {
     width: 280px;
     position: fixed;
-    bottom: 15px;
+    bottom: 10px;
     text-align: center;
     color: #565F70;
+    line-height: 15px;
     font-size: 12px;
 }
 
@@ -278,7 +279,6 @@ table img:hover {
 .add_popup {
     width: 800px;
     height: 600px;
-    padding: 0 0 0 50px;
     margin: 0 0 0 50px;
     font-size: 22px;
     line-height: 30px;
@@ -317,7 +317,7 @@ table img:hover {
 .add_left {
     width: 350px;
     height: 500px;
-    margin: 0 0 0 50px;
+    margin: 0 0 0 100px;
     float: left;
 }
 
@@ -362,7 +362,7 @@ table img:hover {
     height: 40px;
     position: absolute;
     bottom: 30px;
-    left: 280px;
+    left: 230px;
 }
 
 .add_buttons {

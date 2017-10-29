@@ -20,9 +20,9 @@ def check_identity(request):
     try:
         user = User.objects.get(id=username_post)
 
-        if user:
+        # if user:
             # TODO: 添加身份确认
-            if user.status.find(u'教师') != -1:
+            # if user.status.find(u'教师') != -1:
                 # from hashlib import md5
                 # check_unique_code_src = username_post + user.password + status_post
                 # generater = md5(check_unique_code_src.encode("utf8"))
@@ -30,7 +30,8 @@ def check_identity(request):
                 #
                 # if unique_code == check_unique_code:
                 #     return user
-                return user
+                # return user
+        return user
 
     except:
         print('identify error')

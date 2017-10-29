@@ -9,7 +9,7 @@ $(document).ready(function () {
         new_password.val(hex_md5(new_password.val()));
 
         form.ajaxSubmit({
-            target: '#message',
+            // target: '#message',
             success: function () {
                 alert('修改成功！');
                 $('.change_password_item input').val('');

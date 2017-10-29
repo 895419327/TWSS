@@ -285,8 +285,15 @@ def workload_count(request, user):
 # TODO: 考虑在系主任查看工作量统计时只统计已审核工作量
 
 
-def workload_audit_reject(request, user):
+def workload_audit_reject_page(request, user):
+    data = request.POST['request_data'].split(',')
+    project_type = data[0]
+    project_id = data[1]
     return render(request, 'main/head_of_department/workload_audit/workload_audit_reject.html', locals())
+
+
+def workload_audit_reject(request, user):
+    return render(request, 'main/head_of_department/workload_audit/theory_course/theory_course_audit.html')
 
 
 # 理论课
@@ -555,3 +562,9 @@ def workload_statistics(request, user):
 
 def workload_K_value(request, user):
     return render(request, "main/dean/workload_K_value/workload_K_value.html", locals())
+
+
+# # # ADMIN # # #
+
+def database_management(request, user):
+    return render(request, "main/admin/database_management/database_management.html", locals())

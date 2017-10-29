@@ -46,6 +46,11 @@ $(document).ready(function () {
     $('#workload_K_value_title').click(function () {
         MyAjax_Get('/getpage', 'workload_K_value');
     });
+
+    // Admin
+    $('#database_management_title').click(function () {
+        MyAjax_Get('/getpage', 'database_management');
+    });
 });
 
 function MyAjax(action, forwhat, data) {

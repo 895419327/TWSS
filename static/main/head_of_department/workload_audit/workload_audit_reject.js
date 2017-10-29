@@ -1,14 +1,14 @@
 $(document).ready(function () {
 
-    $('.workload_audit_reject_cross').click(function () {
-        $('.workload_audit_reject').hide();
+    $('.add_cross').click(function () {
+        $('.add_popup').hide();
     });
 
-    $('#workload_audit_reject_cancel').click(function () {
-        $('.workload_audit_reject').hide();
+    $('.add_cancel').click(function () {
+        $('.add_popup').hide();
     });
 
-    $('#workload_audit_reject_submit').click(function () {
+    $('.add_submit').click(function () {
         $('#workload_audit_reject_form').ajaxSubmit({
             target: '.content_right',
             error:function () {

@@ -1,3 +1,10 @@
+body {
+    background: url('../base/background2.jpg') no-repeat fixed;
+    background-size: cover;
+    font-family: 'Microsoft YaHei';
+    color: #DDDDDD;
+}
+
 .content{
     width: 800px;
     height: 360px;

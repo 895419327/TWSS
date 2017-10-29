@@ -1,27 +1,39 @@
 {% load staticfiles %}
-<link rel="stylesheet"
-      href={% static "main/head_of_department/workload_audit/workload_audit_reject.css" %}>
 <script src={% static 'main/head_of_department/workload_audit/workload_audit_reject.js' %}></script>
 
-<div class="workload_audit_reject">
+<div class="add_popup" style="height: 400px;">
 
-    <div class="workload_audit_reject_cross"><img src={% static "main/resourse/cross.png" %}></div>
+    <div class="add_cross"><img src={% static "main/resourse/cross.png" %}></div>
 
-    <div class="workload_audit_reject_title">驳回原因</div>
+    <div class="add_title">驳回原因</div>
 
     <form id="workload_audit_reject_form" method="post" action="/upload" autocomplete="off">
         {% csrf_token %}
         <input type="hidden" name="username" value="{{ user.id }}">
-        <input type="hidden" id="reject_form_requestfor" name="requestfor" value="">
+        <input type="hidden" id="reject_form_requestfor" name="requestfor" value="workload_audit_reject">
 
-        <div class="workload_audit_reject_reason">
-            <textarea name="reject_reason">驳回原因：</textarea>
+        <input type="hidden" name="project_type" value="{{ project_type }}">
+        <input type="hidden" name="project_id" value="{{ project_id }}">
+
+        <style type="text/css">
+            .reject_reason {
+                height: 150px;
+                width: 580px;
+                padding: 10px;
+                font-size: 20px;
+                resize: none;
+                border: 1px solid #cccccc;
+            }
+        </style>
+
+        <div style="width: 580px; margin: 0 auto;">
+            <textarea name="reject_reason" class="reject_reason">驳回原因：</textarea>
         </div>
     </form>
 
-    <div class="workload_audit_reject_buttons_area">
-        <div id="workload_audit_reject_submit" class="workload_audit_reject_buttons">提交</div>
-        <div id="workload_audit_reject_cancel" class="workload_audit_reject_buttons">取消</div>
+    <div class=" add_buttons_area">
+        <div class="add_buttons add_submit">提交</div>
+        <div class="add_buttons add_cancel">取消</div>
     </div>
 
 </div>
