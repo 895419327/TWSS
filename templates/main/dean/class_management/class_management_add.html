@@ -1,5 +1,5 @@
 {% load staticfiles %}
-<script src={% static 'static/main/dean/class_management/class_management_add.js' %}></script>
+<script src={% static "/main/dean/class_management/class_management_add.js" %}></script>
 
 <div class="add_popup" style="height: 350px;">
 
@@ -57,8 +57,13 @@
         <div class="add_right">
             <div>
                 <span>所属系</span>
-                <select disabled>
-                    <option>{{ user.department.name }}</option>
+                <select name="department">
+                    {% if modified_class %}
+                        <option>{{ modified_class.department.name }}</option>
+                    {% endif %}
+                    <option>生物工程</option>
+                    <option>生物技术</option>
+                    <option>生物信息</option>
                 </select>
             </div>
 

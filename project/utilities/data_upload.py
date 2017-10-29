@@ -371,22 +371,40 @@ def paper_guide_delete(request, user):
 # TODO:         后期应重写逻辑 或 考虑给User表增加一个无法被任何用户修改的id
 
 def teacher_management_add(request, user):
+
     # 先假设使用手机号作为密码
     password = request.POST['phone_number']
-    # 如果是在更改界面修改密码则使用该密码
-    if 'password' in request.POST:
-        if request.POST['password'] and request.POST['password'] != u'不修改则放空':
-            password = request.POST['password']
-
     from hashlib import md5
     generater = md5(password.encode("utf8"))
     password = generater.hexdigest()
 
-    new = User(id=request.POST['teacher_id'],
+
+    # 检测是新增还是修改
+    id = request.POST['teacher_id']
+    password = ''
+    list = User.objects.filter(id=id)
+    for l in list:
+        if l.id == id:
+            password = l.password
+            break
+
+    department = Department.objects.get(name=request.POST['department'])
+
+    # 教务员修改系主任信息后 系主任status会被重置为'教师' 需手动加上
+    status = ''
+    departments = Department.objects.all()
+    for d in departments:
+        if d.head_of_department == request.POST['teacher_id']:
+            status = u'教师,系主任'
+            break
+        else:
+            status = u'教师'
+
+    new = User(id=id,
                name=request.POST['name'],
                title=request.POST['title'],
-               department=user.department,
-               status=u'教师',
+               department=department,
+               status=status,
                password=password,
                phone_number=request.POST['phone_number'],
                email=request.POST['email'], )
@@ -412,9 +430,10 @@ def teacher_management_delete(request, user):
 def class_management_add(request, user):
     # TODO:根据实际id长度修改
     teacher = User.objects.get(id=request.POST['teacher'][-11:])
+    department = Department.objects.get(name=request.POST['department'])
     new = Class(id=request.POST['class_id'],
                 name=request.POST['name'],
-                department=user.department,
+                department=department,
                 grade=request.POST['grade'][:-1],
                 sum=request.POST['student_sum'],
                 teacher=teacher)

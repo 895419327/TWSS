@@ -18,12 +18,12 @@ def index(request):
 # 因此
 # TODO: 如果有空的话...把MyAjax和MyAjax_Get优化掉...
 
+# FIXME: VERY-HIGH 工作量统计/审核的搜索bug 搜索后内容正确但搜索栏未更新
 
-# TODO: 教务员身份   调K值
+
+# TODO: 教务员工作量系数调整功能
+
 # TODO: 排序
-
-
-# TODO: 教师/系主任身份下工作量统计的搜索功能
 
 # TODO: 欢迎界面 可以写一些使用帮助
 
@@ -113,7 +113,6 @@ def get_classes(grade=GlobalValue.objects.get(key='current_year').value):
 
 def get_classes_module(request, user):
     # TODO: 修改时若选了其他年级再回来会丢失已选择的数据
-    print(request.POST['request_data'])
     data = request.POST['request_data'].split(',')
     grade = data[0]
     type = data[1]
@@ -130,6 +129,7 @@ def get_classes_module(request, user):
             classes_checked = PraticeCourse.objects.get(id=id).classes.split(',')
 
     return render(request, "main/utilities/classes.html", locals())
+
 
 # Theory Course
 
@@ -473,14 +473,16 @@ def department_management_modify(request, user):
 # 教师管理
 # 系主任有权调用
 def teacher_management(request, user):
+    status = user.status.split(',')[1]
+
     department_list = []
     teacher_list = []
     # 若为教务员
-    if request.POST['status'] == u'教务员':
+    if status == u'教务员':
         department_list = Department.objects.all()
         teacher_list = User.objects.all()
     # 若为系主任
-    elif request.POST['status'] == u'系主任':
+    elif status == u'系主任':
         department_list = Department.objects.filter(head_of_department=user.id)
         teacher_list = User.objects.filter(department=user.department)
     return render(request, 'main/head_of_department/teacher_management/teacher_management.html', locals())
@@ -514,6 +516,8 @@ def class_management_add(request, user):
 # 工作量统计
 # 系主任有权调用
 def workload_statistics(request, user):
+    status = user.status.split(',')[1]
+
     year = GlobalValue.objects.get(key='current_year').value
     if request.POST['request_data']:
         year = request.POST['request_data'][:4]
@@ -521,16 +525,16 @@ def workload_statistics(request, user):
     department_list = []
     teacher_list = []
     # 若为教务员
-    if request.POST['status'] == u'教务员':
+    if status == u'教务员':
         department_list = Department.objects.all()
         teacher_list = User.objects.all()
     # 若为系主任
-    elif request.POST['status'] == u'系主任':
+    elif status == u'系主任':
         department_list = Department.objects.filter(head_of_department=user.id)
         teacher_list = User.objects.filter(department=user.department)
 
     workload_list = []
-    for tearcher in teacher_list:
+    for teacher in teacher_list:
         theory_course_W, \
         experiment_course_W, \
         pratice_course_W, \
@@ -538,12 +542,12 @@ def workload_statistics(request, user):
         teaching_project_W, \
         competition_guide_W, \
         paper_guide_W \
-            = workload_count_func(user, year=year)
+            = workload_count_func(teacher, year=year)
 
         course_total_W = theory_course_W + pratice_course_W + experiment_course_W
         project_total_W = teaching_achievement_W + teaching_project_W + competition_guide_W + paper_guide_W
 
-        workload = [tearcher.department.id, tearcher.name + tearcher.id, tearcher.title, course_total_W,
+        workload = [teacher.department.id, teacher.name + ' ' + teacher.id, teacher.title, course_total_W,
                     project_total_W]
         workload_list.append(workload)
     return render(request, 'main/head_of_department/workload_statistics/workload_statistics.html', locals())

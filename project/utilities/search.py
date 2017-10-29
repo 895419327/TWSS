@@ -37,7 +37,6 @@ from project.models import GlobalValue
 #          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 #                     佛祖保佑        永无BUG
 
-# TODO: 考虑把搜索按钮去掉？ 选择之后立刻搜索？ 考虑网速影响
 
 def search(request, source_list):
     year = ''

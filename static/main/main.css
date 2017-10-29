@@ -1,5 +1,5 @@
 body {
-    background: #eeeeee;
+    background: #f4f4f4;
     font-family: 'Microsoft YaHei';
 }
 
@@ -122,7 +122,7 @@ body {
 }
 
 .even {
-    background: #e2e2e2;
+    background: #e8e8e8;
 }
 
 /*  TODO: 把下面这俩优化掉*/

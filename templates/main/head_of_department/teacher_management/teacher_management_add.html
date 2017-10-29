@@ -21,14 +21,13 @@
 
             {% if modified_teacher %}
                 <div>
-                    <input type="text" name="original_teacher_id" style="width: 200px" value="{{ modified_teacher.id }}"
-                           hidden>
+                    <input type="text" name="original_teacher_id" value="{{ modified_teacher.id }}" hidden>
                 </div>
             {% endif %}
 
             <div>
-                <span>职 称 </span>
-                <input type="text" name="title" style="width: 200px" value="{{ modified_teacher.title }}">
+                <span>姓名 </span>
+                <input type="text" name="name" style="width: 200px" value="{{ modified_teacher.name }}">
             </div>
 
             <div>
@@ -38,20 +37,19 @@
         </div>
 
         <div class="add_right">
+
             <div>
-                <span>姓名 </span>
-                <input type="text" name="name" style="width: 200px" value="{{ modified_teacher.name }}">
+                <span>所属系</span>
+                <select name="department">
+                    <option>生物工程</option>
+                    <option>生物技术</option>
+                    <option>生物信息</option>
+                </select>
             </div>
 
             <div>
-                <span>密码 </span>
-                {% if modified_teacher %}
-                    <input type="text" name="password" style="width: 200px; text-align: center"
-                           value="不修改则放空">
-                {% else %}
-                    <input type="text" name="password" style="width: 200px; text-align: center"
-                           value="默认为手机号" disabled>
-                {% endif %}
+                <span>职 称 </span>
+                <input type="text" name="title" style="width: 200px" value="{{ modified_teacher.title }}">
             </div>
 
             <div>

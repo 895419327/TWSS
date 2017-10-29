@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+from project.models import User
+
 
 # TODO: 生成unique_code
 def generate_unique_code(user):
@@ -15,7 +17,6 @@ def check_identity(request):
     # unique_code = request.POST['unique_code']
 
     # 校验身份
-    from project.models import User
     try:
         user = User.objects.get(id=username_post)
 

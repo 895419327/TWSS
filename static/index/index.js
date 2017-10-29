@@ -11,25 +11,26 @@ $(document).ready(function () {
     captcha_img.addClass('no_select');
 
     var captcha_generate;
-    var dict = ['0','1','2','3','4','5','6','7','8','9',
-        '0','1','2','3','4','5','6','7','8','9',
-        '0','1','2','3','4','5','6','7','8','9',
-        '0','1','2','3','4','5','6','7','8','9',
-        'a','b','c','d','e','f','g','h','i','j','k','l','m',
-        'n','o','p','q','r','s','t','u','v','w','x','y','z',
-        'A','B','C','D','E','F','G','H','I','J','K','L','M',
-        'N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+    var dict = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+        '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+        '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+        '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+        'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
+        'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+        'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
+        'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 
     // 验证码生成函数
     function init_captcha() {
         captcha_generate = '';
-        for(var i = 0; i < 4; i++){
-            var rand = Math.floor(Math.random()*92);
+        for (var i = 0; i < 4; i++) {
+            var rand = Math.floor(Math.random() * 92);
             captcha_generate += dict[rand];
         }
         //显示验证码
         captcha_img.text(captcha_generate);
     }
+
     // 生成验证码
     init_captcha();
 
@@ -40,16 +41,16 @@ $(document).ready(function () {
         setTimeout(function () {
             captcha.val('').focus();
             init_captcha();
-        },300);
+        }, 300);
     });
 
     // 输完验证码按回车 模拟点击登录按钮
-    captcha.bind('keydown',function (event) {
-       if(event.keyCode == '13'){
-           $('#login_button').trigger('click');
-       }
+    captcha.bind('keydown', function (event) {
+        if (event.keyCode == '13') {
+            $('#login_button').trigger('click');
+        }
     });
-    
+
 
     // 点击登录
     $('#login_button').click(function () {
@@ -57,32 +58,44 @@ $(document).ready(function () {
         // 测试开关
         // 自动填充 跳过验证码
         var PROJECT_TEST = true;
-        if(PROJECT_TEST){
-            username.val('20160000001');
-            password.val(hex_md5('20160000001'));
+        if (PROJECT_TEST) {
+            var status = $('#status option:selected').val();
+            if (status == '教师') {
+                username.val('20160000001');
+                password.val(hex_md5('20160000001'));
+            }
+            if (status == '系主任') {
+                username.val('20160000002');
+                password.val(hex_md5('20160000002'));
+            }
+            if (status == '教务员') {
+                username.val('20160000005');
+                password.val(hex_md5('20160000005'));
+            }
+            if (status == '系统管理员') {
+                username.val('20160000000');
+                password.val(hex_md5('20160000000'));
+            }
             $('#login_form').submit();
         }
 
 
         // 检查账户名密码是否为空
-        if(username.val() === ''){
+        if (username.val() === '') {
             warnings.text('用户名不能为空');
-            return -1;
         }
-        if(password.val() === ''){
+        if (password.val() === '') {
             warnings.text('密码不能为空');
-            return -2;
         }
 
         // 校验验证码
         var captcha_input = captcha.val();
-        if( captcha_input !== captcha_generate &&
+        if (captcha_input !== captcha_generate &&
             captcha_input !== captcha_generate.toLowerCase() &&
-            captcha_input !== captcha_generate.toUpperCase())  {
+            captcha_input !== captcha_generate.toUpperCase()) {
             warnings.text('验证码错误');
             //刷新验证码
             captcha_img.trigger('click');
-            return -3;
         }
 
         // md5加密密码
@@ -94,5 +107,4 @@ $(document).ready(function () {
     });
 
 
-    
 });
