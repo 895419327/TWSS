@@ -64,6 +64,15 @@ body {
     left: 0;
 }
 
+.copyright {
+    width: 280px;
+    position: fixed;
+    bottom: 15px;
+    text-align: center;
+    color: #565F70;
+    font-size: 12px;
+}
+
 .left_unit {
     width: 280px;
     min-height: 50px;
@@ -344,7 +353,7 @@ table img:hover {
     padding: 0;
 }
 
-.add_classes div{
+.add_classes div {
     height: 36px;
 }
 
