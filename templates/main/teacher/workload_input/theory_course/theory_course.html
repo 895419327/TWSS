@@ -86,7 +86,10 @@
                         {% if course.audit_status == 0 %}
                             <td>未审核</td>
                         {% elif course.audit_status == 1 %}
-                            <td>审核未通过</td>
+                            <td class="audit_reject" style="cursor: pointer;">
+                                审核未通过
+                                <div class="reject_reason">{{ course.reject_reason }}</div>
+                            </td>
                         {% elif course.audit_status == 2 %}
                             <td>已审核</td>
                         {% endif %}

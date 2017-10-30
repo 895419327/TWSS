@@ -70,7 +70,10 @@
                                 {% if project.audit_status == 0 %}
                                     <td>未审核</td>
                                 {% elif project.audit_status == 1 %}
-                                    <td>审核未通过</td>
+                                    <td class="audit_reject" style="cursor: pointer;">
+                                        审核未通过
+                                        <div class="reject_reason">{{ project.reject_reason }}</div>
+                                    </td>
                                 {% elif project.audit_status == 2 %}
                                     <td>已审核</td>
                                 {% endif %}
@@ -126,7 +129,10 @@
                                 {% if project.audit_status == 0 %}
                                     <td>未审核</td>
                                 {% elif project.audit_status == 1 %}
-                                    <td>审核未通过</td>
+                                    <td class="audit_reject" style="cursor: pointer;">
+                                        审核未通过
+                                        <div class="reject_reason">{{ project.reject_reason }}</div>
+                                    </td>
                                 {% elif project.audit_status == 2 %}
                                     <td>已审核</td>
                                 {% endif %}
@@ -181,7 +187,10 @@
                                 {% if project.audit_status == 0 %}
                                     <td>未审核</td>
                                 {% elif project.audit_status == 1 %}
-                                    <td>审核未通过</td>
+                                    <td class="audit_reject" style="cursor: pointer;">
+                                        审核未通过
+                                        <div class="reject_reason">{{ project.reject_reason }}</div>
+                                    </td>
                                 {% elif project.audit_status == 2 %}
                                     <td>已审核</td>
                                 {% endif %}
@@ -236,7 +245,10 @@
                                 {% if project.audit_status == 0 %}
                                     <td>未审核</td>
                                 {% elif project.audit_status == 1 %}
-                                    <td>审核未通过</td>
+                                    <td class="audit_reject" style="cursor: pointer;">
+                                        审核未通过
+                                        <div class="reject_reason">{{ project.reject_reason }}</div>
+                                    </td>
                                 {% elif project.audit_status == 2 %}
                                     <td>已审核</td>
                                 {% endif %}
@@ -291,7 +303,10 @@
                                 {% if project.audit_status == 0 %}
                                     <td>未审核</td>
                                 {% elif project.audit_status == 1 %}
-                                    <td>审核未通过</td>
+                                    <td class="audit_reject" style="cursor: pointer;">
+                                        审核未通过
+                                        <div class="reject_reason">{{ project.reject_reason }}</div>
+                                    </td>
                                 {% elif project.audit_status == 2 %}
                                     <td>已审核</td>
                                 {% endif %}

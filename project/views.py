@@ -77,7 +77,6 @@ def login(request):
 
 
 def getpage(request):
-    print(request.POST)
     request.encoding = 'utf-8'
     # 校验身份
     check_return = check_identity(request)
@@ -104,6 +103,7 @@ def user_info_user_info(request, user):
 def user_info_change_password(request, user):
     return render(request, 'main/teacher/user_info/change_password.html', locals())
 
+# FIXME: URGENT 自动检测课程年级
 
 # TODO: 选择班级后更新人数
 

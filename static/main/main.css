@@ -245,6 +245,19 @@ table img:hover {
     opacity: 0.9;
 }
 
+.reject_reason {
+    width: 250px;
+    height: auto;
+    margin: 0 0 0 -70px;
+    padding: 5px 10px;
+    background: rgba(255,255,255,0.8);
+    box-shadow: 0 0 25px #aaaaaa;
+    text-align: left;
+    position: absolute;
+    display: none;
+    z-index: 999;
+}
+
 .add_button {
     width: 1000px;
     height: 60px;

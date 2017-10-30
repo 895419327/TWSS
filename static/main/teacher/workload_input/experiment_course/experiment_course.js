@@ -2,6 +2,15 @@ $(document).ready(function () {
 
     $('tr:even').addClass('even');
 
+    $('.audit_reject').hover(
+        function () {
+            $(this).children().show();
+        },
+        function () {
+            $(this).children().hide();
+        }
+    );
+
     $('.add_button').click(function () {
         MyAjax_Get('getpage', 'workload_input_experiment_course_add', null, '.experiment_course_add_content')
     });
