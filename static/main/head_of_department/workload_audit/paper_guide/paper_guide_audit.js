@@ -10,8 +10,8 @@ $(document).ready(function () {
     $('.paper_guide_audit_reject').click(function () {
         var id = this.id;
         id = id.substring(0, id.length - 7);
-        if (confirm("确认驳回？"))
-            MyAjax_Get('getpage', 'workload_audit_paper_guide_reject', id);
+        var data = 'PaperGuide,' + id;
+        MyAjax_Get('getpage', 'workload_audit_reject_page', data, '.workload_audit_reject_content');
     });
 
     $('.search_button').click(function () {

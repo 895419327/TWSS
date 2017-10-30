@@ -77,6 +77,7 @@ def login(request):
 
 
 def getpage(request):
+    print(request.POST)
     request.encoding = 'utf-8'
     # 校验身份
     check_return = check_identity(request)
@@ -293,7 +294,76 @@ def workload_audit_reject_page(request, user):
 
 
 def workload_audit_reject(request, user):
-    return render(request, 'main/head_of_department/workload_audit/theory_course/theory_course_audit.html')
+    project_type = request.POST['project_type']
+    if project_type == 'TheoryCourse':
+        course = TheoryCourse.objects.get(id=request.POST['project_id'])
+        course.audit_status = 1
+        course.reject_reason = request.POST['reject_reason']
+        course.save()
+        course_list = TheoryCourse.objects.all()
+        course_list, year, semester, audit_status = audit_search(request, course_list)
+        return render(request, 'main/head_of_department/workload_audit/theory_course/theory_course_audit.html',
+                      locals())
+    elif project_type == 'ExperimentCourse':
+        course = ExperimentCourse.objects.get(id=request.POST['project_id'])
+        course.audit_status = 1
+        course.reject_reason = request.POST['reject_reason']
+        course.save()
+        course_list = ExperimentCourse.objects.all()
+        course_list, year, semester, audit_status = audit_search(request, course_list)
+        return render(request, 'main/head_of_department/workload_audit/experiment_course/experiment_course_audit.html',
+                      locals())
+    elif project_type == 'PraticeCourse':
+        course = PraticeCourse.objects.get(id=request.POST['project_id'])
+        course.audit_status = 1
+        course.reject_reason = request.POST['reject_reason']
+        course.save()
+        course_list = PraticeCourse.objects.all()
+        course_list, year, semester, audit_status = audit_search(request, course_list)
+        return render(request, 'main/head_of_department/workload_audit/pratice_course/pratice_course_audit.html',
+                      locals())
+
+    # FIXME: URGENT 考虑一个project多个教师 使用同一project_id的情况
+    elif project_type == 'TeachingAchievement':
+        project = TeachingAchievement.objects.get(id=request.POST['project_id'])
+        project.audit_status = 1
+        project.reject_reason = request.POST['reject_reason']
+        project.save()
+        project_list = TeachingAchievement.objects.all()
+        project_list, year, semester, audit_status = audit_search(request, project_list)
+        return render(request,
+                      'main/head_of_department/workload_audit/teaching_achievement/teaching_achievement_audit.html',
+                      locals())
+    elif project_type == 'TeachingProject':
+        project = TeachingProject.objects.get(id=request.POST['project_id'])
+        project.audit_status = 1
+        project.reject_reason = request.POST['reject_reason']
+        project.save()
+        project_list = TeachingProject.objects.all()
+        project_list, year, semester, audit_status = audit_search(request, project_list)
+        return render(request,
+                      'main/head_of_department/workload_audit/teaching_project/teaching_project_audit.html',
+                      locals())
+    elif project_type == 'CompetitionGuide':
+        project = CompetitionGuide.objects.get(id=request.POST['project_id'])
+        project.audit_status = 1
+        project.reject_reason = request.POST['reject_reason']
+        project.save()
+        project_list = CompetitionGuide.objects.all()
+        project_list, year, semester, audit_status = audit_search(request, project_list)
+        return render(request,
+                      'main/head_of_department/workload_audit/competition_guide/competition_guide_audit.html',
+                      locals())
+    elif project_type == 'PaperGuide':
+        project = PaperGuide.objects.get(id=request.POST['project_id'])
+        project.audit_status = 1
+        project.reject_reason = request.POST['reject_reason']
+        project.save()
+        project_list = PaperGuide.objects.all()
+        project_list, year, semester, audit_status = audit_search(request, project_list)
+        return render(request,
+                      'main/head_of_department/workload_audit/paper_guide/paper_guide_audit.html',
+                      locals())
 
 
 # 理论课
@@ -307,13 +377,6 @@ def workload_audit_theory_course(request, user):
 def workload_audit_theory_course_pass(request, user):
     course = TheoryCourse.objects.get(id=request.POST['request_data'])
     course.audit_status = 2
-    course.save()
-    return workload_audit_theory_course(request, user)
-
-
-def workload_audit_theory_course_reject(request, user):
-    course = TheoryCourse.objects.get(id=request.POST['request_data'])
-    course.audit_status = 1
     course.save()
     return workload_audit_theory_course(request, user)
 
@@ -334,13 +397,6 @@ def workload_audit_experiment_course_pass(request, user):
     return workload_audit_experiment_course(request, user)
 
 
-def workload_audit_experiment_course_reject(request, user):
-    course = ExperimentCourse.objects.get(id=request.POST['request_data'])
-    course.audit_status = 1
-    course.save()
-    return workload_audit_experiment_course(request, user)
-
-
 # 实习实训课
 def workload_audit_pratice_course(request, user):
     department = Department.objects.get(head_of_department=user.id)
@@ -350,15 +406,8 @@ def workload_audit_pratice_course(request, user):
 
 
 def workload_audit_pratice_course_pass(request, user):
-    course = PraticeCourse.objects.get(id=request.POST['request_data'], teacher=user)
+    course = PraticeCourse.objects.get(id=request.POST['request_data'])
     course.audit_status = 2
-    course.save()
-    return workload_audit_pratice_course(request, user)
-
-
-def workload_audit_pratice_course_reject(request, user):
-    course = PraticeCourse.objects.get(id=request.POST['request_data'], teacher=user)
-    course.audit_status = 1
     course.save()
     return workload_audit_pratice_course(request, user)
 
@@ -374,15 +423,8 @@ def workload_audit_teaching_achievement(request, user):
 
 
 def workload_audit_teaching_achievement_pass(request, user):
-    course = TeachingAchievement.objects.get(id=request.POST['request_data'], teacher=user)
+    course = TeachingAchievement.objects.get(id=request.POST['request_data'])
     course.audit_status = 2
-    course.save()
-    return workload_audit_teaching_achievement(request, user)
-
-
-def workload_audit_teaching_achievement_reject(request, user):
-    course = TeachingAchievement.objects.get(id=request.POST['request_data'], teacher=user)
-    course.audit_status = 1
     course.save()
     return workload_audit_teaching_achievement(request, user)
 
@@ -397,15 +439,8 @@ def workload_audit_teaching_project(request, user):
 
 
 def workload_audit_teaching_project_pass(request, user):
-    course = TeachingProject.objects.get(id=request.POST['request_data'], teacher=user)
+    course = TeachingProject.objects.get(id=request.POST['request_data'])
     course.audit_status = 2
-    course.save()
-    return workload_audit_teaching_project(request, user)
-
-
-def workload_audit_teaching_project_reject(request, user):
-    course = TeachingProject.objects.get(id=request.POST['request_data'], teacher=user)
-    course.audit_status = 1
     course.save()
     return workload_audit_teaching_project(request, user)
 
@@ -420,15 +455,8 @@ def workload_audit_competition_guide(request, user):
 
 
 def workload_audit_competition_guide_pass(request, user):
-    course = CompetitionGuide.objects.get(id=request.POST['request_data'], teacher=user)
+    course = CompetitionGuide.objects.get(id=request.POST['request_data'])
     course.audit_status = 2
-    course.save()
-    return workload_audit_competition_guide(request, user)
-
-
-def workload_audit_competition_guide_reject(request, user):
-    course = CompetitionGuide.objects.get(id=request.POST['request_data'], teacher=user)
-    course.audit_status = 1
     course.save()
     return workload_audit_competition_guide(request, user)
 
@@ -442,15 +470,8 @@ def workload_audit_paper_guide(request, user):
 
 
 def workload_audit_paper_guide_pass(request, user):
-    course = PaperGuide.objects.get(id=request.POST['request_data'], teacher=user)
+    course = PaperGuide.objects.get(id=request.POST['request_data'])
     course.audit_status = 2
-    course.save()
-    return workload_audit_paper_guide(request, user)
-
-
-def workload_audit_paper_guide_reject(request, user):
-    course = PaperGuide.objects.get(id=request.POST['request_data'], teacher=user)
-    course.audit_status = 1
     course.save()
     return workload_audit_paper_guide(request, user)
 

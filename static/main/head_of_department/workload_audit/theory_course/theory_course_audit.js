@@ -1,5 +1,4 @@
 $(document).ready(function () {
-
     $('tr:even').addClass('even');
 
     $('.theory_course_audit_pass').click(function () {
@@ -18,7 +17,7 @@ $(document).ready(function () {
     $('.search_button').click(function () {
         $('#theory_course_audit_search_form').ajaxSubmit({
             target: '.content_right',
-            error:function () {
+            error: function () {
                 alert('error!');
             }
         })
