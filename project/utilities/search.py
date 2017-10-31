@@ -40,7 +40,6 @@ from project.models import GlobalValue
 # TODO: 可简化 合并
 
 def search(request, source_list):
-    print(request.POST)
 
     year = ''
     if 'location_year_post' in request.POST:

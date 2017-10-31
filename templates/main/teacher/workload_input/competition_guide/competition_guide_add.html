@@ -16,20 +16,24 @@
         <input hidden id="location_year_post" name="location_year_post">
         <input hidden id="location_semester_post" name="location_semester_post">
 
-        <div>
+        <div style="margin: 0 0 0 100px">
             <span>项目名称 </span>
-            <input type="text" name="project_name" style="width: 500px" value="{{ modified_project.name }}">
+            <input type="text" name="project_name" style="width: 470px" class="non_empty"
+                   value="{{ modified_project.name }}">
         </div>
 
-        <div hidden><span>项目编号</span><input type="text" name="project_id" value="{{ modified_project.id }}"></div>
+        <div hidden>
+            <span>项目编号</span>
+            <input type="text" name="project_id" value="{{ modified_project.id }}">
+        </div>
 
-        <div>
+        <div style="margin: 0 0 0 100px">
             <span>参赛学生 </span>
             {% if modified_project %}
-                <input type="text" name="project_students" style="width: 500px"
+                <input type="text" name="project_students" style="width: 470px" class="non_empty"
                        value="{{ modified_project.students }}">
             {% else %}
-                <input type="text" name="project_students" style="width: 500px">
+                <input type="text" name="project_students" style="width: 470px" class="non_empty">
             {% endif %}
         </div>
 
@@ -82,9 +86,9 @@
                 <select name="type">
                     {% if modified_project %}
                         <option>{{ modified_project.type }}</option>
+                    {% elif project_type %}
+                        <option>{{ project_type }}</option>
                     {% endif %}
-                    <option>全国性大学生学科竞赛</option>
-                    <option>省部级大学生竞赛</option>
                 </select>
             </div>
         </div>

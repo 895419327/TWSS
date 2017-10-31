@@ -205,8 +205,12 @@ def workload_input_teaching_achievement(request, user):
 
 def workload_input_teaching_achievement_add(request, user):
     modified_project = ''
-    if (request.POST['request_data']):
+    project_type = ''
+    if request.POST['extra_data']:
+        project_type = request.POST['extra_data']
+    if request.POST['request_data']:
         modified_project = TeachingAchievement.objects.get(id=request.POST['request_data'])
+
     return render(request, 'main/teacher/workload_input/teaching_achievement/teaching_achievement_add.html', locals())
 
 
@@ -219,6 +223,9 @@ def workload_input_teaching_project(request, user):
 
 def workload_input_teaching_project_add(request, user):
     modified_project = ''
+    project_type = ''
+    if request.POST['extra_data']:
+        project_type = request.POST['extra_data']
     if (request.POST['request_data']):
         modified_project = TeachingProject.objects.get(id=request.POST['request_data'])
     return render(request, 'main/teacher/workload_input/teaching_project/teaching_project_add.html', locals())
@@ -234,6 +241,9 @@ def workload_input_competition_guide(request, user):
 
 def workload_input_competition_guide_add(request, user):
     modified_project = ''
+    project_type = ''
+    if request.POST['extra_data']:
+        project_type = request.POST['extra_data']
     if (request.POST['request_data']):
         modified_project = CompetitionGuide.objects.get(id=request.POST['request_data'])
     return render(request, 'main/teacher/workload_input/competition_guide/competition_guide_add.html', locals())

@@ -11,7 +11,8 @@ $(document).ready(function () {
     );
 
     $('.add_button').click(function () {
-        MyAjax_Get('getpage', 'workload_input_teaching_project_add', null, '.teaching_project_add_content')
+        var extra_data = $(this).attr('id');
+        MyAjax_Get('getpage', 'workload_input_teaching_project_add', null, '.teaching_project_add_content', extra_data);
     });
 
     $('.teaching_project_modify').click(function () {

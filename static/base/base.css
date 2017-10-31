@@ -1,15 +1,16 @@
-body{
+body {
     width: 1360px;
-    height: 600px;
+    height: 100%;
+    min-height: 600px;
     margin: 0 auto;
 }
 
-a,a:link,a:hover,a:visited {
+a, a:link, a:hover, a:visited {
     text-decoration: none;
     color: #333333;
 }
 
-.no_select{
+.no_select {
     /*禁用双击选择文字 影响用户体验*/
     user-select: none;
     -moz-user-select: none;

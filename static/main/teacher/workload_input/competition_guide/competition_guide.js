@@ -11,7 +11,8 @@ $(document).ready(function () {
     );
 
     $('.add_button').click(function () {
-        MyAjax_Get('getpage', 'workload_input_competition_guide_add', null, '.competition_guide_add_content')
+        var extra_data = $(this).attr('id');
+        MyAjax_Get('getpage', 'workload_input_competition_guide_add', null, '.competition_guide_add_content', extra_data);
     });
 
     $('.competition_guide_modify').click(function () {

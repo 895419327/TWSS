@@ -22,14 +22,17 @@
             {% csrf_token %}
 
             <div class="input_row">
-                <input id="username" name="username" placeholder="账号" autofocus>
+                <div class="input_row_title">账 号</div>
+                <input id="username" name="username" autofocus>
             </div>
 
             <div class="input_row">
-                <input id="password" name="password" type="password" placeholder="密码">
+                <div class="input_row_title">密 码</div>
+                <input id="password" name="password" type="password">
             </div>
 
             <div class="input_row">
+                <div class="input_row_title">身 份</div>
                 <select id="status" name="status">
                     <option value="教师">教师</option>
                     <option value="系主任">系主任</option>
@@ -39,7 +42,8 @@
             </div>
 
             <div class="input_row">
-                <input id="captcha" title="captcha" autocomplete="off" placeholder="验证码">
+                <div class="input_row_title">验证码</div>
+                <input id="captcha" title="captcha" autocomplete="off">
                 <div id="captcha_img" ondragstart="return false" oncontextmenu="return false"></div>
                 <div id="warnings"></div>
             </div>

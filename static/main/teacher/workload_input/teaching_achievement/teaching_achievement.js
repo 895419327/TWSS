@@ -11,7 +11,8 @@ $(document).ready(function () {
     );
 
     $('.add_button').click(function () {
-        MyAjax_Get('getpage', 'workload_input_teaching_achievement_add', null, '.teaching_achievement_add_content')
+        var extra_data = $(this).attr('id');
+        MyAjax_Get('getpage', 'workload_input_teaching_achievement_add', null, '.teaching_achievement_add_content', extra_data);
     });
 
     $('.teaching_achievement_modify').click(function () {
