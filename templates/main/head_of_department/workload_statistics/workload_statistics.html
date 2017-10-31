@@ -23,6 +23,7 @@
 
 
         {% for department in department_list %}
+            {% if department.id != 470 %}
             <div class="project_item">
                 <div class="project_item_title">{{ department.name }}</div>
                 <table cellspacing="0">
@@ -45,6 +46,7 @@
                     {% endfor %}
                 </table>
             </div>
+            {% endif %}
         {% endfor %}
     </div>
 

@@ -12,13 +12,27 @@ $(document).ready(function () {
     });
 
     $('.add_submit').click(function () {
-        var form = $('#class_management_add_form');
-        form.ajaxSubmit({
-            target: '.content_right',
-            error: function () {
-                alert('error');
+        var isFull = true;
+        var empty_item = null;
+        $('.non_empty').each(function () {
+            if ($(this).val() == '') {
+                isFull = false;
+                empty_item = $(this);
             }
         });
+
+        if (isFull) {
+            var form = $('#class_management_add_form');
+            form.ajaxSubmit({
+                target: '.content_right',
+                error: function () {
+                    alert('error');
+                }
+            });
+        } else {
+            alert('请完整填写表单');
+            empty_item.focus();
+        }
     });
 
 
