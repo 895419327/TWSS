@@ -53,32 +53,6 @@ $(document).ready(function () {
     });
 });
 
-function MyAjax(url, forwhat, data) {
-    var form = $('#request_form');
-    var requestfor = $('#requestfor');
-    var requestdata = $('#request_data');
-
-    // 配置目标url
-    form.attr('action', url);
-    // 配置请求
-    requestfor.val(forwhat);
-    // 附上数据
-    requestdata.val(data);
-
-    // 提交
-    form.ajaxSubmit({
-        target: '.content_right',
-        error: function () {
-            alert('未知错误');
-        }
-    });
-
-    // 提交后重置目标url及请求
-    form.attr('action', '');
-    requestfor.val('');
-    requestdata.val('');
-}
-
 function MyAjax_Get(url, forwhat, data, towhere, extra_data) {
     var form = $('#request_form');
     var requestfor = $('#requestfor');
@@ -108,4 +82,5 @@ function MyAjax_Get(url, forwhat, data, towhere, extra_data) {
     form.attr('action', '');
     requestfor.val('');
     requestdata.val('');
+    extradata.val('');
 }

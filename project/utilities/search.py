@@ -40,6 +40,7 @@ from project.models import GlobalValue
 # TODO: 可简化 合并
 
 def search(request, source_list):
+    print(request.POST)
 
     year = ''
     if 'location_year_post' in request.POST:
@@ -52,7 +53,13 @@ def search(request, source_list):
         year = request.POST['search_year'][:4]
         if year == u'所有':
             pass
-        elif year != u'所有':
+        else:
+            source_list = source_list.filter(year=year)
+    elif 'extra_data' in request.POST and request.POST['extra_data'] != '':
+        year = request.POST['extra_data'].split(',')[0]
+        if year == u'所有':
+            pass
+        else:
             source_list = source_list.filter(year=year)
     else:
         year = GlobalValue.objects.get(key='current_year').value
@@ -69,6 +76,14 @@ def search(request, source_list):
             source_list = source_list.filter(semester=2)
     elif 'search_semester' in request.POST:
         semester = request.POST['search_semester']
+        if semester == u'所有':
+            pass
+        elif semester == u'第一学期':
+            source_list = source_list.filter(semester=1)
+        elif semester == u'第二学期':
+            source_list = source_list.filter(semester=2)
+    elif 'extra_data' in request.POST and request.POST['extra_data'] != '':
+        semester = request.POST['extra_data'].split(',')[1]
         if semester == u'所有':
             pass
         elif semester == u'第一学期':

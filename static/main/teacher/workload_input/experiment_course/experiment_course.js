@@ -25,8 +25,9 @@ $(document).ready(function () {
     $('.experiment_course_delete').click(function () {
         var id = this.id;
         id = id.substring(0, id.length - 7);
+        var location = $('#location_year').val() + ',' + $('#location_semester').val();
         if (confirm("确认删除？"))
-            MyAjax('/upload', 'experiment_course_delete', id);
+            MyAjax_Get('/upload', 'experiment_course_delete', id, null, location);
     });
 
     $('.search_button').click(function () {
