@@ -39,7 +39,7 @@ from project.models import GlobalValue
 
 # TODO: 可简化 合并
 
-def search(request, source_list):
+def search(request, cource_list):
     print(request.POST)
 
     year = ''
@@ -48,22 +48,22 @@ def search(request, source_list):
         if year == u'所有':
             pass
         else:
-            source_list = source_list.filter(year=year)
+            cource_list = cource_list.filter(year=year)
     elif 'search_year' in request.POST:
         year = request.POST['search_year'][:4]
         if year == u'所有':
             pass
         else:
-            source_list = source_list.filter(year=year)
+            cource_list = cource_list.filter(year=year)
     elif 'extra_data' in request.POST and request.POST['extra_data'] != '':
         year = request.POST['extra_data'].split(',')[0]
         if year == u'所有':
             pass
         else:
-            source_list = source_list.filter(year=year)
+            cource_list = cource_list.filter(year=year)
     else:
         year = GlobalValue.objects.get(key='current_year').value
-        source_list = source_list.filter(year=year)
+        cource_list = cource_list.filter(year=year)
 
     semester = ''
     if 'location_semester_post' in request.POST:
@@ -71,53 +71,59 @@ def search(request, source_list):
         if semester == u'所有':
             pass
         elif semester == u'第一学期':
-            source_list = source_list.filter(semester=1)
+            cource_list = cource_list.filter(semester=1)
         elif semester == u'第二学期':
-            source_list = source_list.filter(semester=2)
+            cource_list = cource_list.filter(semester=2)
     elif 'search_semester' in request.POST:
         semester = request.POST['search_semester']
         if semester == u'所有':
             pass
         elif semester == u'第一学期':
-            source_list = source_list.filter(semester=1)
+            cource_list = cource_list.filter(semester=1)
         elif semester == u'第二学期':
-            source_list = source_list.filter(semester=2)
+            cource_list = cource_list.filter(semester=2)
     elif 'extra_data' in request.POST and request.POST['extra_data'] != '':
         semester = request.POST['extra_data'].split(',')[1]
         if semester == u'所有':
             pass
         elif semester == u'第一学期':
-            source_list = source_list.filter(semester=1)
+            cource_list = cource_list.filter(semester=1)
         elif semester == u'第二学期':
-            source_list = source_list.filter(semester=2)
+            cource_list = cource_list.filter(semester=2)
     else:
         current_semester = GlobalValue.objects.get(key='current_semester').value
-        source_list = source_list.filter(semester=current_semester)
+        cource_list = cource_list.filter(semester=current_semester)
         if current_semester in [1, '1']:
             semester = u'第一学期'
         if current_semester in [2, '2']:
             semester = u'第二学期'
 
-    return source_list, year, semester
+    return cource_list, year, semester
 
 
-def audit_search(request, source_list):
+def audit_search(request, cource_list):
     year = ''
     if 'location_year_post' in request.POST:
         year = request.POST['location_year_post']
         if year == u'所有':
             pass
         elif year != u'所有':
-            source_list = source_list.filter(year=year)
+            cource_list = cource_list.filter(year=year)
     elif 'search_year' in request.POST:
         year = request.POST['search_year'][:4]
         if year == u'所有':
             pass
         elif year != u'所有':
-            source_list = source_list.filter(year=year)
+            cource_list = cource_list.filter(year=year)
+    elif 'extra_data' in request.POST and request.POST['extra_data'] != '':
+        year = request.POST['extra_data'].split(',')[0]
+        if year == u'所有':
+            pass
+        else:
+            cource_list = cource_list.filter(year=year)
     else:
         year = GlobalValue.objects.get(key='current_year').value
-        source_list = source_list.filter(year=year)
+        cource_list = cource_list.filter(year=year)
 
     semester = ''
     if 'location_semester_post' in request.POST:
@@ -125,20 +131,28 @@ def audit_search(request, source_list):
         if semester == u'所有':
             pass
         elif semester == u'第一学期':
-            source_list = source_list.filter(semester=1)
+            cource_list = cource_list.filter(semester=1)
         elif semester == u'第二学期':
-            source_list = source_list.filter(semester=2)
+            cource_list = cource_list.filter(semester=2)
     elif 'search_semester' in request.POST:
         semester = request.POST['search_semester']
         if semester == u'所有':
             pass
         elif semester == u'第一学期':
-            source_list = source_list.filter(semester=1)
+            cource_list = cource_list.filter(semester=1)
         elif semester == u'第二学期':
-            source_list = source_list.filter(semester=2)
+            cource_list = cource_list.filter(semester=2)
+    elif 'extra_data' in request.POST and request.POST['extra_data'] != '':
+        semester = request.POST['extra_data'].split(',')[1]
+        if semester == u'所有':
+            pass
+        elif semester == u'第一学期':
+            cource_list = cource_list.filter(semester=1)
+        elif semester == u'第二学期':
+            cource_list = cource_list.filter(semester=2)
     else:
         current_semester = GlobalValue.objects.get(key='current_semester').value
-        source_list = source_list.filter(semester=current_semester)
+        cource_list = cource_list.filter(semester=current_semester)
         if current_semester in [1, '1']:
             semester = u'第一学期'
         if current_semester in [2, '2']:
@@ -150,22 +164,32 @@ def audit_search(request, source_list):
         if audit_status == u'所有':
             pass
         if audit_status == u'未审核':
-            source_list = source_list.filter(audit_status=0)
+            cource_list = cource_list.filter(audit_status=0)
         if audit_status == u'审核未通过':
-            source_list = source_list.filter(audit_status=1)
+            cource_list = cource_list.filter(audit_status=1)
         if audit_status == u'已审核':
-            source_list = source_list.filter(audit_status=2)
+            cource_list = cource_list.filter(audit_status=2)
     elif 'audit_status' in request.POST:
         audit_status = request.POST['audit_status']
         if audit_status == u'所有':
             pass
         if audit_status == u'未审核':
-            source_list = source_list.filter(audit_status=0)
+            cource_list = cource_list.filter(audit_status=0)
         if audit_status == u'审核未通过':
-            source_list = source_list.filter(audit_status=1)
+            cource_list = cource_list.filter(audit_status=1)
         if audit_status == u'已审核':
-            source_list = source_list.filter(audit_status=2)
+            cource_list = cource_list.filter(audit_status=2)
+    elif 'extra_data' in request.POST and request.POST['extra_data'] != '':
+        audit_status = request.POST['extra_data'].split(',')[2]
+        if audit_status == u'所有':
+            pass
+        if audit_status == u'未审核':
+            cource_list = cource_list.filter(audit_status=0)
+        if audit_status == u'审核未通过':
+            cource_list = cource_list.filter(audit_status=1)
+        if audit_status == u'已审核':
+            cource_list = cource_list.filter(audit_status=2)
     else:
         audit_status = u'所有'
 
-    return source_list, year, semester, audit_status
+    return cource_list, year, semester, audit_status

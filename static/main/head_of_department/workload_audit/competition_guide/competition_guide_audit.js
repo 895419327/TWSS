@@ -5,7 +5,10 @@ $(document).ready(function () {
     $('.competition_guide_audit_pass').click(function () {
         var id = this.id;
         id = id.substring(0, id.length - 5);
-        MyAjax_Get('getpage', 'workload_audit_competition_guide_pass', id);
+        var location = $('#location_year').val() + ','
+                     + $('#location_semester').val() + ','
+                     + $('#location_audit_status').val();
+        MyAjax_Get('getpage', 'workload_audit_competition_guide_pass', id, null,location);
     });
 
     $('.competition_guide_audit_reject').click(function () {
