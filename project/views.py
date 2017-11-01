@@ -13,11 +13,6 @@ def index(request):
     return render(request, 'index/index.html')
 
 
-# FIXME: URGENT 删除/审核后会跳回默认查询的界面而不是审核时的界面
-# 原因：MyAjax不发送含有搜索定位的表单
-# 因此
-# TODO: 如果有空的话...把MyAjax和MyAjax_Get优化掉...
-
 # FIXME: VERY-HIGH 工作量统计/审核的搜索bug 搜索后内容正确但搜索栏未更新
 
 
@@ -114,7 +109,6 @@ def get_classes(grade=GlobalValue.objects.get(key='current_year').value):
 
 
 def get_classes_module(request, user):
-    # TODO: 修改时若选了其他年级再回来会丢失已选择的数据
     data = request.POST['request_data'].split(',')
     grade = data[0]
     course_type = data[1]
@@ -154,6 +148,8 @@ def workload_input_theory_course_add(request, user):
     if request.POST['request_data']:
         modified_course = TheoryCourse.objects.get(id=request.POST['request_data'])
         classes_checked = modified_course.classes.split(',')
+        grade = classes_checked[0][0:4]
+        class_list = get_classes(grade)
     return render(request, 'main/teacher/workload_input/theory_course/theory_course_add.html', locals())
 
 
@@ -178,6 +174,8 @@ def workload_input_experiment_course_add(request, user):
     if request.POST['request_data']:
         modified_course = ExperimentCourse.objects.get(id=request.POST['request_data'])
         classes_checked = modified_course.classes.split(',')
+        grade = classes_checked[0][0:4]
+        class_list = get_classes(grade)
     return render(request, 'main/teacher/workload_input/experiment_course/experiment_course_add.html', locals())
 
 
@@ -202,6 +200,8 @@ def workload_input_pratice_course_add(request, user):
     if request.POST['request_data']:
         modified_course = PraticeCourse.objects.get(id=request.POST['request_data'])
         classes_checked = modified_course.classes.split(',')
+        grade = classes_checked[0][0:4]
+        class_list = get_classes(grade)
     return render(request, 'main/teacher/workload_input/pratice_course/pratice_course_add.html', locals())
 
 
