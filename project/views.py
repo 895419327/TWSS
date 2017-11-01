@@ -103,6 +103,7 @@ def user_info_user_info(request, user):
 def user_info_change_password(request, user):
     return render(request, 'main/teacher/user_info/change_password.html', locals())
 
+
 # FIXME: URGENT 自动检测课程年级
 
 # TODO: 选择班级后更新人数
@@ -116,18 +117,18 @@ def get_classes_module(request, user):
     # TODO: 修改时若选了其他年级再回来会丢失已选择的数据
     data = request.POST['request_data'].split(',')
     grade = data[0]
-    type = data[1]
-    id = data[2]
+    course_type = data[1]
+    course_id = data[2]
 
     class_list = Class.objects.filter(grade=grade)
     classes_checked = ''
     if id:
-        if type == 'TheoryCourse':
-            classes_checked = TheoryCourse.objects.get(id=id).classes.split(',')
-        elif type == 'ExperimentCourse':
-            classes_checked = ExperimentCourse.objects.get(id=id).classes.split(',')
-        elif type == 'PraticeCourse':
-            classes_checked = PraticeCourse.objects.get(id=id).classes.split(',')
+        if course_type == 'TheoryCourse':
+            classes_checked = TheoryCourse.objects.get(id=course_id).classes.split(',')
+        elif course_type == 'ExperimentCourse':
+            classes_checked = ExperimentCourse.objects.get(id=course_id).classes.split(',')
+        elif course_type == 'PraticeCourse':
+            classes_checked = PraticeCourse.objects.get(id=course_id).classes.split(',')
 
     return render(request, "main/utilities/classes.html", locals())
 
@@ -142,10 +143,15 @@ def workload_input_theory_course(request, user):
 
 
 def workload_input_theory_course_add(request, user):
+    location = ''
+    if 'extra_data' in request.POST and request.POST['extra_data'] != '':
+        location = request.POST['extra_data'].split(',')
+        year = location[0]
+        semester = location[1]
     # 获取班级信息
     class_list = get_classes(2016)
     modified_course = ''
-    if (request.POST['request_data']):
+    if request.POST['request_data']:
         modified_course = TheoryCourse.objects.get(id=request.POST['request_data'])
         classes_checked = modified_course.classes.split(',')
     return render(request, 'main/teacher/workload_input/theory_course/theory_course_add.html', locals())
@@ -161,10 +167,15 @@ def workload_input_experiment_course(request, user):
 
 
 def workload_input_experiment_course_add(request, user):
+    location = ''
+    if 'extra_data' in request.POST and request.POST['extra_data'] != '':
+        location = request.POST['extra_data'].split(',')
+        year = location[0]
+        semester = location[1]
     # 获取班级信息
     class_list = get_classes(2016)
     modified_course = ''
-    if (request.POST['request_data']):
+    if request.POST['request_data']:
         modified_course = ExperimentCourse.objects.get(id=request.POST['request_data'])
         classes_checked = modified_course.classes.split(',')
     return render(request, 'main/teacher/workload_input/experiment_course/experiment_course_add.html', locals())
@@ -180,10 +191,15 @@ def workload_input_pratice_course(request, user):
 
 
 def workload_input_pratice_course_add(request, user):
+    location = ''
+    if 'extra_data' in request.POST and request.POST['extra_data'] != '':
+        location = request.POST['extra_data'].split(',')
+        year = location[0]
+        semester = location[1]
     # 获取班级信息
     class_list = get_classes(2016)
     modified_course = ''
-    if (request.POST['request_data']):
+    if request.POST['request_data']:
         modified_course = PraticeCourse.objects.get(id=request.POST['request_data'])
         classes_checked = modified_course.classes.split(',')
     return render(request, 'main/teacher/workload_input/pratice_course/pratice_course_add.html', locals())
@@ -206,8 +222,12 @@ def workload_input_teaching_achievement(request, user):
 def workload_input_teaching_achievement_add(request, user):
     modified_project = ''
     project_type = ''
+    location = ''
     if request.POST['extra_data']:
-        project_type = request.POST['extra_data']
+        location = request.POST['extra_data'].split(',')
+        project_type = location[0]
+        year = location[1]
+        semester = location[2]
     if request.POST['request_data']:
         modified_project = TeachingAchievement.objects.get(id=request.POST['request_data'])
 
@@ -224,9 +244,13 @@ def workload_input_teaching_project(request, user):
 def workload_input_teaching_project_add(request, user):
     modified_project = ''
     project_type = ''
+    location = ''
     if request.POST['extra_data']:
-        project_type = request.POST['extra_data']
-    if (request.POST['request_data']):
+        location = request.POST['extra_data'].split(',')
+        project_type = location[0]
+        year = location[1]
+        semester = location[2]
+    if request.POST['request_data']:
         modified_project = TeachingProject.objects.get(id=request.POST['request_data'])
     return render(request, 'main/teacher/workload_input/teaching_project/teaching_project_add.html', locals())
 
@@ -242,9 +266,13 @@ def workload_input_competition_guide(request, user):
 def workload_input_competition_guide_add(request, user):
     modified_project = ''
     project_type = ''
+    location = ''
     if request.POST['extra_data']:
-        project_type = request.POST['extra_data']
-    if (request.POST['request_data']):
+        location = request.POST['extra_data'].split(',')
+        project_type = location[0]
+        year = location[1]
+        semester = location[2]
+    if request.POST['request_data']:
         modified_project = CompetitionGuide.objects.get(id=request.POST['request_data'])
     return render(request, 'main/teacher/workload_input/competition_guide/competition_guide_add.html', locals())
 
@@ -258,8 +286,14 @@ def workload_input_paper_guide(request, user):
 
 
 def workload_input_paper_guide_add(request, user):
+    location = ''
+    if request.POST['extra_data']:
+        location = request.POST['extra_data'].split(',')
+        year = location[0]
+        semester = location[1]
+
     modified_project = ''
-    if (request.POST['request_data']):
+    if request.POST['request_data']:
         modified_project = PaperGuide.objects.get(id=request.POST['request_data'])
     return render(request, 'main/teacher/workload_input/paper_guide/paper_guide_add.html', locals())
 
@@ -528,7 +562,7 @@ def teacher_management(request, user):
 
 def teacher_management_add(request, user):
     modified_teacher = ''
-    if (request.POST['request_data']):
+    if request.POST['request_data']:
         modified_teacher = User.objects.get(id=request.POST['request_data'])
     return render(request, 'main/head_of_department/teacher_management/teacher_management_add.html', locals())
 
@@ -545,7 +579,7 @@ def class_management(request, user):
 def class_management_add(request, user):
     teacher_list = User.objects.all()
     modified_class = ''
-    if (request.POST['request_data']):
+    if request.POST['request_data']:
         modified_class = Class.objects.get(id=request.POST['request_data'])
     return render(request, 'main/dean/class_management/class_management_add.html',
                   locals())

@@ -21,9 +21,13 @@
                 <select name="year">
                     {% if modified_course %}
                         <option>{{ modified_course.year }}-{{ modified_course.year|add:1 }}学年</option>
+                    {% elif location %}
+                        {% if year != '所有' %}
+                            <option>{{ year }}-{{ year|add:1 }}学年</option>
+                        {% endif %}
                     {% endif %}
-                    <option>2016-2017</option>
-                    <option>2017-2018</option>
+                    <option>2016-2017学年</option>
+                    <option>2017-2018学年</option>
                 </select>
             </div>
 
@@ -37,6 +41,14 @@
                         {% else %}
                             <option>第二学期</option>
                             <option>第一学期</option>
+                        {% endif %}
+                    {% elif location %}
+                        {% if semester == '第二学期' %}
+                            <option>第二学期</option>
+                            <option>第一学期</option>
+                        {% else %}
+                            <option>第一学期</option>
+                            <option>第二学期</option>
                         {% endif %}
                     {% else %}
                         <option>第一学期</option>

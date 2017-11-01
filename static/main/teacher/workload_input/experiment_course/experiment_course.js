@@ -12,7 +12,8 @@ $(document).ready(function () {
     );
 
     $('.add_button').click(function () {
-        MyAjax_Get('getpage', 'workload_input_experiment_course_add', null, '.experiment_course_add_content')
+        var location = $('#location_year').val() + ',' + $('#location_semester').val();
+        MyAjax_Get('getpage', 'workload_input_experiment_course_add', null, '.experiment_course_add_content', location)
     });
 
     $('.experiment_course_modify').click(function () {

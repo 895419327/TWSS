@@ -11,7 +11,8 @@ $(document).ready(function () {
     );
 
     $('.add_button').click(function () {
-        MyAjax_Get('getpage', 'workload_input_paper_guide_add', null, '.paper_guide_add_content')
+        var location = $('#location_year').val() + ',' + $('#location_semester').val();
+        MyAjax_Get('getpage', 'workload_input_paper_guide_add', null, '.paper_guide_add_content', location)
     });
 
     $('.paper_guide_modify').click(function () {

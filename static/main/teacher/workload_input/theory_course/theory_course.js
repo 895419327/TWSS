@@ -12,13 +12,14 @@ $(document).ready(function () {
     );
 
     $('.add_button').click(function () {
-        MyAjax_Get('getpage', 'workload_input_theory_course_add', null, '.theory_course_add_content')
+        var location = $('#location_year').val() + ',' + $('#location_semester').val();
+        MyAjax_Get('/getpage', 'workload_input_theory_course_add', null, '.theory_course_add_content', location);
     });
 
     $('.theory_course_modify').click(function () {
         var id = this.id;
         id = id.substring(0, id.length - 7);
-        MyAjax_Get('getpage', 'workload_input_theory_course_add', id, '.theory_course_add_content')
+        MyAjax_Get('/getpage', 'workload_input_theory_course_add', id, '.theory_course_add_content')
 
     });
 
