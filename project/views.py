@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
+import time
 
 from django.shortcuts import render
 from hashlib import md5
 
+from project.logs.log import log
 from project.models import *
 from project.utilities.search import *
 from project.utilities.indentity import check_identity
@@ -37,6 +39,8 @@ def index(request):
 def login(request):
     request.encoding = 'utf-8'
 
+    login_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+
     # 如果表单为POST提交
     if request.POST:
         # 接收表单数据
@@ -54,6 +58,8 @@ def login(request):
                     unique_code_src = username_post + password_post + status_post
                     generater = md5(unique_code_src.encode("utf8"))
                     unique_code = generater.hexdigest()
+                    # 记录
+                    log('INFO', login_time, 'Login', user.name, user.id, status_post)
                     # 返回相应页面
                     if status_post == u'教师':
                         return render(request, 'main/teacher/teacher.html', locals())
@@ -64,10 +70,12 @@ def login(request):
                     if status_post == u'系统管理员':
                         return render(request, 'main/admin/admin.html', locals())
 
-        except:
+        except Exception:
+            log('WARNING', login_time, 'Login Fail', username_post, status_post, repr(Exception))
             return render(request, 'index/loginfailed.html')
 
     # 任何意外
+    log('ERROR', login_time, 'Login Fail', request.POST)
     return render(request, 'index/loginfailed.html')
 
 

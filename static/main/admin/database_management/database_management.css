@@ -1,0 +1,36 @@
+.database_dump_area {
+    width: 1000px;
+    height: 60px;
+    margin: 20px 0 0 0;
+    font-size: 22px;
+    line-height: 60px;
+    text-align: center;
+}
+
+.database_dump_title {
+    width: 100px;
+    height: 60px;
+    float: left;
+}
+
+#database_dump_filename {
+    width: 680px;
+    height: 56px;
+    padding: 0 20px;
+    background: #ffffff;
+    font-size: 25px;
+    float: left;
+}
+
+#database_dump_button {
+    width: 150px;
+    height: 60px;
+    float: right;
+    background: #fafafa;
+    border: 1px solid #aaaaaa;
+    cursor: pointer;
+}
+
+#database_dump_button:hover {
+    box-shadow: 0 0 30px #aaaaaa;
+}

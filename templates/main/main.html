@@ -3,6 +3,7 @@
 
 {% block headmeta %}
     <link rel="stylesheet" href={% static "main/main.css" %}>
+
 {% endblock %}
 
 {% block base_content %}
@@ -10,12 +11,16 @@
 
     <div class="top_bar">
         <img id="logo" src={% static "base/logo.png" %}>
-        <div class="welcome">欢迎您，{{ user.name }} 老师！</div>
-        <div class="index_link">
-            <a href="http://www.zzu.edu.cn" target="_blank">郑大官网</a> /
-            <a href="http://www5.zzu.edu.cn/lifesci/" target="_blank">生科主页</a> /
-            <a href="http://jw.zzu.edu.cn" target="_blank">教务在线</a>
+        <div class="top_bar_right">
+            <div class="welcome">欢迎您，{{ user.name }} 老师！</div>
+            <div class="logout"><a href="/index">[ 退出 ]</a></div>
+            <div class="index_link">
+                <a href="http://www.zzu.edu.cn" target="_blank">郑大官网</a> /
+                <a href="http://www5.zzu.edu.cn/lifesci/" target="_blank">生科主页</a> /
+                <a href="http://jw.zzu.edu.cn" target="_blank">教务在线</a>
+            </div>
         </div>
+
     </div>
 
     <div class="content">

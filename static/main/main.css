@@ -19,22 +19,43 @@ body {
     float: left;
 }
 
-.welcome {
-    width: 250px;
-    height: 40px;
+.top_bar_right {
+    width: 360px;
+    height: 80px;
     margin: 20px 0 0;
-    line-height: 40px;
-    font-size: 20px;
+    float: right;
+}
+
+.welcome {
+    width: 280px;
+    height: 50px;
+    line-height: 50px;
+    font-size: 22px;
+    color: #DDDDDD;
+    text-align: right;
+    float: left;
+}
+
+.logout, .logout a {
+    width: 60px;
+    height: 50px;
+    padding: 0 0 0 10px;
+    line-height: 50px;
+    font-size: 16px;
     color: #DDDDDD;
     float: right;
 }
 
+.logout a:hover {
+    color: #ffffff;
+}
+
 .index_link {
-    width: 250px;
+    width: 310px;
     height: 30px;
-    margin: 65px 0 0;
+    padding: 0 10px 0 0;
     position: relative;
-    right: -250px; /* 修正.welcome引起的偏移 */
+    text-align: right;
     float: right;
     color: #DDDDDD;
 }
@@ -44,6 +65,7 @@ body {
 }
 
 .index_link a:hover {
+    color: #ffffff;
     text-decoration: underline;
 }
 
@@ -103,7 +125,7 @@ body {
     width: 200px;
     margin: 0 20px 0 0;
     user-select: none;
-    /*display: none;*/
+    display: none;
     float: right;
 }
 
@@ -177,13 +199,13 @@ select {
     text-align: center;
 }
 
-.notice{
+.notice {
     margin: 50px 0 0;
     padding: 0 50px;
     font-size: 22px;
 }
 
-.notice_div{
+.notice_div {
     margin: 20px 0;
 }
 
@@ -260,7 +282,7 @@ table img:hover {
     height: auto;
     margin: 0 0 0 -70px;
     padding: 5px 10px;
-    background: rgba(255,255,255,0.8);
+    background: rgba(255, 255, 255, 0.8);
     box-shadow: 0 0 25px #aaaaaa;
     text-align: left;
     position: absolute;

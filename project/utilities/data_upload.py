@@ -10,11 +10,11 @@ from project.views import *
 from project.models import *
 
 
-# TODO: 以后要把这些都整合到views
-# update 2017.10.20: 再说...
-
 def upload(request):
     request.encoding = 'utf-8'
+
+    upload_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+
     # 校验身份
     from project.utilities.indentity import check_identity
     check_return = check_identity(request)
@@ -27,7 +27,8 @@ def upload(request):
     requestfor = request.POST['requestfor']
     try:
         return eval(requestfor)(request, user)
-    except:
+    except Exception:
+        log('WARNING', upload_time, 'Login Fail', request.POST, repr(Exception))
         print('data_upload.py upload() exception')
         return False
 

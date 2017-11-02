@@ -28,7 +28,7 @@ urlpatterns = [
     url(r'^main$', login),
 
     url(r'^getpage', getpage),
-    url(r'^download$', download),
+    url(r'^export', download),
     url(r'^upload$', upload),
 ]
 
