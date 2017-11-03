@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import os
+import time
 
 BASE_DIR = os.path.dirname(os.path.abspath(__name__))
 MEDIA_PATH = os.path.join(BASE_DIR, 'media')
@@ -67,10 +68,20 @@ def download(request):
 
 
 def database_backup(request):
-    # filename = request.POST['filename']
-    filename = BASE_DIR + '/project/database_backups/' + '2017-11-3' + '.sql'
-    file = open(filename)
+    if request.POST['filename']:
+        filename = request.POST['filename']
+    else:
+        filename = time.strftime('%Y-%m-%d-%H:%M:%S', time.localtime())
+
+    full_filename = BASE_DIR + '/project/database_backups/' + filename + '.sql'
+
+    os.system('cd ' + BASE_DIR)
+    os.system('python3 manage.py dumpdata > ' + full_filename)
+
+    os.system('chmod 444 ' + full_filename)
+
+    file = open(full_filename)
     response = StreamingHttpResponse(file.read())
     response['Content-Type'] = 'application/octet-stream'
-    response['Content-Disposition'] = 'attachment;filename="{0}.sql"'.format(request.POST['filename'])
+    response['Content-Disposition'] = 'attachment;filename="{0}.sql"'.format(filename)
     return response

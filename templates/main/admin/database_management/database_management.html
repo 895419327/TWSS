@@ -12,6 +12,7 @@
 
         <div style="margin: 0 0 5px 20px;">数据库备份会在服务器存储一份备份，并提供一份备份以供下载另行存储</div>
         <div style="margin: 0 0 0 20px;">输入文件名后点击"数据库备份"按钮即可备份，放空则默认为以日期命名</div>
+        <div style="margin: 0 0 0 20px;">另：目前只支持英文文件名，可下载后自行修改，本问题会尽快修复</div>
 
         <div class="database_dump_area">
             <div class="database_dump_title">文件名</div>
@@ -38,6 +39,16 @@
                 <th width="300px">下载</th>
                 <th width="300px">还原</th>
             </tr>
+
+            {% if backup_infos %}
+                {% for info in backup_infos %}
+                    <tr>
+                        <td>{{ info.2 }}</td>
+                        <td>{{ info.1 }}</td>
+                        <td></td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
 
         </table>
     </div>

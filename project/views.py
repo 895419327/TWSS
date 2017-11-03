@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+
+import os
 import time
 
 from django.shortcuts import render
@@ -9,6 +11,8 @@ from project.models import *
 from project.utilities.search import *
 from project.utilities.indentity import check_identity
 from project.utilities.workload_count import workload_count_func
+
+BASE_DIR = os.path.dirname(os.path.abspath(__name__))
 
 
 def index(request):
@@ -640,4 +644,14 @@ def workload_K_value(request, user):
 # # # ADMIN # # #
 
 def database_management(request, user):
+    buckups_dir = BASE_DIR + '/project/database_backups'
+    backup_infos = []
+    for root, dirs, files in os.walk(buckups_dir):
+        for file in files:
+            create_time = os.path.getctime(buckups_dir + '/' + file)
+            create_time_r = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(create_time))
+            info = (create_time, file, create_time_r)
+            backup_infos.append(info)
+    backup_infos.sort()
+    backup_infos.reverse()
     return render(request, "main/admin/database_management/database_management.html", locals())
