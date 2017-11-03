@@ -650,7 +650,11 @@ def database_management(request, user):
         for file in files:
             create_time = os.path.getctime(buckups_dir + '/' + file)
             create_time_r = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(create_time))
-            info = (create_time, file, create_time_r)
+
+            size = os.path.getsize(buckups_dir + '/' + file)
+            size = size/1000
+
+            info = (create_time, file, create_time_r, size)
             backup_infos.append(info)
     backup_infos.sort()
     backup_infos.reverse()

@@ -14,9 +14,18 @@
 }
 
 #database_dump_filename {
-    width: 680px;
+    width: 580px;
     height: 56px;
     padding: 0 20px;
+    background: #ffffff;
+    font-size: 25px;
+    float: left;
+}
+
+#database_dump_filetype {
+    width: 60px;
+    height: 56px;
+    padding: 0 10px 0 15px;
     background: #ffffff;
     font-size: 25px;
     float: left;
@@ -27,10 +36,17 @@
     height: 60px;
     float: right;
     background: #fafafa;
-    border: 1px solid #aaaaaa;
+    border: 1px solid #cccccc;
     cursor: pointer;
 }
 
 #database_dump_button:hover {
     box-shadow: 0 0 30px #aaaaaa;
+}
+
+.database_download_button,
+.database_recover_button,
+.database_delete_button {
+    font-size: 16px;
+    cursor: pointer;
 }

@@ -27,8 +27,6 @@ def download(request):
     requestfor = request.POST['requestfor']
     # if requestfor == 'user_info':
     #     return user_info_to_excel(request, user)
-    if requestfor == 'database_backup':
-        return database_backup(request)
 
 
 # 将user_info写入excel并返回
@@ -67,21 +65,6 @@ def download(request):
 #     return response
 
 
-def database_backup(request):
-    if request.POST['filename']:
-        filename = request.POST['filename']
-    else:
-        filename = time.strftime('%Y-%m-%d-%H:%M:%S', time.localtime())
 
-    full_filename = BASE_DIR + '/project/database_backups/' + filename + '.sql'
 
-    os.system('cd ' + BASE_DIR)
-    os.system('python3 manage.py dumpdata > ' + full_filename)
 
-    os.system('chmod 444 ' + full_filename)
-
-    file = open(full_filename)
-    response = StreamingHttpResponse(file.read())
-    response['Content-Type'] = 'application/octet-stream'
-    response['Content-Disposition'] = 'attachment;filename="{0}.sql"'.format(filename)
-    return response

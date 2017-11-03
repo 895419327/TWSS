@@ -18,6 +18,7 @@ from django.contrib import admin
 
 from project.utilities.data_export import download
 from project.utilities.data_upload import upload
+from project.utilities.database import database
 from project.views import *
 
 
@@ -30,6 +31,7 @@ urlpatterns = [
     url(r'^getpage', getpage),
     url(r'^export', download),
     url(r'^upload$', upload),
+    url(r'^database', database)
 ]
 
 

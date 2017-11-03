@@ -11,45 +11,83 @@
         <div class="project_item_title">数据库备份</div>
 
         <div style="margin: 0 0 5px 20px;">数据库备份会在服务器存储一份备份，并提供一份备份以供下载另行存储</div>
-        <div style="margin: 0 0 0 20px;">输入文件名后点击"数据库备份"按钮即可备份，放空则默认为以日期命名</div>
-        <div style="margin: 0 0 0 20px;">另：目前只支持英文文件名，可下载后自行修改，本问题会尽快修复</div>
+        <div style="margin: 0 0 5px 20px;">输入文件名后点击"数据库备份"按钮即可备份</div>
+        <div style="margin: 0 0 0 20px;">另：目前只支持英文文件名，可下载后自行修改</div>
 
         <div class="database_dump_area">
             <div class="database_dump_title">文件名</div>
 
-            <form id="database_dump_form" method="post" action="/export" autocomplete="off">
+            <form id="database_dump_form" method="post" action="/database" autocomplete="off">
                 {% csrf_token %}
                 <input type="hidden" name="username" value="{{ user.id }}">
                 <input type="hidden" name="requestfor" value="database_backup">
 
-                <input id="database_dump_filename" name="filename">
+                <input id="database_dump_filename" name="filename" placeholder="放空则默认为以日期命名">
+                <input id="database_dump_filetype" value=".json" readonly>
             </form>
 
             <div id="database_dump_button">数据库备份</div>
         </div>
     </div>
 
-    <div class="project_item">
-        <div class="project_item_title">备份记录</div>
-        <div style="margin: 0 0 12px 20px;">数据库恢复会将服务器数据库恢复至所选备份，未先行备份的数据会丢失，因此强烈推荐先将现行数据备份后再进行恢复操作</div>
+    <div class="project_item" style="margin-top: 80px;">
 
-        <table>
+        <div class="project_item_title">自动备份</div>
+
+        <div style="font-size: 18px; margin: 20px 0 0 0">
+            <span id="changed_mark" style="position: absolute" hidden>*</span>
+            <span style="margin: 0 0 0 20px">每隔 </span>
+            <select id="database_auto_backup_setting">
+                <option>1 天</option>
+                <option>3 天</option>
+                <option>7 天</option>
+                <option>14 天</option>
+                <option>1个月</option>
+            </select>
+            <span> 进行自动备份</span>
+
+            <button style="font-size: 16px; margin: 0 0 0 10px; cursor: pointer">保存</button>
+        </div>
+
+    </div>
+
+    <div class="project_item" style="margin-top: -50px">
+        <div class="project_item_title">备份记录</div>
+        <div style="margin: 0 0 15px 20px;">数据库恢复会将服务器数据库恢复至所选备份，未先行备份的数据会丢失，因此强烈推荐先将现行数据备份后再进行恢复操作</div>
+
+        <table cellspacing="0">
             <tr>
-                <th width="400px">备份时间</th>
-                <th width="300px">下载</th>
-                <th width="300px">还原</th>
+                <th width="300px">文件名</th>
+                <th width="250px">备份时间</th>
+                <th width="150px">大小</th>
+                <th width="200px">操作</th>
             </tr>
 
             {% if backup_infos %}
                 {% for info in backup_infos %}
-                    <tr>
-                        <td>{{ info.2 }}</td>
-                        <td>{{ info.1 }}</td>
-                        <td></td>
-                    </tr>
+                    {% if info.1 != '.DS_Store' %}
+                        <tr>
+                            <td>{{ info.1 }}</td>
+                            <td>{{ info.2 }}</td>
+                            <td>{{ info.3 }} KB</td>
+                            <td>
+                                <button class="database_download_button" id="{{ info.1 }}_download">下载</button>
+                                <button class="database_recover_button" id="{{ info.1 }}_recover">还原</button>
+                                <button class="database_delete_button" id="{{ info.1 }}_delete">删除</button>
+                            </td>
+                        </tr>
+                    {% endif %}
                 {% endfor %}
             {% endif %}
 
         </table>
     </div>
+
+    <form id="backup_operation_form" hidden method="post" action="/database" autocomplete="off">
+        {% csrf_token %}
+        <input name="username" value="{{ user.id }}">
+        <input name="requestfor" id="backup_operation_form_requestfor">
+
+        <input name="buckup_id" id="buckup_id">
+    </form>
 </div>
