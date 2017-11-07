@@ -18,14 +18,14 @@ $(document).ready(function () {
         var id = $(this).attr('id');
         id = id.substring(0, id.length - 9);
         $('#buckup_id').val(id);
-        $('#backup_operation_form_requestfor').val('backup_download')
+        $('#backup_operation_form_requestfor').val('backup_download');
         $('#backup_operation_form').submit();
     });
 
     $('.database_delete_button').click(function () {
         var id = $(this).attr('id');
         id = id.substring(0, id.length - 7);
-        MyAjax_Get('/database', 'buckup_delete', id);
+        if(confirm('确定删除此备份吗？'))
+            MyAjax_Get('/database', 'buckup_delete', id);
     });
-
 });

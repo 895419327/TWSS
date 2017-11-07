@@ -36,10 +36,8 @@ def database_backup(request):
     else:
         filename = time.strftime('%Y-%m-%d-%H:%M:%S', time.localtime())
 
-    full_filename = BASE_DIR + '/project/database_backups/' + filename + '.json'
+    full_filename = BASE_DIR + '/project/database_backups/' + filename + '.sql'
 
-    os.system('cd ' + BASE_DIR)
-    os.system('python3 manage.py dumpdata > ' + full_filename)
     os.system('mysqldump -uroot -pzql twss > ' + full_filename)
 
     os.system('chmod 444 ' + full_filename)
@@ -48,7 +46,7 @@ def database_backup(request):
     # response = StreamingHttpResponse(file.read())
     response = HttpResponse(file.read())
     response['Content-Type'] = 'application/octet-stream'
-    response['Content-Disposition'] = 'attachment;filename="{0}.json"'.format(filename)
+    response['Content-Disposition'] = 'attachment;filename="{0}.sql"'.format(filename)
     return response
 
 
@@ -58,7 +56,7 @@ def buckup_download(request):
 
     response = HttpResponse(file.read())
     response['Content-Type'] = 'application/octet-stream'
-    response['Content-Disposition'] = 'attachment;filename="{0}.json"'.format(filename)
+    response['Content-Disposition'] = 'attachment;filename="{0}.sql"'.format(filename)
     return response
 
 
