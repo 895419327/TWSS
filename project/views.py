@@ -447,6 +447,10 @@ def workload_audit_reject(request, user):
 
 # 理论课
 def workload_audit_theory_course(request, user):
+    years = range(2016, int(GlobalValue.objects.get(key='current_year').value) + 1)
+    semesters = [u'所有', u'第一学期', u'第二学期']
+    audit_status_s = [u'所有', u'未审核', u'审核未通过', u'已审核']
+
     department = Department.objects.get(head_of_department=user.id)
     course_list = TheoryCourse.objects.filter(department=department)
     course_list, year, semester, audit_status = audit_search(request, course_list)
@@ -462,6 +466,10 @@ def workload_audit_theory_course_pass(request, user):
 
 # 实验课
 def workload_audit_experiment_course(request, user):
+    years = range(2016, int(GlobalValue.objects.get(key='current_year').value) + 1)
+    semesters = [u'所有', u'第一学期', u'第二学期']
+    audit_status_s = [u'所有', u'未审核', u'审核未通过', u'已审核']
+
     department = Department.objects.get(head_of_department=user.id)
     course_list = ExperimentCourse.objects.filter(department=department)
     course_list, year, semester, audit_status = audit_search(request, course_list)
@@ -478,6 +486,10 @@ def workload_audit_experiment_course_pass(request, user):
 
 # 实习实训课
 def workload_audit_pratice_course(request, user):
+    years = range(2016, int(GlobalValue.objects.get(key='current_year').value) + 1)
+    semesters = [u'所有', u'第一学期', u'第二学期']
+    audit_status_s = [u'所有', u'未审核', u'审核未通过', u'已审核']
+
     department = Department.objects.get(head_of_department=user.id)
     course_list = PraticeCourse.objects.filter(department=department)
     course_list, year, semester, audit_status = audit_search(request, course_list)
@@ -493,6 +505,10 @@ def workload_audit_pratice_course_pass(request, user):
 
 # 教学成果
 def workload_audit_teaching_achievement(request, user):
+    years = range(2016, int(GlobalValue.objects.get(key='current_year').value) + 1)
+    semesters = [u'所有', u'第一学期', u'第二学期']
+    audit_status_s = [u'所有', u'未审核', u'审核未通过', u'已审核']
+
     department = Department.objects.get(head_of_department=user.id)
     project_list = TeachingAchievement.objects.filter(department=department)
     project_list, year, semester, audit_status = audit_search(request, project_list)
@@ -510,6 +526,10 @@ def workload_audit_teaching_achievement_pass(request, user):
 
 # 教学项目
 def workload_audit_teaching_project(request, user):
+    years = range(2016, int(GlobalValue.objects.get(key='current_year').value) + 1)
+    semesters = [u'所有', u'第一学期', u'第二学期']
+    audit_status_s = [u'所有', u'未审核', u'审核未通过', u'已审核']
+
     department = Department.objects.get(head_of_department=user.id)
     project_list = TeachingProject.objects.filter(department=department)
     project_list, year, semester, audit_status = audit_search(request, project_list)
@@ -526,6 +546,10 @@ def workload_audit_teaching_project_pass(request, user):
 
 # 竞赛指导
 def workload_audit_competition_guide(request, user):
+    years = range(2016, int(GlobalValue.objects.get(key='current_year').value) + 1)
+    semesters = [u'所有', u'第一学期', u'第二学期']
+    audit_status_s = [u'所有', u'未审核', u'审核未通过', u'已审核']
+
     department = Department.objects.get(head_of_department=user.id)
     project_list = CompetitionGuide.objects.filter(department=department)
     project_list, year, semester, audit_status = audit_search(request, project_list)
@@ -542,6 +566,10 @@ def workload_audit_competition_guide_pass(request, user):
 
 # 论文指导
 def workload_audit_paper_guide(request, user):
+    years = range(2016, int(GlobalValue.objects.get(key='current_year').value) + 1)
+    semesters = [u'所有', u'第一学期', u'第二学期']
+    audit_status_s = [u'所有', u'未审核', u'审核未通过', u'已审核']
+
     department = Department.objects.get(head_of_department=user.id)
     project_list = PaperGuide.objects.filter(department=department)
     project_list, year, semester, audit_status = audit_search(request, project_list)

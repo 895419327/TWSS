@@ -25,8 +25,11 @@
                         <option>{{ year }}-{{ year|add:1 }}学年</option>
                     {% endif %}
                     <option>所有</option>
-                    <option>2016-2017学年</option>
-                    <option>2017-2018学年</option>
+                    {% for y in years %}
+                        {% if y != year|stoi %}
+                            <option>{{ y }}-{{ y|add:1 }}学年</option>
+                        {% endif %}
+                    {% endfor %}
                 </select>
             </div>
 
@@ -34,9 +37,11 @@
                 <span>学期</span>
                 <select name="search_semester">
                     <option>{{ semester }}</option>
-                    <option>所有</option>
-                    <option>第一学期</option>
-                    <option>第二学期</option>
+                    {% for s in semesters %}
+                        {% if s != semester %}
+                            <option>{{ s }}</option>
+                        {% endif %}
+                    {% endfor %}
                 </select>
             </div>
 
@@ -44,10 +49,11 @@
                 <span>审核状态</span>
                 <select name="audit_status">
                     <option>{{ audit_status }}</option>
-                    <option>所有</option>
-                    <option>未审核</option>
-                    <option>审核未通过</option>
-                    <option>已审核</option>
+                    {% for a in audit_status_s %}
+                        {% if a != audit_status %}
+                            <option>{{ a }}</option>
+                        {% endif %}
+                    {% endfor %}
                 </select>
             </div>
         </form>
