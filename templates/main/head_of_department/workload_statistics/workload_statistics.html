@@ -13,8 +13,11 @@
                 <span>学年</span>
                 <select id="workload_statistics_year">
                     <option>{{ year }}-{{ year|add:1 }}学年</option>
-                    <option>2016-2017学年</option>
-                    <option>2017-2018学年</option>
+                    {% for y in years %}
+                        {% if y != year|stoi %}
+                            <option>{{ y }}-{{ y|add:1 }}学年</option>
+                        {% endif %}
+                    {% endfor %}
                 </select>
             </div>
 
@@ -24,28 +27,28 @@
 
         {% for department in department_list %}
             {% if department.id != 470 %}
-            <div class="project_item">
-                <div class="project_item_title">{{ department.name }}</div>
-                <table cellspacing="0">
-                    <tr>
-                        <th width="120px">教师</th>
-                        <th width="60px">职称</th>
-                        <th width="100px">教学工作量</th>
-                        <th width="100px">教研工作量</th>
-                    </tr>
+                <div class="project_item">
+                    <div class="project_item_title">{{ department.name }}</div>
+                    <table cellspacing="0">
+                        <tr>
+                            <th width="120px">教师</th>
+                            <th width="60px">职称</th>
+                            <th width="100px">教学工作量</th>
+                            <th width="100px">教研工作量</th>
+                        </tr>
 
-                    {% for workload in workload_list %}
-                        {% if workload.0 == department.id %}
-                            <tr>
-                                <td>{{ workload.1 }}</td>
-                                <td>{{ workload.2 }}</td>
-                                <td>{{ workload.3 }}</td>
-                                <td>{{ workload.4 }}</td>
-                            </tr>
-                        {% endif %}
-                    {% endfor %}
-                </table>
-            </div>
+                        {% for workload in workload_list %}
+                            {% if workload.0 == department.id %}
+                                <tr>
+                                    <td>{{ workload.1 }}</td>
+                                    <td>{{ workload.2 }}</td>
+                                    <td>{{ workload.3 }}</td>
+                                    <td>{{ workload.4 }}</td>
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                    </table>
+                </div>
             {% endif %}
         {% endfor %}
     </div>

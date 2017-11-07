@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load myfilters %}
 <script src={% static 'main/teacher/workload_input/competition_guide/competition_guide_add.js' %}></script>
 
 <div class="add_popup" style="height: 400px">
@@ -48,8 +49,14 @@
                             <option>{{ year }}-{{ year|add:1 }}学年</option>
                         {% endif %}
                     {% endif %}
-                    <option>2016-2017学年</option>
-                    <option>2017-2018学年</option>
+                    {% for y in years %}
+                        {% if y != year|stoi %}
+                            <option>{{ y }}-{{ y|add:1 }}学年</option>
+                        {% endif %}
+                        {% if y != modified_project.year %}
+                            <option>{{ y }}-{{ y|add:1 }}学年</option>
+                        {% endif %}
+                    {% endfor %}
                 </select>
             </div>
 
@@ -58,10 +65,22 @@
                 <select name="level">
                     {% if modified_project %}
                         <option>{{ modified_project.level }}</option>
+                        {% if modified_project.level == '特等' %}
+                            <option>一等</option>
+                            <option>二等</option>
+                        {% elif modified_project.level == '一等' %}
+                            <option>特等</option>
+                            <option>二等</option>
+                        {% elif modified_project.level == '二等' %}
+                            <option>特等</option>
+                            <option>一等</option>
+                        {% endif %}
+                    {% else %}
+                        <option>特等</option>
+                        <option>一等</option>
+                        <option>二等</option>
                     {% endif %}
-                    <option>特等</option>
-                    <option>一等</option>
-                    <option>二等</option>
+
                 </select>
             </div>
         </div>

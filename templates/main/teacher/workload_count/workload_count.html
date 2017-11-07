@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load myfilters %}
 <link rel="stylesheet" href={% static "main/teacher/workload_count/workload_count.css" %}>
 <script src={% static "main/teacher/workload_count/workload_count.js" %}></script>
 
@@ -10,8 +11,12 @@
         <div class="search_bar_item">
             <span>学年</span>
             <select id="workload_count_year">
-                <option>2016-2017学年</option>
-                <option>2017-2018学年</option>
+                <option>{{ year }}-{{ year|add:1 }}学年</option>
+                {% for y in years %}
+                    {% if y != year|stoi %}
+                        <option>{{ y }}-{{ y|add:1 }}学年</option>
+                    {% endif %}
+                {% endfor %}
             </select>
         </div>
 

@@ -24,3 +24,11 @@ def itoc(integer):
         return u'二'
     else:
         return 'error'
+
+
+@register.filter()
+def stoi(s):
+    if s != u'所有':
+        return int(s)
+    else:
+        return

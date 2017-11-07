@@ -142,13 +142,15 @@ def get_classes_module(request, user):
 # Theory Course
 
 def workload_input_theory_course(request, user):
+    years = range(2016, int(GlobalValue.objects.get(key='current_year').value) + 1)
+    semesters = [u'所有', u'第一学期', u'第二学期']
     # 获取账号课程信息
     course_list = TheoryCourse.objects.filter(teacher_id=user.id)
     course_list, year, semester = search(request, course_list)
     return render(request, 'main/teacher/workload_input/theory_course/theory_course.html', locals())
 
-
 def workload_input_theory_course_add(request, user):
+    years = range(2016, int(GlobalValue.objects.get(key='current_year').value) + 1)
     location = ''
     if 'extra_data' in request.POST and request.POST['extra_data'] != '':
         location = request.POST['extra_data'].split(',')
@@ -168,6 +170,8 @@ def workload_input_theory_course_add(request, user):
 # Experiment Course
 
 def workload_input_experiment_course(request, user):
+    years = range(2016, int(GlobalValue.objects.get(key='current_year').value) + 1)
+    semesters = [u'所有', u'第一学期', u'第二学期']
     # 获取账号课程信息
     course_list = ExperimentCourse.objects.filter(teacher_id=user.id)
     course_list, year, semester = search(request, course_list)
@@ -175,6 +179,7 @@ def workload_input_experiment_course(request, user):
 
 
 def workload_input_experiment_course_add(request, user):
+    years = range(2016, int(GlobalValue.objects.get(key='current_year').value) + 1)
     location = ''
     if 'extra_data' in request.POST and request.POST['extra_data'] != '':
         location = request.POST['extra_data'].split(',')
@@ -194,6 +199,8 @@ def workload_input_experiment_course_add(request, user):
 # Pratice Course
 
 def workload_input_pratice_course(request, user):
+    years = range(2016, int(GlobalValue.objects.get(key='current_year').value) + 1)
+    semesters = [u'所有', u'第一学期', u'第二学期']
     # 获取账号课程信息
     course_list = PraticeCourse.objects.filter(teacher_id=user.id)
     course_list, year, semester = search(request, course_list)
@@ -201,6 +208,7 @@ def workload_input_pratice_course(request, user):
 
 
 def workload_input_pratice_course_add(request, user):
+    years = range(2016, int(GlobalValue.objects.get(key='current_year').value) + 1)
     location = ''
     if 'extra_data' in request.POST and request.POST['extra_data'] != '':
         location = request.POST['extra_data'].split(',')
@@ -226,12 +234,15 @@ def workload_input_pratice_course_add(request, user):
 # Teaching Achievement
 
 def workload_input_teaching_achievement(request, user):
+    years = range(2016, int(GlobalValue.objects.get(key='current_year').value) + 1)
+    semesters = [u'所有', u'第一学期', u'第二学期']
     project_list = TeachingAchievement.objects.filter(teacher_id=user.id)
     project_list, year, semester = search(request, project_list)
     return render(request, 'main/teacher/workload_input/teaching_achievement/teaching_achievement.html', locals())
 
 
 def workload_input_teaching_achievement_add(request, user):
+    years = range(2016, int(GlobalValue.objects.get(key='current_year').value) + 1)
     modified_project = ''
     project_type = ''
     location = ''
@@ -242,18 +253,22 @@ def workload_input_teaching_achievement_add(request, user):
         semester = location[2]
     if request.POST['request_data']:
         modified_project = TeachingAchievement.objects.get(id=request.POST['request_data'])
+        project_type = modified_project.type
 
     return render(request, 'main/teacher/workload_input/teaching_achievement/teaching_achievement_add.html', locals())
 
 
 # Teaching Project
 def workload_input_teaching_project(request, user):
+    years = range(2016, int(GlobalValue.objects.get(key='current_year').value) + 1)
+    semesters = [u'所有', u'第一学期', u'第二学期']
     project_list = TeachingProject.objects.filter(teacher_id=user.id)
     project_list, year, semester = search(request, project_list)
     return render(request, 'main/teacher/workload_input/teaching_project/teaching_project.html', locals())
 
 
 def workload_input_teaching_project_add(request, user):
+    years = range(2016, int(GlobalValue.objects.get(key='current_year').value) + 1)
     modified_project = ''
     project_type = ''
     location = ''
@@ -264,18 +279,22 @@ def workload_input_teaching_project_add(request, user):
         semester = location[2]
     if request.POST['request_data']:
         modified_project = TeachingProject.objects.get(id=request.POST['request_data'])
+        project_type = modified_project.type
     return render(request, 'main/teacher/workload_input/teaching_project/teaching_project_add.html', locals())
 
 
 # Competition Guide
 
 def workload_input_competition_guide(request, user):
+    years = range(2016, int(GlobalValue.objects.get(key='current_year').value) + 1)
+    semesters = [u'所有', u'第一学期', u'第二学期']
     project_list = CompetitionGuide.objects.filter(teacher_id=user.id)
     project_list, year, semester = search(request, project_list)
     return render(request, 'main/teacher/workload_input/competition_guide/competition_guide.html', locals())
 
 
 def workload_input_competition_guide_add(request, user):
+    years = range(2016, int(GlobalValue.objects.get(key='current_year').value) + 1)
     modified_project = ''
     project_type = ''
     location = ''
@@ -292,12 +311,15 @@ def workload_input_competition_guide_add(request, user):
 # Paper Guide
 
 def workload_input_paper_guide(request, user):
+    years = range(2016, int(GlobalValue.objects.get(key='current_year').value) + 1)
+    semesters = [u'所有', u'第一学期', u'第二学期']
     project_list = PaperGuide.objects.filter(teacher_id=user.id)
     project_list, year, semester = search(request, project_list)
     return render(request, 'main/teacher/workload_input/paper_guide/paper_guide.html', locals())
 
 
 def workload_input_paper_guide_add(request, user):
+    years = range(2016, int(GlobalValue.objects.get(key='current_year').value) + 1)
     location = ''
     if request.POST['extra_data']:
         location = request.POST['extra_data'].split(',')
@@ -313,6 +335,7 @@ def workload_input_paper_guide_add(request, user):
 # Workload Count
 
 def workload_count(request, user):
+    years = range(2016, int(GlobalValue.objects.get(key='current_year').value) + 1)
     year = GlobalValue.objects.get(key='current_year').value
     if request.POST['request_data']:
         year = request.POST['request_data'][:4]
@@ -600,6 +623,7 @@ def class_management_add(request, user):
 # 工作量统计
 # 系主任有权调用
 def workload_statistics(request, user):
+    years = range(2016, int(GlobalValue.objects.get(key='current_year').value) + 1)
     status = user.status.split(',')[1]
 
     year = GlobalValue.objects.get(key='current_year').value
@@ -652,7 +676,7 @@ def database_management(request, user):
             create_time_r = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(create_time))
 
             size = os.path.getsize(buckups_dir + '/' + file)
-            size = size/1000
+            size = size / 1000
 
             info = (create_time, file, create_time_r, size)
             backup_infos.append(info)
