@@ -128,7 +128,7 @@ def get_classes_module(request, user):
 
     class_list = Class.objects.filter(grade=grade)
     classes_checked = ''
-    if id:
+    if course_id:
         if course_type == 'TheoryCourse':
             classes_checked = TheoryCourse.objects.get(id=course_id).classes.split(',')
         elif course_type == 'ExperimentCourse':
