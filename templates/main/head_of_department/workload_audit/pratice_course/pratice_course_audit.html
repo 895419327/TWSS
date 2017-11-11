@@ -70,7 +70,6 @@
             <th width="150px">上课班级</th>
             <th width="50px">人数</th>
             <th width="50px">学时</th>
-            <th width="50px">学分</th>
             <th width="100px">审核状态</th>
             <th width="135px">操作</th>
         </tr>
@@ -102,7 +101,6 @@
                     </td>
                     <td>{{ course.student_sum }}</td>
                     <td>{{ course.period }}</td>
-                    <td>{{ course.credit }}</td>
                     {% if course.audit_status == 0 %}
                         <td>未审核</td>
                         <td>

@@ -110,8 +110,6 @@ class Course(models.Model):
     student_sum = models.IntegerField(1024, default=0)
     # 课时数
     period = models.IntegerField(128, default=0)
-    # 学分
-    credit = models.IntegerField(8, default=0)
     # 属性
     # 理论课 (必修/选修/限选)
     # 实验课 (专业课实验/计算机上机实验/开放实验)
