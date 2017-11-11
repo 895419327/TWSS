@@ -5,7 +5,6 @@ $(document).ready(function () {
         var id = this.id;
         id = id.substring(0, id.length - 5);
         var location = $('#location_year').val() + ','
-                     + $('#location_semester').val() + ','
                      + $('#location_audit_status').val();
         MyAjax_Get('getpage', 'workload_audit_teaching_project_pass', id, null, location);
     });

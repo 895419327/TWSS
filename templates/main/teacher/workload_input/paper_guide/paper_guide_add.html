@@ -15,7 +15,6 @@
         <input type="hidden" name="requestfor" value="paper_guide_add">
 
         <input hidden id="location_year_post" name="location_year_post">
-        <input hidden id="location_semester_post" name="location_semester_post">
 
         <div style="margin: 0 0 0 100px">
             <span>项目名称 </span>
@@ -27,21 +26,21 @@
 
         <div class="add_left">
             <div>
-                <span>学年 </span>
+                <span>年份 </span>
                 <select name="year">
                     {% if modified_project %}
-                        <option>{{ modified_project.year }}-{{ modified_project.year|add:1 }}学年</option>
+                        <option>{{ modified_project.year }}年</option>
                     {% elif location %}
                         {% if year != '所有' %}
-                            <option>{{ year }}-{{ year|add:1 }}学年</option>
+                            <option>{{ year }}年</option>
                         {% endif %}
                     {% endif %}
                     {% for y in years %}
                         {% if y != year|stoi %}
-                            <option>{{ y }}-{{ y|add:1 }}学年</option>
+                            <option>{{ y }}年</option>
                         {% endif %}
                         {% if y != modified_project.year %}
-                            <option>{{ y }}-{{ y|add:1 }}学年</option>
+                            <option>{{ y }}年</option>
                         {% endif %}
                     {% endfor %}
                 </select>
@@ -55,31 +54,6 @@
         </div>
 
         <div class="add_right">
-            <div>
-                <span>学期 </span>
-                <select name="semester">
-                    {% if modified_project %}
-                        {% if modified_project.semester == 1 %}
-                            <option>第一学期</option>
-                            <option>第二学期</option>
-                        {% else %}
-                            <option>第二学期</option>
-                            <option>第一学期</option>
-                        {% endif %}
-                    {% elif location %}
-                        {% if semester == '第二学期' %}
-                            <option>第二学期</option>
-                            <option>第一学期</option>
-                        {% else %}
-                            <option>第一学期</option>
-                            <option>第二学期</option>
-                        {% endif %}
-                    {% else %}
-                        <option>第一学期</option>
-                        <option>第二学期</option>
-                    {% endif %}
-                </select>
-            </div>
 
             <div>
                 <span>级别 </span>

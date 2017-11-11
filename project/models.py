@@ -137,8 +137,6 @@ class Project(models.Model):
     name = models.CharField(max_length=128, default=undefine)
     # 学年
     year = models.IntegerField(default=0000)
-    # 学期
-    semester = models.IntegerField(2, default=0)
     # 类型
     # 教学成果 (教研论文/教改项目结项/教学成果/教材)
     # 教学项目 (专业、团队及实验中心类/课程类/工程实践教育类/教学名师/大学生创新创业训练)

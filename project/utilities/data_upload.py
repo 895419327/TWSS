@@ -215,20 +215,11 @@ def teaching_achievement_add(request, user):
     if id == '':
         id = int(time.time())
 
-    semester = 0
-    if request.POST['semester'] == u'第一学期':
-        semester = 1
-    elif request.POST['semester'] == u'第二学期':
-        semester = 2
-    else:
-        return render(request, 'main/utilities/upload_fail.html')
-
     new = TeachingAchievement(id=id,
                               name=request.POST['project_name'],
                               type=request.POST['type'],
                               level=request.POST['level'],
                               year=request.POST['year'][:4],
-                              semester=semester,
                               teacher=user,
                               department=user.department, )
     new.save()
@@ -253,20 +244,11 @@ def teaching_project_add(request, user):
     if id == '':
         id = int(time.time())
 
-    semester = 0
-    if request.POST['semester'] == u'第一学期':
-        semester = 1
-    elif request.POST['semester'] == u'第二学期':
-        semester = 2
-    else:
-        return render(request, 'main/utilities/upload_fail.html')
-
     new = TeachingProject(id=id,
                           name=request.POST['project_name'],
                           type=request.POST['type'],
                           level=request.POST['level'],
                           year=request.POST['year'][:4],
-                          semester=semester,
                           teacher=user,
                           department=user.department, )
     new.save()
@@ -291,21 +273,12 @@ def competition_guide_add(request, user):
     if id == '':
         id = int(time.time())
 
-    semester = 0
-    if request.POST['semester'] == u'第一学期':
-        semester = 1
-    elif request.POST['semester'] == u'第二学期':
-        semester = 2
-    else:
-        return render(request, 'main/utilities/upload_fail.html')
-
     new = CompetitionGuide(id=id,
                            name=request.POST['project_name'],
                            type=request.POST['type'],
                            level=request.POST['level'],
                            students=request.POST['project_students'],
                            year=request.POST['year'][:4],
-                           semester=semester,
                            teacher=user,
                            department=user.department, )
     new.save()
@@ -330,20 +303,11 @@ def paper_guide_add(request, user):
     if id == '':
         id = int(time.time())
 
-    semester = 0
-    if request.POST['semester'] == u'第一学期':
-        semester = 1
-    elif request.POST['semester'] == u'第二学期':
-        semester = 2
-    else:
-        return render(request, 'main/utilities/upload_fail.html')
-
     new = PaperGuide(id=id,
                      name=request.POST['project_name'],
                      level=request.POST['level'],
                      author=request.POST['author'],
                      year=request.POST['year'][:4],
-                     semester=semester,
                      teacher=user,
                      department=user.department, )
     new.save()

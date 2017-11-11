@@ -24,7 +24,6 @@ $(document).ready(function () {
 
         if (isFull) {
             $('#location_year_post').val($('#location_year').val());
-            $('#location_semester_post').val($('#location_semester').val());
 
             var form = $('#paper_guide_add_form');
             form.ajaxSubmit({

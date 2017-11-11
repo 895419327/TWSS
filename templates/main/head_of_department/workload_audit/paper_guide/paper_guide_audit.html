@@ -16,31 +16,18 @@
             <input type="hidden" name="requestfor" value="workload_audit_competition_guide">
 
             <input hidden id="location_year" value="{{ year }}">
-            <input hidden id="location_semester" value="{{ semester }}">
             <input hidden id="location_audit_status" value="{{ audit_status }}">
 
             <div class="search_bar_item">
                 <span>学年</span>
                 <select name="search_year">
                     {% if year != '所有' %}
-                        <option>{{ year }}-{{ year|add:1 }}学年</option>
+                        <option>{{ year }}年</option>
                     {% endif %}
                     <option>所有</option>
                     {% for y in years %}
                         {% if y != year|stoi %}
-                            <option>{{ y }}-{{ y|add:1 }}学年</option>
-                        {% endif %}
-                    {% endfor %}
-                </select>
-            </div>
-
-            <div class="search_bar_item">
-                <span>学期</span>
-                <select name="search_semester">
-                    <option>{{ semester }}</option>
-                    {% for s in semesters %}
-                        {% if s != semester %}
-                            <option>{{ s }}</option>
+                            <option>{{ y }}年</option>
                         {% endif %}
                     {% endfor %}
                 </select>
@@ -64,7 +51,7 @@
 
     <table cellspacing="0">
         <tr>
-            <th width="120px">学年/学期</th>
+            <th width="120px">年份</th>
             <th width="200px">论文名称</th>
             <th width="80px">教师</th>
             <th width="80px">作者</th>
@@ -76,10 +63,7 @@
         {% if project_list %}
             {% for project in project_list %}
                 <tr>
-                    <td>
-                        <div>{{ project.year }}-{{ project.year|add:1 }}学年</div>
-                        <div>第{{ project.semester|itoc }}学期</div>
-                    </td>
+                    <td>{{ project.year }}年</td>
                     <td>{{ project.name }}</td>
                     <td>
                         <div>{{ project.teacher.name }}</div>

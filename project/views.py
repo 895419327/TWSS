@@ -146,7 +146,7 @@ def workload_input_theory_course(request, user):
     semesters = [u'所有', u'第一学期', u'第二学期']
     # 获取账号课程信息
     course_list = TheoryCourse.objects.filter(teacher_id=user.id)
-    course_list, year, semester = search(request, course_list)
+    course_list, year, semester = search_course(request, course_list)
     return render(request, 'main/teacher/workload_input/theory_course/theory_course.html', locals())
 
 def workload_input_theory_course_add(request, user):
@@ -174,7 +174,7 @@ def workload_input_experiment_course(request, user):
     semesters = [u'所有', u'第一学期', u'第二学期']
     # 获取账号课程信息
     course_list = ExperimentCourse.objects.filter(teacher_id=user.id)
-    course_list, year, semester = search(request, course_list)
+    course_list, year, semester = search_course(request, course_list)
     return render(request, 'main/teacher/workload_input/experiment_course/experiment_course.html', locals())
 
 
@@ -203,7 +203,7 @@ def workload_input_pratice_course(request, user):
     semesters = [u'所有', u'第一学期', u'第二学期']
     # 获取账号课程信息
     course_list = PraticeCourse.objects.filter(teacher_id=user.id)
-    course_list, year, semester = search(request, course_list)
+    course_list, year, semester = search_course(request, course_list)
     return render(request, 'main/teacher/workload_input/pratice_course/pratice_course.html', locals())
 
 
@@ -235,9 +235,8 @@ def workload_input_pratice_course_add(request, user):
 
 def workload_input_teaching_achievement(request, user):
     years = range(2016, int(GlobalValue.objects.get(key='current_year').value) + 1)
-    semesters = [u'所有', u'第一学期', u'第二学期']
     project_list = TeachingAchievement.objects.filter(teacher_id=user.id)
-    project_list, year, semester = search(request, project_list)
+    project_list, year = search_project(request, project_list)
     return render(request, 'main/teacher/workload_input/teaching_achievement/teaching_achievement.html', locals())
 
 
@@ -261,9 +260,8 @@ def workload_input_teaching_achievement_add(request, user):
 # Teaching Project
 def workload_input_teaching_project(request, user):
     years = range(2016, int(GlobalValue.objects.get(key='current_year').value) + 1)
-    semesters = [u'所有', u'第一学期', u'第二学期']
     project_list = TeachingProject.objects.filter(teacher_id=user.id)
-    project_list, year, semester = search(request, project_list)
+    project_list, year = search_project(request, project_list)
     return render(request, 'main/teacher/workload_input/teaching_project/teaching_project.html', locals())
 
 
@@ -287,9 +285,8 @@ def workload_input_teaching_project_add(request, user):
 
 def workload_input_competition_guide(request, user):
     years = range(2016, int(GlobalValue.objects.get(key='current_year').value) + 1)
-    semesters = [u'所有', u'第一学期', u'第二学期']
     project_list = CompetitionGuide.objects.filter(teacher_id=user.id)
-    project_list, year, semester = search(request, project_list)
+    project_list, year = search_project(request, project_list)
     return render(request, 'main/teacher/workload_input/competition_guide/competition_guide.html', locals())
 
 
@@ -312,9 +309,8 @@ def workload_input_competition_guide_add(request, user):
 
 def workload_input_paper_guide(request, user):
     years = range(2016, int(GlobalValue.objects.get(key='current_year').value) + 1)
-    semesters = [u'所有', u'第一学期', u'第二学期']
     project_list = PaperGuide.objects.filter(teacher_id=user.id)
-    project_list, year, semester = search(request, project_list)
+    project_list, year = search_project(request, project_list)
     return render(request, 'main/teacher/workload_input/paper_guide/paper_guide.html', locals())
 
 
@@ -380,7 +376,7 @@ def workload_audit_reject(request, user):
         course.reject_reason = request.POST['reject_reason']
         course.save()
         course_list = TheoryCourse.objects.all()
-        course_list, year, semester, audit_status = audit_search(request, course_list)
+        course_list, year, semester, audit_status = search_course_audit(request, course_list)
         return render(request, 'main/head_of_department/workload_audit/theory_course/theory_course_audit.html',
                       locals())
     elif project_type == 'ExperimentCourse':
@@ -389,7 +385,7 @@ def workload_audit_reject(request, user):
         course.reject_reason = request.POST['reject_reason']
         course.save()
         course_list = ExperimentCourse.objects.all()
-        course_list, year, semester, audit_status = audit_search(request, course_list)
+        course_list, year, semester, audit_status = search_course_audit(request, course_list)
         return render(request, 'main/head_of_department/workload_audit/experiment_course/experiment_course_audit.html',
                       locals())
     elif project_type == 'PraticeCourse':
@@ -398,7 +394,7 @@ def workload_audit_reject(request, user):
         course.reject_reason = request.POST['reject_reason']
         course.save()
         course_list = PraticeCourse.objects.all()
-        course_list, year, semester, audit_status = audit_search(request, course_list)
+        course_list, year, semester, audit_status = search_course_audit(request, course_list)
         return render(request, 'main/head_of_department/workload_audit/pratice_course/pratice_course_audit.html',
                       locals())
 
@@ -409,7 +405,7 @@ def workload_audit_reject(request, user):
         project.reject_reason = request.POST['reject_reason']
         project.save()
         project_list = TeachingAchievement.objects.all()
-        project_list, year, semester, audit_status = audit_search(request, project_list)
+        project_list, year, audit_status = search_project_audit(request, project_list)
         return render(request,
                       'main/head_of_department/workload_audit/teaching_achievement/teaching_achievement_audit.html',
                       locals())
@@ -419,7 +415,7 @@ def workload_audit_reject(request, user):
         project.reject_reason = request.POST['reject_reason']
         project.save()
         project_list = TeachingProject.objects.all()
-        project_list, year, semester, audit_status = audit_search(request, project_list)
+        project_list, year, audit_status = search_project_audit(request, project_list)
         return render(request,
                       'main/head_of_department/workload_audit/teaching_project/teaching_project_audit.html',
                       locals())
@@ -429,7 +425,7 @@ def workload_audit_reject(request, user):
         project.reject_reason = request.POST['reject_reason']
         project.save()
         project_list = CompetitionGuide.objects.all()
-        project_list, year, semester, audit_status = audit_search(request, project_list)
+        project_list, year, audit_status = search_project_audit(request, project_list)
         return render(request,
                       'main/head_of_department/workload_audit/competition_guide/competition_guide_audit.html',
                       locals())
@@ -439,7 +435,7 @@ def workload_audit_reject(request, user):
         project.reject_reason = request.POST['reject_reason']
         project.save()
         project_list = PaperGuide.objects.all()
-        project_list, year, semester, audit_status = audit_search(request, project_list)
+        project_list, year, audit_status = search_project_audit(request, project_list)
         return render(request,
                       'main/head_of_department/workload_audit/paper_guide/paper_guide_audit.html',
                       locals())
@@ -453,7 +449,7 @@ def workload_audit_theory_course(request, user):
 
     department = Department.objects.get(head_of_department=user.id)
     course_list = TheoryCourse.objects.filter(department=department)
-    course_list, year, semester, audit_status = audit_search(request, course_list)
+    course_list, year, semester, audit_status = search_course_audit(request, course_list)
     return render(request, 'main/head_of_department/workload_audit/theory_course/theory_course_audit.html', locals())
 
 
@@ -472,7 +468,7 @@ def workload_audit_experiment_course(request, user):
 
     department = Department.objects.get(head_of_department=user.id)
     course_list = ExperimentCourse.objects.filter(department=department)
-    course_list, year, semester, audit_status = audit_search(request, course_list)
+    course_list, year, semester, audit_status = search_course_audit(request, course_list)
     return render(request, 'main/head_of_department/workload_audit/experiment_course/experiment_course_audit.html',
                   locals())
 
@@ -492,7 +488,7 @@ def workload_audit_pratice_course(request, user):
 
     department = Department.objects.get(head_of_department=user.id)
     course_list = PraticeCourse.objects.filter(department=department)
-    course_list, year, semester, audit_status = audit_search(request, course_list)
+    course_list, year, semester, audit_status = search_course_audit(request, course_list)
     return render(request, 'main/head_of_department/workload_audit/pratice_course/pratice_course_audit.html', locals())
 
 
@@ -511,7 +507,7 @@ def workload_audit_teaching_achievement(request, user):
 
     department = Department.objects.get(head_of_department=user.id)
     project_list = TeachingAchievement.objects.filter(department=department)
-    project_list, year, semester, audit_status = audit_search(request, project_list)
+    project_list, year, audit_status = search_project_audit(request, project_list)
     return render(request,
                   'main/head_of_department/workload_audit/teaching_achievement/teaching_achievement_audit.html',
                   locals())
@@ -532,7 +528,7 @@ def workload_audit_teaching_project(request, user):
 
     department = Department.objects.get(head_of_department=user.id)
     project_list = TeachingProject.objects.filter(department=department)
-    project_list, year, semester, audit_status = audit_search(request, project_list)
+    project_list, year, audit_status = search_project_audit(request, project_list)
     return render(request, 'main/head_of_department/workload_audit/teaching_project/teaching_project_audit.html',
                   locals())
 
@@ -552,7 +548,7 @@ def workload_audit_competition_guide(request, user):
 
     department = Department.objects.get(head_of_department=user.id)
     project_list = CompetitionGuide.objects.filter(department=department)
-    project_list, year, semester, audit_status = audit_search(request, project_list)
+    project_list, year, audit_status = search_project_audit(request, project_list)
     return render(request, 'main/head_of_department/workload_audit/competition_guide/competition_guide_audit.html',
                   locals())
 
@@ -572,7 +568,7 @@ def workload_audit_paper_guide(request, user):
 
     department = Department.objects.get(head_of_department=user.id)
     project_list = PaperGuide.objects.filter(department=department)
-    project_list, year, semester, audit_status = audit_search(request, project_list)
+    project_list, year, audit_status = search_project_audit(request, project_list)
     return render(request, 'main/head_of_department/workload_audit/paper_guide/paper_guide_audit.html', locals())
 
 
