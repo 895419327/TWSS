@@ -2,8 +2,6 @@
 
 from django.db import models
 
-import unittest
-
 undefine = u'未记录'
 
 
@@ -46,6 +44,14 @@ class User(models.Model):
     id = models.CharField(max_length=16, primary_key=True)
     # 姓名
     name = models.CharField(max_length=16, default=undefine)
+    # 性别 (未记录/男/女)
+    gender = models.IntegerField(2, default=0)
+    # 出生日期 (yyyy-mm-dd)
+    birth_date = models.DateField(default='0000-00-00')
+    # 毕业院校
+    gradute = models.CharField(max_length=16, default=undefine)
+    # 专业
+    major = models.CharField(max_length=16, default=undefine)
     # 职称
     title = models.CharField(max_length=16, default=undefine)
     # 所属系
@@ -53,7 +59,7 @@ class User(models.Model):
     # 身份 (教师/系主任/教务员)
     status = models.CharField(max_length=16, default=undefine)
     # 密码 md5加密后的字符串
-    password = models.CharField(max_length=32, default=undefine)
+    password = models.CharField(max_length=64, default=undefine)
     # 手机号
     phone_number = models.CharField(max_length=11, default=undefine)
     # 邮箱
@@ -227,9 +233,20 @@ class CompetitionGuide(Project):
 
 
 # 指导论文
-class PaperGuide(Project):
+class PaperGuide(models.Model):
+    id = models.CharField(max_length=16, primary_key=True, auto_created=True)
     # 作者
-    author = models.CharField(max_length=16, default=undefine)
+    student = models.CharField(max_length=16, default=undefine)
+    # 学年
+    year = models.IntegerField(default=0000)
+    # 老师
+    teacher = models.ForeignKey(User)
+    # 所属系
+    department = models.ForeignKey(Department)
+    # 审核状态 (未审核/审核未通过/已审核) (0/1/2)
+    audit_status = models.IntegerField(2, default=0)
+    # 审核未通过原因
+    reject_reason = models.CharField(max_length=32, null=True)
 
     class Meta:
         # 数据表名

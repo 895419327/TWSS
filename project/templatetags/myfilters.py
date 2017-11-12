@@ -32,3 +32,13 @@ def stoi(s):
         return int(s)
     else:
         return
+
+
+@register.filter()
+def gender_tostr(gender):
+    if gender == 0:
+        return u'未记录'
+    elif gender == 1:
+        return u'男'
+    elif gender == 2:
+        return u'女'

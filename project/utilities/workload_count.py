@@ -1,7 +1,7 @@
 from project.models import *
 
 
-def workload_count_func(user, course=True, project=True, year=GlobalValue.objects.get(key='current_year').value):
+def workload_count_func(user, course=True, project=True, year=2017):
     theory_course_W = 0
     experiment_course_W = 0
     pratice_course_W = 0
@@ -159,13 +159,14 @@ def workload_count_func(user, course=True, project=True, year=GlobalValue.object
 
         paper_guide_list = PaperGuide.objects.filter(teacher=user, year=year)
         for project in paper_guide_list:
-            # TODO:按科研论文奖励除外是什么意思？
-            if project.level == 'SCI':
-                paper_guide_W += 100
-            if project.level == '核心期刊':
-                paper_guide_W += 30
-            if project.level == '一般期刊':
-                paper_guide_W += 10
+            # TODO:怎么算
+            # if project.level == 'SCI':
+            #     paper_guide_W += 100
+            # if project.level == '核心期刊':
+            #     paper_guide_W += 30
+            # if project.level == '一般期刊':
+            #     paper_guide_W += 10
+            pass
 
     if course and project:
         return theory_course_W, experiment_course_W, pratice_course_W, teaching_achievement_W, teaching_project_W, competition_guide_W, paper_guide_W

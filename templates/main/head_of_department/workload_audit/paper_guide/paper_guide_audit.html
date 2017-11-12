@@ -8,12 +8,12 @@
     <div class="content_title">指导本科学术论文 审核</div>
 
     <div class="search_bar">
-        <form id="competition_guide_audit_search_form" method="post" action="/getpage"
-              name="competition_guide_audit_search"
+        <form id="paper_guide_audit_search_form" method="post" action="/getpage"
+              name="paper_guide_audit_search"
               autocomplete="off">
             {% csrf_token %}
             <input type="hidden" name="username" value="{{ user.id }}">
-            <input type="hidden" name="requestfor" value="workload_audit_competition_guide">
+            <input type="hidden" name="requestfor" value="workload_audit_paper_guide">
 
             <input hidden id="location_year" value="{{ year }}">
             <input hidden id="location_audit_status" value="{{ audit_status }}">
@@ -52,10 +52,8 @@
     <table cellspacing="0">
         <tr>
             <th width="120px">年份</th>
-            <th width="200px">论文名称</th>
             <th width="80px">教师</th>
-            <th width="80px">作者</th>
-            <th width="80px">级别</th>
+            <th width="80px">学生姓名</th>
             <th width="100px">审核状态</th>
             <th width="80px">操作</th>
         </tr>
@@ -64,13 +62,11 @@
             {% for project in project_list %}
                 <tr>
                     <td>{{ project.year }}年</td>
-                    <td>{{ project.name }}</td>
                     <td>
                         <div>{{ project.teacher.name }}</div>
                         <div>{{ project.teacher.id }}</div>
                     </td>
-                    <td>{{ project.author }}</td>
-                    <td>{{ project.level }}</td>
+                    <td>{{ project.student }}</td>
 
                     {% if project.audit_status == 0 %}
                         <td>未审核</td>

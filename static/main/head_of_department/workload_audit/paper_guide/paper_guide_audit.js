@@ -17,7 +17,7 @@ $(document).ready(function () {
     });
 
     $('.search_button').click(function () {
-        $('#competition_guide_audit_search_form').ajaxSubmit({
+        $('#paper_guide_audit_search_form').ajaxSubmit({
             target: '.content_right',
             error:function () {
                 alert('error!');

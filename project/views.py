@@ -44,7 +44,6 @@ def login(request):
     request.encoding = 'utf-8'
 
     login_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
-
     # 如果表单为POST提交
     if request.POST:
         # 接收表单数据
@@ -75,7 +74,7 @@ def login(request):
                         return render(request, 'main/admin/admin.html', locals())
 
         except Exception:
-            log('WARNING', login_time, 'Login Fail', username_post, status_post, repr(Exception))
+            log('WARNING', login_time, 'Login Fail', username_post, status_post)
             return render(request, 'index/loginfailed.html')
 
     # 任何意外
@@ -115,7 +114,7 @@ def user_info_change_password(request, user):
 
 # TODO: 选择班级后更新人数
 
-def get_classes(grade=GlobalValue.objects.get(key='current_year').value):
+def get_classes(grade=2017):
     class_list = Class.objects.filter(grade=grade)
     return class_list
 
@@ -148,6 +147,7 @@ def workload_input_theory_course(request, user):
     course_list = TheoryCourse.objects.filter(teacher_id=user.id)
     course_list, year, semester = search_course(request, course_list)
     return render(request, 'main/teacher/workload_input/theory_course/theory_course.html', locals())
+
 
 def workload_input_theory_course_add(request, user):
     years = range(2016, int(GlobalValue.objects.get(key='current_year').value) + 1)

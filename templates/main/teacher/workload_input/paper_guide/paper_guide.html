@@ -4,7 +4,7 @@
 
 <div class="main_content">
 
-    <div class="content_title">指导本科学术论文 工作量录入</div>
+    <div class="content_title">指导本科生毕业论文 工作量录入</div>
 
     <div class="blur_area">
 
@@ -44,9 +44,7 @@
             <table cellspacing="0">
                 <tr>
                     <th width="120px">年份</th>
-                    <th width="300px">论文名称</th>
-                    <th width="120px">作者</th>
-                    <th width="100px">级别</th>
+                    <th width="120px">学生姓名</th>
                     <th width="100px">审核状态</th>
                     <th width="100px">修改/删除</th>
                 </tr>
@@ -55,9 +53,7 @@
                     {% for project in project_list %}
                         <tr>
                             <td>{{ project.year }}年</td>
-                            <td>{{ project.name }}</td>
-                            <td>{{ project.author }}</td>
-                            <td>{{ project.level }}</td>
+                            <td>{{ project.student }}</td>
 
                             {% if project.audit_status == 0 %}
                                 <td>未审核</td>

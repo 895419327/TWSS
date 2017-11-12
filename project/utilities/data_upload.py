@@ -296,20 +296,17 @@ def competition_guide_delete(request, user):
 
 
 def paper_guide_add(request, user):
-    id = ''
+    project_id = ''
     if 'project_id' in request.POST:
         if request.POST['project_id']:
-            id = request.POST['project_id']
-    if id == '':
-        id = int(time.time())
-
-    new = PaperGuide(id=id,
-                     name=request.POST['project_name'],
-                     level=request.POST['level'],
-                     author=request.POST['author'],
+            project_id = request.POST['project_id']
+    if project_id == '':
+        project_id = int(time.time())
+    new = PaperGuide(id=project_id,
+                     student=request.POST['student'],
                      year=request.POST['year'][:4],
                      teacher=user,
-                     department=user.department, )
+                     department=user.department)
     new.save()
     return workload_input_paper_guide(request, user)
 
@@ -338,6 +335,7 @@ def paper_guide_delete(request, user):
 # TODO:         后期应重写逻辑 或 考虑给User表增加一个无法被任何用户修改的id
 
 def teacher_management_add(request, user):
+    print(request.POST)
 
     # 先假设使用手机号作为密码
     password = request.POST['phone_number']
@@ -366,12 +364,22 @@ def teacher_management_add(request, user):
         else:
             status = u'教师'
 
+    gender = request.POST['gender']
+    if gender == u'男':
+        gender = 1
+    else:
+        gender = 2
+
     new = User(id=id,
                name=request.POST['name'],
+               gender=gender,
+               birth_date=request.POST['birth_date'],
                title=request.POST['title'],
                department=department,
                status=status,
                password=password,
+               gradute=request.POST['graduate'],
+               major=request.POST['major'],
                phone_number=request.POST['phone_number'],
                email=request.POST['email'], )
     new.save()
