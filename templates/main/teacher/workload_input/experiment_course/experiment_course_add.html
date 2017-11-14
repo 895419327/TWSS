@@ -22,19 +22,21 @@
                 <select name="year">
                     {% if modified_course %}
                         <option>{{ modified_course.year }}-{{ modified_course.year|add:1 }}学年</option>
+                        {% for y in years %}
+                            {% if y != modified_course.year %}
+                                <option>{{ y }}-{{ y|add:1 }}学年</option>
+                            {% endif %}
+                        {% endfor %}
                     {% elif location %}
                         {% if year != '所有' %}
                             <option>{{ year }}-{{ year|add:1 }}学年</option>
                         {% endif %}
+                        {% for y in years %}
+                            {% if y != year|stoi %}
+                                <option>{{ y }}-{{ y|add:1 }}学年</option>
+                            {% endif %}
+                        {% endfor %}
                     {% endif %}
-                    {% for y in years %}
-                        {% if y != year|stoi %}
-                            <option>{{ y }}-{{ y|add:1 }}学年</option>
-                        {% endif %}
-                        {% if y != modified_course.year %}
-                            <option>{{ y }}-{{ y|add:1 }}学年</option>
-                        {% endif %}
-                    {% endfor %}
                 </select>
             </div>
 
@@ -99,6 +101,11 @@
             <div>
                 <span>课程编号 </span>
                 <input type="text" name="course_id" id="course_id" class="non_empty" value="{{ modified_course.id }}">
+            </div>
+
+            <div hidden>
+                <span>原课程编号</span>
+                <input type="hidden" name="original_course_id" id="original_course_id" value="{{ modified_course.id }}">
             </div>
 
             <div>

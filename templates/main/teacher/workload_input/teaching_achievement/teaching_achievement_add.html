@@ -30,19 +30,21 @@
                 <select name="year">
                     {% if modified_project %}
                         <option>{{ modified_project.year }}年</option>
+                        {% for y in years %}
+                            {% if y != modified_project.year %}
+                                <option>{{ y }}年</option>
+                            {% endif %}
+                        {% endfor %}
                     {% elif location %}
                         {% if year != '所有' %}
                             <option>{{ year }}年</option>
                         {% endif %}
+                        {% for y in years %}
+                            {% if y != year|stoi %}
+                                <option>{{ y }}年</option>
+                            {% endif %}
+                        {% endfor %}
                     {% endif %}
-                    {% for y in years %}
-                        {% if y != year|stoi %}
-                            <option>{{ y }}年</option>
-                        {% endif %}
-                        {% if y != modified_project.year %}
-                            <option>{{ y }}年</option>
-                        {% endif %}
-                    {% endfor %}
                 </select>
             </div>
 
@@ -51,8 +53,28 @@
                 <select name="type">
                     {% if modified_project %}
                         <option>{{ modified_project.type }}</option>
-                    {% elif project_type %}
-                        <option>{{ project_type }}</option>
+                        {% if modified_project.type == '教研论文' %}
+                            <option>教改项目结项</option>
+                            <option>教学成果</option>
+                            <option>教材</option>
+                        {% elif modified_project.type == '教改项目结项' %}
+                            <option>教研论文</option>
+                            <option>教学成果</option>
+                            <option>教材</option>
+                        {% elif modified_project.type == '教学成果' %}
+                            <option>教研论文</option>
+                            <option>教改项目结项</option>
+                            <option>教材</option>
+                        {% elif modified_project.type == '教材' %}
+                            <option>教研论文</option>
+                            <option>教改项目结项</option>
+                            <option>教学成果</option>
+                        {% endif %}
+                    {% else %}
+                        <option>教研论文</option>
+                        <option>教改项目结项</option>
+                        <option>教学成果</option>
+                        <option>教材</option>
                     {% endif %}
                 </select>
             </div>
@@ -65,19 +87,14 @@
                 <select name="level">
                     {% if modified_project %}
                         <option>{{ modified_project.level }}</option>
-                    {% endif %}
-                    {% if project_type %}
-                        {% if project_type == '教研论文' %}
+                        {% if modified_project.type == '教研论文' %}
                             {% if modified_project.level == '核心期刊' %}
                                 <option>一般期刊</option>
                             {% elif modified_project.level == '一般期刊' %}
                                 <option>核心期刊</option>
-                            {% else %}
-                                <option>核心期刊</option>
-                                <option>一般期刊</option>
                             {% endif %}
 
-                        {% elif project_type == '教改项目结项' or project_type == '教学成果' %}
+                        {% elif modified_project.type == '教改项目结项' or modified_project.type == '教学成果' %}
                             {% if modified_project.level == '国家级' %}
                                 <option>省部级</option>
                                 <option>校级</option>
@@ -87,13 +104,9 @@
                             {% elif modified_project.level == '校级' %}
                                 <option>国家级</option>
                                 <option>省部级</option>
-                            {% else %}
-                                <option>国家级</option>
-                                <option>省部级</option>
-                                <option>校级</option>
                             {% endif %}
 
-                        {% elif project_type == '教材' %}
+                        {% elif modified_project.type == '教材' %}
                             {% if modified_project.level == '全国统编教材、国家级规划教材、全国教学专业指导委员会指定教材、全国优秀教材' %}
                                 <option>其他正式出版教材</option>
                             {% elif modified_project.level == '其他正式出版教材' %}
@@ -103,6 +116,14 @@
                                 <option>其他正式出版教材</option>
                             {% endif %}
                         {% endif %}
+                    {% else %}
+                        <option>核心期刊</option>
+                        <option>一般期刊</option>
+                        <option>国家级</option>
+                        <option>省部级</option>
+                        <option>校级</option>
+                        <option>全国统编教材、国家级规划教材、全国教学专业指导委员会指定教材、全国优秀教材</option>
+                        <option>其他正式出版教材</option>
                     {% endif %}
                 </select>
             </div>

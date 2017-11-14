@@ -43,19 +43,21 @@
                 <select name="year">
                     {% if modified_project %}
                         <option>{{ modified_project.year }}年</option>
+                        {% for y in years %}
+                            {% if y != modified_project.year %}
+                                <option>{{ y }}年</option>
+                            {% endif %}
+                        {% endfor %}
                     {% elif location %}
                         {% if year != '所有' %}
                             <option>{{ year }}年</option>
                         {% endif %}
+                        {% for y in years %}
+                            {% if y != year|stoi %}
+                                <option>{{ y }}年</option>
+                            {% endif %}
+                        {% endfor %}
                     {% endif %}
-                    {% for y in years %}
-                        {% if y != year|stoi %}
-                            <option>{{ y }}年</option>
-                        {% endif %}
-                        {% if y != modified_project.year %}
-                            <option>{{ y }}年</option>
-                        {% endif %}
-                    {% endfor %}
                 </select>
             </div>
 
@@ -90,8 +92,14 @@
                 <select name="type">
                     {% if modified_project %}
                         <option>{{ modified_project.type }}</option>
-                    {% elif project_type %}
-                        <option>{{ project_type }}</option>
+                        {% if modified_project.type == '全国性大学生学科竞赛' %}
+                            <option>省部级大学生竞赛</option>
+                        {% elif modified_project.type == '省部级大学生竞赛' %}
+                            <option>全国性大学生学科竞赛</option>
+                        {% endif %}
+                    {% else %}
+                        <option>全国性大学生学科竞赛</option>
+                        <option>省部级大学生竞赛</option>
                     {% endif %}
                 </select>
             </div>

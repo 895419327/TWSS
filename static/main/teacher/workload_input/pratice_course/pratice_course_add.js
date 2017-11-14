@@ -13,7 +13,7 @@ $(document).ready(function () {
 
     $('#add_classes_select').change(function () {
         var grade = $('#add_classes_select option:selected').val().substring(0, 4);
-        var course_id = $('#course_id').val();
+        var course_id = $('#original_course_id').val();
         var data = grade + ',PraticeCourse,' + course_id;
         MyAjax_Get('/getpage', 'get_classes_module', data, '.add_classes');
     });

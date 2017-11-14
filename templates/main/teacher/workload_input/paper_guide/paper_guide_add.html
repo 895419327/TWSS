@@ -24,19 +24,21 @@
                 <select name="year">
                     {% if modified_project %}
                         <option>{{ modified_project.year }}年</option>
+                        {% for y in years %}
+                            {% if y != modified_project.year %}
+                                <option>{{ y }}年</option>
+                            {% endif %}
+                        {% endfor %}
                     {% elif location %}
                         {% if year != '所有' %}
                             <option>{{ year }}年</option>
                         {% endif %}
+                        {% for y in years %}
+                            {% if y != year|stoi %}
+                                <option>{{ y }}年</option>
+                            {% endif %}
+                        {% endfor %}
                     {% endif %}
-                    {% for y in years %}
-                        {% if y != year|stoi %}
-                            <option>{{ y }}年</option>
-                        {% endif %}
-                        {% if y != modified_project.year %}
-                            <option>{{ y }}年</option>
-                        {% endif %}
-                    {% endfor %}
                 </select>
             </div>
 

@@ -31,19 +31,21 @@
                 <select name="year">
                     {% if modified_project %}
                         <option>{{ modified_project.year }}年</option>
+                        {% for y in years %}
+                            {% if y != modified_project.year %}
+                                <option>{{ y }}年</option>
+                            {% endif %}
+                        {% endfor %}
                     {% elif location %}
                         {% if year != '所有' %}
                             <option>{{ year }}年</option>
                         {% endif %}
+                        {% for y in years %}
+                            {% if y != year|stoi %}
+                                <option>{{ y }}年</option>
+                            {% endif %}
+                        {% endfor %}
                     {% endif %}
-                    {% for y in years %}
-                        {% if y != year|stoi %}
-                            <option>{{ y }}年</option>
-                        {% endif %}
-                        {% if y != modified_project.year %}
-                            <option>{{ y }}年</option>
-                        {% endif %}
-                    {% endfor %}
                 </select>
             </div>
 
@@ -56,8 +58,15 @@
                 <select name="type">
                     {% if modified_project %}
                         <option>{{ modified_project.type }}</option>
-                    {% elif project_type %}
-                        <option>{{ project_type }}</option>
+                        {% for type in type_list %}
+                            {% if type != modified_project.type %}
+                                <option>{{ type }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        {% for type in type_list %}
+                            <option>{{ type }}</option>
+                        {% endfor %}
                     {% endif %}
                 </select>
             </div>
@@ -67,15 +76,7 @@
                 <select name="level">
                     {% if modified_project %}
                         <option>{{ modified_project.level }}</option>
-                    {% endif %}
-                    {% if project_type %}
-                        {% if project_type == '工程实践教育类' %}
-                            {% if modified_project.level == '国家级' %}
-
-                            {% else %}
-                                <option>国家级</option>
-                            {% endif %}
-                        {% else %}
+                        {% if modified_project.type != '工程实践教育类' %}
                             {% if modified_project.level == '国家级' %}
                                 <option>省部级</option>
                                 <option>校级</option>
@@ -85,12 +86,12 @@
                             {% elif modified_project.level == '校级' %}
                                 <option>国家级</option>
                                 <option>省部级</option>
-                            {% else %}
-                                <option>国家级</option>
-                                <option>省部级</option>
-                                <option>校级</option>
                             {% endif %}
                         {% endif %}
+                    {% else %}
+                        <option>国家级</option>
+                        <option>省部级</option>
+                        <option>校级</option>
                     {% endif %}
                 </select>
             </div>

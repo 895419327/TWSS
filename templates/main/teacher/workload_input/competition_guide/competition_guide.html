@@ -38,11 +38,11 @@
         </div>
 
         <div class="project_item">
-            <div class="project_item_title">全国性大学生学科竞赛</div>
 
             <table cellspacing="0">
                 <tr>
                     <th width="120px">年份</th>
+                    <th width="180px">类别</th>
                     <th width="250px">项目名称</th>
                     <th width="150px">参赛学生</th>
                     <th width="80px">级别</th>
@@ -52,105 +52,47 @@
 
                 {% if project_list %}
                     {% for project in project_list %}
-                        {% if project.type == '全国性大学生学科竞赛' %}
-                            <tr>
-                                <td>{{ project.year }}年</td>
-                                <td>{{ project.name }}</td>
-                                <td>{{ project.students }}</td>
-                                <td>{{ project.level }}</td>
+                        <tr>
+                            <td>{{ project.year }}年</td>
+                            <td>{{ project.type }}</td>
+                            <td>{{ project.name }}</td>
+                            <td>{{ project.students }}</td>
+                            <td>{{ project.level }}</td>
 
-                                {% if project.audit_status == 0 %}
-                                    <td>未审核</td>
-                                {% elif project.audit_status == 1 %}
-                                    <td class="audit_reject" style="cursor: pointer;">
-                                        审核未通过
-                                        <div class="reject_reason">{{ project.reject_reason }}</div>
-                                    </td>
-                                {% elif project.audit_status == 2 %}
-                                    <td>已审核</td>
-                                {% endif %}
+                            {% if project.audit_status == 0 %}
+                                <td>未审核</td>
+                            {% elif project.audit_status == 1 %}
+                                <td class="audit_reject" style="cursor: pointer;">
+                                    审核未通过
+                                    <div class="reject_reason">{{ project.reject_reason }}</div>
+                                </td>
+                            {% elif project.audit_status == 2 %}
+                                <td>已审核</td>
+                            {% endif %}
 
-                                {% if project.audit_status < 2 %}
-                                    <td>
-                                        <img class="competition_guide_modify" id="{{ project.id }}_modify"
-                                             src={% static "main/resourse/modify.png" %}>
-                                        <img class="competition_guide_delete" id="{{ project.id }}_delete"
-                                             src={% static "main/resourse/delete.png" %}>
-                                    </td>
-                                {% else %}
-                                    <td></td>
-                                {% endif %}
-                            </tr>
-                        {% endif %}
+                            {% if project.audit_status < 2 %}
+                                <td>
+                                    <img class="competition_guide_modify" id="{{ project.id }}_modify"
+                                         src={% static "main/resourse/modify.png" %}>
+                                    <img class="competition_guide_delete" id="{{ project.id }}_delete"
+                                         src={% static "main/resourse/delete.png" %}>
+                                </td>
+                            {% else %}
+                                <td></td>
+                            {% endif %}
+                        </tr>
                     {% endfor %}
                 {% endif %}
 
                 <tr>
-                    <td colspan="6">
-                        <div class="add_button" id="全国性大学生学科竞赛">新 增</div>
+                    <td colspan="7">
+                        <div class="add_button">新 增</div>
                     </td>
                 </tr>
 
             </table>
         </div>
 
-
-        <div class="project_item">
-            <div class="project_item_title">省部级大学生竞赛</div>
-
-            <table cellspacing="0">
-                <tr>
-                    <th width="120px">年份</th>
-                    <th width="250px">项目名称</th>
-                    <th width="150px">参赛学生</th>
-                    <th width="80px">级别</th>
-                    <th width="100px">审核状态</th>
-                    <th width="100px">修改/删除</th>
-                </tr>
-
-                {% if project_list %}
-                    {% for project in project_list %}
-                        {% if project.type == '省部级大学生竞赛' %}
-                            <tr>
-                                <td>{{ project.year }}年</td>
-                                <td>{{ project.name }}</td>
-                                <td>{{ project.students }}</td>
-                                <td>{{ project.level }}</td>
-
-                                {% if project.audit_status == 0 %}
-                                    <td>未审核</td>
-                                {% elif project.audit_status == 1 %}
-                                    <td class="audit_reject" style="cursor: pointer;">
-                                        审核未通过
-                                        <div class="reject_reason">{{ project.reject_reason }}</div>
-                                    </td>
-                                {% elif project.audit_status == 2 %}
-                                    <td>已审核</td>
-                                {% endif %}
-
-                                {% if project.audit_status < 2 %}
-                                    <td>
-                                        <img class="competition_guide_modify" id="{{ project.id }}_modify"
-                                             src={% static "main/resourse/modify.png" %}>
-                                        <img class="competition_guide_delete" id="{{ project.id }}_delete"
-                                             src={% static "main/resourse/delete.png" %}>
-                                    </td>
-                                {% else %}
-                                    <td></td>
-                                {% endif %}
-                            </tr>
-                        {% endif %}
-                    {% endfor %}
-                {% endif %}
-
-                <tr>
-                    <td colspan="6">
-                        <div class="add_button" id="省部级大学生竞赛">新 增</div>
-                    </td>
-                </tr>
-
-            </table>
-        </div>
 
     </div>
 

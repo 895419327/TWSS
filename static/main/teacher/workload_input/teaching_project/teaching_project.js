@@ -11,7 +11,7 @@ $(document).ready(function () {
     );
 
     $('.add_button').click(function () {
-        var location = $(this).attr('id') + ',' + $('#location_year').val() + ',' + $('#location_semester').val();
+        var location = $('#location_year').val() + ',' + $('#location_semester').val();
         MyAjax_Get('getpage', 'workload_input_teaching_project_add', null, '.teaching_project_add_content', location);
     });
 

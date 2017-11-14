@@ -38,11 +38,11 @@
         </div>
 
         <div class="project_item">
-            <div class="project_item_title">专业、团队及实验中心类</div>
 
             <table cellspacing="0">
                 <tr>
                     <th width="120px">年份</th>
+                    <th width="180px">类型</th>
                     <th width="300px">项目名称</th>
                     <th width="150px">级别</th>
                     <th width="100px">审核状态</th>
@@ -51,262 +51,40 @@
 
                 {% if project_list %}
                     {% for project in project_list %}
-                        {% if project.type == '专业、团队及实验中心类' %}
-                            <tr>
-                                <td>{{ project.year }}年</td>
-                                <td>{{ project.name }}</td>
-                                <td>{{ project.level }}</td>
+                        <tr>
+                            <td>{{ project.year }}年</td>
+                            <td>{{ project.type }}</td>
+                            <td>{{ project.name }}</td>
+                            <td>{{ project.level }}</td>
 
-                                {% if project.audit_status == 0 %}
-                                    <td>未审核</td>
-                                {% elif project.audit_status == 1 %}
-                                    <td class="audit_reject" style="cursor: pointer;">
-                                        审核未通过
-                                        <div class="reject_reason">{{ project.reject_reason }}</div>
-                                    </td>
-                                {% elif project.audit_status == 2 %}
-                                    <td>已审核</td>
-                                {% endif %}
+                            {% if project.audit_status == 0 %}
+                                <td>未审核</td>
+                            {% elif project.audit_status == 1 %}
+                                <td class="audit_reject" style="cursor: pointer;">
+                                    审核未通过
+                                    <div class="reject_reason">{{ project.reject_reason }}</div>
+                                </td>
+                            {% elif project.audit_status == 2 %}
+                                <td>已审核</td>
+                            {% endif %}
 
-                                {% if project.audit_status < 2 %}
-                                    <td>
-                                        <img class="teaching_project_modify" id="{{ project.id }}_modify"
-                                             src={% static "main/resourse/modify.png" %}>
-                                        <img class="teaching_project_delete" id="{{ project.id }}_delete"
-                                             src={% static "main/resourse/delete.png" %}>
-                                    </td>
-                                {% else %}
-                                    <td></td>
-                                {% endif %}
-                            </tr>
-                        {% endif %}
+                            {% if project.audit_status < 2 %}
+                                <td>
+                                    <img class="teaching_project_modify" id="{{ project.id }}_modify"
+                                         src={% static "main/resourse/modify.png" %}>
+                                    <img class="teaching_project_delete" id="{{ project.id }}_delete"
+                                         src={% static "main/resourse/delete.png" %}>
+                                </td>
+                            {% else %}
+                                <td></td>
+                            {% endif %}
+                        </tr>
                     {% endfor %}
                 {% endif %}
 
                 <tr>
-                    <td colspan="5">
-                        <div class="add_button" id="专业、团队及实验中心类">新 增</div>
-                    </td>
-                </tr>
-
-            </table>
-        </div>
-
-
-        <div class="project_item">
-            <div class="project_item_title">课程类</div>
-
-            <table cellspacing="0">
-                <tr>
-                    <th width="120px">年份</th>
-                    <th width="300px">项目名称</th>
-                    <th width="150px">级别</th>
-                    <th width="100px">审核状态</th>
-                    <th width="100px">修改/删除</th>
-                </tr>
-
-                {% if project_list %}
-                    {% for project in project_list %}
-                        {% if project.type == '课程类' %}
-                            <tr>
-                                <td>{{ project.year }}年</td>
-                                <td>{{ project.name }}</td>
-                                <td>{{ project.level }}</td>
-
-                                {% if project.audit_status == 0 %}
-                                    <td>未审核</td>
-                                {% elif project.audit_status == 1 %}
-                                    <td class="audit_reject" style="cursor: pointer;">
-                                        审核未通过
-                                        <div class="reject_reason">{{ project.reject_reason }}</div>
-                                    </td>
-                                {% elif project.audit_status == 2 %}
-                                    <td>已审核</td>
-                                {% endif %}
-
-                                {% if project.audit_status < 2 %}
-                                    <td>
-                                        <img class="teaching_project_modify" id="{{ project.id }}_modify"
-                                             src={% static "main/resourse/modify.png" %}>
-                                        <img class="teaching_project_delete" id="{{ project.id }}_delete"
-                                             src={% static "main/resourse/delete.png" %}>
-                                    </td>
-                                {% else %}
-                                    <td></td>
-                                {% endif %}
-                            </tr>
-                        {% endif %}
-                    {% endfor %}
-                {% endif %}
-
-                <tr>
-                    <td colspan="5">
-                        <div class="add_button" id="课程类">新 增</div>
-                    </td>
-                </tr>
-
-            </table>
-        </div>
-
-        <div class="project_item">
-            <div class="project_item_title">工程实践教育类</div>
-
-            <table cellspacing="0">
-                <tr>
-                    <th width="120px">年份</th>
-                    <th width="300px">项目名称</th>
-                    <th width="150px">级别</th>
-                    <th width="100px">审核状态</th>
-                    <th width="100px">修改/删除</th>
-                </tr>
-
-                {% if project_list %}
-                    {% for project in project_list %}
-                        {% if project.type == '工程实践教育类' %}
-                            <tr>
-                                <td>{{ project.year }}年</td>
-                                <td>{{ project.name }}</td>
-                                <td>{{ project.level }}</td>
-
-                                {% if project.audit_status == 0 %}
-                                    <td>未审核</td>
-                                {% elif project.audit_status == 1 %}
-                                    <td class="audit_reject" style="cursor: pointer;">
-                                        审核未通过
-                                        <div class="reject_reason">{{ project.reject_reason }}</div>
-                                    </td>
-                                {% elif project.audit_status == 2 %}
-                                    <td>已审核</td>
-                                {% endif %}
-
-                                {% if project.audit_status < 2 %}
-                                    <td>
-                                        <img class="teaching_project_modify" id="{{ project.id }}_modify"
-                                             src={% static "main/resourse/modify.png" %}>
-                                        <img class="teaching_project_delete" id="{{ project.id }}_delete"
-                                             src={% static "main/resourse/delete.png" %}>
-                                    </td>
-                                {% else %}
-                                    <td></td>
-                                {% endif %}
-                            </tr>
-                        {% endif %}
-                    {% endfor %}
-                {% endif %}
-
-                <tr>
-                    <td colspan="5">
-                        <div class="add_button" id="工程实践教育类">新 增</div>
-                    </td>
-                </tr>
-
-            </table>
-        </div>
-
-        <div class="project_item">
-            <div class="project_item_title">教学名师</div>
-
-            <table cellspacing="0">
-                <tr>
-                    <th width="120px">年份</th>
-                    <th width="300px">项目名称</th>
-                    <th width="150px">级别</th>
-                    <th width="100px">审核状态</th>
-                    <th width="100px">修改/删除</th>
-                </tr>
-
-                {% if project_list %}
-                    {% for project in project_list %}
-                        {% if project.type == '教学名师' %}
-                            <tr>
-                                <td>{{ project.year }}年</td>
-                                <td>{{ project.name }}</td>
-                                <td>{{ project.level }}</td>
-
-                                {% if project.audit_status == 0 %}
-                                    <td>未审核</td>
-                                {% elif project.audit_status == 1 %}
-                                    <td class="audit_reject" style="cursor: pointer;">
-                                        审核未通过
-                                        <div class="reject_reason">{{ project.reject_reason }}</div>
-                                    </td>
-                                {% elif project.audit_status == 2 %}
-                                    <td>已审核</td>
-                                {% endif %}
-
-                                {% if project.audit_status < 2 %}
-                                    <td>
-                                        <img class="teaching_project_modify" id="{{ project.id }}_modify"
-                                             src={% static "main/resourse/modify.png" %}>
-                                        <img class="teaching_project_delete" id="{{ project.id }}_delete"
-                                             src={% static "main/resourse/delete.png" %}>
-                                    </td>
-                                {% else %}
-                                    <td></td>
-                                {% endif %}
-                            </tr>
-                        {% endif %}
-                    {% endfor %}
-                {% endif %}
-
-                <tr>
-                    <td colspan="5">
-                        <div class="add_button" id="教学名师">新 增</div>
-                    </td>
-                </tr>
-
-            </table>
-        </div>
-
-        <div class="project_item">
-            <div class="project_item_title">大学生创新创业训练</div>
-
-            <table cellspacing="0">
-                <tr>
-                    <th width="120px">年份</th>
-                    <th width="300px">项目名称</th>
-                    <th width="150px">级别</th>
-                    <th width="100px">审核状态</th>
-                    <th width="100px">修改/删除</th>
-                </tr>
-
-                {% if project_list %}
-                    {% for project in project_list %}
-                        {% if project.type == '大学生创新创业训练' %}
-                            <tr>
-                                <td>{{ project.year }}年</td>
-                                <td>{{ project.name }}</td>
-                                <td>{{ project.level }}</td>
-
-                                {% if project.audit_status == 0 %}
-                                    <td>未审核</td>
-                                {% elif project.audit_status == 1 %}
-                                    <td class="audit_reject" style="cursor: pointer;">
-                                        审核未通过
-                                        <div class="reject_reason">{{ project.reject_reason }}</div>
-                                    </td>
-                                {% elif project.audit_status == 2 %}
-                                    <td>已审核</td>
-                                {% endif %}
-
-                                {% if project.audit_status < 2 %}
-                                    <td>
-                                        <img class="teaching_project_modify" id="{{ project.id }}_modify"
-                                             src={% static "main/resourse/modify.png" %}>
-                                        <img class="teaching_project_delete" id="{{ project.id }}_delete"
-                                             src={% static "main/resourse/delete.png" %}>
-                                    </td>
-                                {% else %}
-                                    <td></td>
-                                {% endif %}
-                            </tr>
-                        {% endif %}
-                    {% endfor %}
-                {% endif %}
-
-                <tr>
-                    <td colspan="5">
-                        <div class="add_button" id="大学生创新创业训练">新 增</div>
+                    <td colspan="6">
+                        <div class="add_button">新 增</div>
                     </td>
                 </tr>
 

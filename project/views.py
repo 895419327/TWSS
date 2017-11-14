@@ -247,12 +247,10 @@ def workload_input_teaching_achievement_add(request, user):
     location = ''
     if request.POST['extra_data']:
         location = request.POST['extra_data'].split(',')
-        project_type = location[0]
-        year = location[1]
-        semester = location[2]
+        year = location[0]
+        semester = location[1]
     if request.POST['request_data']:
         modified_project = TeachingAchievement.objects.get(id=request.POST['request_data'])
-        project_type = modified_project.type
 
     return render(request, 'main/teacher/workload_input/teaching_achievement/teaching_achievement_add.html', locals())
 
@@ -268,16 +266,14 @@ def workload_input_teaching_project(request, user):
 def workload_input_teaching_project_add(request, user):
     years = range(2016, int(GlobalValue.objects.get(key='current_year').value) + 1)
     modified_project = ''
-    project_type = ''
     location = ''
     if request.POST['extra_data']:
         location = request.POST['extra_data'].split(',')
-        project_type = location[0]
-        year = location[1]
-        semester = location[2]
+        year = location[0]
+        semester = location[1]
     if request.POST['request_data']:
         modified_project = TeachingProject.objects.get(id=request.POST['request_data'])
-        project_type = modified_project.type
+    type_list = [u'专业、团队及实验中心类', u'课程类', u'工程实践教育类', u'教学名师', u'大学生创新创业训练']
     return render(request, 'main/teacher/workload_input/teaching_project/teaching_project_add.html', locals())
 
 
@@ -293,13 +289,11 @@ def workload_input_competition_guide(request, user):
 def workload_input_competition_guide_add(request, user):
     years = range(2016, int(GlobalValue.objects.get(key='current_year').value) + 1)
     modified_project = ''
-    project_type = ''
     location = ''
     if request.POST['extra_data']:
         location = request.POST['extra_data'].split(',')
-        project_type = location[0]
-        year = location[1]
-        semester = location[2]
+        year = location[0]
+        semester = location[1]
     if request.POST['request_data']:
         modified_project = CompetitionGuide.objects.get(id=request.POST['request_data'])
     return render(request, 'main/teacher/workload_input/competition_guide/competition_guide_add.html', locals())
@@ -366,7 +360,6 @@ def workload_audit_reject_page(request, user):
     project_type = data[0]
     project_id = data[1]
     return render(request, 'main/head_of_department/workload_audit/workload_audit_reject.html', locals())
-
 
 def workload_audit_reject(request, user):
     project_type = request.POST['project_type']

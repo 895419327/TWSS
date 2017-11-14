@@ -11,7 +11,7 @@ $(document).ready(function () {
     );
 
     $('.add_button').click(function () {
-        var location = $(this).attr('id') + ',' + $('#location_year').val() + ',' + $('#location_semester').val();
+        var location =  $('#location_year').val() + ',' + $('#location_semester').val();
         MyAjax_Get('getpage', 'workload_input_competition_guide_add', null, '.competition_guide_add_content', location);
     });
 
