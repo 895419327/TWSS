@@ -19,6 +19,26 @@ $(document).ready(function () {
         MyAjax_Get('/getpage', 'get_classes_module', data, '.add_classes');
     });
 
+    $('.help_choose').focus(function () {
+        $('.classes_checkboxs').hide();
+        $('.courses_selector').show();
+    });
+
+    $('.help_choose').blur(function () {
+        setTimeout(function () {
+            $('.courses_selector').hide();
+            $('.classes_checkboxs').show();
+        }, 200);
+
+    });
+
+    $('.courses_selector_item').click(function () {
+        var str = $(this).text();
+        var splits = str.split(' ');
+        $('#course_id').attr('value', splits[0]);
+        $('#course_name').attr('value', splits[1]);
+    });
+
     $('.add_submit').click(function () {
         var isFull = true;
         var empty_item = null;
@@ -28,7 +48,6 @@ $(document).ready(function () {
                 empty_item = $(this);
             }
         });
-
 
 
         if (isFull) {

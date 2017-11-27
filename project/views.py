@@ -159,6 +159,14 @@ def workload_input_theory_course_add(request, user):
     # 获取班级信息
     class_list = get_classes(2016)
     modified_course = ''
+
+    course_list = TheoryCourse.objects.order_by('course_id')
+    course_info_list = []
+    for course in course_list:
+        info = course.course_id + ' ' + course.name
+        if info not in course_info_list:
+            course_info_list.append(info)
+
     if request.POST['request_data']:
         modified_course = TheoryCourse.objects.get(id=request.POST['request_data'])
         classes_checked = modified_course.classes.split(',')
@@ -188,6 +196,14 @@ def workload_input_experiment_course_add(request, user):
     # 获取班级信息
     class_list = get_classes(2016)
     modified_course = ''
+
+    course_list = ExperimentCourse.objects.order_by('course_id')
+    course_info_list = []
+    for course in course_list:
+        info = course.course_id + ' ' + course.name
+        if info not in course_info_list:
+            course_info_list.append(info)
+
     if request.POST['request_data']:
         modified_course = ExperimentCourse.objects.get(id=request.POST['request_data'])
         classes_checked = modified_course.classes.split(',')

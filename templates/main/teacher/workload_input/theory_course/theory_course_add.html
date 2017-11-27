@@ -94,12 +94,14 @@
 
             <div>
                 <span>课程名 </span>
-                <input type="text" name="course_name" class="non_empty" value="{{ modified_course.name }}">
+                <input type="text" name="course_name" id="course_name" class="non_empty help_choose"
+                       value="{{ modified_course.name }}">
             </div>
 
             <div>
                 <span>课程编号 </span>
-                <input type="text" name="course_id" id="course_id" class="non_empty" value="{{ modified_course.course_id }}">
+                <input type="text" name="course_id" id="course_id" class="non_empty"
+                       value="{{ modified_course.course_id }}">
             </div>
 
             <div hidden>
@@ -120,8 +122,15 @@
         </div>
 
         <div class="add_right">
-            <span>班级</span>
-            <span>
+            <div class="courses_selector" hidden>
+                <div>快速选择</div>
+                {% for info in course_info_list %}
+                    <span class="courses_selector_item">{{ info }}</span>
+                {% endfor %}
+            </div>
+
+            <div class="classes_checkboxs">
+                <span>班级</span>
                 <select id="add_classes_select">
                     {% if grade %}
                         <option>{{ grade }}级</option>
@@ -131,18 +140,19 @@
                     <option>2015级</option>
                     <option>2017级</option>
                 </select>
-            </span>
-            <div class="add_classes">
-                {% if class_list %}
-                    {% for clas in class_list %}
-                        {% if clas.id in classes_checked %}
-                            <div><input type="checkbox" name="{{ clas.id }}" checked/> {{ clas.name }}</div>
-                        {% else %}
-                            <div><input type="checkbox" name="{{ clas.id }}"/> {{ clas.name }}</div>
-                        {% endif %}
-                    {% endfor %}
-                {% endif %}
+                <div class="add_classes">
+                    {% if class_list %}
+                        {% for clas in class_list %}
+                            {% if clas.id in classes_checked %}
+                                <div><input type="checkbox" name="{{ clas.id }}" checked/> {{ clas.name }}</div>
+                            {% else %}
+                                <div><input type="checkbox" name="{{ clas.id }}"/> {{ clas.name }}</div>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                </div>
             </div>
+
         </div>
 
 
