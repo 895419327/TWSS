@@ -125,7 +125,6 @@ def get_classes_module(request, user):
     course_type = data[1]
     id = data[2]
 
-
     class_list = Class.objects.filter(grade=grade)
     classes_checked = ''
     if id:
@@ -717,22 +716,89 @@ def data_import_a(request, user):
     # nrows = worksheet.nrows
     #
     # for r in range(0, nrows):
-    #     value = worksheet.row_values(r,start_colx=0,end_colx=2)
+    #
+    # try:
+    #     value = worksheet.row_values(r, start_colx=0, end_colx=2)
     #     name = value[0]
     #     teacher_id = str(value[1])
     #
     #     generater = md5(teacher_id.encode("utf8"))
     #     password = generater.hexdigest()
     #
-    #     new = User(id=teacher_id,name=name,password=password,department_id='471',status=u'教师')
+    #     new = User(id=teacher_id, name=name, password=password, department_id='471', status=u'教师')
     #     new.save()
+    # except:
+    #     print(value)
+
 
     # 导入TheoryCourse
     worksheet = workbook.sheet_by_name('TheoryCourse')
     nrows = worksheet.nrows
 
+    curr_time = int(time.time())
+
     for r in range(0, nrows):
-        value = worksheet.row_values(r, start_colx=0, end_colx=5)
-        print(value)
+        curr_time += 1
+        try:
+            value = worksheet.row_values(r, start_colx=0, end_colx=5)
+            name = value[0]
+            course_id = value[1]
+            period = value[2]
+            teacher_id = value[3]
+
+            teacher = User.objects.get(id=teacher_id)
+
+            new = TheoryCourse(id=str(curr_time) + str(teacher_id),
+                               course_id=course_id,
+                               name=name,
+                               year=2017,
+                               semester=1,
+                               teacher=teacher,
+                               department_id='471',
+                               classes='20160301,20160302',
+                               student_sum=100,
+                               plan_period=period,
+                               final_period=period,
+                               attribute=1,
+                               audit_status=0
+                               )
+            new.save()
+        except:
+            print(value)
+
+    # 导入ExperimentCourse
+    worksheet = workbook.sheet_by_name('ExperimentCourse')
+    nrows = worksheet.nrows
+
+    curr_time = int(time.time())
+
+    for r in range(0, nrows):
+        curr_time += 1
+        try:
+            value = worksheet.row_values(r, start_colx=0, end_colx=5)
+            name = value[0]
+            course_id = value[1]
+            period = value[2]
+            teacher_id = value[3]
+
+            teacher = User.objects.get(id=teacher_id)
+
+            new = ExperimentCourse(id=str(curr_time) + str(teacher_id),
+                               course_id=course_id,
+                               name=name,
+                               year=2017,
+                               semester=1,
+                               teacher=teacher,
+                               department_id='471',
+                               classes='20160301,20160302',
+                               student_sum=100,
+                               plan_period=period,
+                               final_period=period,
+                               attribute=1,
+                               audit_status=0
+                               )
+            new.save()
+        except:
+            print(value)
 
     return render(request, "main/admin/data_import/data_import.html", locals())

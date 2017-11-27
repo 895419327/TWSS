@@ -51,14 +51,14 @@
 
         <table class="pratice_course_table" cellspacing="0">
             <tr>
-                <th width="120px">学年/学期</th>
-                <th width="200px">课程名</th>
-                <th width="150px">课程属性</th>
-                <th width="150px">上课班级</th>
-                <th width="50px">人数</th>
-                <th width="80px">天数</th>
-                <th width="100px">审核状态</th>
-                <th width="100px">修改/删除</th>
+                <th>学年/学期</th>
+                <th>课程名</th>
+                <th>课程属性</th>
+                <th>上课班级</th>
+                <th>人数</th>
+                <th>天数</th>
+                <th>审核状态</th>
+                <th>修改/删除</th>
             </tr>
 
 
@@ -84,7 +84,7 @@
                         {% else %}
                             <td>ERROR</td>
                         {% endif %}
-                        <td>{{ course.classes | get_class_name }}</td>
+                        <td class="course_classes">{{ course.classes | get_class_name }}</td>
                         <td>{{ course.student_sum }}</td>
                         <td>{{ course.final_period }} / {{ course.plan_period }}</td>
                         {% if course.audit_status == 0 %}

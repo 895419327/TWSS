@@ -2,6 +2,13 @@ $(document).ready(function () {
 
     $('tr:even').addClass('even');
 
+    var classes = $('.course_classes');
+    classes.each(function () {
+        var str = $(this).html();
+        str = str.replace(/\n/g, '<br>');
+        $(this).html(str);
+    });
+
     $('.audit_reject').hover(
         function () {
             $(this).children().show();

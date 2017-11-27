@@ -13,6 +13,8 @@ def get_class_name(classes):
         if clas_id:
             clas = Class.objects.get(id=clas_id)
             classes_names += clas.name
+            classes_names += '\n'
+    classes_names = classes_names[:-1]
     return classes_names
 
 
