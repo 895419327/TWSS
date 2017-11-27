@@ -114,8 +114,10 @@ class Course(models.Model):
     classes = models.CharField(max_length=128)
     # 上课人数
     student_sum = models.IntegerField(1024, default=0)
-    # 课时数
-    period = models.IntegerField(128, default=0)
+    # 计划课时数
+    plan_period = models.IntegerField(128, default=0)
+    # 实际课时数
+    final_period = models.IntegerField(128, default=0)
     # 属性
     # 理论课 (必修/选修/限选)
     # 实验课 (专业课实验/计算机上机实验/开放实验)
@@ -124,7 +126,7 @@ class Course(models.Model):
     # 审核状态 (未审核/审核未通过/已审核) (0/1/2)
     audit_status = models.IntegerField(2, default=0)
     # 审核未通过原因
-    reject_reason = models.CharField(max_length=32, null=True)
+    reject_reason = models.CharField(max_length=64, null=True)
 
     class Meta:
         # 虚类
@@ -175,7 +177,7 @@ class Project(models.Model):
     # 审核状态 (未审核/审核未通过/已审核) (0/1/2)
     audit_status = models.IntegerField(2, default=0)
     # 审核未通过原因
-    reject_reason = models.CharField(max_length=32, null=True)
+    reject_reason = models.CharField(max_length=64, null=True)
 
     class Meta:
         # 虚类

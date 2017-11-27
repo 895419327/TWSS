@@ -100,7 +100,8 @@
 
             <div>
                 <span>课程编号 </span>
-                <input type="text" name="course_id" id="course_id" class="non_empty" value="{{ modified_course.course_id }}">
+                <input type="text" name="course_id" id="course_id" class="non_empty"
+                       value="{{ modified_course.course_id }}">
             </div>
 
             <div hidden>
@@ -109,8 +110,13 @@
             </div>
 
             <div>
-                <span>学时 </span>
-                <input type="text" name="period" class="non_empty" value="{{ modified_course.period }}">
+                <span>计划学时 </span>
+                <input type="text" name="plan_period" class="non_empty" value="{{ modified_course.plan_period }}">
+            </div>
+
+            <div>
+                <span>实际学时 </span>
+                <input type="text" name="final_period" class="non_empty" value="{{ modified_course.final_period }}">
             </div>
 
         </div>

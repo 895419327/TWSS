@@ -711,18 +711,28 @@ def data_import(request, user):
 def data_import_a(request, user):
     import xlrd
     workbook = xlrd.open_workbook('/users/vicchen/downloads/data.xlsx')
-    worksheet = workbook.sheet_by_name('User')
 
+    # # 导入教师信息
+    # worksheet = workbook.sheet_by_name('User')
+    # nrows = worksheet.nrows
+    #
+    # for r in range(0, nrows):
+    #     value = worksheet.row_values(r,start_colx=0,end_colx=2)
+    #     name = value[0]
+    #     teacher_id = str(value[1])
+    #
+    #     generater = md5(teacher_id.encode("utf8"))
+    #     password = generater.hexdigest()
+    #
+    #     new = User(id=teacher_id,name=name,password=password,department_id='471',status=u'教师')
+    #     new.save()
+
+    # 导入TheoryCourse
+    worksheet = workbook.sheet_by_name('TheoryCourse')
     nrows = worksheet.nrows
 
     for r in range(0, nrows):
-        value = worksheet.row_values(r,start_colx=0,end_colx=2)
-        name = value[0]
-        teacher_id = str(value[1])
+        value = worksheet.row_values(r, start_colx=0, end_colx=5)
+        print(value)
 
-        generater = md5(teacher_id.encode("utf8"))
-        password = generater.hexdigest()
-
-        new = User(id=teacher_id,name=name,password=password,department_id='471',status=u'教师')
-        new.save()
     return render(request, "main/admin/data_import/data_import.html", locals())

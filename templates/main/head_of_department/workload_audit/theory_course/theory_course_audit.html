@@ -70,7 +70,7 @@
             <th width="100px">课程属性</th>
             <th width="150px">上课班级</th>
             <th width="50px">人数</th>
-            <th width="50px">学时</th>
+            <th width="80px">学时</th>
             <th width="100px">审核状态</th>
             <th width="135px">操作</th>
         </tr>
@@ -86,7 +86,7 @@
                     </td>
                     <td>
                         <div>{{ course.name }}</div>
-                        <div>{{ course.id }}</div>
+                        <div>{{ course.course_id }}</div>
                     </td>
                     <td>
                         <div>{{ course.teacher.name }}</div>
@@ -103,7 +103,7 @@
                         <div>{{ course.classes | get_class_name }}</div>
                     </td>
                     <td>{{ course.student_sum }}</td>
-                    <td>{{ course.period }}</td>
+                    <td>{{ course.final_period }} / {{ course.plan_period }}</td>
                     {% if course.audit_status == 0 %}
                         <td>未审核</td>
                         <td>

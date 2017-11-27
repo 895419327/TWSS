@@ -25,7 +25,7 @@ def workload_count_func(user, course=True, project=True, year=2017):
                 K = 3.0
             elif course.student_sum > 200:
                 K = 3.6
-            theory_course_W += 6 + course.period * K
+            theory_course_W += 6 + course.final_period * K
         theory_course_W = round(theory_course_W, 2)
 
         experiment_course_list = ExperimentCourse.objects.filter(teacher=user, year=year)
@@ -37,7 +37,7 @@ def workload_count_func(user, course=True, project=True, year=2017):
                 L = 0.020
             elif course.attribute == 3:
                 L = 0.065
-            experiment_course_W += course.period * course.student_sum * L
+            experiment_course_W += course.final_period * course.student_sum * L
         experiment_course_W = round(experiment_course_W, 2)
 
         pratice_course_list = PraticeCourse.objects.filter(teacher=user, year=year)
@@ -50,7 +50,7 @@ def workload_count_func(user, course=True, project=True, year=2017):
             if course.attribute == 3:
                 S = 0.09
             teacher_num = len(PraticeCourse.objects.filter(id=course.id))
-            pratice_course_W += course.period * course.student_sum * S / teacher_num
+            pratice_course_W += course.final_period * course.student_sum * S / teacher_num
         pratice_course_W = round(pratice_course_W, 2)
 
     if project:

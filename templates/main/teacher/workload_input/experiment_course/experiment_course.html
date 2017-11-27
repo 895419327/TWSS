@@ -85,7 +85,7 @@
                         {% endif %}
                         <td>{{ course.classes | get_class_name }}</td>
                         <td>{{ course.student_sum }}</td>
-                        <td>{{ course.period }}</td>
+                        <td>{{ course.final_period }} / {{ course.plan_period }}</td>
                         {% if course.audit_status == 0 %}
                             <td>未审核</td>
                         {% elif course.audit_status == 1 %}

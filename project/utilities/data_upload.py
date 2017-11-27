@@ -96,7 +96,8 @@ def theory_course_add(request, user):
                        department=user.department,
                        classes=classes,
                        student_sum=student_sum,
-                       period=request.POST['period'],
+                       plan_period=request.POST['plan_period'],
+                       final_period=request.POST['final_period'],
                        attribute=attribute)
     new.save()
     return workload_input_theory_course(request, user)
@@ -155,7 +156,8 @@ def experiment_course_add(request, user):
                            department=user.department,
                            classes=classes,
                            student_sum=student_sum,
-                           period=request.POST['period'],
+                           plan_period=request.POST['plan_period'],
+                           final_period=request.POST['final_period'],
                            attribute=attribute)
     new.save()
     return workload_input_experiment_course(request, user)
@@ -214,7 +216,8 @@ def pratice_course_add(request, user):
                         department=user.department,
                         classes=classes,
                         student_sum=student_sum,
-                        period=request.POST['period'],
+                        plan_period=request.POST['plan_period'],
+                        final_period=request.POST['final_period'],
                         attribute=attribute)
     new.save()
     return workload_input_pratice_course(request, user)
