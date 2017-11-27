@@ -58,7 +58,7 @@ $(document).ready(function () {
 
         // 测试开关
         // 自动填充 跳过验证码
-        var PROJECT_TEST = true;
+        var PROJECT_TEST = false;
         if (PROJECT_TEST) {
             var status = $('#status option:selected').val();
             if (status == '教师') {

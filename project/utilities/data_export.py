@@ -3,15 +3,15 @@
 import os
 import time
 
-BASE_DIR = os.path.dirname(os.path.abspath(__name__))
-MEDIA_PATH = os.path.join(BASE_DIR, 'media')
-
 from django.http import HttpResponse, StreamingHttpResponse
 from wsgiref.util import FileWrapper
 
 import xlwt
 import xlrd
-from xlutils.copy import copy  # TODO:
+from xlutils.copy import copy
+
+BASE_DIR = os.path.dirname(os.path.abspath(__name__))
+MEDIA_PATH = os.path.join(BASE_DIR, 'media')
 
 
 def download(request):
@@ -25,9 +25,6 @@ def download(request):
         user = check_return
 
     requestfor = request.POST['requestfor']
-    # if requestfor == 'user_info':
-    #     return user_info_to_excel(request, user)
-
 
 # 将user_info写入excel并返回
 # def user_info_to_excel(request, user):
@@ -63,8 +60,3 @@ def download(request):
 #     response['Content-Type'] = 'text/octet-stream'
 #     response['Content-Disposition'] = 'attachment; filename="%s.xls"' % user.id
 #     return response
-
-
-
-
-

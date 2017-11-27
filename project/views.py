@@ -93,11 +93,11 @@ def getpage(request):
 
     # 获取需求
     requestfor = request.POST['requestfor']
-    try:
-        return eval(requestfor)(request, user)
-    except:
-        print('views.py getpage() exception')
-        return False
+    # try:
+    return eval(requestfor)(request, user)
+    # except:
+    #     print('views.py getpage() exception')
+    #     return False
 
 
 #####  教师  #####
@@ -123,17 +123,18 @@ def get_classes_module(request, user):
     data = request.POST['request_data'].split(',')
     grade = data[0]
     course_type = data[1]
-    course_id = data[2]
+    id = data[2]
+
 
     class_list = Class.objects.filter(grade=grade)
     classes_checked = ''
-    if course_id:
+    if id:
         if course_type == 'TheoryCourse':
-            classes_checked = TheoryCourse.objects.get(id=course_id).classes.split(',')
+            classes_checked = TheoryCourse.objects.get(id=id).classes.split(',')
         elif course_type == 'ExperimentCourse':
-            classes_checked = ExperimentCourse.objects.get(id=course_id).classes.split(',')
+            classes_checked = ExperimentCourse.objects.get(id=id).classes.split(',')
         elif course_type == 'PraticeCourse':
-            classes_checked = PraticeCourse.objects.get(id=course_id).classes.split(',')
+            classes_checked = PraticeCourse.objects.get(id=id).classes.split(',')
 
     return render(request, "main/utilities/classes.html", locals())
 
@@ -360,6 +361,7 @@ def workload_audit_reject_page(request, user):
     project_type = data[0]
     project_id = data[1]
     return render(request, 'main/head_of_department/workload_audit/workload_audit_reject.html', locals())
+
 
 def workload_audit_reject(request, user):
     project_type = request.POST['project_type']
@@ -700,3 +702,27 @@ def database_management(request, user):
     backup_infos.sort()
     backup_infos.reverse()
     return render(request, "main/admin/database_management/database_management.html", locals())
+
+
+def data_import(request, user):
+    return render(request, "main/admin/data_import/data_import.html", locals())
+
+
+def data_import_a(request, user):
+    import xlrd
+    workbook = xlrd.open_workbook('/users/vicchen/downloads/data.xlsx')
+    worksheet = workbook.sheet_by_name('User')
+
+    nrows = worksheet.nrows
+
+    for r in range(0, nrows):
+        value = worksheet.row_values(r,start_colx=0,end_colx=2)
+        name = value[0]
+        teacher_id = str(value[1])
+
+        generater = md5(teacher_id.encode("utf8"))
+        password = generater.hexdigest()
+
+        new = User(id=teacher_id,name=name,password=password,department_id='471',status=u'教师')
+        new.save()
+    return render(request, "main/admin/data_import/data_import.html", locals())

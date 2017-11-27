@@ -25,12 +25,12 @@ def upload(request):
 
     # 获取需求
     requestfor = request.POST['requestfor']
-    try:
-        return eval(requestfor)(request, user)
-    except Exception:
-        log('WARNING', upload_time, 'Login Fail', request.POST, repr(Exception))
-        print('data_upload.py upload() exception')
-        return False
+    # try:
+    return eval(requestfor)(request, user)
+    # except Exception:
+    #     log('WARNING', upload_time, 'Login Fail', request.POST, repr(Exception))
+    #     print('data_upload.py upload() exception')
+    #     return False
 
 
 # TODO: 更改前要检查数据合法性
@@ -57,13 +57,19 @@ def change_password(request, user):
 # Theory Course
 
 def theory_course_add(request, user):
+    id = ''
+    if request.POST['id']:
+        id = request.POST['id']
+    else:
+        id = str(int(time.time())) + user.id
+
     semester = 0
     if request.POST['semester'] == u'第一学期':
         semester = 1
     elif request.POST['semester'] == u'第二学期':
         semester = 2
     else:
-        return render(request, 'main/utilities/upload_fail.html')
+        return False
 
     class_list = Class.objects.all()
     classes = ''
@@ -81,8 +87,9 @@ def theory_course_add(request, user):
     elif request.POST['course_attribute'] == u'限选':
         attribute = 3
 
-    new = TheoryCourse(name=request.POST['course_name'],
-                       id=request.POST['course_id'],
+    new = TheoryCourse(id=id,
+                       name=request.POST['course_name'],
+                       course_id=request.POST['course_id'],
                        year=request.POST['year'][:4],
                        semester=semester,
                        teacher=user,
@@ -96,10 +103,10 @@ def theory_course_add(request, user):
 
 
 def theory_course_delete(request, user):
-    course_id = request.POST['request_data']
-    course = TheoryCourse.objects.get(id=course_id)
+    id = request.POST['request_data']
+    course = TheoryCourse.objects.get(id=id)
     if course.audit_status == 2:
-        return render(request, 'main/utilities/upload_fail.html')
+        return False
     else:
         course.delete()
     return workload_input_theory_course(request, user)
@@ -108,13 +115,20 @@ def theory_course_delete(request, user):
 # Experiment Course
 
 def experiment_course_add(request, user):
+
+    id = ''
+    if request.POST['id']:
+        id = request.POST['id']
+    else:
+        id = str(int(time.time())) + user.id
+
     semester = 0
     if request.POST['semester'] == u'第一学期':
         semester = 1
     elif request.POST['semester'] == u'第二学期':
         semester = 2
     else:
-        return render(request, 'main/utilities/upload_fail.html')
+        return False
 
     class_list = Class.objects.all()
     classes = ''
@@ -132,8 +146,9 @@ def experiment_course_add(request, user):
     elif request.POST['course_attribute'] == u'开放实验':
         attribute = 3
 
-    new = ExperimentCourse(name=request.POST['course_name'],
-                           id=request.POST['course_id'],
+    new = ExperimentCourse(id=id,
+                           name=request.POST['course_name'],
+                           course_id=request.POST['course_id'],
                            year=request.POST['year'][:4],
                            semester=semester,
                            teacher=user,
@@ -147,10 +162,10 @@ def experiment_course_add(request, user):
 
 
 def experiment_course_delete(request, user):
-    course_id = request.POST['request_data']
-    course = ExperimentCourse.objects.get(id=course_id)
+    id = request.POST['request_data']
+    course = ExperimentCourse.objects.get(id=id)
     if course.audit_status == 2:
-        return render(request, 'main/utilities/upload_fail.html')
+        return False
     else:
         course.delete()
     return workload_input_experiment_course(request, user)
@@ -159,13 +174,20 @@ def experiment_course_delete(request, user):
 # Pratice Course
 
 def pratice_course_add(request, user):
+
+    id = ''
+    if request.POST['id']:
+        id = request.POST['id']
+    else:
+        id = str(int(time.time())) + user.id
+
     semester = 0
     if request.POST['semester'] == u'第一学期':
         semester = 1
     elif request.POST['semester'] == u'第二学期':
         semester = 2
     else:
-        return render(request, 'main/utilities/upload_fail.html')
+        return False
 
     class_list = Class.objects.all()
     classes = ''
@@ -183,8 +205,9 @@ def pratice_course_add(request, user):
     elif request.POST['course_attribute'] == u'外地生产实习/毕业实习/毕业设计(论文)':
         attribute = 3
 
-    new = PraticeCourse(name=request.POST['course_name'],
-                        id=request.POST['course_id'],
+    new = PraticeCourse(id=id,
+                        name=request.POST['course_name'],
+                        course_id=request.POST['course_id'],
                         year=request.POST['year'][:4],
                         semester=semester,
                         teacher=user,
@@ -198,10 +221,10 @@ def pratice_course_add(request, user):
 
 
 def pratice_course_delete(request, user):
-    course_id = request.POST['request_data']
-    course = PraticeCourse.objects.get(id=course_id, teacher=user)
+    id = request.POST['request_data']
+    course = PraticeCourse.objects.get(id=id)
     if course.audit_status == 2:
-        return render(request, 'main/utilities/upload_fail.html')
+        return False
     else:
         course.delete()
     return workload_input_pratice_course(request, user)
@@ -209,11 +232,10 @@ def pratice_course_delete(request, user):
 
 def teaching_achievement_add(request, user):
     id = ''
-    if 'project_id' in request.POST:
-        if request.POST['project_id']:
-            id = request.POST['project_id']
-    if id == '':
-        id = int(time.time())
+    if request.POST['project_id']:
+        id = request.POST['project_id']
+    else:
+        id = str(int(time.time())) + user.id
 
     new = TeachingAchievement(id=id,
                               name=request.POST['project_name'],
@@ -230,7 +252,7 @@ def teaching_achievement_delete(request, user):
     project_id = request.POST['request_data']
     project = TeachingAchievement.objects.get(id=project_id)
     if project.audit_status == 2:
-        return render(request, 'main/utilities/upload_fail.html')
+        return False
     else:
         project.delete()
     return workload_input_teaching_achievement(request, user)
@@ -238,11 +260,10 @@ def teaching_achievement_delete(request, user):
 
 def teaching_project_add(request, user):
     id = ''
-    if 'project_id' in request.POST:
-        if request.POST['project_id']:
-            id = request.POST['project_id']
-    if id == '':
-        id = int(time.time())
+    if request.POST['project_id']:
+        id = request.POST['project_id']
+    else:
+        id = str(int(time.time())) + user.id
 
     new = TeachingProject(id=id,
                           name=request.POST['project_name'],
@@ -259,7 +280,7 @@ def teaching_project_delete(request, user):
     project_id = request.POST['request_data']
     project = TeachingProject.objects.get(id=project_id)
     if project.audit_status == 2:
-        return render(request, 'main/utilities/upload_fail.html')
+        return False
     else:
         project.delete()
     return workload_input_teaching_project(request, user)
@@ -267,11 +288,10 @@ def teaching_project_delete(request, user):
 
 def competition_guide_add(request, user):
     id = ''
-    if 'project_id' in request.POST:
-        if request.POST['project_id']:
-            id = request.POST['project_id']
-    if id == '':
-        id = int(time.time())
+    if request.POST['project_id']:
+        id = request.POST['project_id']
+    else:
+        id = str(int(time.time())) + user.id
 
     new = CompetitionGuide(id=id,
                            name=request.POST['project_name'],
@@ -289,20 +309,20 @@ def competition_guide_delete(request, user):
     project_id = request.POST['request_data']
     project = CompetitionGuide.objects.get(id=project_id)
     if project.audit_status == 2:
-        return render(request, 'main/utilities/upload_fail.html')
+        return False
     else:
         project.delete()
     return workload_input_competition_guide(request, user)
 
 
 def paper_guide_add(request, user):
-    project_id = ''
-    if 'project_id' in request.POST:
-        if request.POST['project_id']:
-            project_id = request.POST['project_id']
-    if project_id == '':
-        project_id = int(time.time())
-    new = PaperGuide(id=project_id,
+    id = ''
+    if request.POST['project_id']:
+        id = request.POST['project_id']
+    else:
+        id = str(int(time.time())) + user.id
+
+    new = PaperGuide(id=id,
                      student=request.POST['student'],
                      year=request.POST['year'][:4],
                      teacher=user,
@@ -315,7 +335,7 @@ def paper_guide_delete(request, user):
     project_id = request.POST['request_data']
     project = PaperGuide.objects.get(id=project_id)
     if project.audit_status == 2:
-        return render(request, 'main/utilities/upload_fail.html')
+        return False
     else:
         project.delete()
     return workload_input_paper_guide(request, user)
@@ -335,8 +355,6 @@ def paper_guide_delete(request, user):
 # TODO:         后期应重写逻辑 或 考虑给User表增加一个无法被任何用户修改的id
 
 def teacher_management_add(request, user):
-    print(request.POST)
-
     # 先假设使用手机号作为密码
     password = request.POST['phone_number']
     from hashlib import md5

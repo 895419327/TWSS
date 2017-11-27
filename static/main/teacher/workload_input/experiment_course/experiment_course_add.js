@@ -13,8 +13,8 @@ $(document).ready(function () {
 
     $('#add_classes_select').change(function () {
         var grade = $('#add_classes_select option:selected').val().substring(0, 4);
-        var course_id = $('#original_course_id').val();
-        var data = grade + ',ExperimentCourse,' + course_id;
+        var id = $('#id').val();
+        var data = grade + ',ExperimentCourse,' + id;
         MyAjax_Get('/getpage', 'get_classes_module', data, '.add_classes');
     });
 

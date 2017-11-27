@@ -51,6 +51,10 @@ $(document).ready(function () {
     $('#database_management_title').click(function () {
         MyAjax_Get('/getpage', 'database_management');
     });
+
+    $('#data_import_title').click(function () {
+        MyAjax_Get('/getpage', 'data_import');
+    });
 });
 
 function MyAjax_Get(url, forwhat, data, towhere, extra_data) {

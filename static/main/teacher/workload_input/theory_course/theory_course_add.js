@@ -14,8 +14,8 @@ $(document).ready(function () {
 
     $('#add_classes_select').change(function () {
         var grade = $('#add_classes_select option:selected').val().substring(0, 4);
-        var course_id = $('#original_course_id').val();
-        var data = grade + ',TheoryCourse,' + course_id;
+        var id = $('#id').val();
+        var data = grade + ',TheoryCourse,' + id;
         MyAjax_Get('/getpage', 'get_classes_module', data, '.add_classes');
     });
 
@@ -28,6 +28,8 @@ $(document).ready(function () {
                 empty_item = $(this);
             }
         });
+
+
 
         if (isFull) {
             $('#location_year_post').val($('#location_year').val());

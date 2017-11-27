@@ -1,8 +1,6 @@
- # -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 
 from django.db import models
-
-undefine = u'未记录'
 
 
 # TODO: Workload_K table (待定)
@@ -10,7 +8,7 @@ undefine = u'未记录'
 
 class GlobalValue(models.Model):
     # 键
-    key = models.CharField(max_length=32, primary_key=True, default=undefine)
+    key = models.CharField(max_length=32, primary_key=True)
     # 值
     value = models.CharField(max_length=32, null=True)
     # 注释
@@ -26,7 +24,7 @@ class Department(models.Model):
     # 系部编号
     id = models.CharField(max_length=3, default=000, primary_key=True)
     # 系部名称
-    name = models.CharField(max_length=8, default=undefine)
+    name = models.CharField(max_length=8)
     # 系主任
     head_of_department = models.CharField(max_length=16, default=0)
 
@@ -43,27 +41,27 @@ class User(models.Model):
     # 用户名  即教工卡卡号
     id = models.CharField(max_length=16, primary_key=True)
     # 姓名
-    name = models.CharField(max_length=16, default=undefine)
+    name = models.CharField(max_length=16)
     # 性别 (未记录/男/女)
-    gender = models.IntegerField(2, default=0)
+    gender = models.IntegerField(2, default=0, null=True)
     # 出生日期 (yyyy-mm-dd)
-    birth_date = models.DateField(default='0000-00-00')
+    birth_date = models.DateField(default='1949-10-01', null=True)
     # 毕业院校
-    gradute = models.CharField(max_length=16, default=undefine)
+    gradute = models.CharField(max_length=16, null=True)
     # 专业
-    major = models.CharField(max_length=16, default=undefine)
+    major = models.CharField(max_length=16, null=True)
     # 职称
-    title = models.CharField(max_length=16, default=undefine)
+    title = models.CharField(max_length=16, null=True)
     # 所属系
     department = models.ForeignKey(Department)
     # 身份 (教师/系主任/教务员)
-    status = models.CharField(max_length=16, default=undefine)
+    status = models.CharField(max_length=16, default=u'教师')
     # 密码 md5加密后的字符串
-    password = models.CharField(max_length=64, default=undefine)
+    password = models.CharField(max_length=64)
     # 手机号
-    phone_number = models.CharField(max_length=11, default=undefine)
+    phone_number = models.CharField(max_length=11, null=True)
     # 邮箱
-    email = models.CharField(max_length=32, default=undefine)
+    email = models.CharField(max_length=32, null=True)
 
     class Meta:
         # 数据表名
@@ -78,7 +76,7 @@ class Class(models.Model):
     # 班级编号
     id = models.CharField(max_length=8, primary_key=True)
     # 班级名称
-    name = models.CharField(max_length=16, default=undefine)
+    name = models.CharField(max_length=16)
     # 所属系
     department = models.ForeignKey(Department, default=0)
     # 所属年级
@@ -98,20 +96,22 @@ class Class(models.Model):
 
 # 课程表 父类
 class Course(models.Model):
+    # unique id
+    id = models.CharField(max_length=32, primary_key=True)
     # 课程编号
-    id = models.CharField(max_length=16, primary_key=True)
+    course_id = models.CharField(max_length=16, default='')
     # 课程名称
-    name = models.CharField(max_length=32, default=undefine)
+    name = models.CharField(max_length=32)
     # 学年
     year = models.IntegerField(default=0000)
     # 学期
     semester = models.IntegerField(2, default=0)
-    # 授课老师 联合主键 因为有多位老师上同一门实习课的情况
+    # 授课老师
     teacher = models.ForeignKey(User)
     # 所属系
-    department = models.ForeignKey(Department, default=0)
+    department = models.ForeignKey(Department)
     # 上课班级
-    classes = models.CharField(max_length=128, default=undefine)
+    classes = models.CharField(max_length=128)
     # 上课人数
     student_sum = models.IntegerField(1024, default=0)
     # 课时数
@@ -129,18 +129,16 @@ class Course(models.Model):
     class Meta:
         # 虚类
         abstract = True
-        # 联合主键
-        unique_together = ('id', 'teacher')
 
     def __unicode__(self):
-        return self.id + ' ' + self.name + self.teacher.name
+        return self.course_id + ' ' + self.name + self.teacher.name
 
 
 # 项目表 父类
 class Project(models.Model):
-    id = models.CharField(max_length=16, primary_key=True, auto_created=True)
+    id = models.CharField(max_length=32, primary_key=True, auto_created=True)
     # 项目名称
-    name = models.CharField(max_length=128, default=undefine)
+    name = models.CharField(max_length=128)
     # 学年
     year = models.IntegerField(default=0000)
     # 类型
@@ -148,11 +146,11 @@ class Project(models.Model):
     # 教学项目 (专业、团队及实验中心类/课程类/工程实践教育类/教学名师/大学生创新创业训练)
     # 竞赛指导 (全国性大学生学科竞赛/省部级大学生竞赛)
     # 论文指导 (指导本科生发表学术论文)
-    type = models.CharField(max_length=16, default=undefine)
+    type = models.CharField(max_length=16)
     # 老师
     teacher = models.ForeignKey(User)
     # 所属系
-    department = models.ForeignKey(Department, default=1)
+    department = models.ForeignKey(Department)
     # 分类
     ############# 教学成果
     # 教研论文    (核心期刊/一般期刊)
@@ -170,10 +168,10 @@ class Project(models.Model):
     # 省部级大学生竞赛    (特等/一等/二等)
     ############# 论文指导
     # 指导本科学术论文 (SCI/核心期刊/一般期刊)
-    level = models.CharField(max_length=64, default=undefine)
+    level = models.CharField(max_length=64, null=True)
     # 级别
     # 教学成果      (特等/一等/二等)
-    rank = models.CharField(max_length=4, default=' ', null=True)
+    rank = models.CharField(max_length=4, null=True)
     # 审核状态 (未审核/审核未通过/已审核) (0/1/2)
     audit_status = models.IntegerField(2, default=0)
     # 审核未通过原因
@@ -225,7 +223,7 @@ class TeachingProject(Project):
 # 指导竞赛
 class CompetitionGuide(Project):
     # 参赛学生
-    students = models.CharField(max_length=32, default=undefine)
+    students = models.CharField(max_length=32, null=True)
 
     class Meta:
         # 数据表名
@@ -236,7 +234,7 @@ class CompetitionGuide(Project):
 class PaperGuide(models.Model):
     id = models.CharField(max_length=16, primary_key=True, auto_created=True)
     # 作者
-    student = models.CharField(max_length=16, default=undefine)
+    student = models.CharField(max_length=16)
     # 学年
     year = models.IntegerField(default=0000)
     # 老师

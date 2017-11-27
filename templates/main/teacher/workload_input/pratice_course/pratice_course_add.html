@@ -98,12 +98,12 @@
 
             <div>
                 <span>课程编号 </span>
-                <input type="text" name="course_id" id="course_id" class="non_empty" value="{{ modified_course.id }}">
+                <input type="text" name="course_id" id="course_id" class="non_empty" value="{{ modified_course.course_id }}">
             </div>
 
             <div hidden>
-                <span>原课程编号</span>
-                <input type="hidden" name="original_course_id" id="original_course_id" value="{{ modified_course.id }}">
+                <span>id</span>
+                <input type="hidden" name="id" id="id" value="{{ modified_course.id }}">
             </div>
 
             <div>

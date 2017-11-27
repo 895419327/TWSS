@@ -55,7 +55,7 @@
         <div class="add_right">
             <div>
                 <span>类别 </span>
-                <select name="type">
+                <select name="type" id="project_type">
                     {% if modified_project %}
                         <option>{{ modified_project.type }}</option>
                         {% for type in type_list %}
@@ -73,7 +73,7 @@
 
             <div>
                 <span>级别 </span>
-                <select name="level">
+                <select name="level" id="project_level">
                     {% if modified_project %}
                         <option>{{ modified_project.level }}</option>
                         {% if modified_project.type != '工程实践教育类' %}
