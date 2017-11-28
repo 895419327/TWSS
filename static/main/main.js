@@ -27,15 +27,18 @@ $(document).ready(function () {
 
     // Head of Department
     $('#teacher_management_title').click(function () {
+        $('.main_content').html('<div class="loading">正在加载...</div>');
         MyAjax_Get('/getpage', 'teacher_management');
     });
 
     $('#workload_statistics_title').click(function () {
+        $('.main_content').html('<div class="loading">正在计算...</div>');
         MyAjax_Get('/getpage', 'workload_statistics');
     });
 
     // Dean
     $('#class_management_title').click(function () {
+        $('.main_content').html('<div class="loading">正在加载...</div>');
         MyAjax_Get('/getpage', 'class_management');
     });
 

@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
-from project.utilities.data_export import download
+from project.utilities.data_export import export
 from project.utilities.data_upload import upload
 from project.utilities.database import database
 from project.views import *
@@ -29,7 +29,7 @@ urlpatterns = [
     url(r'^main$', login),
 
     url(r'^getpage', getpage),
-    url(r'^export', download),
+    url(r'^export', export),
     url(r'^upload$', upload),
     url(r'^database', database)
 ]

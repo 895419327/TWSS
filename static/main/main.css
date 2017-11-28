@@ -157,6 +157,13 @@ body {
     background: #e8e8e8;
 }
 
+.loading {
+    width: 150px;
+    margin: 50px auto;
+    font-size: 25px;
+    letter-spacing: 3px;
+}
+
 /*  TODO: 把下面这俩优化掉*/
 
 .content_button {
@@ -451,3 +458,26 @@ table img:hover {
 
 /* * * * * * */
 
+.sort_type {
+    cursor: pointer;
+}
+
+.sort_type:hover {
+    background: #eeeeee;
+}
+
+.export_button {
+    width: 70px;
+    height: 35px;
+    font-size: 18px;
+    line-height: 35px;
+    text-align: center;
+    background: #eeeeee;
+    box-shadow: 0 0 30px #aaaaaa;
+    cursor: pointer;
+    float: right;
+}
+
+.export_button:hover {
+    background: #f4f4f4;
+}

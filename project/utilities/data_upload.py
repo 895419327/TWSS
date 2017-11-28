@@ -459,8 +459,7 @@ def change_head_of_department_upload(request, user):
     original_head.status = original_head.status.replace(',系主任', '')
     original_head.save()
 
-    # TODO: 根据实际id长度修改-11
-    new_head_id = request.POST['teacher'][-11:]
+    new_head_id = request.POST['teacher'].split(' ')[1]
     new_head = User.objects.get(id=new_head_id)
     if new_head.status.find('系主任') == -1:
         new_head.status += ',系主任'

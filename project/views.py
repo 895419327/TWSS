@@ -689,9 +689,28 @@ def workload_statistics(request, user):
         course_total_W = theory_course_W + pratice_course_W + experiment_course_W
         project_total_W = teaching_achievement_W + teaching_project_W + competition_guide_W + paper_guide_W
 
-        workload = [teacher.department.id, teacher.name + ' ' + teacher.id, teacher.title, course_total_W,
+        workload = [teacher.department.id, teacher.name, teacher.id, teacher.title, course_total_W,
                     project_total_W]
         workload_list.append(workload)
+
+    sortby = request.POST['extra_data']
+    if not sortby:
+        sortby = 'teacher'
+
+    if sortby == 'teacher':
+        workload_list.sort(key=lambda w: w[2])
+        sortby = u'按教职工号'
+    elif sortby == 'course':
+        workload_list.sort(key=lambda w: w[4])
+        workload_list.reverse()
+        sortby = u'按教学工作量'
+    elif sortby == 'project':
+        workload_list.sort(key=lambda w: w[5])
+        workload_list.reverse()
+        sortby = u'按教研工作量'
+
+    sortby_list = [u'按教职工号', u'按教学工作量', u'按教研工作量']
+
     return render(request, 'main/head_of_department/workload_statistics/workload_statistics.html', locals())
 
 
@@ -800,19 +819,19 @@ def data_import_a(request, user):
             teacher = User.objects.get(id=teacher_id)
 
             new = ExperimentCourse(id=str(curr_time) + str(teacher_id),
-                               course_id=course_id,
-                               name=name,
-                               year=2017,
-                               semester=1,
-                               teacher=teacher,
-                               department_id='471',
-                               classes='20160301,20160302',
-                               student_sum=100,
-                               plan_period=period,
-                               final_period=period,
-                               attribute=1,
-                               audit_status=0
-                               )
+                                   course_id=course_id,
+                                   name=name,
+                                   year=2017,
+                                   semester=1,
+                                   teacher=teacher,
+                                   department_id='471',
+                                   classes='20160301,20160302',
+                                   student_sum=100,
+                                   plan_period=period,
+                                   final_period=period,
+                                   attribute=1,
+                                   audit_status=0
+                                   )
             new.save()
         except:
             print(value)
