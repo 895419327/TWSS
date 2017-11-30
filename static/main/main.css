@@ -158,10 +158,8 @@ body {
 }
 
 .loading {
-    width: 150px;
-    margin: 50px auto;
-    font-size: 25px;
-    letter-spacing: 3px;
+    font-size: 18px;
+    position: fixed;
 }
 
 /*  TODO: 把下面这俩优化掉*/

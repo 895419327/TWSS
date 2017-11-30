@@ -11,6 +11,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__name__))
 MEDIA_PATH = os.path.join(BASE_DIR, 'media')
 
 from project.models import *
+from project.utilities.workload_count import *
 
 
 def export(request):
@@ -65,29 +66,80 @@ def workload_statistics_export(request, user):
         theory_course_list = TheoryCourse.objects.filter(teacher=teacher)
         theory_course_num = theory_course_list.count()
         theory_course_period = 0
+        theory_course_W = 0
         for course in theory_course_list:
             theory_course_period += course.final_period
+            theory_course_W += course.workload
 
         worksheet.write(row, 5, theory_course_num, style)
         worksheet.write(row, 6, theory_course_period, style)
+        worksheet.write(row, 7, theory_course_W, style)
 
         experiment_course_list = ExperimentCourse.objects.filter(teacher=teacher)
         experiment_course_num = experiment_course_list.count()
         experiment_course_period = 0
+        experiment_course_W = 0
         for course in experiment_course_list:
             experiment_course_period += course.final_period
+            experiment_course_W += course.workload
 
         worksheet.write(row, 9, experiment_course_num, style)
         worksheet.write(row, 10, experiment_course_period, style)
+        worksheet.write(row, 11, experiment_course_W, style)
 
         pratice_course_list = PraticeCourse.objects.filter(teacher=teacher)
         pratice_course_num = pratice_course_list.count()
         pratice_course_period = 0
+        pratice_course_W = 0
         for course in pratice_course_list:
             pratice_course_period += course.final_period
+            pratice_course_W += pratice_course_workload_count(course)
 
         worksheet.write(row, 13, pratice_course_num, style)
         worksheet.write(row, 14, pratice_course_period, style)
+        worksheet.write(row, 15, pratice_course_W, style)
+
+        course_total_W = theory_course_W + experiment_course_W + pratice_course_W
+        worksheet.write(row, 17, course_total_W, style)
+
+        teaching_achievement_list = TeachingAchievement.objects.filter(teacher=teacher)
+        teaching_achievement_sum = teaching_achievement_list.count()
+        teaching_achievement_W = 0
+        for project in teaching_achievement_list:
+            teaching_achievement_W += project.workload
+
+        worksheet.write(row, 19, teaching_achievement_sum, style)
+        worksheet.write(row, 20, teaching_achievement_W, style)
+
+        teaching_project_list = TeachingProject.objects.filter(teacher=teacher)
+        teaching_project_sum = teaching_project_list.count()
+        teaching_project_W = 0
+        for project in teaching_project_list:
+            teaching_project_W += project.workload
+
+        worksheet.write(row, 22, teaching_project_sum, style)
+        worksheet.write(row, 23, teaching_project_W, style)
+
+        competition_guide_list = CompetitionGuide.objects.filter(teacher=teacher)
+        competition_guide_sum = competition_guide_list.count()
+        competition_guide_W = 0
+        for project in competition_guide_list:
+            competition_guide_W += project.workload
+
+        worksheet.write(row, 25, competition_guide_sum, style)
+        worksheet.write(row, 26, competition_guide_W, style)
+
+        paper_guide_list = PaperGuide.objects.filter(teacher=teacher)
+        paper_guide_sum = paper_guide_list.count()
+        paper_guide_W = 0
+        for project in paper_guide_list:
+            paper_guide_W += project.workload
+
+        worksheet.write(row, 28, paper_guide_sum, style)
+        worksheet.write(row, 29, paper_guide_W, style)
+
+        project_total_W = teaching_achievement_W + teaching_project_W + competition_guide_W + paper_guide_W
+        worksheet.write(row, 31, project_total_W, style)
 
         row += 1
 
@@ -98,7 +150,7 @@ def workload_statistics_export(request, user):
     file = open(filename, 'rb')
     response = HttpResponse(file.read())
     response['Content-Type'] = 'application/vnd.ms-excel'
-    response['Content-Disposition'] = 'attachment;filename="%s.xls"' % year
+    response['Content-Disposition'] = 'attachment;filename="%s.xls"' % (year + department.id)
     return response
 
 # 将user_info写入excel并返回

@@ -10,7 +10,7 @@ from project.logs.log import log
 from project.models import *
 from project.utilities.search import *
 from project.utilities.indentity import check_identity
-from project.utilities.workload_count import workload_count_func
+from project.utilities.workload_count import *
 
 BASE_DIR = os.path.dirname(os.path.abspath(__name__))
 
@@ -340,14 +340,11 @@ def workload_input_paper_guide_add(request, user):
 
 # Workload Count
 
-def workload_count(request, user):
+def teacher_workload_count(request, user):
     years = range(2016, int(GlobalValue.objects.get(key='current_year').value) + 1)
     year = GlobalValue.objects.get(key='current_year').value
     if request.POST['request_data']:
         year = request.POST['request_data'][:4]
-
-    # TODO: 导出功能
-
 
     theory_course_W, \
     experiment_course_W, \
@@ -356,7 +353,7 @@ def workload_count(request, user):
     teaching_project_W, \
     competition_guide_W, \
     paper_guide_W \
-        = workload_count_func(user, year=year)
+        = workload_count(user, year=year)
 
     course_total_W = theory_course_W + pratice_course_W + experiment_course_W
     project_total_W = teaching_achievement_W + teaching_project_W + competition_guide_W + paper_guide_W
@@ -653,7 +650,7 @@ def class_management_add(request, user):
     return render(request, 'main/dean/class_management/class_management_add.html',
                   locals())
 
-
+# TODO: 检查/刷新工作量
 # 工作量统计
 # 系主任有权调用
 def workload_statistics(request, user):
@@ -684,7 +681,7 @@ def workload_statistics(request, user):
         teaching_project_W, \
         competition_guide_W, \
         paper_guide_W \
-            = workload_count_func(teacher, year=year)
+            = workload_count(teacher, year=year)
 
         course_total_W = theory_course_W + pratice_course_W + experiment_course_W
         project_total_W = teaching_achievement_W + teaching_project_W + competition_guide_W + paper_guide_W
@@ -746,25 +743,25 @@ def data_import_a(request, user):
     import xlrd
     workbook = xlrd.open_workbook('/users/vicchen/downloads/data.xlsx')
 
-    # # 导入教师信息
-    # worksheet = workbook.sheet_by_name('User')
-    # nrows = worksheet.nrows
-    #
-    # for r in range(0, nrows):
-    #
-    # try:
-    #     value = worksheet.row_values(r, start_colx=0, end_colx=2)
-    #     name = value[0]
-    #     teacher_id = str(value[1])
-    #
-    #     generater = md5(teacher_id.encode("utf8"))
-    #     password = generater.hexdigest()
-    #
-    #     new = User(id=teacher_id, name=name, password=password, department_id='471', status=u'教师')
-    #     new.save()
-    # except:
-    #     print(value)
+    '''
+    # 导入教师信息
+    worksheet = workbook.sheet_by_name('User')
+    nrows = worksheet.nrows
 
+    for r in range(0, nrows):
+
+    try:
+        value = worksheet.row_values(r, start_colx=0, end_colx=2)
+        name = value[0]
+        teacher_id = str(value[1])
+
+        generater = md5(teacher_id.encode("utf8"))
+        password = generater.hexdigest()
+
+        new = User(id=teacher_id, name=name, password=password, department_id='471', status=u'教师')
+        new.save()
+    except:
+        print(value)
 
     # 导入TheoryCourse
     worksheet = workbook.sheet_by_name('TheoryCourse')
@@ -835,5 +832,6 @@ def data_import_a(request, user):
             new.save()
         except:
             print(value)
+    '''
 
     return render(request, "main/admin/data_import/data_import.html", locals())

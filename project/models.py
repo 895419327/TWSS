@@ -127,6 +127,9 @@ class Course(models.Model):
     audit_status = models.IntegerField(2, default=0)
     # 审核未通过原因
     reject_reason = models.CharField(max_length=64, null=True)
+    # 工作量
+    workload = models.FloatField(default=0)
+
 
     class Meta:
         # 虚类
@@ -178,6 +181,8 @@ class Project(models.Model):
     audit_status = models.IntegerField(2, default=0)
     # 审核未通过原因
     reject_reason = models.CharField(max_length=64, null=True)
+    # 工作量
+    workload = models.FloatField(default=0)
 
     class Meta:
         # 虚类
@@ -234,7 +239,7 @@ class CompetitionGuide(Project):
 
 # 指导论文
 class PaperGuide(models.Model):
-    id = models.CharField(max_length=16, primary_key=True, auto_created=True)
+    id = models.CharField(max_length=32, primary_key=True, auto_created=True)
     # 作者
     student = models.CharField(max_length=16)
     # 学年
@@ -247,6 +252,8 @@ class PaperGuide(models.Model):
     audit_status = models.IntegerField(2, default=0)
     # 审核未通过原因
     reject_reason = models.CharField(max_length=32, null=True)
+    # 工作量
+    workload = models.FloatField(default=0)
 
     class Meta:
         # 数据表名

@@ -99,7 +99,9 @@ def theory_course_add(request, user):
                        plan_period=request.POST['plan_period'],
                        final_period=request.POST['final_period'],
                        attribute=attribute)
+    new.workload = theory_course_workload_count(new)
     new.save()
+
     return workload_input_theory_course(request, user)
 
 
@@ -159,6 +161,7 @@ def experiment_course_add(request, user):
                            plan_period=request.POST['plan_period'],
                            final_period=request.POST['final_period'],
                            attribute=attribute)
+    new.workload = experiment_course_workload_count(new)
     new.save()
     return workload_input_experiment_course(request, user)
 
@@ -246,7 +249,8 @@ def teaching_achievement_add(request, user):
                               level=request.POST['level'],
                               year=request.POST['year'][:4],
                               teacher=user,
-                              department=user.department, )
+                              department=user.department)
+    new.workload = teaching_achievement_workload_count(new)
     new.save()
     return workload_input_teaching_achievement(request, user)
 
@@ -274,7 +278,8 @@ def teaching_project_add(request, user):
                           level=request.POST['level'],
                           year=request.POST['year'][:4],
                           teacher=user,
-                          department=user.department, )
+                          department=user.department)
+    new.workload = teaching_project_workload_count(new)
     new.save()
     return workload_input_teaching_project(request, user)
 
@@ -303,7 +308,8 @@ def competition_guide_add(request, user):
                            students=request.POST['project_students'],
                            year=request.POST['year'][:4],
                            teacher=user,
-                           department=user.department, )
+                           department=user.department)
+    new.workload = competition_guide_workload_count(new)
     new.save()
     return workload_input_competition_guide(request, user)
 
@@ -330,6 +336,7 @@ def paper_guide_add(request, user):
                      year=request.POST['year'][:4],
                      teacher=user,
                      department=user.department)
+    new.workload = papar_guide_workload_count(new)
     new.save()
     return workload_input_paper_guide(request, user)
 

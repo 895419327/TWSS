@@ -17,14 +17,14 @@ $(document).ready(function () {
             default:
                 sortby = 'teacher';
         }
-        $('.main_content').html('<div class="loading">正在计算...</div>');
+        $('.main_content').prepend('<div class="loading">正在计算...</div>');
         MyAjax_Get('/getpage', 'workload_statistics', year, '.content_right', sortby);
     });
 
     $('.sort_type').click(function () {
         var year = $('#original_year').val();
         var sortby = $(this).attr('id');
-        $('.main_content').html('<div class="loading">正在计算...</div>');
+        $('.main_content').prepend('<div class="loading">正在计算...</div>');
         MyAjax_Get('/getpage', 'workload_statistics', year, '.content_right', sortby);
     });
 

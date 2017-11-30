@@ -1,7 +1,166 @@
 from project.models import *
 
+# 新增课程时
+# 各数据是从request里得到的
+# 因此类型都为str
+# 需要进行转换
 
-def workload_count_func(user, course=True, project=True, year=2017):
+def theory_course_workload_count(course):
+    K = 0
+    if course.student_sum <= 40:
+        K = 1.0
+    elif course.student_sum <= 85:
+        K = 1.6
+    elif course.student_sum <= 125:
+        K = 2.3
+    elif course.student_sum <= 200:
+        K = 3.0
+    elif course.student_sum > 200:
+        K = 3.6
+
+    workload = 6 + int(course.final_period) * K
+    return workload
+
+
+def experiment_course_workload_count(course):
+    L = 0
+    if course.attribute == 1:
+        L = 0.045
+    elif course.attribute == 2:
+        L = 0.020
+    elif course.attribute == 3:
+        L = 0.065
+
+    workload = int(course.final_period) * int(course.student_sum) * L
+    return workload
+
+
+def pratice_course_workload_count(course):
+    S = 0
+    if course.attribute == 1:
+        S = 0.05
+    if course.attribute == 2:
+        S = 0.07
+    if course.attribute == 3:
+        S = 0.09
+
+    teacher_num = len(PraticeCourse.objects.filter(course_id=course.course_id))
+    # 一门实习实训课有多个老师 第一次录入时 此时该记录仍未存入数据库 teacher_num为0
+    if teacher_num == 0:
+        teacher_num = 1
+    workload = int(course.final_period) * course.student_sum * S / teacher_num
+    return workload
+
+
+def teaching_achievement_workload_count(project):
+    if project.type == '教研论文':
+        if project.level == '核心期刊':
+            return 100
+        if project.level == '一般期刊':
+            return 30
+
+    if project.type == '教改项目结项':
+        if project.level == '国家级':
+            return 2000
+        if project.level == '省部级':
+            return 800
+        if project.level == '校级':
+            return 50
+
+    if project.type == '教学成果':
+        if project.level == '国家级':
+            if project.rank == '特等':
+                return 20000
+            if project.rank == '一等':
+                return 10000
+            if project.rank == '二等':
+                return 5000
+
+        if project.level == '省部级':
+            if project.rank == '特等':
+                return 3000
+            if project.rank == '一等':
+                return 2000
+            if project.rank == '二等':
+                return 1000
+
+        if project.level == '校级':
+            if project.rank == '特等':
+                return 300
+            if project.rank == '一等':
+                return 150
+            if project.rank == '二等':
+                return 50
+
+    if project.type == '教材':
+        if project.level == '全国统编教材、国家级规划教材、全国教学专业指导委员会指定教材、全国优秀教材':
+            return 1500
+        if project.level == '其他正式出版教材':
+            return 500
+
+
+def teaching_project_workload_count(project):
+    if project.type == '专业、团队及实验中心类':
+        if project.level == '国家级':
+            return 10000
+        if project.level == '省部级':
+            return 5000
+        if project.level == '校级':
+            return 1000
+
+    if project.type == '课程类':
+        if project.level == '国家级':
+            return 10000
+        if project.level == '省部级':
+            return 2000
+        if project.level == '校级':
+            return 400
+
+    if project.type == '工程实践教育中心':
+        if project.level == '国家级':
+            return 10000
+
+    if project.type == '教学名师':
+        if project.level == '国家级':
+            return 5000
+        if project.level == '省部级':
+            return 1000
+        if project.level == '校级':
+            return 200
+
+    if project.type == '大学生创新创业训练':
+        if project.level == '国家级':
+            return 300
+        if project.level == '省部级':
+            return 160
+        if project.level == '校级':
+            return 50
+
+
+def competition_guide_workload_count(project):
+    if project.type == '全国性大学生学科竞赛':
+        if project.level == '特等':
+            return 1000
+        if project.level == '一等':
+            return 600
+        if project.level == '二等':
+            return 400
+
+    if project.type == '省部级大学生竞赛':
+        if project.level == '特等':
+            return 300
+        if project.level == '一等':
+            return 200
+        if project.level == '二等':
+            return 100
+
+
+def papar_guide_workload_count(project):
+    # TODO:怎么算
+    return 0
+
+
+def workload_count(teacher, course=True, project=True, year=2017):
     theory_course_W = 0
     experiment_course_W = 0
     pratice_course_W = 0
@@ -12,161 +171,46 @@ def workload_count_func(user, course=True, project=True, year=2017):
     paper_guide_W = 0
 
     if course:
-        theory_course_list = TheoryCourse.objects.filter(teacher=user, year=year)
+        # Theory Course
+        theory_course_list = TheoryCourse.objects.filter(teacher=teacher, year=year)
         for course in theory_course_list:
-            K = 0
-            if course.student_sum <= 40:
-                K = 1.0
-            elif course.student_sum <= 85:
-                K = 1.6
-            elif course.student_sum <= 125:
-                K = 2.3
-            elif course.student_sum <= 200:
-                K = 3.0
-            elif course.student_sum > 200:
-                K = 3.6
-            theory_course_W += 6 + course.final_period * K
-        theory_course_W = round(theory_course_W, 2)
+            theory_course_W += theory_course_workload_count(course)
 
-        experiment_course_list = ExperimentCourse.objects.filter(teacher=user, year=year)
+        # Experiment Course
+        experiment_course_list = ExperimentCourse.objects.filter(teacher=teacher, year=year)
         for course in experiment_course_list:
-            L = 0
-            if course.attribute == 1:
-                L = 0.045
-            elif course.attribute == 2:
-                L = 0.020
-            elif course.attribute == 3:
-                L = 0.065
-            experiment_course_W += course.final_period * course.student_sum * L
-        experiment_course_W = round(experiment_course_W, 2)
+            experiment_course_W += experiment_course_workload_count(course)
 
-        pratice_course_list = PraticeCourse.objects.filter(teacher=user, year=year)
+        # Pratice Course
+        pratice_course_list = PraticeCourse.objects.filter(teacher=teacher, year=year)
         for course in pratice_course_list:
-            S = 0
-            if course.attribute == 1:
-                S = 0.05
-            if course.attribute == 2:
-                S = 0.07
-            if course.attribute == 3:
-                S = 0.09
-            teacher_num = len(PraticeCourse.objects.filter(id=course.id))
-            pratice_course_W += course.final_period * course.student_sum * S / teacher_num
+            pratice_course_W += pratice_course_workload_count(course)
+
+        # 保留两位小数
+        theory_course_W = round(theory_course_W, 2)
+        experiment_course_W = round(experiment_course_W, 2)
         pratice_course_W = round(pratice_course_W, 2)
 
     if project:
-        teaching_achievement_list = TeachingAchievement.objects.filter(teacher=user, year=year)
+        # Teaching Achievement
+        teaching_achievement_list = TeachingAchievement.objects.filter(teacher=teacher, year=year)
         for project in teaching_achievement_list:
-            if project.type == '教研论文':
-                if project.level == '核心期刊':
-                    teaching_achievement_W += 100
-                if project.level == '一般期刊':
-                    teaching_achievement_W += 30
+            teaching_achievement_W += teaching_achievement_workload_count(project)
 
-            if project.type == '教改项目结项':
-                if project.level == '国家级':
-                    teaching_achievement_W += 2000
-                if project.level == '省部级':
-                    teaching_achievement_W += 800
-                if project.level == '校级':
-                    teaching_achievement_W += 50
-
-            if project.type == '教学成果':
-                if project.level == '国家级':
-                    if project.rank == '特等':
-                        teaching_achievement_W += 20000
-                    if project.rank == '一等':
-                        teaching_achievement_W += 10000
-                    if project.rank == '二等':
-                        teaching_achievement_W += 5000
-
-                if project.level == '省部级':
-                    if project.rank == '特等':
-                        teaching_achievement_W += 3000
-                    if project.rank == '一等':
-                        teaching_achievement_W += 2000
-                    if project.rank == '二等':
-                        teaching_achievement_W += 1000
-
-                if project.level == '校级':
-                    if project.rank == '特等':
-                        teaching_achievement_W += 300
-                    if project.rank == '一等':
-                        teaching_achievement_W += 150
-                    if project.rank == '二等':
-                        teaching_achievement_W += 50
-
-            if project.type == '教材':
-                if project.level == '全国统编教材、国家级规划教材、全国教学专业指导委员会指定教材、全国优秀教材':
-                    teaching_achievement_W += 1500
-                if project.level == '其他正式出版教材':
-                    teaching_achievement_W += 500
-
-        teaching_project_list = TeachingProject.objects.filter(teacher=user, year=year)
+        # Teaching Project
+        teaching_project_list = TeachingProject.objects.filter(teacher=teacher, year=year)
         for project in teaching_project_list:
-            if project.type == '专业、团队及实验中心类':
-                if project.level == '国家级':
-                    teaching_project_W += 10000
-                if project.level == '省部级':
-                    teaching_project_W += 5000
-                if project.level == '校级':
-                    teaching_project_W += 1000
+            teaching_project_W += teaching_project_workload_count(project)
 
-            if project.type == '课程类':
-                if project.level == '国家级':
-                    teaching_project_W += 10000
-                if project.level == '省部级':
-                    teaching_project_W += 2000
-                if project.level == '校级':
-                    teaching_project_W += 400
-
-            if project.type == '工程实践教育中心':
-                if project.level == '国家级':
-                    teaching_project_W += 10000
-
-            if project.type == '教学名师':
-                if project.level == '国家级':
-                    teaching_project_W += 5000
-                if project.level == '省部级':
-                    teaching_project_W += 1000
-                if project.level == '校级':
-                    teaching_project_W += 200
-
-            if project.type == '大学生创新创业训练':
-                if project.level == '国家级':
-                    teaching_project_W += 300
-                if project.level == '省部级':
-                    teaching_project_W += 160
-                if project.level == '校级':
-                    teaching_project_W += 50
-
-        competition_guide_list = CompetitionGuide.objects.filter(teacher=user, year=year)
+        # Competition Guide
+        competition_guide_list = CompetitionGuide.objects.filter(teacher=teacher, year=year)
         for project in competition_guide_list:
-            if project.type == '全国性大学生学科竞赛':
-                if project.level == '特等':
-                    competition_guide_W += 1000
-                if project.level == '一等':
-                    competition_guide_W += 600
-                if project.level == '二等':
-                    competition_guide_W += 400
+            competition_guide_W += competition_guide_workload_count(project)
 
-            if project.type == '省部级大学生竞赛':
-                if project.level == '特等':
-                    competition_guide_W += 300
-                if project.level == '一等':
-                    competition_guide_W += 200
-                if project.level == '二等':
-                    competition_guide_W += 100
-
-        paper_guide_list = PaperGuide.objects.filter(teacher=user, year=year)
+        # Paper Guide
+        paper_guide_list = PaperGuide.objects.filter(teacher=teacher, year=year)
         for project in paper_guide_list:
-            # TODO:怎么算
-            # if project.level == 'SCI':
-            #     paper_guide_W += 100
-            # if project.level == '核心期刊':
-            #     paper_guide_W += 30
-            # if project.level == '一般期刊':
-            #     paper_guide_W += 10
-            pass
+            paper_guide_W += papar_guide_workload_count(project)
 
     if course and project:
         return theory_course_W, experiment_course_W, pratice_course_W, teaching_achievement_W, teaching_project_W, competition_guide_W, paper_guide_W
