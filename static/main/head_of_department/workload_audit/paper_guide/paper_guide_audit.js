@@ -1,4 +1,7 @@
 $(document).ready(function () {
+
+    window.scrollTo(0, 0);
+
     $('tr:even').addClass('even');
     
     $('.paper_guide_audit_pass').click(function () {

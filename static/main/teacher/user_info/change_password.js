@@ -3,10 +3,20 @@ $(document).ready(function () {
         var form = $('#change_password_form');
 
         var original_password = $('#change_password_original_password');
-        original_password.val(hex_md5(original_password.val()));
+
+        // 未输入原密码
+        if(original_password.val() === ''){
+            alert('请输入原密码');
+            return;
+        }
 
         var new_password = $('#change_password_new_password');
         var new_password_check = $('#change_password_new_password_check');
+
+        if(new_password.val().length < 8){
+            alert('新密码过短,请至少设置8位以上的密码');
+            return;
+        }
 
         if (new_password.val() !== new_password_check.val()) {
             alert('两次输入的新密码不一致');
@@ -14,6 +24,7 @@ $(document).ready(function () {
             return;
         }
 
+        original_password.val(hex_md5(original_password.val()));
         new_password.val(hex_md5(new_password.val()));
 
         form.ajaxSubmit({

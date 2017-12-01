@@ -6,6 +6,8 @@ import time
 BASE_DIR = os.path.dirname(os.path.abspath(__name__))
 MEDIA_PATH = os.path.join(BASE_DIR, 'media')
 
+from django.contrib.auth.hashers import make_password
+
 from project.views import *
 from project.models import *
 
@@ -364,20 +366,20 @@ def paper_guide_delete(request, user):
 #               紧急解决方案：应在修改界面予以提醒
 # TODO:         后期应重写逻辑 或 考虑给User表增加一个无法被任何用户修改的id
 
-def teacher_management_add(request, user):
+def teacher_add(request, user):
     # 先假设使用手机号作为密码
     password = request.POST['phone_number']
     from hashlib import md5
     generater = md5(password.encode("utf8"))
     password = generater.hexdigest()
+    password = make_password(password)
 
     # 检测是新增还是修改
     id = request.POST['teacher_id']
-    password = ''
     list = User.objects.filter(id=id)
-    for l in list:
-        if l.id == id:
-            password = l.password
+    for teacher in list:
+        if teacher.id == id:
+            password = teacher.password
             break
 
     department = Department.objects.get(name=request.POST['department'])
@@ -420,7 +422,7 @@ def teacher_management_add(request, user):
     return teacher_management(request, user)
 
 
-def teacher_management_delete(request, user):
+def teacher_delete(request, user):
     teacher_id = request.POST['request_data']
     teacher = User.objects.get(id=teacher_id)
     teacher.delete()
@@ -429,7 +431,7 @@ def teacher_management_delete(request, user):
 
 # Class Management
 
-def class_management_add(request, user):
+def class_add(request, user):
     # TODO:根据实际id长度修改
     teacher = User.objects.get(id=request.POST['teacher'][-11:])
     department = Department.objects.get(name=request.POST['department'])
@@ -448,7 +450,7 @@ def class_management_add(request, user):
     return class_management(request, user)
 
 
-def class_management_delete(request, user):
+def class_delete(request, user):
     class_id = request.POST['request_data']
     clas = Class.objects.get(id=class_id)
     clas.delete()

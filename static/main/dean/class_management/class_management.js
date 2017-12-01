@@ -1,4 +1,7 @@
 $(document).ready(function () {
+
+    window.scrollTo(0, 0);
+
     $('tr:even').addClass('even');
     
     $('.add_button').click(function () {
@@ -15,6 +18,6 @@ $(document).ready(function () {
         var id = this.id;
         id = id.substring(0, id.length - 7);
         if (confirm("确认删除？"))
-            MyAjax_Get('/upload', 'class_management_delete', id);
+            MyAjax_Get('/upload', 'class_delete', id);
     });
 });

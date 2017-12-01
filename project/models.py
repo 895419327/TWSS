@@ -57,7 +57,7 @@ class User(models.Model):
     # 身份 (教师/系主任/教务员)
     status = models.CharField(max_length=16, default=u'教师')
     # 密码 md5加密后的字符串
-    password = models.CharField(max_length=64)
+    password = models.CharField(max_length=128)
     # 手机号
     phone_number = models.CharField(max_length=11, null=True)
     # 邮箱

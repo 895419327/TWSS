@@ -4,6 +4,7 @@ import os
 import time
 
 from django.shortcuts import render
+from django.contrib.auth.hashers import check_password
 from hashlib import md5
 
 from project.logs.log import log
@@ -54,7 +55,8 @@ def login(request):
         # 检查是否存在此用户
         try:
             user = User.objects.get(id=username_post)
-            if password_post == user.password:
+            if check_password(password_post, user.password):
+            # if password_post == user.password:
                 # 验证身份
                 if user.status.find(status_post) != -1:
                     # 生成unique_code
@@ -73,8 +75,8 @@ def login(request):
                     if status_post == u'系统管理员':
                         return render(request, 'main/admin/admin.html', locals())
 
-        except Exception:
-            log('WARNING', login_time, 'Login Fail', username_post, status_post)
+        except Exception as e:
+            log('WARNING', login_time, 'Login Fail', username_post, status_post, e)
             return render(request, 'index/loginfailed.html')
 
     # 任何意外
@@ -611,18 +613,18 @@ def department_management_modify(request, user):
 # 教师管理
 # 系主任有权调用
 def teacher_management(request, user):
-    status = user.status.split(',')[1]
+    status = user.status.split(',')
 
     department_list = []
     teacher_list = []
-    # 若为教务员
-    if status == u'教务员':
-        department_list = Department.objects.all()
-        teacher_list = User.objects.all()
     # 若为系主任
-    elif status == u'系主任':
+    if u'系主任' in status:
         department_list = Department.objects.filter(head_of_department=user.id)
         teacher_list = User.objects.filter(department=user.department)
+    # 若为教务员
+    elif u'教务员' in status:
+        department_list = Department.objects.all()
+        teacher_list = User.objects.all()
     return render(request, 'main/head_of_department/teacher_management/teacher_management.html', locals())
 
 
@@ -832,6 +834,20 @@ def data_import_a(request, user):
             new.save()
         except:
             print(value)
+    '''
+
+    '''
+    teacher_list = User.objects.all()
+    i = 0
+    for teacher in teacher_list:
+        print(i)
+
+        generater = md5(teacher.id.encode("utf8"))
+        password = generater.hexdigest()
+
+        teacher.password = make_password(password)
+        teacher.save()
+        i += 1
     '''
 
     return render(request, "main/admin/data_import/data_import.html", locals())
