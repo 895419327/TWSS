@@ -1,3 +1,4 @@
+import math
 from project.models import *
 
 # 新增课程时
@@ -7,18 +8,28 @@ from project.models import *
 
 def theory_course_workload_count(course):
     K = 0
-    if course.student_sum <= 40:
-        K = 1.0
-    elif course.student_sum <= 85:
-        K = 1.6
-    elif course.student_sum <= 125:
-        K = 2.3
-    elif course.student_sum <= 200:
-        K = 3.0
-    elif course.student_sum > 200:
-        K = 3.6
 
-    workload = 6 + int(course.final_period) * K
+    # if course.student_sum <= 40:
+    #     K = 1.0
+    # elif course.student_sum <= 85:
+    #     K = 1.6
+    # elif course.student_sum <= 125:
+    #     K = 2.3
+    # elif course.student_sum <= 200:
+    #     K = 3.0
+    # elif course.student_sum > 200:
+    #     K = 3.6
+    #
+    # workload = 6 + int(course.final_period) * K
+
+    # 新标准
+    if course.student_sum <= 60:
+        K = 1.0
+    else:
+        K = 1 + 0.6 * math.log(course.student_sum/60)
+        
+    workload = int(course.final_period) * K
+    workload = round(workload, 2)
     return workload
 
 
@@ -174,17 +185,19 @@ def workload_count(teacher, course=True, project=True, year=2017):
         # Theory Course
         theory_course_list = TheoryCourse.objects.filter(teacher=teacher, year=year)
         for course in theory_course_list:
-            theory_course_W += theory_course_workload_count(course)
+            theory_course_W += course.workload
 
         # Experiment Course
         experiment_course_list = ExperimentCourse.objects.filter(teacher=teacher, year=year)
         for course in experiment_course_list:
-            experiment_course_W += experiment_course_workload_count(course)
+            experiment_course_W += course.workload
 
         # Pratice Course
         pratice_course_list = PraticeCourse.objects.filter(teacher=teacher, year=year)
         for course in pratice_course_list:
-            pratice_course_W += pratice_course_workload_count(course)
+            course.workload = pratice_course_workload_count(course)
+            course.save()
+            pratice_course_W += course.workload
 
         # 保留两位小数
         theory_course_W = round(theory_course_W, 2)
@@ -195,22 +208,22 @@ def workload_count(teacher, course=True, project=True, year=2017):
         # Teaching Achievement
         teaching_achievement_list = TeachingAchievement.objects.filter(teacher=teacher, year=year)
         for project in teaching_achievement_list:
-            teaching_achievement_W += teaching_achievement_workload_count(project)
+            teaching_achievement_W += project.workload
 
         # Teaching Project
         teaching_project_list = TeachingProject.objects.filter(teacher=teacher, year=year)
         for project in teaching_project_list:
-            teaching_project_W += teaching_project_workload_count(project)
+            teaching_project_W += project.workload
 
         # Competition Guide
         competition_guide_list = CompetitionGuide.objects.filter(teacher=teacher, year=year)
         for project in competition_guide_list:
-            competition_guide_W += competition_guide_workload_count(project)
+            competition_guide_W += project.workload
 
         # Paper Guide
         paper_guide_list = PaperGuide.objects.filter(teacher=teacher, year=year)
         for project in paper_guide_list:
-            paper_guide_W += papar_guide_workload_count(project)
+            paper_guide_W += project.workload
 
     if course and project:
         return theory_course_W, experiment_course_W, pratice_course_W, teaching_achievement_W, teaching_project_W, competition_guide_W, paper_guide_W

@@ -12,17 +12,15 @@ MEDIA_PATH = os.path.join(BASE_DIR, 'media')
 
 from project.models import *
 from project.utilities.workload_count import *
+from project.utilities.indentity import check_identity
 
 
 def export(request):
     request.encoding = 'utf-8'
 
-    from project.utilities.indentity import check_identity
-    check_return = check_identity(request)
-    if check_return == False:
+    user = check_identity(request)
+    if not user:
         return False  # 返回错误信息
-    else:
-        user = check_return
 
     requestfor = request.POST['requestfor']
     return eval(requestfor)(request, user)
@@ -140,6 +138,9 @@ def workload_statistics_export(request, user):
 
         project_total_W = teaching_achievement_W + teaching_project_W + competition_guide_W + paper_guide_W
         worksheet.write(row, 31, project_total_W, style)
+
+        total_W = project_total_W + course_total_W
+        worksheet.write(row, 33, total_W, style)
 
         row += 1
 

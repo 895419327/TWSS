@@ -20,12 +20,7 @@ def index(request):
     return render(request, 'index/index.html')
 
 
-# FIXME: VERY-HIGH 工作量统计/审核的搜索bug 搜索后内容正确但搜索栏未更新
-
-
 # TODO: 教务员工作量系数调整功能
-
-# TODO: 排序
 
 # TODO: 欢迎界面 可以写一些使用帮助
 
@@ -44,7 +39,6 @@ def index(request):
 def login(request):
     request.encoding = 'utf-8'
 
-    login_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
     # 如果表单为POST提交
     if request.POST:
         # 接收表单数据
@@ -53,34 +47,44 @@ def login(request):
         status_post = request.POST['status']
 
         # 检查是否存在此用户
+        user = ''
         try:
             user = User.objects.get(id=username_post)
-            if check_password(password_post, user.password):
-            # if password_post == user.password:
-                # 验证身份
-                if user.status.find(status_post) != -1:
-                    # 生成unique_code
-                    unique_code_src = username_post + password_post + status_post
-                    generater = md5(unique_code_src.encode("utf8"))
-                    unique_code = generater.hexdigest()
-                    # 记录
-                    log('INFO', login_time, 'Login', user.name, user.id, status_post)
-                    # 返回相应页面
-                    if status_post == u'教师':
-                        return render(request, 'main/teacher/teacher.html', locals())
-                    if status_post == u'系主任':
-                        return render(request, 'main/head_of_department/head_of_department.html', locals())
-                    if status_post == u'教务员':
-                        return render(request, 'main/dean/dean.html', locals())
-                    if status_post == u'系统管理员':
-                        return render(request, 'main/admin/admin.html', locals())
-
-        except Exception as e:
-            log('WARNING', login_time, 'Login Fail', username_post, status_post, e)
+        except Exception:
+            log('WARNING', 'Username Not Found', username_post, status_post)
             return render(request, 'index/loginfailed.html')
 
+        # 如果密码错误
+        if not check_password(password_post, user.password):
+            log('WARNING', 'Password Uncorrect', username_post, status_post, user.password_incorrect_time)
+            return render(request, 'index/loginfailed.html')
+
+        # 如果身份错误
+        if user.status.find(status_post) == -1:
+            log('WARNING', 'Status Uncorrect', username_post, status_post)
+            return render(request, 'index/loginfailed.html')
+
+        # 验证通过
+        # 记录
+        log('INFO', 'Login', user.name, user.id, status_post)
+
+        # 生成unique_code
+        unique_code_src = username_post + password_post + status_post
+        generater = md5(unique_code_src.encode("utf8"))
+        unique_code = generater.hexdigest()
+
+        # 返回相应页面
+        if status_post == u'教师':
+            return render(request, 'main/teacher/teacher.html', locals())
+        if status_post == u'系主任':
+            return render(request, 'main/head_of_department/head_of_department.html', locals())
+        if status_post == u'教务员':
+            return render(request, 'main/dean/dean.html', locals())
+        if status_post == u'系统管理员':
+            return render(request, 'main/admin/admin.html', locals())
+
     # 任何意外
-    log('ERROR', login_time, 'Login Fail', request.POST)
+    log('ERROR', 'Login Fail', request.POST)
     return render(request, 'index/loginfailed.html')
 
 
@@ -112,9 +116,8 @@ def user_info_change_password(request, user):
     return render(request, 'main/teacher/user_info/change_password.html', locals())
 
 
-# FIXME: URGENT 自动检测课程年级
-
 # TODO: 选择班级后更新人数
+# TODO: 班级不选会出事
 
 def get_classes(grade=2017):
     class_list = Class.objects.filter(grade=grade)
@@ -244,10 +247,7 @@ def workload_input_pratice_course_add(request, user):
 
 
 # TODO: search bar 精简 可考虑用{% include %}
-# TODO: 新增自动识别type和相应level
 # TODO: 教研工作量精简html for type in type_list
-
-# FIXME: 教学成果:教学成果 细分级别未实现
 
 # Teaching Achievement
 
@@ -363,10 +363,7 @@ def teacher_workload_count(request, user):
 
 
 # ##### 系主任 #####
-# TODO: 驳回时可填写理由
-# TODO: pass和reject可整合
 # TODO: 班级管理搜索功能  默认只显示当前四届
-# TODO: 考虑在教师表里缓存工作量统计
 # TODO: 考虑在系主任查看工作量统计时只统计已审核工作量
 
 
@@ -407,7 +404,6 @@ def workload_audit_reject(request, user):
         return render(request, 'main/head_of_department/workload_audit/pratice_course/pratice_course_audit.html',
                       locals())
 
-    # FIXME: URGENT 考虑一个project多个教师 使用同一project_id的情况
     elif project_type == 'TeachingAchievement':
         project = TeachingAchievement.objects.get(id=request.POST['project_id'])
         project.audit_status = 1
@@ -652,6 +648,7 @@ def class_management_add(request, user):
     return render(request, 'main/dean/class_management/class_management_add.html',
                   locals())
 
+
 # TODO: 检查/刷新工作量
 # 工作量统计
 # 系主任有权调用
@@ -688,8 +685,8 @@ def workload_statistics(request, user):
         course_total_W = theory_course_W + pratice_course_W + experiment_course_W
         project_total_W = teaching_achievement_W + teaching_project_W + competition_guide_W + paper_guide_W
 
-        workload = [teacher.department.id, teacher.name, teacher.id, teacher.title, course_total_W,
-                    project_total_W]
+        workload = [teacher.department.id, teacher.name, teacher.id, teacher.title,
+                    course_total_W, project_total_W]
         workload_list.append(workload)
 
     sortby = request.POST['extra_data']
@@ -714,7 +711,7 @@ def workload_statistics(request, user):
 
 
 def workload_K_value(request, user):
-    return render(request, "main/dean/workload_K_value/workload_K_value.html", locals())
+    return render(request, 'main/dean/workload_K_value/workload_K_value.html', locals())
 
 
 # # # ADMIN # # #
@@ -849,5 +846,10 @@ def data_import_a(request, user):
         teacher.save()
         i += 1
     '''
+
+    course_list = TheoryCourse.objects.all()
+    for course in course_list:
+        course.workload = theory_course_workload_count(course)
+        course.save()
 
     return render(request, "main/admin/data_import/data_import.html", locals())

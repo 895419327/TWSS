@@ -15,8 +15,6 @@ from project.models import *
 def upload(request):
     request.encoding = 'utf-8'
 
-    upload_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
-
     # 校验身份
     from project.utilities.indentity import check_identity
     check_return = check_identity(request)
@@ -30,11 +28,12 @@ def upload(request):
     # try:
     return eval(requestfor)(request, user)
     # except Exception:
-    #     log('WARNING', upload_time, 'Login Fail', request.POST, repr(Exception))
+    #     log('WARNING', 'Login Fail', request.POST, repr(Exception))
     #     print('data_upload.py upload() exception')
     #     return False
 
 
+# TODO: 考虑在User表增加location 防假单
 # TODO: 更改前要检查数据合法性
 # 比如系主任审核通过时 教师正好更改了数据 微小的时间差导致审核通过的不是系主任看到的数据
 
@@ -53,8 +52,6 @@ def change_password(request, user):
     else:
         return False
 
-
-# FIXME: URGENT 如果修改了课程/项目id 则原id不会被删除 会出现两个项目
 
 # Theory Course
 
@@ -239,16 +236,23 @@ def pratice_course_delete(request, user):
 
 
 def teaching_achievement_add(request, user):
+
     id = ''
     if request.POST['project_id']:
         id = request.POST['project_id']
     else:
         id = str(int(time.time())) + user.id
 
+    type = request.POST['type']
+    rank = request.POST['rank']
+    if type != u'教学成果':
+        rank = ''
+
     new = TeachingAchievement(id=id,
                               name=request.POST['project_name'],
-                              type=request.POST['type'],
+                              type=type,
                               level=request.POST['level'],
+                              rank=rank,
                               year=request.POST['year'][:4],
                               teacher=user,
                               department=user.department)
@@ -432,8 +436,9 @@ def teacher_delete(request, user):
 # Class Management
 
 def class_add(request, user):
-    # TODO:根据实际id长度修改
-    teacher = User.objects.get(id=request.POST['teacher'][-11:])
+    teacher_info = request.POST['teacher']
+    teacher_id = teacher_info.split(' ')[1]
+    teacher = User.objects.get(id=teacher_id)
     department = Department.objects.get(name=request.POST['department'])
     new = Class(id=request.POST['class_id'],
                 name=request.POST['name'],

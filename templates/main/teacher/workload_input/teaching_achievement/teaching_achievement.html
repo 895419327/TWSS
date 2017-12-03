@@ -56,7 +56,11 @@
                             <td>{{ project.year }}年</td>
                             <td>{{ project.type }}</td>
                             <td>{{ project.name }}</td>
-                            <td>{{ project.level }}</td>
+                            <td>{{ project.level }}
+                                {% if project.type == '教学成果' %}
+                                    {{ project.rank }}
+                                {% endif %}
+                            </td>
 
                             {% if project.audit_status == 0 %}
                                 <td>未审核</td>

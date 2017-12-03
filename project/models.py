@@ -62,6 +62,8 @@ class User(models.Model):
     phone_number = models.CharField(max_length=11, null=True)
     # 邮箱
     email = models.CharField(max_length=32, null=True)
+    # salt
+    salt = models.CharField(max_length=16, null=True)
 
     class Meta:
         # 数据表名

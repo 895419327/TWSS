@@ -122,6 +122,36 @@
                     {% endif %}
                 </select>
             </div>
+
+            <div id="project_rank_area"
+                    {% if modified_project.type != '教学成果' %}
+                 hidden
+                    {% endif %}>
+                <span>奖项 </span>
+                <select name="rank" id="project_rank">
+                    {% if modified_project %}
+                        {% if modified_project.type == '教学成果' %}
+                            <option>{{ modified_project.rank }}</option>
+                            {% if modified_project.rank == '特等' %}
+                                <option>一等</option>
+                                <option>二等</option>
+                            {% elif modified_project.rank == '一等' %}
+                                <option>特等</option>
+                                <option>二等</option>
+                            {% elif modified_project.rank == '二等' %}
+                                <option>特等</option>
+                                <option>一等</option>
+
+                            {% endif %}
+                        {% endif %}
+                    {% else %}
+                        <option>特等</option>
+                        <option>一等</option>
+                        <option>二等</option>
+                    {% endif %}
+
+                </select>
+            </div>
         </div>
 
 

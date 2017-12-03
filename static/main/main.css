@@ -215,7 +215,6 @@ select {
 }
 
 .search_bar {
-    /* TODO: 工作量录入和工作量审核自适应*/
     width: 985px;
     height: 50px;
     margin: 30px auto;
@@ -321,8 +320,6 @@ table img:hover {
     font-size: 24px;
     margin: 40px 0 15px 20px;
 }
-
-/* TODO: modify 和 delete 图片可以写进css*/
 
 /* * * * * * */
 

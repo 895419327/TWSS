@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 
 from project.models import User
-
+from project.logs.log import log
 
 # TODO: 生成unique_code
-def generate_unique_code(user):
+def generate_unique_code(user, info):
     pass
 
 
@@ -13,7 +13,6 @@ def check_identity(request):
 
     # 接收表单数据
     username_post = request.POST['username']
-    # status_post = request.POST['status']
     # unique_code = request.POST['unique_code']
 
     # 校验身份
@@ -22,17 +21,16 @@ def check_identity(request):
 
         # if user:
             # TODO: 添加身份确认
-            # if user.status.find(u'教师') != -1:
-                # from hashlib import md5
-                # check_unique_code_src = username_post + user.password + status_post
-                # generater = md5(check_unique_code_src.encode("utf8"))
-                # check_unique_code = generater.hexdigest()
-                #
-                # if unique_code == check_unique_code:
-                #     return user
-                # return user
+            # from hashlib import md5
+            # check_unique_code_src = username_post + user.password + status_post
+            # generater = md5(check_unique_code_src.encode("utf8"))
+            # check_unique_code = generater.hexdigest()
+            #
+            # if unique_code == check_unique_code:
+            #     return user
+            # return user
         return user
 
-    except:
-        print('identify error')
+    except Exception:
+        log(str(Exception))
         return False

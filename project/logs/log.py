@@ -1,15 +1,17 @@
-import time
+from time import localtime, strftime
 from TWSS.settings import BASE_DIR
 
 
 def log(*args):
-    date = time.strftime('%Y-%m-%d', time.localtime())
+    date = strftime('%Y-%m-%d', localtime())
     filename = BASE_DIR + '/project/logs/' + date + '.txt'
     file = open(filename, 'a+')
 
-    info = ''
+    time = strftime("%H:%M:%S", localtime())
+
+    info = time
     for arg in args:
-        info += str(arg) + '     '
+        info += '   ' + str(arg)
     info += '\n'
 
     file.write(info)
