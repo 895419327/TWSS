@@ -1,45 +1,44 @@
 {% load staticfiles %}
 {% load myfilters %}
-<link rel="stylesheet" href={% static "main/teacher/user_info/user_info.css" %}>
 <script src={% static "main/teacher/user_info/user_info.js" %}></script>
 
 <div class="main_content">
 
     <div class="content_title">用户信息</div>
 
-    <form id="user_info_form" method="post" action="/upload" name="user_info" autocomplete="off">
+    <form id="user_info_form" method="post" action="/upload" style="margin: 30px auto 0" autocomplete="off">
         {% csrf_token %}
         <input type="hidden" name="username" value="{{ user.id }}">
         <input type="hidden" name="requestfor" value="user_info">
 
-        <div class="user_info_item">
-            <div class="user_info_content_title">用户名</div>
-            <div class="user_info_content_value">{{ user.id }}</div>
+        <div class="single_line_item">
+            <div class="single_line_item_title">用户名</div>
+            <div class="single_line_item_value">{{ user.id }}</div>
         </div>
 
-        <div class="user_info_item">
-            <div class="user_info_content_title">姓名</div>
-            <div class="user_info_content_value">{{ user.name }}</div>
+        <div class="single_line_item">
+            <div class="single_line_item_title">姓名</div>
+            <div class="single_line_item_value">{{ user.name }}</div>
         </div>
 
-        <div class="user_info_item">
-            <div class="user_info_content_title">职称</div>
-            <div class="user_info_content_value">{{ user.title }}</div>
+        <div class="single_line_item">
+            <div class="single_line_item_title">职称</div>
+            <div class="single_line_item_value">{{ user.title }}</div>
         </div>
 
-        <div class="user_info_item">
-            <div class="user_info_content_title">所属系</div>
-            <div class="user_info_content_value">{{ user.department.name }}</div>
+        <div class="single_line_item">
+            <div class="single_line_item_title">所属系</div>
+            <div class="single_line_item_value">{{ user.department.name }}</div>
         </div>
 
-        <div class="user_info_item">
-            <div class="user_info_content_title">手机号</div>
-            <div class="user_info_content_value user_info_can_modify" name="phone_number">{{ user.phone_number }}</div>
+        <div class="single_line_item">
+            <div class="single_line_item_title">手机号</div>
+            <div class="single_line_item_value single_line_item_can_modify" name="phone_number">{{ user.phone_number }}</div>
         </div>
 
-        <div class="user_info_item">
-            <div class="user_info_content_title">邮箱</div>
-            <div class="user_info_content_value user_info_can_modify" name="email">{{ user.email }}</div>
+        <div class="single_line_item">
+            <div class="single_line_item_title">邮箱</div>
+            <div class="single_line_item_value single_line_item_can_modify" name="email">{{ user.email }}</div>
         </div>
 
     </form>

@@ -1,7 +1,5 @@
 $(document).ready(function () {
 
-    window.scrollTo(0, 0);
-
     $('tr:even').addClass('even');
 
     $('.change_head_of_department').click(function () {

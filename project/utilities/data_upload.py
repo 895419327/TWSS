@@ -464,6 +464,28 @@ def class_delete(request, user):
 
 ##### 教务员 #####
 
+
+def global_setting(request, user):
+    year_upload = request.POST['year'][:4]
+    semester_upload = request.POST['semester']
+    if semester_upload == u'第一学期':
+        semester_upload = 1
+    elif semester_upload == u'第二学期':
+        semester_upload = 2
+    else:
+        return False
+
+    year = GlobalValue.objects.get(key='current_year')
+    semester = GlobalValue.objects.get(key='current_semester')
+
+    year.value = year_upload
+    semester.value = semester_upload
+
+    year.save()
+    semester.save()
+    return global_settings(request, user)
+
+
 def change_head_of_department_upload(request, user):
     department = Department.objects.get(id=request.POST['department_id'])
 

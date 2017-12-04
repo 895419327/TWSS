@@ -12,11 +12,11 @@ $(document).ready(function () {
             modifying = true;
             modify_button.text('保存');
             modify_button.css('color', 'red');
-            $('.user_info_can_modify').each(function () {
+            $('.single_line_item_can_modify').each(function () {
                 var data = $(this).text();
                 var name = $(this).attr('name');
                 var width = $(this).css('width');
-                $(this).html("<input class='user_info_modify_area' "+ "value=" + data +" name=" + name + ">");
+                $(this).html("<input class='single_line_item_modify_area' "+ "value=" + data +" name=" + name + ">");
 
                 $(this).css('width', width);
                 $(this).children().css('width', width);
@@ -24,7 +24,7 @@ $(document).ready(function () {
             });
 
             // 点击'修改'时模拟点击选择第一个可修改的文本框
-            $('.user_info_modify_area:first').trigger('select');
+            $('.single_line_item_modify_area:first').trigger('select');
             return;
         }
 

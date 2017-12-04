@@ -39,6 +39,12 @@ $(document).ready(function () {
     });
 
     // Dean
+
+    $('#global_settings_title').click(function () {
+        $('.main_content').prepend('<div class="loading">正在加载...</div>');
+        MyAjax_Get('/getpage', 'global_settings');
+    });
+
     $('#class_management_title').click(function () {
         $('.main_content').prepend('<div class="loading">正在加载...</div>');
         MyAjax_Get('/getpage', 'class_management');

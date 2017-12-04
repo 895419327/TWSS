@@ -1,0 +1,20 @@
+
+#global_settings_content button{
+    cursor: pointer;
+}
+
+#global_settings_content p{
+    width: 150px;
+    margin: 0 auto;
+    float: none;
+}
+
+.pre{
+    float: left;
+    margin: 15px 0 0 100px;
+}
+
+.next{
+    float: right;
+    margin: -35px 100px 0 0;
+}
