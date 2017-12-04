@@ -12,6 +12,12 @@
         {% csrf_token %}
         <input type="hidden" name="username" value="{{ user.id }}">
         <input type="hidden" name="requestfor" value="class_add">
+        {% if modified_class %}
+            <input type="hidden" name="request_data" value="{{ modified_class.grade }}">
+        {% else %}
+            <input type="hidden" name="request_data" value="{{ location_grade }}">
+        {% endif %}
+
 
         <div class="add_left">
             <div>
@@ -19,9 +25,20 @@
                 <select name="grade">
                     {% if modified_class %}
                         <option selected>{{ modified_class.grade }}级</option>
+                        {% for grade in grade_list %}
+                            {% if grade != modified_class.grade %}
+                                <option>{{ grade }}级</option>
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        <option>{{ location_grade }}级</option>
+                        {% for grade in grade_list %}
+                            {% if grade != location_grade %}
+                                <option>{{ grade }}级</option>
+                            {% endif %}
+                        {% endfor %}
                     {% endif %}
-                    <option>2016级</option>
-                    <option>2017级</option>
+
                 </select>
             </div>
 
@@ -61,10 +78,19 @@
                 <select name="department">
                     {% if modified_class %}
                         <option>{{ modified_class.department.name }}</option>
+                        {% for d in department_list %}
+                            {% if d != modified_class.department and d.id != '470' %}
+                                <option>{{ d.name }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        <option>{{ department.name }}</option>
+                        {% for d in department_list %}
+                            {% if d != department and d.id != '470' %}
+                                <option>{{ d.name }}</option>
+                            {% endif %}
+                        {% endfor %}
                     {% endif %}
-                    <option>生物工程</option>
-                    <option>生物技术</option>
-                    <option>生物信息</option>
                 </select>
             </div>
 

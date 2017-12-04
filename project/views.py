@@ -634,17 +634,51 @@ def teacher_management_add(request, user):
 # 班级管理
 
 def class_management(request, user):
-    department_ist = Department.objects.all()
-    class_list = Class.objects.all()
+    department_list = Department.objects.all()
+    year = int(GlobalValue.objects.get(key='current_year').value)
+
+    grade_list = ['当前四届']
+    for g in range(2014, year + 1):
+        grade_list.append(str(g) + u'级')
+
+    class_list = []
+    grade = ''
+    if 'request_data' in request.POST:
+        grade = request.POST['request_data']
+    if grade == '当前四届' or grade == '':
+        class_list = Class.objects.filter(grade__gt=int(year) - 4)
+        grade = '当前四届'
+    else:
+        grade = grade[:4]
+        class_list = Class.objects.filter(grade=grade)
+        grade = str(grade) + u'级'
+
+
     return render(request, 'main/dean/class_management/class_management.html',
                   locals())
 
 
 def class_management_add(request, user):
+    department_list = Department.objects.all()
     teacher_list = User.objects.all()
+    year = int(GlobalValue.objects.get(key='current_year').value)
+
+    if request.POST['extra_data']:
+        location = request.POST['extra_data'].split(' ')
+        department_id = location[0]
+        department = department_list.get(id=department_id)
+        location_grade = int(location[1][:4])
+        if location_grade == u'当前四届':
+            location_grade = year
+
     modified_class = ''
     if request.POST['request_data']:
         modified_class = Class.objects.get(id=request.POST['request_data'])
+
+    grade_list = []
+    for g in range(2014, year + 1):
+        grade_list.append(g)
+
     return render(request, 'main/dean/class_management/class_management_add.html',
                   locals())
 

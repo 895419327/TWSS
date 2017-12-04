@@ -7,7 +7,25 @@
 
     <div class="blur_area">
 
-        {% for department in department_ist %}
+        <div class="search_bar">
+            <div class="search_bar_item">
+                <span>年级</span>
+                <select id="class_management_grade">
+                    <option>{{ grade }}</option>
+                    {% for g in grade_list %}
+                        {% if g != grade %}
+                            <option>{{ g }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+
+            <input hidden id="location_grade" value="{{ grade }}">
+
+            <div class="search_button">查询</div>
+        </div>
+
+        {% for department in department_list %}
             {% if department.id != '470' %}
                 <div class="project_item">
                     <div class="project_item_title">{{ department.name }}</div>
@@ -44,7 +62,7 @@
 
                         <tr>
                             <td colspan="6">
-                                <div class="add_button">新 增</div>
+                                <div class="add_button" id="{{ department.id }}">新 增</div>
                             </td>
                         </tr>
                     </table>

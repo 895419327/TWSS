@@ -86,7 +86,7 @@ class Class(models.Model):
     # 班级人数
     sum = models.IntegerField(128, default=0)
     # 班主任
-    teacher = models.ForeignKey(User)
+    teacher = models.ForeignKey(User, null=True)
 
     class Meta:
         # 数据表名
