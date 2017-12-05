@@ -4,7 +4,7 @@ import os
 import time
 
 from django.shortcuts import render
-from django.contrib.auth.hashers import check_password
+from django.contrib.auth.hashers import check_password, make_password
 from hashlib import md5
 
 from project.logs.log import log
@@ -56,7 +56,7 @@ def login(request):
 
         # 如果密码错误
         if not check_password(password_post, user.password):
-            log('WARNING', 'Password Uncorrect', username_post, status_post, user.password_incorrect_time)
+            log('WARNING', 'Password Uncorrect', username_post, status_post)
             return render(request, 'index/loginfailed.html')
 
         # 如果身份错误
@@ -107,8 +107,16 @@ def getpage(request):
 
 
 #####  教师  #####
+
+def notice_page(request, user):
+    notice = Notice.objects.latest('post_time')
+    return render(request, 'main/teacher/notice/notice.html', locals())
+
+
 def user_info_user_info(request, user):
-    status_post = request.POST['status']
+    # 玄学bug
+    # 没有这行修改后出生日期不显示 其他项没问题
+    birth_date = str(user.birth_date)
     return render(request, 'main/teacher/user_info/user_info.html', locals())
 
 
@@ -757,27 +765,27 @@ def data_import(request, user):
 def data_import_a(request, user):
     import xlrd
     workbook = xlrd.open_workbook('/users/vicchen/downloads/data.xlsx')
-
     '''
     # 导入教师信息
     worksheet = workbook.sheet_by_name('User')
     nrows = worksheet.nrows
 
     for r in range(0, nrows):
+        try:
+            value = worksheet.row_values(r, start_colx=0, end_colx=2)
+            name = value[0]
+            teacher_id = str(value[1])
 
-    try:
-        value = worksheet.row_values(r, start_colx=0, end_colx=2)
-        name = value[0]
-        teacher_id = str(value[1])
+            generater = md5(teacher_id.encode("utf8"))
+            password = generater.hexdigest()
+            password = make_password(password)
 
-        generater = md5(teacher_id.encode("utf8"))
-        password = generater.hexdigest()
-
-        new = User(id=teacher_id, name=name, password=password, department_id='471', status=u'教师')
-        new.save()
-    except:
-        print(value)
-
+            new = User(id=teacher_id, name=name, password=password, department_id='471', status=u'教师')
+            new.save()
+        except:
+            print(value)
+    '''
+    '''
     # 导入TheoryCourse
     worksheet = workbook.sheet_by_name('TheoryCourse')
     nrows = worksheet.nrows
@@ -789,11 +797,14 @@ def data_import_a(request, user):
         try:
             value = worksheet.row_values(r, start_colx=0, end_colx=5)
             name = value[0]
+            name = name.strip()
             course_id = value[1]
-            period = value[2]
+            teacher_name = value[2]
             teacher_id = value[3]
 
             teacher = User.objects.get(id=teacher_id)
+            if teacher_name != teacher.name:
+                raise Exception
 
             new = TheoryCourse(id=str(curr_time) + str(teacher_id),
                                course_id=course_id,
@@ -802,17 +813,18 @@ def data_import_a(request, user):
                                semester=1,
                                teacher=teacher,
                                department_id='471',
-                               classes='20160301,20160302',
-                               student_sum=100,
-                               plan_period=period,
-                               final_period=period,
+                               classes='20160101',
+                               student_sum=0,
+                               plan_period=0,
+                               final_period=0,
                                attribute=1,
-                               audit_status=0
-                               )
+                               audit_status=0,
+                               workload=0)
             new.save()
-        except:
+        except Exception:
             print(value)
-
+    '''
+    '''
     # 导入ExperimentCourse
     worksheet = workbook.sheet_by_name('ExperimentCourse')
     nrows = worksheet.nrows
@@ -825,10 +837,12 @@ def data_import_a(request, user):
             value = worksheet.row_values(r, start_colx=0, end_colx=5)
             name = value[0]
             course_id = value[1]
-            period = value[2]
+            teacher_name = value[2]
             teacher_id = value[3]
 
             teacher = User.objects.get(id=teacher_id)
+            if teacher_name != teacher.name:
+                raise Exception
 
             new = ExperimentCourse(id=str(curr_time) + str(teacher_id),
                                    course_id=course_id,
@@ -837,18 +851,18 @@ def data_import_a(request, user):
                                    semester=1,
                                    teacher=teacher,
                                    department_id='471',
-                                   classes='20160301,20160302',
+                                   classes='20160301',
                                    student_sum=100,
-                                   plan_period=period,
-                                   final_period=period,
+                                   plan_period=0,
+                                   final_period=0,
                                    attribute=1,
                                    audit_status=0
                                    )
             new.save()
         except:
             print(value)
-    '''
 
+    '''
     '''
     teacher_list = User.objects.all()
     i = 0
@@ -861,11 +875,12 @@ def data_import_a(request, user):
         teacher.password = make_password(password)
         teacher.save()
         i += 1
+        
     '''
-
+    '''
     course_list = TheoryCourse.objects.all()
     for course in course_list:
         course.workload = theory_course_workload_count(course)
         course.save()
-
+    '''
     return render(request, "main/admin/data_import/data_import.html", locals())

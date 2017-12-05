@@ -1,0 +1,14 @@
+{% load staticfiles %}
+<script src={% static "main/teacher/notice/notice.js" %}></script>
+
+
+<div class="main_content">
+
+    <div class="content_title">公告</div>
+
+    <div class="notice">
+        <div class="notice_div">
+            {{ notice.content }}
+        </div>
+    </div>
+</div>

@@ -9,26 +9,26 @@
     <div class="blur_area" style="margin: 30px auto 0">
 
         <div class="single_line_item">
-                <div class="single_line_item_title">当前学年</div>
-                <div class="single_line_item_value">
-                    <button type="button" id="year_pre" class="pre"> <</button>
-                    <p id="year">{{ current_year }}-{{ current_year|add:1 }}学年</p>
-                    <button type="button" id="year_next" class="next"> ></button>
-                </div>
+            <div class="single_line_item_title">当前学年</div>
+            <div class="single_line_item_value">
+                <button type="button" id="year_pre" class="pre"> <</button>
+                <p id="year">{{ current_year }}-{{ current_year|add:1 }}学年</p>
+                <button type="button" id="year_next" class="next"> ></button>
             </div>
+        </div>
 
-            <div class="single_line_item">
-                <div class="single_line_item_title">当前学期</div>
-                <div class="single_line_item_value">
-                    <button type="button" class="semester_change pre"> <</button>
-                    {% if current_semester == 1 %}
-                        <p id="semester">第一学期</p>
-                    {% elif current_semester == 2 %}
-                        <p id="semester">第二学期</p>
-                    {% endif %}
-                    <button type="button" class="semester_change next"> ></button>
-                </div>
+        <div class="single_line_item">
+            <div class="single_line_item_title">当前学期</div>
+            <div class="single_line_item_value">
+                <button type="button" class="semester_change pre"> <</button>
+                {% if current_semester == 1 %}
+                    <p id="semester">第一学期</p>
+                {% elif current_semester == 2 %}
+                    <p id="semester">第二学期</p>
+                {% endif %}
+                <button type="button" class="semester_change next"> ></button>
             </div>
+        </div>
 
         <form id="global_settings_form" method="post" action="/upload" hidden>
             {% csrf_token %}
@@ -40,7 +40,7 @@
 
         </form>
 
-        <div class="content_button" id="global_settings_form_submit" style="margin: 50px auto; float: none;">保存</div>
+        <div class="content_button" id="global_settings_form_submit" style="margin: 50px auto; float: none;" hidden>保存</div>
     </div>
 
 </div>

@@ -38,15 +38,25 @@ def upload(request):
 # 比如系主任审核通过时 教师正好更改了数据 微小的时间差导致审核通过的不是系主任看到的数据
 
 def user_info(request, user):
+    department = request.POST['department']
+    department = Department.objects.get(name=department)
+
+    user.department = department
+    user.title = request.POST['title']
+    user.birth_date = request.POST['birth_date']
+    user.graduate = request.POST['graduate']
+    user.major = request.POST['major']
     user.phone_number = request.POST['phone_number']
     user.email = request.POST['email']
     user.save()
-    return render(request, 'main/teacher/user_info/user_info.html', locals())
+    return user_info_user_info(request, user)
 
 
 def change_password(request, user):
-    if user.password == request.POST['original_password']:
-        user.password = request.POST['new_password']
+    original_password = request.POST['original_password']
+    new_password = request.POST['new_password']
+    if check_password(original_password, user.password):
+        user.password = make_password(new_password)
         user.save()
         return render(request, 'main/utilities/upload_success.html')
     else:
@@ -117,7 +127,6 @@ def theory_course_delete(request, user):
 # Experiment Course
 
 def experiment_course_add(request, user):
-
     id = ''
     if request.POST['id']:
         id = request.POST['id']
@@ -178,7 +187,6 @@ def experiment_course_delete(request, user):
 # Pratice Course
 
 def pratice_course_add(request, user):
-
     id = ''
     if request.POST['id']:
         id = request.POST['id']
@@ -236,7 +244,6 @@ def pratice_course_delete(request, user):
 
 
 def teaching_achievement_add(request, user):
-
     id = ''
     if request.POST['project_id']:
         id = request.POST['project_id']
@@ -412,7 +419,7 @@ def teacher_add(request, user):
                department=department,
                status=status,
                password=password,
-               gradute=request.POST['graduate'],
+               graduate=request.POST['graduate'],
                major=request.POST['major'],
                phone_number=request.POST['phone_number'],
                email=request.POST['email'], )
@@ -436,9 +443,11 @@ def teacher_delete(request, user):
 # Class Management
 
 def class_add(request, user):
+    teacher = None
     teacher_info = request.POST['teacher']
-    teacher_id = teacher_info.split(' ')[1]
-    teacher = User.objects.get(id=teacher_id)
+    if teacher_info != '':
+        teacher_id = teacher_info.split(' ')[1]
+        teacher = User.objects.get(id=teacher_id)
     department = Department.objects.get(name=request.POST['department'])
     new = Class(id=request.POST['class_id'],
                 name=request.POST['name'],

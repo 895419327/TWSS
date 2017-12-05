@@ -22,6 +22,12 @@ $(document).ready(function () {
     // TODO: 将属于各个身份的功能函数写入相应的身份html里 不要放在公用的main.js里
     // TODO: 服务器需检查权限 防止未登录直接发送表单得到数据
     // Teacher
+
+    $('#notice_title').click(function () {
+        $('.main_content').prepend('<div class="loading">正在加载...</div>');
+        MyAjax_Get('/getpage', 'notice_page');
+    });
+
     $('#workload_count_title').click(function () {
         $('.main_content').prepend('<div class="loading">正在加载...</div>');
         MyAjax_Get('/getpage', 'teacher_workload_count');

@@ -22,13 +22,28 @@
         </div>
 
         <div class="single_line_item">
-            <div class="single_line_item_title">职称</div>
-            <div class="single_line_item_value">{{ user.title }}</div>
+            <div class="single_line_item_title">所属系</div>
+            <div class="single_line_item_value" id="user_info_department_selector" name="department">{{ user.department.name }}</div>
         </div>
 
         <div class="single_line_item">
-            <div class="single_line_item_title">所属系</div>
-            <div class="single_line_item_value">{{ user.department.name }}</div>
+            <div class="single_line_item_title">职称</div>
+            <div class="single_line_item_value single_line_item_can_modify" name="title">{{ user.title }}</div>
+        </div>
+
+        <div class="single_line_item">
+            <div class="single_line_item_title">出生日期</div>
+            <div class="single_line_item_value single_line_item_can_modify" name="birth_date">{{ birth_date }}</div>
+        </div>
+
+        <div class="single_line_item">
+            <div class="single_line_item_title">毕业院校</div>
+            <div class="single_line_item_value single_line_item_can_modify" name="graduate">{{ user.graduate }}</div>
+        </div>
+
+        <div class="single_line_item">
+            <div class="single_line_item_title">专业</div>
+            <div class="single_line_item_value single_line_item_can_modify" name="major">{{ user.major }}</div>
         </div>
 
         <div class="single_line_item">
@@ -43,6 +58,6 @@
 
     </form>
 
-    <div class="content_button" id="user_info_modify">修改</div>
+    <div class="content_button" id="user_info_modify" style="margin: 50px auto 0; float: none;">修改</div>
 
 </div>

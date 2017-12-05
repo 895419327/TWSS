@@ -47,7 +47,7 @@ class User(models.Model):
     # 出生日期 (yyyy-mm-dd)
     birth_date = models.DateField(default='1949-10-01', null=True)
     # 毕业院校
-    gradute = models.CharField(max_length=16, null=True)
+    graduate = models.CharField(max_length=16, null=True)
     # 专业
     major = models.CharField(max_length=16, null=True)
     # 职称
@@ -96,6 +96,22 @@ class Class(models.Model):
         return self.id + ' ' + self.name
 
 
+class Notice(models.Model):
+    # 公告内容
+    content = models.TextField(max_length=512, null=True)
+    # 发布时间
+    post_time = models.DateTimeField()
+    # 发布者
+    post_by = models.ForeignKey(User)
+
+    class Meta:
+        # 数据表名
+        db_table = 'TWSS_Notice'
+
+    def __unicode__(self):
+        return self.post_by.name + ' ' + str(self.time) + ' ' + self.content
+
+
 # 课程表 父类
 class Course(models.Model):
     # unique id
@@ -131,7 +147,6 @@ class Course(models.Model):
     reject_reason = models.CharField(max_length=64, null=True)
     # 工作量
     workload = models.FloatField(default=0)
-
 
     class Meta:
         # 虚类

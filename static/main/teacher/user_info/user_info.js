@@ -16,12 +16,28 @@ $(document).ready(function () {
                 var data = $(this).text();
                 var name = $(this).attr('name');
                 var width = $(this).css('width');
-                $(this).html("<input class='single_line_item_modify_area' "+ "value=" + data +" name=" + name + ">");
+                $(this).html("<input class='single_line_item_modify_area' " + "value=" + data + " name=" + name + ">");
 
-                $(this).css('width', width);
-                $(this).children().css('width', width);
                 // 这里要手动设置width避免td自动调整宽度
+                // $(this).css('width', width);
+                $(this).children().css('width', width);
             });
+
+
+            var department_selector = $('#user_info_department_selector');
+
+            var departments = ["生物工程", "生物技术", "生物信息"];
+            var current_department = department_selector.text();
+            for (var d = 0; d < 3; d++) {
+                if (current_department === departments[d])
+                    departments.splice(d,1);
+            }
+            department_selector.html("<select name='department'>" +
+                "<option>" + current_department + "</option>" +
+                "<option>" + departments[0] + "</option>" +
+                "<option>" + departments[1] + "</option>" +
+                "</select>");
+
 
             // 点击'修改'时模拟点击选择第一个可修改的文本框
             $('.single_line_item_modify_area:first').trigger('select');
@@ -34,7 +50,6 @@ $(document).ready(function () {
             modifying = false;
             modify_button.text('修改');
             modify_button.css('color', 'black');
-            // 将数据储存为json字符串
 
             var form = $('#user_info_form');
             form.ajaxSubmit({
