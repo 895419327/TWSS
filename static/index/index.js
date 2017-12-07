@@ -104,9 +104,5 @@ $(document).ready(function () {
         password.val(hex_md5(password.val()));
         // 提交
         $('#login_form').submit();
-
-
     });
-
-
 });

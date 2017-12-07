@@ -1,14 +1,23 @@
 {% load staticfiles %}
-<script src={% static "main/teacher/notice/notice.js" %}></script>
-
 
 <div class="main_content">
 
     <div class="content_title">公告</div>
 
-    <div class="notice">
-        <div class="notice_div">
+    <div class="notice_area">
+        <div class="notice">
             {{ notice.content }}
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        var notice = $('.notice');
+        notice.each(function () {
+            var str = $(this).html();
+            str = str.replace(/\n/g, '<br>');
+            $(this).html(str);
+        });
+    });
+</script>

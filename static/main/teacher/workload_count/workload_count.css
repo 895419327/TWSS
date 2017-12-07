@@ -2,6 +2,7 @@
     width: 1030px;
     min-height: 600px;
     height: 100%;
+    background: red;
 }
 
 .workload_count_item {
@@ -33,21 +34,23 @@
 }
 
 .workload_count_table th {
+    height: 30px;
     width: 300px;
     background: #ffffff;
 }
 
 .workload_count_table td {
+    height: 30px;
     width: 600px;
     background: #ffffff;
 }
 
 #workload_count_item_title_teaching {
-    height: 356px;
-    line-height: 324px;
+    height: 188px;
+    line-height: 188px;
 }
 
 #workload_count_item_title_research {
-    height: 447px;
-    line-height: 408px;
+    height: 238px;
+    line-height: 238px;
 }

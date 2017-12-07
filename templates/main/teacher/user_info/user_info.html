@@ -22,6 +22,11 @@
         </div>
 
         <div class="single_line_item">
+            <div class="single_line_item_title">性别</div>
+            <div class="single_line_item_value" id="user_info_gender_selector" name="gender">{{ user.gender | gender_tostr }}</div>
+        </div>
+
+        <div class="single_line_item">
             <div class="single_line_item_title">所属系</div>
             <div class="single_line_item_value" id="user_info_department_selector" name="department">{{ user.department.name }}</div>
         </div>

@@ -41,6 +41,12 @@ def user_info(request, user):
     department = request.POST['department']
     department = Department.objects.get(name=department)
 
+    gender = 0
+    if request.POST['gender'] == u'男':
+        gender = 1
+    elif request.POST['gender'] == u'女':
+        gender = 2
+    user.gender = gender
     user.department = department
     user.title = request.POST['title']
     user.birth_date = request.POST['birth_date']
@@ -364,6 +370,15 @@ def paper_guide_delete(request, user):
     return workload_input_paper_guide(request, user)
 
 
+# Notice Setting
+
+def notice_setting(request, user):
+    print(request.POST)
+    notice = Notice.objects.get(id=1)
+    notice.content = request.POST['notice_content']
+    notice.save()
+    return notice_settings(request, user)
+
 # Teacher Management
 
 # FIXME: MEDIUM 如果系主任修改了自己的id
@@ -396,20 +411,20 @@ def teacher_add(request, user):
     department = Department.objects.get(name=request.POST['department'])
 
     # 教务员修改系主任信息后 系主任status会被重置为'教师' 需手动加上
-    status = ''
+    status = u'教师'
     departments = Department.objects.all()
     for d in departments:
         if d.head_of_department == request.POST['teacher_id']:
             status = u'教师,系主任'
             break
-        else:
-            status = u'教师'
 
     gender = request.POST['gender']
     if gender == u'男':
         gender = 1
-    else:
+    elif gender == u'女':
         gender = 2
+    else:
+        gender = 0
 
     new = User(id=id,
                name=request.POST['name'],
@@ -441,6 +456,8 @@ def teacher_delete(request, user):
 
 
 # Class Management
+
+# TODO: 大一生物科学类分班
 
 def class_add(request, user):
     teacher = None

@@ -1,0 +1,33 @@
+{% load staticfiles %}
+<script src={% static "main/dean/notice_settings/notice_settings.js" %}></script>
+
+
+<div class="main_content" id="global_settings_content">
+
+    <div class="content_title">公告设置</div>
+
+    <div class="blur_area" style="margin: 30px auto 0">
+
+        <div class="notice_area">
+
+            <div class="notice">{{ notice.content }}</div>
+
+        </div>
+
+        <div class="notice_editor_area" hidden>
+            <form id="notice_edit_form" method="post" action="/upload">
+                {% csrf_token %}
+                <input type="hidden" name="username" value="{{ user.id }}">
+                <input type="hidden" name="requestfor" value="notice_setting">
+
+                <textarea id="notice_editor" name="notice_content" wrap="hard">
+                </textarea>
+            </form>
+
+        </div>
+
+        <div class="content_button" id="notice_edit_button" style="float: none; margin: 50px auto 0">修改</div>
+
+    </div>
+
+</div>

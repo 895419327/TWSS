@@ -25,7 +25,6 @@ $(document).ready(function () {
 
 
             var department_selector = $('#user_info_department_selector');
-
             var departments = ["生物工程", "生物技术", "生物信息"];
             var current_department = department_selector.text();
             for (var d = 0; d < 3; d++) {
@@ -36,6 +35,19 @@ $(document).ready(function () {
                 "<option>" + current_department + "</option>" +
                 "<option>" + departments[0] + "</option>" +
                 "<option>" + departments[1] + "</option>" +
+                "</select>");
+
+            var gender_selector = $('#user_info_gender_selector');
+            var genders = ["未记录", "男", "女"];
+            var current_gender = gender_selector.text();
+            for (var d = 0; d < 3; d++) {
+                if (current_gender === genders[d])
+                    genders.splice(d,1);
+            }
+            gender_selector.html("<select name='gender'>" +
+                "<option>" + current_gender + "</option>" +
+                "<option>" + genders[0] + "</option>" +
+                "<option>" + genders[1] + "</option>" +
                 "</select>");
 
 

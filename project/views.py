@@ -74,6 +74,7 @@ def login(request):
         unique_code = generater.hexdigest()
 
         # 返回相应页面
+        notice = Notice.objects.get(id=1)
         if status_post == u'教师':
             return render(request, 'main/teacher/teacher.html', locals())
         if status_post == u'系主任':
@@ -109,7 +110,7 @@ def getpage(request):
 #####  教师  #####
 
 def notice_page(request, user):
-    notice = Notice.objects.latest('post_time')
+    notice = Notice.objects.get(id=1)
     return render(request, 'main/teacher/notice/notice.html', locals())
 
 
@@ -371,7 +372,6 @@ def teacher_workload_count(request, user):
 
 
 # ##### 系主任 #####
-# TODO: 班级管理搜索功能  默认只显示当前四届
 # TODO: 考虑在系主任查看工作量统计时只统计已审核工作量
 
 
@@ -574,6 +574,12 @@ def global_settings(request, user):
     current_year = int(GlobalValue.objects.get(key='current_year').value)
     current_semester = int(GlobalValue.objects.get(key='current_semester').value)
     return render(request, 'main/dean/global_settings/global_settings.html', locals())
+
+
+# 公告设置
+def notice_settings(request, user):
+    notice = Notice.objects.get(id=1)
+    return render(request, 'main/dean/notice_settings/notice_settings.html', locals())
 
 
 # 专业管理
