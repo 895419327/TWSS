@@ -1,14 +1,14 @@
 $(document).ready(function () {
     var notice = $('.notice');
-    notice.each(function () {
-        var str = $(this).html();
-        str = str.replace(/\n/g, '<br>');
-        $(this).html(str);
-    });
+    var text = notice.html();
+    text = text.replace(/\n/g, '<br>');
+    text = text.replace(/-&gt;/g, '->');
+    notice.html(text);
 
     $('#notice_edit_button').click(function () {
         var text = notice.html();
         text = text.replace(/<br>/g, '\n');
+        text = text.replace(/-&gt;/g, '->');
         notice.hide();
         $('#notice_editor').text(text);
         $('.notice_editor_area').show();

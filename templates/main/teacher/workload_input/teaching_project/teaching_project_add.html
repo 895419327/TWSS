@@ -76,7 +76,7 @@
                 <select name="level" id="project_level">
                     {% if modified_project %}
                         <option>{{ modified_project.level }}</option>
-                        {% if modified_project.type != '工程实践教育类' %}
+                        {% if modified_project.type != '工程实践教育中心' %}
                             {% if modified_project.level == '国家级' %}
                                 <option>省部级</option>
                                 <option>校级</option>

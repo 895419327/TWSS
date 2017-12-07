@@ -8,30 +8,24 @@
 
     <div class="project_item">
         <div class="project_item_title">理论课</div>
-        <div>W = 6 + T × K （T为该课计划学时数，K为系数见下表）</div>
+        <div>W = T * K （T为该课实际学时数，K为系数见下表，R为该课学生数）</div>
         <table>
             <tr>
                 <th width="120px"></th>
-                <th width="176px"><=40人</th>
-                <th width="176px">41-85人</th>
-                <th width="176px">86-125人</th>
-                <th width="176px">126-200人</th>
-                <th width="176px">>=200人</th>
+                <th width="176px">R<=60人</th>
+                <th width="176px">R>60人</th>
             </tr>
             <tr>
                 <th>K值</th>
                 <td>1.0</td>
-                <td>1.6</td>
-                <td>2.3</td>
-                <td>3.0</td>
-                <td>3.6</td>
+                <td>1 + 0.6 * Ln(R/60)</td>
             </tr>
         </table>
     </div>
 
     <div class="project_item">
         <div class="project_item_title">实验课</div>
-        <div>W = R × X × L （R为该课学生数，X为计划学时数，L为实验类型系数见下表）</div>
+        <div>W = R × X × L （R为该课学生数，X为实际学时数，L为实验类型系数见下表）</div>
         <table>
             <tr>
                 <th width="120px"></th>
@@ -50,7 +44,7 @@
 
     <div class="project_item">
         <div class="project_item_title">实习 / 实训课</div>
-        <div>W = R × Z × S / M （R为该课学生数，X为计划学时数，S为实践类型系数见下表）</div>
+        <div>W = R × Z × S / M （R为该课学生数，X为实际天数，S为实践类型系数见下表）</div>
         <table>
             <tr>
                 <th width="120px"></th>

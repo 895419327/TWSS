@@ -15,7 +15,7 @@ $(document).ready(function () {
         var type = $(this).val();
         var level_select = $('#project_level');
         switch (type) {
-            case '工程实践教育类':
+            case '工程实践教育中心':
                 level_select.html(
                     "<option>国家级</option>"
                 ); break;

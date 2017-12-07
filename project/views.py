@@ -300,7 +300,7 @@ def workload_input_teaching_project_add(request, user):
         semester = location[1]
     if request.POST['request_data']:
         modified_project = TeachingProject.objects.get(id=request.POST['request_data'])
-    type_list = [u'专业、团队及实验中心类', u'课程类', u'工程实践教育类', u'教学名师', u'大学生创新创业训练']
+    type_list = [u'专业、团队及实验中心类', u'课程类', u'工程实践教育中心', u'教学名师', u'大学生创新创业训练']
     return render(request, 'main/teacher/workload_input/teaching_project/teaching_project_add.html', locals())
 
 

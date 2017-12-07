@@ -141,8 +141,11 @@
                             {% elif modified_project.rank == '二等' %}
                                 <option>特等</option>
                                 <option>一等</option>
-
                             {% endif %}
+                        {% else %}
+                            <option>特等</option>
+                            <option>一等</option>
+                            <option>二等</option>
                         {% endif %}
                     {% else %}
                         <option>特等</option>

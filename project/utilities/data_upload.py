@@ -256,14 +256,16 @@ def teaching_achievement_add(request, user):
     else:
         id = str(int(time.time())) + user.id
 
-    type = request.POST['type']
-    rank = request.POST['rank']
-    if type != u'教学成果':
+    rank = ''
+    if 'rank' in request.POST:
+        rank = request.POST['rank']
+    project_type = request.POST['type']
+    if project_type != u'教学成果':
         rank = ''
 
     new = TeachingAchievement(id=id,
                               name=request.POST['project_name'],
-                              type=type,
+                              type=project_type,
                               level=request.POST['level'],
                               rank=rank,
                               year=request.POST['year'][:4],
@@ -373,7 +375,6 @@ def paper_guide_delete(request, user):
 # Notice Setting
 
 def notice_setting(request, user):
-    print(request.POST)
     notice = Notice.objects.get(id=1)
     notice.content = request.POST['notice_content']
     notice.save()

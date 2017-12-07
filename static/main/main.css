@@ -243,19 +243,19 @@ select {
 .notice_area {
     margin: 0 auto;
     padding: 0 50px;
-    font-size: 22px;
+    font-size: 20px;
 }
 
 .notice {
     margin: 0 auto;
-    line-height: 38px;
+    line-height: 32px;
 }
 
-#notice_editor{
+#notice_editor {
     width: 1000px;
     height: 400px;
     margin: 0 auto;
-    font-size: 22px;
+    font-size: 20px;
     resize: none;
 }
 

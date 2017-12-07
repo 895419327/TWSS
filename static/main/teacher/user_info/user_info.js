@@ -38,16 +38,15 @@ $(document).ready(function () {
                 "</select>");
 
             var gender_selector = $('#user_info_gender_selector');
-            var genders = ["未记录", "男", "女"];
+            var genders = ["男", "女"];
             var current_gender = gender_selector.text();
-            for (var d = 0; d < 3; d++) {
+            for (var d = 0; d < 2; d++) {
                 if (current_gender === genders[d])
                     genders.splice(d,1);
             }
             gender_selector.html("<select name='gender'>" +
                 "<option>" + current_gender + "</option>" +
                 "<option>" + genders[0] + "</option>" +
-                "<option>" + genders[1] + "</option>" +
                 "</select>");
 
 

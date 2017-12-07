@@ -85,9 +85,11 @@ $(document).ready(function () {
         // 检查账户名密码是否为空
         if (username.val() === '') {
             warnings.text('用户名不能为空');
+            return;
         }
         if (password.val() === '') {
             warnings.text('密码不能为空');
+            return;
         }
 
         // 校验验证码
@@ -98,6 +100,7 @@ $(document).ready(function () {
             warnings.text('验证码错误');
             //刷新验证码
             captcha_img.trigger('click');
+            return;
         }
 
         // md5加密密码
