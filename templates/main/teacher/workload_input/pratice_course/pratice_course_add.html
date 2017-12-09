@@ -136,9 +136,9 @@
                 {% if class_list %}
                     {% for clas in class_list %}
                         {% if clas.id in classes_checked %}
-                            <div><input type="checkbox" name="{{ clas.id }}" checked/> {{ clas.name }}</div>
+                            <div><input type="checkbox" class="class_checkbox" name="{{ clas.id }}" checked/> {{ clas.name }}</div>
                         {% else %}
-                            <div><input type="checkbox" name="{{ clas.id }}"/> {{ clas.name }}</div>
+                            <div><input type="checkbox" class="class_checkbox" name="{{ clas.id }}"/> {{ clas.name }}</div>
                         {% endif %}
                     {% endfor %}
                 {% endif %}

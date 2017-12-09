@@ -3,6 +3,7 @@
 import os
 import time
 import datetime
+from hashlib import md5
 
 from TWSS.settings import BASE_DIR
 
@@ -72,13 +73,11 @@ def change_password(request, user):
 # Theory Course
 
 def theory_course_add(request, user):
-    id = ''
     if request.POST['id']:
-        id = request.POST['id']
+        course_id = request.POST['id']
     else:
-        id = str(int(time.time())) + user.id
+        course_id = str(int(time.time())) + user.id
 
-    semester = 0
     if request.POST['semester'] == u'第一学期':
         semester = 1
     elif request.POST['semester'] == u'第二学期':
@@ -102,7 +101,7 @@ def theory_course_add(request, user):
     elif request.POST['course_attribute'] == u'限选':
         attribute = 3
 
-    new = TheoryCourse(id=id,
+    new = TheoryCourse(id=course_id,
                        name=request.POST['course_name'],
                        course_id=request.POST['course_id'],
                        year=request.POST['year'][:4],
@@ -121,8 +120,8 @@ def theory_course_add(request, user):
 
 
 def theory_course_delete(request, user):
-    id = request.POST['request_data']
-    course = TheoryCourse.objects.get(id=id)
+    course_id = request.POST['request_data']
+    course = TheoryCourse.objects.get(id=course_id)
     if course.audit_status == 2:
         return False
     else:
@@ -133,13 +132,11 @@ def theory_course_delete(request, user):
 # Experiment Course
 
 def experiment_course_add(request, user):
-    id = ''
     if request.POST['id']:
-        id = request.POST['id']
+        course_id = request.POST['id']
     else:
-        id = str(int(time.time())) + user.id
+        course_id = str(int(time.time())) + user.id
 
-    semester = 0
     if request.POST['semester'] == u'第一学期':
         semester = 1
     elif request.POST['semester'] == u'第二学期':
@@ -163,7 +160,7 @@ def experiment_course_add(request, user):
     elif request.POST['course_attribute'] == u'开放实验':
         attribute = 3
 
-    new = ExperimentCourse(id=id,
+    new = ExperimentCourse(id=course_id,
                            name=request.POST['course_name'],
                            course_id=request.POST['course_id'],
                            year=request.POST['year'][:4],
@@ -181,8 +178,8 @@ def experiment_course_add(request, user):
 
 
 def experiment_course_delete(request, user):
-    id = request.POST['request_data']
-    course = ExperimentCourse.objects.get(id=id)
+    course_id = request.POST['request_data']
+    course = ExperimentCourse.objects.get(id=course_id)
     if course.audit_status == 2:
         return False
     else:
@@ -193,13 +190,11 @@ def experiment_course_delete(request, user):
 # Pratice Course
 
 def pratice_course_add(request, user):
-    id = ''
     if request.POST['id']:
-        id = request.POST['id']
+        course_id = request.POST['id']
     else:
-        id = str(int(time.time())) + user.id
+        course_id = str(int(time.time())) + user.id
 
-    semester = 0
     if request.POST['semester'] == u'第一学期':
         semester = 1
     elif request.POST['semester'] == u'第二学期':
@@ -223,7 +218,7 @@ def pratice_course_add(request, user):
     elif request.POST['course_attribute'] == u'外地生产实习/毕业实习/毕业设计(论文)':
         attribute = 3
 
-    new = PraticeCourse(id=id,
+    new = PraticeCourse(id=course_id,
                         name=request.POST['course_name'],
                         course_id=request.POST['course_id'],
                         year=request.POST['year'][:4],
@@ -240,8 +235,8 @@ def pratice_course_add(request, user):
 
 
 def pratice_course_delete(request, user):
-    id = request.POST['request_data']
-    course = PraticeCourse.objects.get(id=id)
+    course_id = request.POST['request_data']
+    course = PraticeCourse.objects.get(id=course_id)
     if course.audit_status == 2:
         return False
     else:
@@ -250,11 +245,10 @@ def pratice_course_delete(request, user):
 
 
 def teaching_achievement_add(request, user):
-    id = ''
     if request.POST['project_id']:
-        id = request.POST['project_id']
+        project_id = request.POST['project_id']
     else:
-        id = str(int(time.time())) + user.id
+        project_id = str(int(time.time())) + user.id
 
     rank = ''
     if 'rank' in request.POST:
@@ -263,7 +257,7 @@ def teaching_achievement_add(request, user):
     if project_type != u'教学成果':
         rank = ''
 
-    new = TeachingAchievement(id=id,
+    new = TeachingAchievement(id=project_id,
                               name=request.POST['project_name'],
                               type=project_type,
                               level=request.POST['level'],
@@ -287,13 +281,12 @@ def teaching_achievement_delete(request, user):
 
 
 def teaching_project_add(request, user):
-    id = ''
     if request.POST['project_id']:
-        id = request.POST['project_id']
+        project_id = request.POST['project_id']
     else:
-        id = str(int(time.time())) + user.id
+        project_id = str(int(time.time())) + user.id
 
-    new = TeachingProject(id=id,
+    new = TeachingProject(id=project_id,
                           name=request.POST['project_name'],
                           type=request.POST['type'],
                           level=request.POST['level'],
@@ -316,13 +309,12 @@ def teaching_project_delete(request, user):
 
 
 def competition_guide_add(request, user):
-    id = ''
     if request.POST['project_id']:
-        id = request.POST['project_id']
+        project_id = request.POST['project_id']
     else:
-        id = str(int(time.time())) + user.id
+        project_id = str(int(time.time())) + user.id
 
-    new = CompetitionGuide(id=id,
+    new = CompetitionGuide(id=project_id,
                            name=request.POST['project_name'],
                            type=request.POST['type'],
                            level=request.POST['level'],
@@ -346,13 +338,12 @@ def competition_guide_delete(request, user):
 
 
 def paper_guide_add(request, user):
-    id = ''
     if request.POST['project_id']:
-        id = request.POST['project_id']
+        project_id = request.POST['project_id']
     else:
-        id = str(int(time.time())) + user.id
+        project_id = str(int(time.time())) + user.id
 
-    new = PaperGuide(id=id,
+    new = PaperGuide(id=project_id,
                      student=request.POST['student'],
                      year=request.POST['year'][:4],
                      teacher=user,
@@ -392,17 +383,10 @@ def notice_setting(request, user):
 #               数据库查无此人  于是无法正确加载页面
 #               触发条件过于严苛 暂不修复
 
-# FIXME: URGENT 如果系主任修改了其他教师的id
-#               目前逻辑无法迁移密码 会默认将手机号设为密码
-#               导致无法正常登陆
-#               紧急解决方案：应在修改界面予以提醒
-# TODO:         后期应重写逻辑 或 考虑给User表增加一个无法被任何用户修改的id
-
 def teacher_add(request, user):
-    id = request.POST['teacher_id']
+    teacher_id = request.POST['teacher_id']
     # 默认使用教职工号作为密码
-    password = id
-    from hashlib import md5
+    password = teacher_id
     generater = md5(password.encode("utf8"))
     password = generater.hexdigest()
     password = make_password(password)
@@ -431,7 +415,7 @@ def teacher_add(request, user):
     else:
         gender = 0
 
-    new = User(id=id,
+    new = User(id=teacher_id,
                name=request.POST['name'],
                gender=gender,
                birth_date=request.POST['birth_date'],

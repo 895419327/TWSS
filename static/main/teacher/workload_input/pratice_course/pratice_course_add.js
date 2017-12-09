@@ -29,6 +29,16 @@ $(document).ready(function () {
             }
         });
 
+        var isChooseClass = false;
+        $('.class_checkbox').each(function () {
+            if ($(this).is(':checked'))
+                isChooseClass = true;
+        });
+        if(!isChooseClass) {
+            alert('请选择班级');
+            return;
+        }
+
         if (isFull) {
             $('#location_year_post').val($('#location_year').val());
             $('#location_semester_post').val($('#location_semester').val());

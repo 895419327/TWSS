@@ -136,17 +136,17 @@ def get_classes_module(request, user):
     data = request.POST['request_data'].split(',')
     grade = data[0]
     course_type = data[1]
-    id = data[2]
+    course_id = data[2]
 
     class_list = Class.objects.filter(grade=grade)
     classes_checked = ''
-    if id:
+    if course_id:
         if course_type == 'TheoryCourse':
-            classes_checked = TheoryCourse.objects.get(id=id).classes.split(',')
+            classes_checked = TheoryCourse.objects.get(id=course_id).classes.split(',')
         elif course_type == 'ExperimentCourse':
-            classes_checked = ExperimentCourse.objects.get(id=id).classes.split(',')
+            classes_checked = ExperimentCourse.objects.get(id=course_id).classes.split(',')
         elif course_type == 'PraticeCourse':
-            classes_checked = PraticeCourse.objects.get(id=id).classes.split(',')
+            classes_checked = PraticeCourse.objects.get(id=course_id).classes.split(',')
 
     return render(request, "main/utilities/classes.html", locals())
 
