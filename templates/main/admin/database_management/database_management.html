@@ -20,6 +20,7 @@
             <form id="database_dump_form" method="post" action="/database" autocomplete="off">
                 {% csrf_token %}
                 <input type="hidden" name="username" value="{{ user.id }}">
+                <input type="hidden" name="identify_code" value="{{ user.identify_code }}">
                 <input type="hidden" name="requestfor" value="database_backup">
 
                 <input id="database_dump_filename" name="filename" placeholder="放空则默认为以日期命名">
@@ -85,6 +86,7 @@
     <form id="backup_operation_form" hidden method="post" action="/database" autocomplete="off">
         {% csrf_token %}
         <input name="username" value="{{ user.id }}">
+        <input type="hidden" name="identify_code" value="{{ user.identify_code }}">
         <input name="requestfor" id="backup_operation_form_requestfor">
 
         <input name="buckup_id" id="buckup_id">

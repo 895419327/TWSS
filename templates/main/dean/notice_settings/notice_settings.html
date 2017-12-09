@@ -18,6 +18,7 @@
             <form id="notice_edit_form" method="post" action="/upload">
                 {% csrf_token %}
                 <input type="hidden" name="username" value="{{ user.id }}">
+                <input type="hidden" name="identify_code" value="{{ user.identify_code }}">
                 <input type="hidden" name="requestfor" value="notice_setting">
 
                 <textarea id="notice_editor" name="notice_content" wrap="hard">

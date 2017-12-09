@@ -5,7 +5,7 @@ $(document).ready(function () {
         var original_password = $('#change_password_original_password');
 
         // 未输入原密码
-        if(original_password.val() === ''){
+        if (original_password.val() === '') {
             alert('请输入原密码');
             return;
         }
@@ -13,7 +13,7 @@ $(document).ready(function () {
         var new_password = $('#change_password_new_password');
         var new_password_check = $('#change_password_new_password_check');
 
-        if(new_password.val().length < 8){
+        if (new_password.val().length < 8) {
             alert('新密码过短,请至少设置8位以上的密码');
             return;
         }
@@ -28,14 +28,17 @@ $(document).ready(function () {
         new_password.val(hex_md5(new_password.val()));
 
         form.ajaxSubmit({
-            // target: '#message',
-            success: function () {
-                alert('修改成功！');
-                $('.change_password_item input').val('');
+            target: '.content_right',
+            success: function (data) {
+                if (data.indexOf('class="unsafe"') > 0)
+                    alert('修改失败');
+                else if (data.indexOf('class="original_password_error') > 0)
+                    alert('原密码错误!');
+                else
+                    alert('修改成功!')
             },
             error: function () {
-                alert('原密码错误！');
-                $('.change_password_item input').val('');
+                alert('连接服务器失败');
             }
         });
     });

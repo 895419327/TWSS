@@ -33,6 +33,7 @@
         <form id="global_settings_form" method="post" action="/upload" hidden>
             {% csrf_token %}
             <input name="username" value="{{ user.id }}">
+            <input name="identify_code" value="{{ user.identify_code }}">
             <input name="requestfor" value="global_setting">
 
             <input name="year" id="year_upload">

@@ -11,6 +11,7 @@
     <form id="theory_course_add_form" method="post" action="/upload" name="theory_course" autocomplete="off">
         {% csrf_token %}
         <input type="hidden" name="username" value="{{ user.id }}">
+        <input type="hidden" name="identify_code" value="{{ user.identify_code }}">
         <input type="hidden" name="requestfor" value="theory_course_add">
 
         <input hidden id="location_year_post" name="location_year_post">

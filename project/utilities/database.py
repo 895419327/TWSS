@@ -5,20 +5,19 @@ import time
 
 from TWSS.settings import BASE_DIR
 
+from django.shortcuts import render
 from django.http import HttpResponse, StreamingHttpResponse
 
+from project.utilities.identify import check_identity
 from project.views import database_management
 
 
 def database(request):
     request.encoding = 'utf-8'
 
-    from project.utilities.indentity import check_identity
-    check_return = check_identity(request)
-    if check_return == False:
-        return False  # 返回错误信息
-    else:
-        user = check_return
+    user = check_identity(request)
+    if not user:
+        return render(request, "main/utilities/unsafe.html")
 
     requestfor = request.POST['requestfor']
     if requestfor == 'database_backup':

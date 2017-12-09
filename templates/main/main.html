@@ -49,7 +49,7 @@
     <!--全局表单-->
     <form id="request_form" method="POST" autocomplete="off" hidden>
         {% csrf_token %}
-        <input name="unique_code" value={{ unique_code }}>
+        <input name="identify_code" value={{ identify_code }}>
         <input name="username" value="{{ username_post }}">
         <input name="status" value="{{ status_post }}">
         <input id="requestfor" name="requestfor" value="">

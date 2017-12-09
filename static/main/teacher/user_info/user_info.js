@@ -71,11 +71,14 @@ $(document).ready(function () {
                 var form = $('#user_info_form');
                 form.ajaxSubmit({
                     target: '.content_right',
-                    success: function () {
-                        alert('修改成功！');
+                    success: function (data) {
+                        if(data.indexOf('class="unsafe"') > 0)
+                            alert('修改失败');
+                        else
+                            alert('修改成功!')
                     },
                     error: function () {
-                        alert('error!')
+                        alert('连接服务器失败');
                     }
                 });
             }

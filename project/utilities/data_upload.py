@@ -11,27 +11,20 @@ from django.contrib.auth.hashers import make_password
 
 from project.views import *
 from project.models import *
+from project.utilities.identify import check_identity
 
 
 def upload(request):
     request.encoding = 'utf-8'
 
     # 校验身份
-    from project.utilities.indentity import check_identity
-    check_return = check_identity(request)
-    if check_return:
-        user = check_return
-    else:
-        return False
+    user = check_identity(request)
+    if not user:
+        return render(request, "main/utilities/unsafe.html")
 
     # 获取需求
     requestfor = request.POST['requestfor']
-    # try:
     return eval(requestfor)(request, user)
-    # except Exception:
-    #     log('WARNING', 'Login Fail', request.POST, repr(Exception))
-    #     print('data_upload.py upload() exception')
-    #     return False
 
 
 # TODO: 考虑在User表增加location 防假单
@@ -65,9 +58,10 @@ def change_password(request, user):
     if check_password(original_password, user.password):
         user.password = make_password(new_password)
         user.save()
-        return render(request, 'main/utilities/upload_success.html')
+        return user_info_change_password(request, user)
     else:
-        return False
+        original_password_error = True
+        return render(request, 'main/teacher/user_info/change_password.html', locals())
 
 
 # Theory Course

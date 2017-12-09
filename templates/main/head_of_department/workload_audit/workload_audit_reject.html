@@ -10,6 +10,7 @@
     <form id="workload_audit_reject_form" method="post" action="/upload" autocomplete="off">
         {% csrf_token %}
         <input type="hidden" name="username" value="{{ user.id }}">
+        <input type="hidden" name="identify_code" value="{{ user.identify_code }}">
         <input type="hidden" id="reject_form_requestfor" name="requestfor" value="workload_audit_reject">
 
         <input type="hidden" name="project_type" value="{{ project_type }}">

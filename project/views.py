@@ -10,7 +10,7 @@ from hashlib import md5
 from project.logs.log import log
 from project.models import *
 from project.utilities.search import *
-from project.utilities.indentity import check_identity
+from project.utilities.identify import check_identity
 from project.utilities.workload_count import *
 
 from TWSS.settings import BASE_DIR
@@ -44,6 +44,7 @@ def login(request):
         username_post = request.POST['username']
         password_post = request.POST['password']
         status_post = request.POST['status']
+        captcha = request.POST['captcha']
 
         # 检查是否存在此用户
         user = ''
@@ -67,10 +68,14 @@ def login(request):
         # 记录
         log('INFO', 'Login', user.name, user.id, status_post)
 
-        # 生成unique_code
-        unique_code_src = username_post + password_post + status_post
-        generater = md5(unique_code_src.encode("utf8"))
-        unique_code = generater.hexdigest()
+        # 生成并保存identify_code
+        identify_code_src = username_post + password_post + captcha
+        generater = md5(identify_code_src.encode("utf8"))
+        identify_code = generater.hexdigest()
+
+        user.identify_code = identify_code
+        user.save()
+
 
         # 返回相应页面
         notice = Notice.objects.get(id=1)
@@ -91,19 +96,13 @@ def login(request):
 def getpage(request):
     request.encoding = 'utf-8'
     # 校验身份
-    check_return = check_identity(request)
-    if check_return:
-        user = check_return
-    else:
-        return False
+    user = check_identity(request)
+    if not user:
+        return render(request, "main/utilities/unsafe.html")
 
     # 获取需求
     requestfor = request.POST['requestfor']
-    # try:
     return eval(requestfor)(request, user)
-    # except:
-    #     print('views.py getpage() exception')
-    #     return False
 
 
 #####  教师  #####
@@ -125,7 +124,6 @@ def user_info_change_password(request, user):
 
 
 # TODO: 选择班级后更新人数
-# TODO: 班级不选会出事
 
 def get_classes(grade=2017):
     class_list = Class.objects.filter(grade=grade)
@@ -603,6 +601,9 @@ def department_management_modify(request, user):
 
 # 教师管理
 # 系主任有权调用
+
+# TODO: 教师信息导出
+
 def teacher_management(request, user):
     status = user.status.split(',')
 

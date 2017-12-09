@@ -49,6 +49,7 @@
                     <form id="workload_statistics_export_form" hidden method="post" action="/export" autocomplete="off">
                         {% csrf_token %}
                         <input name="username" value="{{ user.id }}">
+                        <input type="hidden" name="identify_code" value="{{ user.identify_code }}">
                         <input name="requestfor" value="workload_statistics_export">
                         <input name="department_id" id="export_department">
                     </form>

@@ -12,6 +12,7 @@
               autocomplete="off">
             {% csrf_token %}
             <input type="hidden" name="username" value="{{ user.id }}">
+            <input type="hidden" name="identify_code" value="{{ user.identify_code }}">
             <input type="hidden" name="requestfor" value="workload_audit_experiment_course">
 
             <input hidden id="location_year" value="{{ year }}">

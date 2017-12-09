@@ -62,8 +62,8 @@ class User(models.Model):
     phone_number = models.CharField(max_length=11, null=True)
     # 邮箱
     email = models.CharField(max_length=32, null=True)
-    # salt
-    salt = models.CharField(max_length=16, null=True)
+    # identify_code
+    identify_code = models.CharField(max_length=64, null=True)
 
     class Meta:
         # 数据表名
@@ -76,7 +76,7 @@ class User(models.Model):
 # 班级表
 class Class(models.Model):
     # 班级编号
-    id = models.CharField(max_length=8, primary_key=True)
+    id = models.CharField(max_length=16, primary_key=True)
     # 班级名称
     name = models.CharField(max_length=16)
     # 所属系
