@@ -1,4 +1,5 @@
 {% extends "main/main.html" %}
+{% load staticfiles %}
 
 {% block content_left %}
 
@@ -14,4 +15,8 @@
 
     {% include "main/teacher/notice/notice.html" %}
 
+{% endblock %}
+
+{% block main_footer %}
+    <script src={% static "main/head_of_department/head_of_department.js" %}></script>
 {% endblock %}

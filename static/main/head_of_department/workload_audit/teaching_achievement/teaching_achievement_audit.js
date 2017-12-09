@@ -8,7 +8,7 @@ $(document).ready(function () {
         var id = this.id;
         id = id.substring(0, id.length - 5);
         var location = $('#location_year').val() + ','
-                     + $('#location_audit_status').val();
+            + $('#location_audit_status').val();
         MyAjax_Get('getpage', 'workload_audit_teaching_achievement_pass', id, null, location);
     });
 
@@ -22,8 +22,8 @@ $(document).ready(function () {
     $('.search_button').click(function () {
         $('#teaching_achievement_audit_search_form').ajaxSubmit({
             target: '.content_right',
-            error:function () {
-                alert('error!');
+            error: function () {
+                alert('连接服务器失败');
             }
         })
     });

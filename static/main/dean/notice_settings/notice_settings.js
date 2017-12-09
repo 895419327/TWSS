@@ -18,11 +18,14 @@ $(document).ready(function () {
         $('#notice_edit_save_button').click(function () {
             $('#notice_edit_form').ajaxSubmit({
                 target: '.content_right',
-                success: function () {
-                    alert('设置成功！');
+                success: function (data) {
+                    if (data.indexOf('class="unsafe"') > 0)
+                        alert('修改失败');
+                    else
+                        alert('设置成功!')
                 },
                 error: function () {
-                    alert('error!')
+                    alert('连接服务器失败');
                 }
             })
         });

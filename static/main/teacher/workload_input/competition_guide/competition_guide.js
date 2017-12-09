@@ -11,7 +11,7 @@ $(document).ready(function () {
     );
 
     $('.add_button').click(function () {
-        var location =  $('#location_year').val() + ',' + $('#location_semester').val();
+        var location = $('#location_year').val() + ',' + $('#location_semester').val();
         MyAjax_Get('getpage', 'workload_input_competition_guide_add', null, '.competition_guide_add_content', location);
     });
 
@@ -33,7 +33,7 @@ $(document).ready(function () {
         $('#competition_guide_search_form').ajaxSubmit({
             target: '.content_right',
             error: function () {
-                alert('error!');
+                alert('连接服务器失败');
             }
         })
     });

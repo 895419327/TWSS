@@ -1,4 +1,6 @@
 {% extends "main/main.html" %}
+{% load staticfiles %}
+
 {% block content_left %}
 
     {% include "main/admin/database_management/menu.html" %}
@@ -9,4 +11,8 @@
 
 {% block content_right %}
 
+{% endblock %}
+
+{% block main_footer %}
+    <script src={% static "main/admin/admin.js" %}></script>
 {% endblock %}

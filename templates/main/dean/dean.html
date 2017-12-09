@@ -1,4 +1,6 @@
 {% extends "main/main.html" %}
+{% load staticfiles %}
+
 {% block content_left %}
 
     {% include "main/dean/global_settings/menu.html" %}
@@ -22,4 +24,8 @@
 
     {% include "main/teacher/notice/notice.html" %}
 
+{% endblock %}
+
+{% block main_footer %}
+    <script src={% static "main/dean/dean.js" %}></script>
 {% endblock %}

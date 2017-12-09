@@ -42,7 +42,7 @@ $(document).ready(function () {
         $('#experiment_course_search_form').ajaxSubmit({
             target: '.content_right',
             error: function () {
-                alert('error!');
+                alert('连接服务器失败');
             }
         })
     });

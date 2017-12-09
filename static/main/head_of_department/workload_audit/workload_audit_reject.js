@@ -16,7 +16,7 @@ $(document).ready(function () {
         $('#workload_audit_reject_form').ajaxSubmit({
             target: '.content_right',
             error: function () {
-                alert('error!');
+                alert('连接服务器失败');
             }
         })
     });

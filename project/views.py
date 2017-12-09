@@ -770,7 +770,7 @@ def data_import(request, user):
 
 def data_import_a(request, user):
     import xlrd
-    workbook = xlrd.open_workbook('/users/vicchen/downloads/data.xlsx')
+    # workbook = xlrd.open_workbook('/users/vicchen/downloads/data.xlsx')
     '''
     # 导入教师信息
     worksheet = workbook.sheet_by_name('User')

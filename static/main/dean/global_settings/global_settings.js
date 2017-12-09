@@ -7,25 +7,25 @@ $(document).ready(function () {
 
     $('#year_pre').click(function () {
         var year = year_text.text();
-        year = year.substring(0,4);
+        year = year.substring(0, 4);
         year = parseInt(year);
-        var new_text = (year-1) + '-' + year + '学年';
+        var new_text = (year - 1) + '-' + year + '学年';
         year_text.text(new_text);
         submit_button.show();
     });
 
     $('#year_next').click(function () {
         var year = year_text.text();
-        year = year.substring(0,4);
+        year = year.substring(0, 4);
         year = parseInt(year);
-        var new_text = (year+1) + '-' + (year+2) + '学年';
+        var new_text = (year + 1) + '-' + (year + 2) + '学年';
         year_text.text(new_text);
         submit_button.show();
     });
 
     $('.semester_change').click(function () {
         var semester = semester_text.text();
-        if(semester === '第一学期')
+        if (semester === '第一学期')
             semester_text.text('第二学期');
         else if (semester === '第二学期')
             semester_text.text('第一学期');
@@ -38,12 +38,15 @@ $(document).ready(function () {
 
         $('#global_settings_form').ajaxSubmit({
             target: '.content_right',
-                success: function () {
-                    alert('设置成功！');
-                },
-                error: function () {
-                    alert('error!')
-                }
+            success: function (data) {
+                if (data.indexOf('class="unsafe"') > 0)
+                    alert('修改失败');
+                else
+                    alert('设置成功!')
+            },
+            error: function () {
+                alert('连接服务器失败');
+            }
         });
     });
 });
