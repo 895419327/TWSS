@@ -3,8 +3,7 @@
 import os
 import time
 
-BASE_DIR = os.path.dirname(os.path.abspath(__name__))
-MEDIA_PATH = os.path.join(BASE_DIR, 'media')
+from TWSS.settings import BASE_DIR
 
 from django.http import HttpResponse, StreamingHttpResponse
 
@@ -42,7 +41,7 @@ def database_backup(request):
 
     os.system('chmod 444 ' + full_filename)
 
-    file = open(full_filename)
+    file = open(full_filename, encoding='utf-8')
     # response = StreamingHttpResponse(file.read())
     response = HttpResponse(file.read())
     response['Content-Type'] = 'application/octet-stream'
@@ -52,7 +51,7 @@ def database_backup(request):
 
 def buckup_download(request):
     filename = request.POST['buckup_id']
-    file = open(BASE_DIR + '/project/database_backups/' + filename)
+    file = open(BASE_DIR + '/project/database_backups/' + filename, encoding='utf-8')
 
     response = HttpResponse(file.read())
     response['Content-Type'] = 'application/octet-stream'

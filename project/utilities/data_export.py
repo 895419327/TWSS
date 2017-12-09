@@ -7,8 +7,7 @@ import xlwt
 import xlrd
 from xlutils.copy import copy
 
-BASE_DIR = os.path.dirname(os.path.abspath(__name__))
-MEDIA_PATH = os.path.join(BASE_DIR, 'media')
+from TWSS.settings import BASE_DIR
 
 from project.models import *
 from project.utilities.workload_count import *

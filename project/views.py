@@ -13,8 +13,7 @@ from project.utilities.search import *
 from project.utilities.indentity import check_identity
 from project.utilities.workload_count import *
 
-BASE_DIR = os.path.dirname(os.path.abspath(__name__))
-
+from TWSS.settings import BASE_DIR
 
 def index(request):
     return render(request, 'index/index.html')

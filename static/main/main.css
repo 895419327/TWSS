@@ -251,6 +251,11 @@ select {
     line-height: 32px;
 }
 
+.notice_time{
+    float: right;
+    width: 200px;
+}
+
 #notice_editor {
     width: 1000px;
     height: 400px;

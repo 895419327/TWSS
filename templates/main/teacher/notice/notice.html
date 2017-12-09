@@ -7,6 +7,9 @@
     <div class="notice_area">
         <div class="notice">
             {{ notice.content }}
+            <div class="notice_time">
+                {{ notice.post_time | date:'Y-n-d'}}
+            </div>
         </div>
     </div>
 </div>

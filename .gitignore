@@ -1,0 +1,10 @@
+.*
+*.pyc
+md5.py
+project/migrations/*
+project/database_backups/*
+project/logs/*
+media/excel/user_info/*
+media/excel/workload_statisitic/*
+!.gitignore
+!project/logs/log.py

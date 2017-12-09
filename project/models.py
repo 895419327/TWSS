@@ -100,7 +100,7 @@ class Notice(models.Model):
     # 公告内容
     content = models.TextField(max_length=512, null=True)
     # 发布时间
-    post_time = models.DateTimeField()
+    post_time = models.DateField()
     # 发布者
     post_by = models.ForeignKey(User)
 

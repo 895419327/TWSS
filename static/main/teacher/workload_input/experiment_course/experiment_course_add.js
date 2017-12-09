@@ -33,8 +33,8 @@ $(document).ready(function () {
     $('.courses_selector_item').click(function () {
         var str = $(this).text();
         var splits = str.split(' ');
-        $('#course_id').attr('value', splits[0]);
-        $('#course_name').attr('value', splits[1]);
+        $('#course_id').val( splits[0]);
+        $('#course_name').val(splits[1]);
     });
 
     $('.add_submit').click(function () {

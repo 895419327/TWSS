@@ -2,9 +2,9 @@
 
 import os
 import time
+import datetime
 
-BASE_DIR = os.path.dirname(os.path.abspath(__name__))
-MEDIA_PATH = os.path.join(BASE_DIR, 'media')
+from TWSS.settings import BASE_DIR
 
 from django.contrib.auth.hashers import make_password
 
@@ -375,10 +375,15 @@ def paper_guide_delete(request, user):
 # Notice Setting
 
 def notice_setting(request, user):
+    post_time = datetime.date.today()
+
     notice = Notice.objects.get(id=1)
     notice.content = request.POST['notice_content']
+    notice.post_time = post_time
+    notice.post_by = user
     notice.save()
     return notice_settings(request, user)
+
 
 # Teacher Management
 
@@ -394,20 +399,19 @@ def notice_setting(request, user):
 # TODO:         后期应重写逻辑 或 考虑给User表增加一个无法被任何用户修改的id
 
 def teacher_add(request, user):
-    # 先假设使用手机号作为密码
-    password = request.POST['phone_number']
+    id = request.POST['teacher_id']
+    # 默认使用教职工号作为密码
+    password = id
     from hashlib import md5
     generater = md5(password.encode("utf8"))
     password = generater.hexdigest()
     password = make_password(password)
 
     # 检测是新增还是修改
-    id = request.POST['teacher_id']
-    list = User.objects.filter(id=id)
-    for teacher in list:
-        if teacher.id == id:
-            password = teacher.password
-            break
+    if 'original_teacher_id' in request.POST:
+        if request.POST['original_teacher_id'] != request.POST['teacher_id']:
+            old = User.objects.get(id=request.POST['original_teacher_id'])
+            password = old.password
 
     department = Department.objects.get(name=request.POST['department'])
 
@@ -441,9 +445,46 @@ def teacher_add(request, user):
                email=request.POST['email'], )
     new.save()
 
+    # 将原id账号下的项目转移至新账号
     if 'original_teacher_id' in request.POST:
         if request.POST['original_teacher_id'] != request.POST['teacher_id']:
             old = User.objects.get(id=request.POST['original_teacher_id'])
+
+            theory_course_list = TheoryCourse.objects.filter(teacher=old)
+            experiment_course_list = ExperimentCourse.objects.filter(teacher=old)
+            pratice_course_list = PraticeCourse.objects.filter(teacher=old)
+            teaching_achievement_list = TeachingAchievement.objects.filter(teacher=old)
+            teaching_project_list = TeachingProject.objects.filter(teacher=old)
+            competition_guide_list = CompetitionGuide.objects.filter(teacher=old)
+            paper_guide_list = PaperGuide.objects.filter(teacher=old)
+
+            for theory_course in theory_course_list:
+                theory_course.teacher = new
+                theory_course.save()
+            for experiment_course in experiment_course_list:
+                experiment_course.teacher = new
+                experiment_course.save()
+            for pratice_course in pratice_course_list:
+                pratice_course.teacher = new
+                pratice_course.save()
+            for teaching_achievement in teaching_achievement_list:
+                teaching_achievement.teacher = new
+                teaching_achievement.save()
+            for teaching_project in teaching_project_list:
+                teaching_project.teacher = new
+                teaching_project.save()
+            for competition_guide in competition_guide_list:
+                competition_guide.teacher = new
+                competition_guide.save()
+            for paper_guide in paper_guide_list:
+                paper_guide.teacher = new
+                paper_guide.save()
+
+            class_list = Class.objects.filter(teacher=old)
+            for clas in class_list:
+                clas.teacher = new
+                clas.save()
+
             old.delete()
 
     return teacher_management(request, user)
