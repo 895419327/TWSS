@@ -24,7 +24,9 @@ $(document).ready(function () {
             return;
         }
 
+        original_password.val(original_password.val() + 'zhengzhoudaxueshengmingkexuexueyuanjiaoshigongzuoliangtongjixitong');
         original_password.val(hex_md5(original_password.val()));
+        new_password.val(new_password.val() + 'zhengzhoudaxueshengmingkexuexueyuanjiaoshigongzuoliangtongjixitong');
         new_password.val(hex_md5(new_password.val()));
 
         form.ajaxSubmit({

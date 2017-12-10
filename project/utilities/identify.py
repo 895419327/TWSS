@@ -3,11 +3,6 @@
 from project.models import User
 from project.logs.log import log
 
-# TODO: 生成unique_code
-def generate_unique_code(user, info):
-    pass
-
-
 def check_identity(request):
     request.encoding = 'utf-8'
 

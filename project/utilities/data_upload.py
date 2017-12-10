@@ -27,7 +27,6 @@ def upload(request):
     return eval(requestfor)(request, user)
 
 
-# TODO: 考虑在User表增加location 防假单
 # TODO: 更改前要检查数据合法性
 # 比如系主任审核通过时 教师正好更改了数据 微小的时间差导致审核通过的不是系主任看到的数据
 

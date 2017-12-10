@@ -23,7 +23,7 @@ def index(request):
 
 # TODO: 欢迎界面 可以写一些使用帮助
 
-# TODO: 数据库备份
+# TODO: 数据库自动备份
 # TODO: 测试覆盖
 # TODO: 日志系统
 
@@ -889,4 +889,14 @@ def data_import_a(request, user):
         course.workload = theory_course_workload_count(course)
         course.save()
     '''
+
+    user_list = User.objects.all()
+    for user in user_list:
+        password = user.id
+        password += 'zhengzhoudaxueshengmingkexuexueyuanjiaoshigongzuoliangtongjixitong'
+        generater = md5(password.encode("utf8"))
+        password = generater.hexdigest()
+        password = make_password(password)
+        user.password = password
+        user.save()
     return render(request, "main/admin/data_import/data_import.html", locals())

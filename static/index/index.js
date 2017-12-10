@@ -56,32 +56,6 @@ $(document).ready(function () {
     // 点击登录
     $('#login_button').click(function () {
 
-        // 测试开关
-        // 自动填充 跳过验证码
-        var PROJECT_TEST = false;
-        if (PROJECT_TEST) {
-            var status = $('#status option:selected').val();
-            if (status == '教师') {
-                username.val('20160000001');
-                password.val(hex_md5('20160000001'));
-            }
-            if (status == '系主任') {
-                username.val('20160000002');
-                password.val(hex_md5('20160000002'));
-            }
-            if (status == '教务员') {
-                username.val('20160000005');
-                password.val(hex_md5('20160000005'));
-            }
-            if (status == '系统管理员') {
-                username.val('20160000000');
-                password.val(hex_md5('20160000000'));
-            }
-            $('#login_form').submit();
-            return;
-        }
-
-
         // 检查账户名密码是否为空
         if (username.val() === '') {
             warnings.text('用户名不能为空');
@@ -103,7 +77,10 @@ $(document).ready(function () {
             return;
         }
 
-        // md5加密密码
+        // 加长
+        // HTTP防不了中间人至少保护一下原密码吧...
+        password.val(password.val()+'zhengzhoudaxueshengmingkexuexueyuanjiaoshigongzuoliangtongjixitong');
+        // md5加密
         password.val(hex_md5(password.val()));
         // 提交
         $('#login_form').submit();
