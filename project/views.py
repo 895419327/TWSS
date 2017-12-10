@@ -25,7 +25,6 @@ def index(request):
 
 # TODO: 数据库自动备份
 # TODO: 测试覆盖
-# TODO: 日志系统
 
 
 # TODO: 删除班级、教师信息时检查是否有相关引用

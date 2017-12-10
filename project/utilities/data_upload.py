@@ -25,10 +25,12 @@ def upload(request):
     # 获取需求
     requestfor = request.POST['requestfor']
     # 记录
-    if requestfor != 'change_password':
+    if requestfor == 'change_password':
+        # 不记录修改密码的QueryDict
+        log('INFO', 'DataUpload', user.name, user.id, requestfor)
+    else:
         log('INFO', 'DataUpload', user.name, user.id, requestfor, request.POST)
     return eval(requestfor)(request, user)
-
 
 # TODO: 更改前要检查数据合法性
 # 比如系主任审核通过时 教师正好更改了数据 微小的时间差导致审核通过的不是系主任看到的数据

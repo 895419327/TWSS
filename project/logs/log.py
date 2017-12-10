@@ -1,6 +1,7 @@
 from time import localtime, strftime
 from TWSS.settings import BASE_DIR
 
+from django.http.request import QueryDict
 
 def log(*args):
     date = strftime('%Y-%m-%d', localtime())
@@ -11,7 +12,22 @@ def log(*args):
 
     info = time
     for arg in args:
-        info += '   ' + str(arg)
+        # 如果是QueryDict 删掉不必要的内容
+        if type(arg) == QueryDict:
+            querydict = arg.copy()
+            querydict.pop('csrfmiddlewaretoken')
+            try:
+                querydict.pop('identify_code')
+            except KeyError:
+                pass
+            try:
+                querydict.pop('password')
+            except KeyError:
+                pass
+            info += '\n' + str(querydict)
+        else:
+            info += '   ' + str(arg)
+
     info += '\n\n'
 
     file.write(info)
