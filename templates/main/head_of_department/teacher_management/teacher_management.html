@@ -5,12 +5,17 @@
 
     <div class="content_title">教师队伍管理</div>
 
+    <div class="export_all_button" style="margin: -45px 16px 0 0">全部导出</div>
+
     <div class="blur_area">
 
         {% for department in department_list %}
             {% if department.id != '470' %}
                 <div class="project_item">
-                    <div class="project_item_title">{{ department.name }}</div>
+                    <div class="project_item_title">{{ department.name }}
+                        <div class="export_button" id="{{ department.id }}_export">导出</div>
+                    </div>
+
                     <table cellspacing="0">
                         <tr>
                             <th width="120px">教师编号</th>
@@ -50,9 +55,15 @@
                 </div>
             {% endif %}
         {% endfor %}
-
-
     </div>
+
+    <form id="teacher_management_export_form" hidden method="post" action="/export" autocomplete="off">
+        {% csrf_token %}
+        <input type="hidden" name="username" value="{{ user.id }}">
+        <input type="hidden" name="identify_code" value="{{ user.identify_code }}">
+        <input type="hidden" name="requestfor" value="teacher_management_export">
+        <input type="hidden" name="department_id" id="export_department">
+    </form>
 
     <div class="teacher_management_add_content">
 

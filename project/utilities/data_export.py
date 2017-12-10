@@ -1,4 +1,3 @@
-import os
 import time
 
 from django.shortcuts import render
@@ -27,20 +26,83 @@ def export(request):
     log('INFO', 'DataExport', user.name, user.id, requestfor, request.POST)
     return eval(requestfor)(request, user)
 
-
-def workload_statistics_export(request, user):
+def teacher_management_export(request, user):
     department_id = request.POST['department_id']
-    department = Department.objects.get(id=department_id)
+    if department_id == 'all':
+        teacher_list = User.objects.filter(department_id__gt='470')
+        title = u'生命科学学院教师队伍信息'
+    else:
+        department = Department.objects.get(id=department_id)
+        teacher_list = User.objects.filter(department=department)
+        title = department.name + u'系教师队伍信息'
 
-    teacher_list = User.objects.filter(department=department)
+    workbook_template = xlrd.open_workbook(BASE_DIR + '/media/excel/templates/user_info.xls',
+                                           formatting_info=True)
+
+    workbook = copy(workbook_template)
+    worksheet = workbook.get_sheet(0)
+
+    worksheet.write(0, 0, title, xlwt.easyxf(
+        'font: height 480, name 黑体, bold on;'
+        ' align: vert centre, horiz centre;'))
+
+    style = xlwt.XFStyle()
+    font = xlwt.Font()
+    font.name = u'宋体'
+    style.font = font
+
+    row = 2
+    for teacher in teacher_list:
+        gender = ''
+        if teacher.gender == 1:
+            gender = u'男'
+        elif teacher.gender == 2:
+            gender = u'女'
+
+        worksheet.write(row, 0, teacher.id, style)
+        worksheet.write(row, 1, teacher.department.name, style)
+        worksheet.write(row, 2, teacher.name, style)
+        worksheet.write(row, 3, gender, style)
+        worksheet.write(row, 4, str(teacher.birth_date), style)
+        worksheet.write(row, 5, teacher.title, style)
+        worksheet.write(row, 6, teacher.graduate, style)
+        worksheet.write(row, 7, teacher.major, style)
+        worksheet.write(row, 8, teacher.email, style)
+        worksheet.write(row, 9, teacher.phone_number, style)
+        row += 1
+
+    current_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+    filename = BASE_DIR + '/media/excel/user_info/' + current_time + '.xls'
+    workbook.save(filename)
+
+    file = open(filename, 'rb')
+    response = HttpResponse(file.read())
+    response['Content-Type'] = 'application/vnd.ms-excel'
+    response['Content-Disposition'] = 'attachment;filename="user_info.xls"'
+    return response
+
+
+# TODO: 加上时间
+# TODO: 整体导出
+def workload_statistics_export(request, user):
+    # TODO: 改为相应年份
+    year = GlobalValue.objects.get(key='current_year').value
+
+    department_id = request.POST['department_id']
+    if department_id == 'all':
+        teacher_list = User.objects.filter(department_id__gt='470')
+        title = year + '-' + str(int(year) + 1) + u'学年' + u'生命科学学院' + u'工作量统计'
+    else:
+        department = Department.objects.get(id=department_id)
+        teacher_list = User.objects.filter(department=department)
+        title = year + '-' + str(int(year) + 1) + u'学年' + department.name + u'系工作量统计'
+
 
     workbook_template = xlrd.open_workbook(BASE_DIR + '/media/excel/templates/workload_statisitic.xls',
                                            formatting_info=True)
     workbook = copy(workbook_template)
     worksheet = workbook.get_sheet(0)
 
-    year = GlobalValue.objects.get(key='current_year').value
-    title = year + '-' + str(int(year) + 1) + u'学年' + department.name + '系工作量统计'
     worksheet.write(0, 0, title, xlwt.easyxf(
         'font: height 560, name 黑体, bold on;'
         ' align: vert centre, horiz centre;'))
@@ -52,17 +114,13 @@ def workload_statistics_export(request, user):
 
     row = 4
     for teacher in teacher_list:
-        gender = ''
-        if teacher.gender == 1:
-            gender = u'男'
-        elif teacher.gender == 2:
-            gender = u'女'
 
         worksheet.write(row, 0, teacher.id, style)
         worksheet.write(row, 1, teacher.name, style)
-        worksheet.write(row, 2, gender, style)
+        worksheet.write(row, 2, teacher.department.name, style)
         worksheet.write(row, 3, teacher.title, style)
 
+        # TODO: 仅查找当前年份
         theory_course_list = TheoryCourse.objects.filter(teacher=teacher)
         theory_course_num = theory_course_list.count()
         theory_course_period = 0
@@ -153,5 +211,5 @@ def workload_statistics_export(request, user):
     file = open(filename, 'rb')
     response = HttpResponse(file.read())
     response['Content-Type'] = 'application/vnd.ms-excel'
-    response['Content-Disposition'] = 'attachment;filename="%s.xls"' % (year + department.id)
+    response['Content-Disposition'] = 'attachment;filename="%s.xls"' % year
     return response

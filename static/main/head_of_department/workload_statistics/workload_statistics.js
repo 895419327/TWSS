@@ -31,6 +31,12 @@ $(document).ready(function () {
         MyAjax_Get('/getpage', 'workload_statistics', year, '.content_right', sortby);
     });
 
+    $('.export_all_button').click(function () {
+        $('#export_department').attr('value', 'all');
+        $('#workload_statistics_export_form').submit();
+    });
+
+
     $('.export_button').click(function () {
         var id = $(this).attr('id');
         id = id.substring(0, id.length - 7);

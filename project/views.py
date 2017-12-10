@@ -21,8 +21,6 @@ def index(request):
 
 # TODO: 教务员工作量系数调整功能
 
-# TODO: 欢迎界面 可以写一些使用帮助
-
 # TODO: 数据库自动备份
 # TODO: 测试覆盖
 
@@ -252,9 +250,6 @@ def workload_input_pratice_course_add(request, user):
         class_list = get_classes(grade)
     return render(request, 'main/teacher/workload_input/pratice_course/pratice_course_add.html', locals())
 
-
-# TODO: search bar 精简 可考虑用{% include %}
-# TODO: 教研工作量精简html for type in type_list
 
 # Teaching Achievement
 
@@ -603,7 +598,7 @@ def department_management_modify(request, user):
 # 教师管理
 # 系主任有权调用
 
-# TODO: 教师信息导出
+# TODO: 重置密码
 
 def teacher_management(request, user):
     status = user.status.split(',')
@@ -770,8 +765,9 @@ def data_import(request, user):
 
 
 def data_import_a(request, user):
-    import xlrd
+    # import xlrd
     # workbook = xlrd.open_workbook('/users/vicchen/downloads/data.xlsx')
+
     '''
     # 导入教师信息
     worksheet = workbook.sheet_by_name('User')
@@ -792,6 +788,7 @@ def data_import_a(request, user):
         except:
             print(value)
     '''
+
     '''
     # 导入TheoryCourse
     worksheet = workbook.sheet_by_name('TheoryCourse')
@@ -890,7 +887,7 @@ def data_import_a(request, user):
         course.workload = theory_course_workload_count(course)
         course.save()
     '''
-
+    '''
     user_list = User.objects.all()
     for user in user_list:
         password = user.id
@@ -900,4 +897,5 @@ def data_import_a(request, user):
         password = make_password(password)
         user.password = password
         user.save()
+    '''
     return render(request, "main/admin/data_import/data_import.html", locals())
