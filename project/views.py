@@ -51,22 +51,22 @@ def login(request):
         try:
             user = User.objects.get(id=username_post)
         except Exception:
-            log('WARNING', 'Username Not Found', username_post, status_post)
+            log('WARNING', 'Username Not Found', username_post, status_post, request.POST)
             return render(request, 'index/loginfailed.html')
 
         # 如果密码错误
         if not check_password(password_post, user.password):
-            log('WARNING', 'Password Uncorrect', username_post, status_post)
+            log('WARNING', 'Password Uncorrect', username_post, status_post, request.POST)
             return render(request, 'index/loginfailed.html')
 
         # 如果身份错误
         if user.status.find(status_post) == -1:
-            log('WARNING', 'Status Uncorrect', username_post, status_post)
+            log('WARNING', 'Status Uncorrect', username_post, status_post, request.POST)
             return render(request, 'index/loginfailed.html')
 
         # 验证通过
         # 记录
-        log('INFO', 'Login', user.name, user.id, status_post)
+        log('INFO', 'Login', user.name, user.id, status_post, request.POST)
 
         # 生成并保存identify_code
         identify_code_src = username_post + password_post + captcha
@@ -102,6 +102,8 @@ def getpage(request):
 
     # 获取需求
     requestfor = request.POST['requestfor']
+    # 记录
+    log('INFO', 'GetPage', user.name, user.id, requestfor, request.POST)
     return eval(requestfor)(request, user)
 
 

@@ -24,6 +24,9 @@ def upload(request):
 
     # 获取需求
     requestfor = request.POST['requestfor']
+    # 记录
+    if requestfor != 'change_password':
+        log('INFO', 'DataUpload', user.name, user.id, requestfor, request.POST)
     return eval(requestfor)(request, user)
 
 

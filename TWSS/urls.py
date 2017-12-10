@@ -28,10 +28,10 @@ urlpatterns = [
     url(r'^index$', index),
     url(r'^main$', login),
 
-    url(r'^getpage', getpage),
-    url(r'^export', export),
+    url(r'^getpage$', getpage),
+    url(r'^export$', export),
     url(r'^upload$', upload),
-    url(r'^database', database)
+    url(r'^database$', database)
 ]
 
 

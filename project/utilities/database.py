@@ -8,6 +8,7 @@ from TWSS.settings import BASE_DIR
 from django.shortcuts import render
 from django.http import HttpResponse, StreamingHttpResponse
 
+from project.logs.log import log
 from project.utilities.identify import check_identity
 from project.views import database_management
 
@@ -20,6 +21,7 @@ def database(request):
         return render(request, "main/utilities/unsafe.html")
 
     requestfor = request.POST['requestfor']
+    log('INFO', 'DataUpload', user.name, user.id, requestfor, request.POST)
     if requestfor == 'database_backup':
         return database_backup(request)
     if requestfor == 'backup_download':

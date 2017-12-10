@@ -11,6 +11,7 @@ from xlutils.copy import copy
 from TWSS.settings import BASE_DIR
 
 from project.models import *
+from project.logs.log import log
 from project.utilities.workload_count import *
 from project.utilities.identify import check_identity
 
@@ -23,6 +24,7 @@ def export(request):
         return render(request, "main/utilities/unsafe.html")
 
     requestfor = request.POST['requestfor']
+    log('INFO', 'DataExport', user.name, user.id, requestfor, request.POST)
     return eval(requestfor)(request, user)
 
 

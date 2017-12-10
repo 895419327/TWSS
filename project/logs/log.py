@@ -12,7 +12,7 @@ def log(*args):
     info = time
     for arg in args:
         info += '   ' + str(arg)
-    info += '\n'
+    info += '\n\n'
 
     file.write(info)
     file.close()
