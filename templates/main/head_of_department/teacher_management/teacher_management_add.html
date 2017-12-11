@@ -5,7 +5,23 @@
 
     <div class="add_cross"><img src={% static "main/resourse/cross.png" %}></div>
 
-    <div class="add_title">新 增</div>
+    {% if modified_teacher %}
+        <div class="add_title">修 改</div>
+    {% else %}
+        <div class="add_title">新 增</div>
+    {% endif %}
+
+    {% if modified_teacher %}
+        <div class="add_buttons reset_password_button">重置密码</div>
+
+        <form id="reset_password_form" method="POST" action="/upload" hidden>
+            {% csrf_token %}
+            <input name="username" value="{{ user.id }}">
+            <input name="identify_code" value={{ user.identify_code }}>
+            <input name="requestfor" value="reset_password">
+            <input id="reset_teacher_id" name="reset_teacher_id">
+        </form>
+    {% endif %}
 
     <form id="teacher_management_add_form" method="post" action="/upload" name="teacher_management"
           autocomplete="off">
@@ -23,13 +39,14 @@
 
             {% if modified_teacher %}
                 <div>
-                    <input type="text" name="original_teacher_id" value="{{ modified_teacher.id }}" hidden>
+                    <input type="hidden" name="original_teacher_id" id="original_teacher_id"
+                           value="{{ modified_teacher.id }}">
                 </div>
             {% endif %}
 
             <div>
                 <span>姓名 </span>
-                <input type="text" name="name" style="width: 200px" class="non_empty"
+                <input type="text" name="name" id="teacher_name" style="width: 200px" class="non_empty"
                        value="{{ modified_teacher.name }}">
             </div>
 

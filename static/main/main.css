@@ -505,6 +505,12 @@ table img:hover {
     float: right;
 }
 
+.reset_password_button{
+    position: absolute;
+    left: 100px;
+    top: 30px;
+}
+
 /* * * * * * */
 
 .sort_type {

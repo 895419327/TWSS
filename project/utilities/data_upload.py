@@ -385,16 +385,15 @@ def notice_setting(request, user):
 def teacher_add(request, user):
     teacher_id = request.POST['teacher_id']
     # 默认使用教职工号作为密码
-    password = teacher_id
+    password = teacher_id + 'zhengzhoudaxueshengmingkexuexueyuanjiaoshigongzuoliangtongjixitong'
     generater = md5(password.encode("utf8"))
     password = generater.hexdigest()
     password = make_password(password)
 
-    # 检测是新增还是修改
+    # 如果是修改则使用旧密码
     if 'original_teacher_id' in request.POST:
-        if request.POST['original_teacher_id'] != request.POST['teacher_id']:
-            old = User.objects.get(id=request.POST['original_teacher_id'])
-            password = old.password
+        old = User.objects.get(id=request.POST['original_teacher_id'])
+        password = old.password
 
     department = Department.objects.get(name=request.POST['department'])
 
@@ -470,6 +469,19 @@ def teacher_add(request, user):
 
             old.delete()
 
+    return teacher_management(request, user)
+
+
+def reset_password(request, user):
+    teacher_id = request.POST['reset_teacher_id']
+    teacher = User.objects.get(id=teacher_id)
+
+    password = teacher_id + 'zhengzhoudaxueshengmingkexuexueyuanjiaoshigongzuoliangtongjixitong'
+    generater = md5(password.encode("utf8"))
+    password = generater.hexdigest()
+    password = make_password(password)
+    teacher.password = password
+    teacher.save()
     return teacher_management(request, user)
 
 

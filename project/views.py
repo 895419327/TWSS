@@ -597,8 +597,6 @@ def department_management_modify(request, user):
 # 教师管理
 # 系主任有权调用
 
-# TODO: 重置密码
-
 def teacher_management(request, user):
     status = user.status.split(',')
 
