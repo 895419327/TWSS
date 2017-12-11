@@ -32,6 +32,7 @@ def upload(request):
         log('INFO', 'DataUpload', user.name, user.id, requestfor, request.POST)
     return eval(requestfor)(request, user)
 
+
 # TODO: 更改前要检查数据合法性
 # 比如系主任审核通过时 教师正好更改了数据 微小的时间差导致审核通过的不是系主任看到的数据
 
@@ -377,7 +378,7 @@ def notice_setting(request, user):
 
 # Teacher Management
 
-# FIXME: MEDIUM 如果系主任修改了自己的id
+# FIXME: LOW 如果系主任修改了自己的id
 #               会导致浏览器上还记载着原来的id  于是发送表单时还用原来的 id
 #               数据库查无此人  于是无法正确加载页面
 #               触发条件过于严苛 暂不修复
@@ -495,7 +496,7 @@ def teacher_delete(request, user):
 # Class Management
 
 # TODO: 大一生物科学类分班
-
+# TODO: 检查id是否已使用 add_form加tag new or modify
 def class_add(request, user):
     teacher = None
     teacher_info = request.POST['teacher']
@@ -514,6 +515,25 @@ def class_add(request, user):
     if 'original_class_id' in request.POST:
         if request.POST['original_class_id'] != request.POST['class_id']:
             old = Class.objects.get(id=request.POST['original_class_id'])
+
+            theory_course_list = TheoryCourse.objects.all()
+            for theory_course in theory_course_list:
+                if theory_course.classes.find(old.id) != -1:
+                    theory_course.classes = theory_course.classes.replace(old.id, new.id)
+                    theory_course.save()
+
+            experiment_course_list = ExperimentCourse.objects.all()
+            for experiment_course in experiment_course_list:
+                if experiment_course.classes.find(old.id) != -1:
+                    experiment_course.classes = experiment_course.classes.replace(old.id, new.id)
+                    experiment_course.save()
+
+            pratice_course_list = PraticeCourse.objects.all()
+            for pratice_course in pratice_course_list:
+                if pratice_course.classes.find(old.id) != -1:
+                    pratice_course.classes = pratice_course.classes.replace(old.id, new.id)
+                    pratice_course.save()
+
             old.delete()
     return class_management(request, user)
 
@@ -521,8 +541,33 @@ def class_add(request, user):
 def class_delete(request, user):
     class_id = request.POST['request_data']
     clas = Class.objects.get(id=class_id)
-    clas.delete()
-    return class_management(request, user)
+
+    is_using = False
+    using_course_list = []
+
+    theory_course_list = TheoryCourse.objects.all()
+    for theory_course in theory_course_list:
+        if theory_course.classes.find(clas.id) != -1:
+            is_using = True
+            using_course_list.append(theory_course)
+
+    experiment_course_list = ExperimentCourse.objects.all()
+    for experiment_course in experiment_course_list:
+        if experiment_course.classes.find(clas.id) != -1:
+            is_using = True
+            using_course_list.append(experiment_course)
+
+    pratice_course_list = PraticeCourse.objects.all()
+    for pratice_course in pratice_course_list:
+        if pratice_course.classes.find(clas.id) != -1:
+            is_using = True
+            using_course_list.append(pratice_course)
+
+    if is_using:
+        return render(request, 'main/dean/class_management/class_delete_fail.html', locals())
+    else:
+        clas.delete()
+        return class_management(request, user)
 
 
 ##### 教务员 #####

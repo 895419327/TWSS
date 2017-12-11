@@ -122,12 +122,12 @@ def user_info_change_password(request, user):
 
 
 # TODO: 选择班级后更新人数
-
 def get_classes(grade=2017):
     class_list = Class.objects.filter(grade=grade)
     return class_list
 
 
+# FIXME: 2016级 2016级重复
 def get_classes_module(request, user):
     data = request.POST['request_data'].split(',')
     grade = data[0]
@@ -166,6 +166,8 @@ def workload_input_theory_course_add(request, user):
         year = location[0]
         semester = location[1]
     # 获取班级信息
+
+    # FIXME: 改为显示最小一级的班级
     class_list = get_classes(2016)
     modified_course = ''
 

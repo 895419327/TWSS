@@ -1,0 +1,64 @@
+{% load myfilters %}
+
+<div class="class_delete_fail"></div>
+<div class="main_content">
+
+    <div class="content_title">删除失败！</div>
+
+    <div class="export_button" id="class_delete_fail_return" style="position: absolute; top: 45px; right: 25px;">返回</div>
+
+    <div class="project_item_title">原因：以下课程使用了该班级信息</div>
+
+    <table cellspacing="0" cellpadding="0">
+        <tr>
+            <th>学年/学期</th>
+            <th>课程名</th>
+            <th>教师</th>
+            <th>上课班级</th>
+            <th>审核状态</th>
+        </tr>
+
+        {% for course in using_course_list %}
+            <tr>
+                <td>
+                    <div>{{ course.year }}-{{ course.year | add:1 }}学年</div>
+                    <div>第{{ course.semester|itoc }}学期</div>
+                </td>
+                <td>
+                    <div>{{ course.name }}</div>
+                    <div>{{ course.course_id }}</div>
+                </td>
+                <td>
+                    <div>{{ course.teacher.name }}</div>
+                    <div>{{ course.teacher.id }}</div>
+                </td>
+
+                <td class="course_classes">{{ course.classes | get_class_name }}</td>
+
+                {% if course.audit_status == 0 %}
+                    <td>未审核</td>
+                {% elif course.audit_status == 1 %}
+                    <td>审核未通过</td>
+                {% elif course.audit_status == 2 %}
+                    <td>已审核</td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+    </table>
+
+    <script>
+        $('tr:even').addClass('even');
+
+        var classes = $('.course_classes');
+        classes.each(function () {
+            var str = $(this).html();
+            str = str.replace(/\n/g, '<br>');
+            $(this).html(str);
+        });
+
+        $('#class_delete_fail_return').click(function () {
+            MyAjax_Get('/getpage','class_management');
+        });
+    </script>
+
+</div>
