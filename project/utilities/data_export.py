@@ -51,7 +51,7 @@ def teacher_management_export(request, user):
     font.name = u'宋体'
     style.font = font
 
-    row = 2
+    row = 3
     for teacher in teacher_list:
         gender = ''
         if teacher.gender == 1:
@@ -71,7 +71,11 @@ def teacher_management_export(request, user):
         worksheet.write(row, 9, teacher.phone_number, style)
         row += 1
 
+    # 时间戳
     current_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+    worksheet.write(1, 8, u'导出时间：' + current_time, style)
+
+    # 保存
     filename = BASE_DIR + '/media/excel/user_info/' + current_time + '.xls'
     workbook.save(filename)
 
@@ -82,10 +86,8 @@ def teacher_management_export(request, user):
     return response
 
 
-# TODO: 加上时间
 def workload_statistics_export(request, user):
-    # TODO: 改为相应年份
-    year = GlobalValue.objects.get(key='current_year').value
+    year = request.POST['year']
 
     department_id = request.POST['department_id']
     if department_id == 'all':
@@ -119,8 +121,7 @@ def workload_statistics_export(request, user):
         worksheet.write(row, 2, teacher.department.name, style)
         worksheet.write(row, 3, teacher.title, style)
 
-        # TODO: 仅查找当前年份
-        theory_course_list = TheoryCourse.objects.filter(teacher=teacher)
+        theory_course_list = TheoryCourse.objects.filter(teacher=teacher, year=year)
         theory_course_num = theory_course_list.count()
         theory_course_period = 0
         theory_course_W = 0
@@ -132,7 +133,7 @@ def workload_statistics_export(request, user):
         worksheet.write(row, 6, theory_course_period, style)
         worksheet.write(row, 7, theory_course_W, style)
 
-        experiment_course_list = ExperimentCourse.objects.filter(teacher=teacher)
+        experiment_course_list = ExperimentCourse.objects.filter(teacher=teacher, year=year)
         experiment_course_num = experiment_course_list.count()
         experiment_course_period = 0
         experiment_course_W = 0
@@ -144,7 +145,7 @@ def workload_statistics_export(request, user):
         worksheet.write(row, 10, experiment_course_period, style)
         worksheet.write(row, 11, experiment_course_W, style)
 
-        pratice_course_list = PraticeCourse.objects.filter(teacher=teacher)
+        pratice_course_list = PraticeCourse.objects.filter(teacher=teacher, year=year)
         pratice_course_num = pratice_course_list.count()
         pratice_course_period = 0
         pratice_course_W = 0
@@ -159,7 +160,7 @@ def workload_statistics_export(request, user):
         course_total_W = theory_course_W + experiment_course_W + pratice_course_W
         worksheet.write(row, 17, course_total_W, style)
 
-        teaching_achievement_list = TeachingAchievement.objects.filter(teacher=teacher)
+        teaching_achievement_list = TeachingAchievement.objects.filter(teacher=teacher, year=year)
         teaching_achievement_sum = teaching_achievement_list.count()
         teaching_achievement_W = 0
         for project in teaching_achievement_list:
@@ -168,7 +169,7 @@ def workload_statistics_export(request, user):
         worksheet.write(row, 19, teaching_achievement_sum, style)
         worksheet.write(row, 20, teaching_achievement_W, style)
 
-        teaching_project_list = TeachingProject.objects.filter(teacher=teacher)
+        teaching_project_list = TeachingProject.objects.filter(teacher=teacher, year=year)
         teaching_project_sum = teaching_project_list.count()
         teaching_project_W = 0
         for project in teaching_project_list:
@@ -177,7 +178,7 @@ def workload_statistics_export(request, user):
         worksheet.write(row, 22, teaching_project_sum, style)
         worksheet.write(row, 23, teaching_project_W, style)
 
-        competition_guide_list = CompetitionGuide.objects.filter(teacher=teacher)
+        competition_guide_list = CompetitionGuide.objects.filter(teacher=teacher, year=year)
         competition_guide_sum = competition_guide_list.count()
         competition_guide_W = 0
         for project in competition_guide_list:
@@ -186,7 +187,7 @@ def workload_statistics_export(request, user):
         worksheet.write(row, 25, competition_guide_sum, style)
         worksheet.write(row, 26, competition_guide_W, style)
 
-        paper_guide_list = PaperGuide.objects.filter(teacher=teacher)
+        paper_guide_list = PaperGuide.objects.filter(teacher=teacher, year=year)
         paper_guide_sum = paper_guide_list.count()
         paper_guide_W = 0
         for project in paper_guide_list:
@@ -203,7 +204,11 @@ def workload_statistics_export(request, user):
 
         row += 1
 
+    # 时间戳
     current_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+    worksheet.write(0, 32, u'导出时间：' + current_time, style)
+
+    # 保存
     filename = BASE_DIR + '/media/excel/workload_statisitic/' + current_time + '.xls'
     workbook.save(filename)
 
