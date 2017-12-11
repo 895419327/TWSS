@@ -6,7 +6,11 @@
 
     <div class="add_cross"><img src={% static "main/resourse/cross.png" %}></div>
 
-    <div class="add_title">新 增</div>
+    {% if modified_course %}
+        <div class="add_title">修 改</div>
+    {% else %}
+        <div class="add_title">新 增</div>
+    {% endif %}
 
     <form id="theory_course_add_form" method="post" action="/upload" name="theory_course" autocomplete="off">
         {% csrf_token %}
@@ -14,8 +18,8 @@
         <input type="hidden" name="identify_code" value="{{ user.identify_code }}">
         <input type="hidden" name="requestfor" value="theory_course_add">
 
-        <input hidden id="location_year_post" name="location_year_post">
-        <input hidden id="location_semester_post" name="location_semester_post">
+        <input type="hidden" id="location_year_post" name="location_year_post">
+        <input type="hidden" id="location_semester_post" name="location_semester_post">
 
 
         <div class="add_left">
@@ -155,7 +159,6 @@
             </div>
 
         </div>
-
 
     </form>
 

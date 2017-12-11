@@ -83,7 +83,6 @@ def teacher_management_export(request, user):
 
 
 # TODO: 加上时间
-# TODO: 整体导出
 def workload_statistics_export(request, user):
     # TODO: 改为相应年份
     year = GlobalValue.objects.get(key='current_year').value

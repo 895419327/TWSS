@@ -6,7 +6,11 @@
 
     <div class="add_cross"><img src={% static "main/resourse/cross.png" %}></div>
 
-    <div class="add_title">新 增</div>
+    {% if modified_project %}
+        <div class="add_title">修 改</div>
+    {% else %}
+        <div class="add_title">新 增</div>
+    {% endif %}
 
     <form id="teaching_achievement_add_form" method="post" action="/upload" name="teaching_achievement"
           autocomplete="off">
@@ -15,7 +19,7 @@
         <input type="hidden" name="identify_code" value="{{ user.identify_code }}">
         <input type="hidden" name="requestfor" value="teaching_achievement_add">
 
-        <input hidden id="location_year_post" name="location_year_post">
+        <input type="hidden" id="location_year_post" name="location_year_post">
 
         <div style="margin: 0 0 0 100px;">
             <span>项目名称 </span>

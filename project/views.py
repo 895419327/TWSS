@@ -18,6 +18,7 @@ from TWSS.settings import BASE_DIR
 def index(request):
     return render(request, 'index/index.html')
 
+# FIXME: 新增表样式 不整齐 不统一
 
 # TODO: 教务员工作量系数调整功能
 
