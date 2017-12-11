@@ -160,8 +160,6 @@ body {
     position: fixed;
 }
 
-/*  TODO: 把下面这俩优化掉*/
-
 .content_button {
     width: 150px;
     height: 50px;

@@ -21,6 +21,19 @@ $(document).ready(function () {
             }
         });
 
+        // 规范班级id
+        var class_id = $('#class_id').val();
+        var grade = $('#grade').val();
+
+        var check_class_id = class_id.substring(0, 4);
+        var check_grade = grade.substring(0, 4);
+
+        if (check_class_id !== check_grade) {
+            alert('班级编号请以所在年级开头');
+            $('#class_id').focus();
+            return;
+        }
+
         if (isFull) {
             var form = $('#class_management_add_form');
             form.ajaxSubmit({

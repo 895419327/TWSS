@@ -20,8 +20,6 @@ def index(request):
 
 # FIXME: 新增表样式 不整齐 不统一
 
-# TODO: 教务员工作量系数调整功能
-
 # TODO: 数据库自动备份
 # TODO: 测试覆盖
 
@@ -660,9 +658,12 @@ def class_management_add(request, user):
         location = request.POST['extra_data'].split(' ')
         department_id = location[0]
         department = department_list.get(id=department_id)
-        location_grade = int(location[1][:4])
+        location_grade = location[1]
         if location_grade == u'当前四届':
             location_grade = year
+        else:
+            location_grade = int(location_grade[:4])
+
 
     modified_class = ''
     if request.POST['request_data']:

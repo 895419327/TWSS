@@ -44,6 +44,7 @@ def user_info(request, user):
         gender = 1
     elif request.POST['gender'] == u'女':
         gender = 2
+
     user.gender = gender
     user.department = department
     user.title = request.POST['title']

@@ -16,7 +16,6 @@ $(document).ready(function () {
         var level_select = $('#project_level');
 
         var rank_select_area = $('#project_rank_area');
-        var rank_selecct = $('#project_rank');
         switch (type) {
             case '教研论文':
                 rank_select_area.hide();

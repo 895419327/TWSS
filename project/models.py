@@ -3,9 +3,6 @@
 from django.db import models
 
 
-# TODO: Workload_K table (待定)
-
-
 class GlobalValue(models.Model):
     # 键
     key = models.CharField(max_length=32, primary_key=True)

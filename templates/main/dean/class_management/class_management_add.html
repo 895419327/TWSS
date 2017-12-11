@@ -5,7 +5,11 @@
 
     <div class="add_cross"><img src={% static "main/resourse/cross.png" %}></div>
 
-    <div class="add_title">新 增</div>
+    {% if modified_class %}
+        <div class="add_title">修 改</div>
+    {% else %}
+        <div class="add_title">新 增</div>
+    {% endif %}
 
     <form id="class_management_add_form" method="post" action="/upload" name="class_management"
           autocomplete="off">
@@ -23,7 +27,7 @@
         <div class="add_left">
             <div>
                 <span>年级 </span>
-                <select name="grade">
+                <select name="grade" id="grade">
                     {% if modified_class %}
                         <option selected>{{ modified_class.grade }}级</option>
                         {% for grade in grade_list %}
@@ -45,13 +49,13 @@
 
             <div>
                 <span>班级编号 </span>
-                <input type="text" name="class_id" style="width: 200px" class="non_empty"
+                <input type="text" name="class_id" id="class_id" style="width: 200px" class="non_empty"
                        value="{{ modified_class.id }}">
             </div>
 
             {% if modified_class %}
                 <div>
-                    <input type="text" name="original_class_id" style="width: 200px" hidden
+                    <input type="hidden" name="original_class_id" style="width: 200px"
                            value="{{ modified_class.id }}">
                 </div>
             {% endif %}

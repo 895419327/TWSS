@@ -70,9 +70,13 @@
                         {% if modified_teacher.gender == 1 %}
                             <option>男</option>
                             <option>女</option>
-                        {% else %}
+                        {% elif modified_teacher.gender == 2 %}
                             <option>女</option>
                             <option>男</option>
+                        {% else %}
+                            <option>未记录</option>
+                            <option>男</option>
+                            <option>女</option>
                         {% endif %}
                     {% else %}
                         <option>男</option>
