@@ -20,6 +20,8 @@ def index(request):
 
 # FIXME: 新增表样式 不整齐 不统一
 
+# TODO: memcache
+
 # TODO: 数据库自动备份
 # TODO: 测试覆盖
 
@@ -85,7 +87,7 @@ def login(request):
             return render(request, 'main/admin/admin.html', locals())
 
     # 任何意外
-    log('ERROR', 'Login Fail', request.POST)
+    log('ERROR', 'Login Fail', request)
     return render(request, 'index/loginfailed.html')
 
 
@@ -360,8 +362,8 @@ def teacher_workload_count(request, user):
     paper_guide_W \
         = workload_count(user, year=year)
 
-    course_total_W = theory_course_W + pratice_course_W + experiment_course_W
-    project_total_W = teaching_achievement_W + teaching_project_W + competition_guide_W + paper_guide_W
+    course_total_W = round(theory_course_W + pratice_course_W + experiment_course_W, 2)
+    project_total_W = round(teaching_achievement_W + teaching_project_W + competition_guide_W + paper_guide_W, 2)
     return render(request, 'main/teacher/workload_count/workload_count.html', locals())
 
 
@@ -598,7 +600,7 @@ def department_management_modify(request, user):
 
 # 教师管理
 # 系主任有权调用
-
+# TODO: 身份为系主任时不提供全部导出功能
 def teacher_management(request, user):
     status = user.status.split(',')
 
@@ -680,6 +682,7 @@ def class_management_add(request, user):
 # TODO: 检查/刷新工作量
 # 工作量统计
 # 系主任有权调用
+# TODO: 身份为系主任时不提供全部导出功能
 def workload_statistics(request, user):
     years = range(2016, int(GlobalValue.objects.get(key='current_year').value) + 1)
     status = user.status.split(',')[1]

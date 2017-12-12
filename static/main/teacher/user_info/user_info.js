@@ -65,8 +65,6 @@ $(document).ready(function () {
 
             if (modifying) {
                 modifying = false;
-                modify_button.text('修改');
-                modify_button.css('color', 'black');
 
                 var form = $('#user_info_form');
                 form.ajaxSubmit({

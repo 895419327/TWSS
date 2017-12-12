@@ -26,6 +26,7 @@ def export(request):
     log('INFO', 'DataExport', user.name, user.id, requestfor, request.POST)
     return eval(requestfor)(request, user)
 
+
 def teacher_management_export(request, user):
     department_id = request.POST['department_id']
     if department_id == 'all':
@@ -98,7 +99,6 @@ def workload_statistics_export(request, user):
         teacher_list = User.objects.filter(department=department)
         title = year + '-' + str(int(year) + 1) + u'学年' + department.name + u'系工作量统计'
 
-
     workbook_template = xlrd.open_workbook(BASE_DIR + '/media/excel/templates/workload_statisitic.xls',
                                            formatting_info=True)
     workbook = copy(workbook_template)
@@ -131,7 +131,7 @@ def workload_statistics_export(request, user):
 
         worksheet.write(row, 5, theory_course_num, style)
         worksheet.write(row, 6, theory_course_period, style)
-        worksheet.write(row, 7, theory_course_W, style)
+        worksheet.write(row, 7, round(theory_course_W, 2), style)
 
         experiment_course_list = ExperimentCourse.objects.filter(teacher=teacher, year=year)
         experiment_course_num = experiment_course_list.count()
@@ -143,7 +143,7 @@ def workload_statistics_export(request, user):
 
         worksheet.write(row, 9, experiment_course_num, style)
         worksheet.write(row, 10, experiment_course_period, style)
-        worksheet.write(row, 11, experiment_course_W, style)
+        worksheet.write(row, 11, round(experiment_course_W, 2), style)
 
         pratice_course_list = PraticeCourse.objects.filter(teacher=teacher, year=year)
         pratice_course_num = pratice_course_list.count()
@@ -155,10 +155,10 @@ def workload_statistics_export(request, user):
 
         worksheet.write(row, 13, pratice_course_num, style)
         worksheet.write(row, 14, pratice_course_period, style)
-        worksheet.write(row, 15, pratice_course_W, style)
+        worksheet.write(row, 15, round(pratice_course_W, 2), style)
 
         course_total_W = theory_course_W + experiment_course_W + pratice_course_W
-        worksheet.write(row, 17, course_total_W, style)
+        worksheet.write(row, 17, round(course_total_W, 2), style)
 
         teaching_achievement_list = TeachingAchievement.objects.filter(teacher=teacher, year=year)
         teaching_achievement_sum = teaching_achievement_list.count()
@@ -167,7 +167,7 @@ def workload_statistics_export(request, user):
             teaching_achievement_W += project.workload
 
         worksheet.write(row, 19, teaching_achievement_sum, style)
-        worksheet.write(row, 20, teaching_achievement_W, style)
+        worksheet.write(row, 20, round(teaching_achievement_W, 2), style)
 
         teaching_project_list = TeachingProject.objects.filter(teacher=teacher, year=year)
         teaching_project_sum = teaching_project_list.count()
@@ -176,7 +176,7 @@ def workload_statistics_export(request, user):
             teaching_project_W += project.workload
 
         worksheet.write(row, 22, teaching_project_sum, style)
-        worksheet.write(row, 23, teaching_project_W, style)
+        worksheet.write(row, 23, round(teaching_project_W, 2), style)
 
         competition_guide_list = CompetitionGuide.objects.filter(teacher=teacher, year=year)
         competition_guide_sum = competition_guide_list.count()
@@ -185,7 +185,7 @@ def workload_statistics_export(request, user):
             competition_guide_W += project.workload
 
         worksheet.write(row, 25, competition_guide_sum, style)
-        worksheet.write(row, 26, competition_guide_W, style)
+        worksheet.write(row, 26, round(competition_guide_W, 2), style)
 
         paper_guide_list = PaperGuide.objects.filter(teacher=teacher, year=year)
         paper_guide_sum = paper_guide_list.count()
@@ -194,13 +194,13 @@ def workload_statistics_export(request, user):
             paper_guide_W += project.workload
 
         worksheet.write(row, 28, paper_guide_sum, style)
-        worksheet.write(row, 29, paper_guide_W, style)
+        worksheet.write(row, 29, round(paper_guide_W, 2), style)
 
         project_total_W = teaching_achievement_W + teaching_project_W + competition_guide_W + paper_guide_W
-        worksheet.write(row, 31, project_total_W, style)
+        worksheet.write(row, 31, round(project_total_W, 2), style)
 
         total_W = project_total_W + course_total_W
-        worksheet.write(row, 33, total_W, style)
+        worksheet.write(row, 33, round(total_W, 2), style)
 
         row += 1
 
