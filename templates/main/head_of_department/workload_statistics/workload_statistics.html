@@ -6,7 +6,9 @@
 
     <div class="content_title">工作量统计</div>
 
-    <div class="export_all_button">全部导出</div>
+    {% if export_all %}
+        <div class="export_all_button">全部导出</div>
+    {% endif %}
 
     <div class="blur_area">
 

@@ -1,0 +1,63 @@
+{% load staticfiles %}
+{% load myfilters %}
+
+<div class="class_delete_fail"></div>
+<div class="main_content">
+
+    <div class="content_title">添加教师失败</div>
+
+    <div class="export_button" id="teacher_id_used_return" style="position: absolute; top: 45px; right: 25px;">返回</div>
+
+    <div class="project_item_title">原因：id({{ teacher_id }})已被使用</div>
+
+    <table cellspacing="0">
+        <tr>
+            <th width="120px">教师编号</th>
+            <th width="100px">教师姓名</th>
+            <th width="80px">职称</th>
+            <th width="100px">联系方式</th>
+            <th width="120px">邮箱</th>
+            <th width="100px">操作</th>
+        </tr>
+
+        {% for teacher in teacher_existed %}
+            <tr>
+                <td>{{ teacher.id }}</td>
+                <td>{{ teacher.name }}</td>
+                <td>{{ teacher.title }}</td>
+                <td>{{ teacher.phone_number }}</td>
+                <td>{{ teacher.email }}</td>
+                <td>
+                    <img class="teacher_management_modify" id="{{ teacher.id }}_modify"
+                         src={% static "main/resourse/modify.png" %}>
+                    <img class="teacher_management_delete" id="{{ teacher.id }}_delete"
+                         src={% static "main/resourse/delete.png" %}>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <script>
+        $('#teacher_id_used_return').click(function () {
+            MyAjax_Get('/getpage', 'teacher_management');
+        });
+
+        $('.teacher_management_modify').click(function () {
+            var id = this.id;
+            id = id.substring(0, id.length - 7);
+            MyAjax_Get('getpage', 'teacher_management_add', id, '.teacher_management_add_content');
+        });
+
+        $('.teacher_management_delete').click(function () {
+            var id = this.id;
+            id = id.substring(0, id.length - 7);
+            if (confirm("确认删除？"))
+                MyAjax_Get('/upload', 'teacher_delete', id);
+        });
+    </script>
+
+</div>
+
+<div class="teacher_management_add_content">
+
+</div>

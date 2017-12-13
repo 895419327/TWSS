@@ -15,8 +15,10 @@ from project.utilities.workload_count import *
 
 from TWSS.settings import BASE_DIR
 
+
 def index(request):
     return render(request, 'index/index.html')
+
 
 # FIXME: 新增表样式 不整齐 不统一
 
@@ -25,8 +27,6 @@ def index(request):
 # TODO: 数据库自动备份
 # TODO: 测试覆盖
 
-
-# TODO: 删除班级、教师信息时检查是否有相关引用
 
 # TODO: 防爆破 输入多次密码错误后封ip
 
@@ -73,7 +73,6 @@ def login(request):
 
         user.identify_code = identify_code
         user.save()
-
 
         # 返回相应页面
         notice = Notice.objects.get(id=1)
@@ -129,7 +128,6 @@ def get_classes(grade=2017):
     return class_list
 
 
-# FIXME: 2016级 2016级重复
 def get_classes_module(request, user):
     data = request.POST['request_data'].split(',')
     grade = data[0]
@@ -161,7 +159,10 @@ def workload_input_theory_course(request, user):
 
 
 def workload_input_theory_course_add(request, user):
-    years = range(2016, int(GlobalValue.objects.get(key='current_year').value) + 1)
+    current_year = int(GlobalValue.objects.get(key='current_year').value)
+    years = range(2016, current_year + 1)
+    grades = range(current_year, 2013, -1)
+
     location = ''
     if 'extra_data' in request.POST and request.POST['extra_data'] != '':
         location = request.POST['extra_data'].split(',')
@@ -169,8 +170,7 @@ def workload_input_theory_course_add(request, user):
         semester = location[1]
     # 获取班级信息
 
-    # FIXME: 改为显示最小一级的班级
-    class_list = get_classes(2016)
+    class_list = get_classes(current_year)
     modified_course = ''
 
     course_list = TheoryCourse.objects.order_by('course_id')
@@ -183,7 +183,7 @@ def workload_input_theory_course_add(request, user):
     if request.POST['request_data']:
         modified_course = TheoryCourse.objects.get(id=request.POST['request_data'])
         classes_checked = modified_course.classes.split(',')
-        grade = classes_checked[0][0:4]
+        grade = int(classes_checked[0][0:4])
         class_list = get_classes(grade)
     return render(request, 'main/teacher/workload_input/theory_course/theory_course_add.html', locals())
 
@@ -200,14 +200,17 @@ def workload_input_experiment_course(request, user):
 
 
 def workload_input_experiment_course_add(request, user):
-    years = range(2016, int(GlobalValue.objects.get(key='current_year').value) + 1)
+    current_year = int(GlobalValue.objects.get(key='current_year').value)
+    years = range(2016, current_year + 1)
+    grades = range(current_year, 2013, -1)
+
     location = ''
     if 'extra_data' in request.POST and request.POST['extra_data'] != '':
         location = request.POST['extra_data'].split(',')
         year = location[0]
         semester = location[1]
     # 获取班级信息
-    class_list = get_classes(2016)
+    class_list = get_classes(current_year)
     modified_course = ''
 
     course_list = ExperimentCourse.objects.order_by('course_id')
@@ -220,7 +223,7 @@ def workload_input_experiment_course_add(request, user):
     if request.POST['request_data']:
         modified_course = ExperimentCourse.objects.get(id=request.POST['request_data'])
         classes_checked = modified_course.classes.split(',')
-        grade = classes_checked[0][0:4]
+        grade = int(classes_checked[0][0:4])
         class_list = get_classes(grade)
     return render(request, 'main/teacher/workload_input/experiment_course/experiment_course_add.html', locals())
 
@@ -237,19 +240,22 @@ def workload_input_pratice_course(request, user):
 
 
 def workload_input_pratice_course_add(request, user):
-    years = range(2016, int(GlobalValue.objects.get(key='current_year').value) + 1)
+    current_year = int(GlobalValue.objects.get(key='current_year').value)
+    years = range(2016, current_year + 1)
+    grades = range(current_year, 2013, -1)
+
     location = ''
     if 'extra_data' in request.POST and request.POST['extra_data'] != '':
         location = request.POST['extra_data'].split(',')
         year = location[0]
         semester = location[1]
     # 获取班级信息
-    class_list = get_classes(2016)
+    class_list = get_classes(current_year)
     modified_course = ''
     if request.POST['request_data']:
         modified_course = PraticeCourse.objects.get(id=request.POST['request_data'])
         classes_checked = modified_course.classes.split(',')
-        grade = classes_checked[0][0:4]
+        grade = int(classes_checked[0][0:4])
         class_list = get_classes(grade)
     return render(request, 'main/teacher/workload_input/pratice_course/pratice_course_add.html', locals())
 
@@ -600,7 +606,6 @@ def department_management_modify(request, user):
 
 # 教师管理
 # 系主任有权调用
-# TODO: 身份为系主任时不提供全部导出功能
 def teacher_management(request, user):
     status = user.status.split(',')
 
@@ -612,6 +617,7 @@ def teacher_management(request, user):
         teacher_list = User.objects.filter(department=user.department)
     # 若为教务员
     elif u'教务员' in status:
+        export_all = True
         department_list = Department.objects.all()
         teacher_list = User.objects.all()
     return render(request, 'main/head_of_department/teacher_management/teacher_management.html', locals())
@@ -646,7 +652,6 @@ def class_management(request, user):
         class_list = Class.objects.filter(grade=grade)
         grade = str(grade) + u'级'
 
-
     return render(request, 'main/dean/class_management/class_management.html',
                   locals())
 
@@ -666,7 +671,6 @@ def class_management_add(request, user):
         else:
             location_grade = int(location_grade[:4])
 
-
     modified_class = ''
     if request.POST['request_data']:
         modified_class = Class.objects.get(id=request.POST['request_data'])
@@ -682,7 +686,6 @@ def class_management_add(request, user):
 # TODO: 检查/刷新工作量
 # 工作量统计
 # 系主任有权调用
-# TODO: 身份为系主任时不提供全部导出功能
 def workload_statistics(request, user):
     years = range(2016, int(GlobalValue.objects.get(key='current_year').value) + 1)
     status = user.status.split(',')[1]
@@ -693,14 +696,16 @@ def workload_statistics(request, user):
 
     department_list = []
     teacher_list = []
-    # 若为教务员
-    if status == u'教务员':
-        department_list = Department.objects.all()
-        teacher_list = User.objects.all()
+
     # 若为系主任
-    elif status == u'系主任':
+    if status == u'系主任':
         department_list = Department.objects.filter(head_of_department=user.id)
         teacher_list = User.objects.filter(department=user.department)
+    # 若为教务员
+    elif status == u'教务员':
+        export_all = True
+        department_list = Department.objects.all()
+        teacher_list = User.objects.all()
 
     workload_list = []
     for teacher in teacher_list:

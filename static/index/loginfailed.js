@@ -50,3 +50,7 @@ $(document).ready(function () {
 function connect_admin() {
     alert('email: 895419327@qq.com\ntel: 18030066873 陈泓');
 }
+
+function connect_dean() {
+    alert('请联系教务处 张静老师');
+}

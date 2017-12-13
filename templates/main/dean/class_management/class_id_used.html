@@ -1,0 +1,66 @@
+{% load staticfiles %}
+{% load myfilters %}
+
+<div class="class_delete_fail"></div>
+<div class="main_content">
+
+    <div class="content_title">添加班级失败</div>
+
+    <div class="export_button" id="class_id_used_return" style="position: absolute; top: 45px; right: 25px;">返回</div>
+
+    <div class="project_item_title">原因：id({{ class_id }})已被使用</div>
+
+    <table cellspacing="0" cellpadding="0">
+        <tr>
+            <th width="80px">班级编号</th>
+            <th width="150px">班级名称</th>
+            <th width="80px">学生人数</th>
+            <th width="150px">班主任</th>
+            <th width="120px">班主任联系方式</th>
+            <th width="80px">操作</th>
+
+        </tr>
+
+        {% for clas in class_existed %}
+            <tr>
+                <td>{{ clas.id }}</td>
+                <td>{{ clas.name }}</td>
+                <td>{{ clas.sum }}</td>
+                <td>{{ clas.teacher.name }} {{ clas.teacher.id }}
+                </td>
+                <td>{{ clas.teacher.phone_number }}</td>
+                <td>
+                    <img class="class_management_modify" id="{{ clas.id }}_modify"
+                         src={% static "main/resourse/modify.png" %}>
+                    <img class="class_management_delete" id="{{ clas.id }}_delete"
+                         src={% static "main/resourse/delete.png" %}>
+                </td>
+            </tr>
+        {% endfor %}
+
+    </table>
+
+    <script>
+        $('#class_id_used_return').click(function () {
+            MyAjax_Get('/getpage', 'class_management');
+        });
+
+        $('.class_management_modify').click(function () {
+            var id = this.id;
+            id = id.substring(0, id.length - 7);
+            MyAjax_Get('getpage', 'class_management_add', id, '.class_management_add_content');
+        });
+
+        $('.class_management_delete').click(function () {
+            var id = this.id;
+            id = id.substring(0, id.length - 7);
+            if (confirm("确认删除？"))
+                MyAjax_Get('/upload', 'class_delete', id);
+        });
+    </script>
+
+</div>
+
+<div class="class_management_add_content">
+
+</div>

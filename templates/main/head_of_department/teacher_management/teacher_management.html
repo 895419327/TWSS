@@ -5,7 +5,9 @@
 
     <div class="content_title">教师队伍管理</div>
 
-    <div class="export_all_button" style="margin: -45px 16px 0 0">全部导出</div>
+    {% if export_all %}
+        <div class="export_all_button" style="margin: -45px 16px 0 0">全部导出</div>
+    {% endif %}
 
     <div class="blur_area">
 

@@ -103,7 +103,8 @@
 
             <div>
                 <span>课程编号 </span>
-                <input type="text" name="course_id" id="course_id" class="non_empty" value="{{ modified_course.course_id }}">
+                <input type="text" name="course_id" id="course_id" class="non_empty"
+                       value="{{ modified_course.course_id }}">
             </div>
 
             <div hidden>
@@ -131,19 +132,22 @@
                     {% if grade %}
                         <option>{{ grade }}级</option>
                     {% endif %}
-                    <option>2016级</option>
-                    <option>2014级</option>
-                    <option>2015级</option>
-                    <option>2017级</option>
+                    {% for g in grades %}
+                        {% if g != grade %}
+                            <option>{{ g }}级</option>
+                        {% endif %}
+                    {% endfor %}
                 </select>
             </span>
             <div class="add_classes">
                 {% if class_list %}
                     {% for clas in class_list %}
                         {% if clas.id in classes_checked %}
-                            <div><input type="checkbox" class="class_checkbox" name="{{ clas.id }}" checked/> {{ clas.name }}</div>
+                            <div><input type="checkbox" class="class_checkbox" name="{{ clas.id }}"
+                                        checked/> {{ clas.name }}</div>
                         {% else %}
-                            <div><input type="checkbox" class="class_checkbox" name="{{ clas.id }}"/> {{ clas.name }}</div>
+                            <div><input type="checkbox" class="class_checkbox" name="{{ clas.id }}"/> {{ clas.name }}
+                            </div>
                         {% endif %}
                     {% endfor %}
                 {% endif %}

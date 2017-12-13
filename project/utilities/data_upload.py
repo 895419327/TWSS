@@ -385,6 +385,12 @@ def notice_setting(request, user):
 
 def teacher_add(request, user):
     teacher_id = request.POST['teacher_id']
+
+    if 'original_teacher_id' not in request.POST:
+        teacher_existed = User.objects.filter(id=teacher_id)
+        if teacher_existed.count() != 0:
+            return render(request, 'main/head_of_department/teacher_management/teacher_id_used.html', locals())
+
     # 默认使用教职工号作为密码
     password = teacher_id + 'zhengzhoudaxueshengmingkexuexueyuanjiaoshigongzuoliangtongjixitong'
     generater = md5(password.encode("utf8"))
@@ -496,15 +502,22 @@ def teacher_delete(request, user):
 # Class Management
 
 # TODO: 大一生物科学类分班
-# TODO: 检查id是否已使用 add_form加tag new or modify
 def class_add(request, user):
+    class_id = request.POST['class_id']
+
+    if 'original_class_id' not in request.POST:
+        class_existed = Class.objects.filter(id=class_id)
+        if class_existed.count() != 0:
+            return render(request, 'main/dean/class_management/class_id_used.html', locals())
+
     teacher = None
     teacher_info = request.POST['teacher']
     if teacher_info != '':
         teacher_id = teacher_info.split(' ')[1]
         teacher = User.objects.get(id=teacher_id)
     department = Department.objects.get(name=request.POST['department'])
-    new = Class(id=request.POST['class_id'],
+
+    new = Class(id=class_id,
                 name=request.POST['name'],
                 department=department,
                 grade=request.POST['grade'][:-1],
