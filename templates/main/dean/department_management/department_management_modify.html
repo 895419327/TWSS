@@ -21,7 +21,7 @@
                 <input type="text" hidden name="department_id" value="{{ department.id }}">
             </div>
 
-            <div>
+            <div style="margin: 0 0 0 -40px">
                 <span>原系主任 </span>
                 <input type="text" style="width: 200px"
                        value="{{ original_head.name }} {{ original_head.id }}" disabled>
@@ -31,7 +31,7 @@
         </div>
 
         <div class="add_right">
-            <div>
+            <div style="margin: 0 0 0 -40px">
                 <span>新系主任 </span>
                 <select name="teacher" style="width: 225px">
                     {% if teacher_list %}

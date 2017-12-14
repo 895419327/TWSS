@@ -31,29 +31,6 @@
 
         <div class="add_left">
             <div>
-                <span>鉴定年份 </span>
-                <select name="year">
-                    {% if modified_project %}
-                        <option>{{ modified_project.year }}年</option>
-                        {% for y in years %}
-                            {% if y != modified_project.year %}
-                                <option>{{ y }}年</option>
-                            {% endif %}
-                        {% endfor %}
-                    {% elif location %}
-                        {% if year != '所有' %}
-                            <option>{{ year }}年</option>
-                        {% endif %}
-                        {% for y in years %}
-                            {% if y != year|stoi %}
-                                <option>{{ y }}年</option>
-                            {% endif %}
-                        {% endfor %}
-                    {% endif %}
-                </select>
-            </div>
-
-            <div>
                 <span>类别 </span>
                 <select name="type" id="project_type">
                     {% if modified_project %}
@@ -83,9 +60,6 @@
                     {% endif %}
                 </select>
             </div>
-        </div>
-
-        <div class="add_right">
 
             <div>
                 <span>级别 </span>
@@ -124,6 +98,32 @@
                     {% else %}
                         <option>核心期刊</option>
                         <option>一般期刊</option>
+                    {% endif %}
+                </select>
+            </div>
+        </div>
+
+        <div class="add_right">
+
+            <div style="margin: 0 0 0 -45px">
+                <span>鉴定年份 </span>
+                <select name="year">
+                    {% if modified_project %}
+                        <option>{{ modified_project.year }}年</option>
+                        {% for y in years %}
+                            {% if y != modified_project.year %}
+                                <option>{{ y }}年</option>
+                            {% endif %}
+                        {% endfor %}
+                    {% elif location %}
+                        {% if year != '所有' %}
+                            <option>{{ year }}年</option>
+                        {% endif %}
+                        {% for y in years %}
+                            {% if y != year|stoi %}
+                                <option>{{ y }}年</option>
+                            {% endif %}
+                        {% endfor %}
                     {% endif %}
                 </select>
             </div>

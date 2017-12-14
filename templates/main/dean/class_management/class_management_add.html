@@ -27,7 +27,7 @@
         <div class="add_left">
             <div>
                 <span>年级 </span>
-                <select name="grade" id="grade">
+                <select name="grade" id="grade" style="margin-left: 42px">
                     {% if modified_class %}
                         <option selected>{{ modified_class.grade }}级</option>
                         {% for grade in grade_list %}
@@ -62,7 +62,7 @@
 
             <div>
                 <span>班主任 </span>
-                <select name="teacher" style="width: 225px">
+                <select name="teacher" style="width: 215px; margin-left: 20px" er>
                     {% if modified_class %}
                         <option selected>{{ modified_class.teacher.name }} {{ modified_class.teacher.id }}</option>
                     {% else %}
@@ -80,7 +80,7 @@
         <div class="add_right">
             <div>
                 <span>所属系</span>
-                <select name="department">
+                <select name="department" style="margin-left: 22px">
                     {% if modified_class %}
                         <option>{{ modified_class.department.name }}</option>
                         {% for d in department_list %}

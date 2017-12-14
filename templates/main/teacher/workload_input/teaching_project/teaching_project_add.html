@@ -31,33 +31,7 @@
         <div hidden><span>项目编号</span><input type="text" name="project_id" value="{{ modified_project.id }}"></div>
 
         <div class="add_left">
-            <div>
-                <span>年份 </span>
-                <select name="year">
-                    {% if modified_project %}
-                        <option>{{ modified_project.year }}年</option>
-                        {% for y in years %}
-                            {% if y != modified_project.year %}
-                                <option>{{ y }}年</option>
-                            {% endif %}
-                        {% endfor %}
-                    {% elif location %}
-                        {% if year != '所有' %}
-                            <option>{{ year }}年</option>
-                        {% endif %}
-                        {% for y in years %}
-                            {% if y != year|stoi %}
-                                <option>{{ y }}年</option>
-                            {% endif %}
-                        {% endfor %}
-                    {% endif %}
-                </select>
-            </div>
 
-        </div>
-
-
-        <div class="add_right">
             <div>
                 <span>类别 </span>
                 <select name="type" id="project_type">
@@ -100,6 +74,35 @@
                     {% endif %}
                 </select>
             </div>
+
+        </div>
+
+
+        <div class="add_right">
+
+            <div>
+                <span>年份 </span>
+                <select name="year">
+                    {% if modified_project %}
+                        <option>{{ modified_project.year }}年</option>
+                        {% for y in years %}
+                            {% if y != modified_project.year %}
+                                <option>{{ y }}年</option>
+                            {% endif %}
+                        {% endfor %}
+                    {% elif location %}
+                        {% if year != '所有' %}
+                            <option>{{ year }}年</option>
+                        {% endif %}
+                        {% for y in years %}
+                            {% if y != year|stoi %}
+                                <option>{{ y }}年</option>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                </select>
+            </div>
+
         </div>
     </form>
 

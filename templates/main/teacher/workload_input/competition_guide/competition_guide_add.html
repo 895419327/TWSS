@@ -43,25 +43,20 @@
         </div>
 
         <div class="add_left">
+
             <div>
-                <span>年份 </span>
-                <select name="year">
+                <span>类别 </span>
+                <select name="type">
                     {% if modified_project %}
-                        <option>{{ modified_project.year }}年</option>
-                        {% for y in years %}
-                            {% if y != modified_project.year %}
-                                <option>{{ y }}年</option>
-                            {% endif %}
-                        {% endfor %}
-                    {% elif location %}
-                        {% if year != '所有' %}
-                            <option>{{ year }}年</option>
+                        <option>{{ modified_project.type }}</option>
+                        {% if modified_project.type == '全国性大学生学科竞赛' %}
+                            <option>省部级大学生竞赛</option>
+                        {% elif modified_project.type == '省部级大学生竞赛' %}
+                            <option>全国性大学生学科竞赛</option>
                         {% endif %}
-                        {% for y in years %}
-                            {% if y != year|stoi %}
-                                <option>{{ y }}年</option>
-                            {% endif %}
-                        {% endfor %}
+                    {% else %}
+                        <option>全国性大学生学科竞赛</option>
+                        <option>省部级大学生竞赛</option>
                     {% endif %}
                 </select>
             </div>
@@ -92,22 +87,30 @@
         </div>
 
         <div class="add_right">
+
             <div>
-                <span>类别 </span>
-                <select name="type">
+                <span>年份 </span>
+                <select name="year">
                     {% if modified_project %}
-                        <option>{{ modified_project.type }}</option>
-                        {% if modified_project.type == '全国性大学生学科竞赛' %}
-                            <option>省部级大学生竞赛</option>
-                        {% elif modified_project.type == '省部级大学生竞赛' %}
-                            <option>全国性大学生学科竞赛</option>
+                        <option>{{ modified_project.year }}年</option>
+                        {% for y in years %}
+                            {% if y != modified_project.year %}
+                                <option>{{ y }}年</option>
+                            {% endif %}
+                        {% endfor %}
+                    {% elif location %}
+                        {% if year != '所有' %}
+                            <option>{{ year }}年</option>
                         {% endif %}
-                    {% else %}
-                        <option>全国性大学生学科竞赛</option>
-                        <option>省部级大学生竞赛</option>
+                        {% for y in years %}
+                            {% if y != year|stoi %}
+                                <option>{{ y }}年</option>
+                            {% endif %}
+                        {% endfor %}
                     {% endif %}
                 </select>
             </div>
+
         </div>
     </form>
 

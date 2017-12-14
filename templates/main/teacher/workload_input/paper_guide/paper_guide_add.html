@@ -2,7 +2,7 @@
 {% load myfilters %}
 <script src={% static 'main/teacher/workload_input/paper_guide/paper_guide_add.js' %}></script>
 
-<div class="add_popup" style="height: 350px;">
+<div class="add_popup" style="height: 250px;">
 
     <div class="add_cross"><img src={% static "main/resourse/cross.png" %}></div>
 
@@ -46,16 +46,14 @@
                     {% endif %}
                 </select>
             </div>
+        </div>
 
-            <div>
+        <div class="add_right">
+            <div style="margin: 0 0 0 -50px">
                 <span>学生姓名 </span>
                 <input type="text" name="student" style="width: 200px" class="non_empty"
                        value="{{ modified_project.student }}">
             </div>
-        </div>
-
-        <div class="add_right">
-
         </div>
     </form>
 

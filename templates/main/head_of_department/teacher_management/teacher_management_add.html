@@ -45,20 +45,20 @@
             {% endif %}
 
             <div>
-                <span>姓名 </span>
-                <input type="text" name="name" id="teacher_name" style="width: 200px" class="non_empty"
+                <span>姓 名 </span>
+                <input type="text" name="name" id="teacher_name" style="width: 200px; margin-left: 15px" class="non_empty"
                        value="{{ modified_teacher.name }}">
             </div>
 
             <div>
-                <span>毕业院校</span>
-                <input type="text" name="graduate" style="width: 200px" class="non_empty"
+                <span style="font-size: 17px">毕业院校</span>
+                <input type="text" name="graduate" style="width: 200px; margin-left: -2px" class="non_empty"
                        value="{{ modified_teacher.graduate }}">
             </div>
 
             <div>
                 <span>职 称 </span>
-                <input type="text" name="title" style="width: 200px" class="non_empty"
+                <input type="text" name="title" style="width: 200px; margin-left: 15px" class="non_empty"
                        value="{{ modified_teacher.title }}">
             </div>
 
@@ -82,7 +82,7 @@
 
             <div>
                 <span>性 别 </span>
-                <select name="gender">
+                <select name="gender" style="margin-left: 15px">
                     {% if modified_teacher %}
                         {% if modified_teacher.gender == 1 %}
                             <option>男</option>
@@ -104,19 +104,19 @@
 
             <div>
                 <span>专 业 </span>
-                <input type="text" name="major" style="width: 200px" class="non_empty"
+                <input type="text" name="major" style="width: 200px; margin-left: 15px" class="non_empty"
                        value="{{ modified_teacher.major }}">
             </div>
 
             <div>
-                <span>出生日期 </span>
+                <span style="font-size: 17px">出生日期 </span>
                 <input type="date" name="birth_date" style="width: 200px" class="non_empty" placeholder="yyyy-mm-dd"
                        value="{{ modified_teacher.birth_date | date:'Y-n-d' }}">
             </div>
 
             <div>
                 <span>邮箱 </span>
-                <input type="text" name="email" style="width: 200px" class="non_empty"
+                <input type="text" name="email" style="width: 200px; margin-left: 22px" class="non_empty"
                        value="{{ modified_teacher.email }}">
             </div>
         </div>

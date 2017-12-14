@@ -20,8 +20,6 @@ def index(request):
     return render(request, 'index/index.html')
 
 
-# FIXME: 新增表样式 不整齐 不统一
-
 # TODO: memcache
 
 # TODO: 数据库自动备份
