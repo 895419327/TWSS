@@ -167,8 +167,7 @@ def competition_guide_workload_count(project):
 
 
 def papar_guide_workload_count(project):
-    # TODO:怎么算
-    return 0
+    return 15
 
 
 def workload_count(teacher, course=True, project=True, year=2017):
