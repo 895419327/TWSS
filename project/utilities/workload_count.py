@@ -36,7 +36,7 @@ def theory_course_workload_count(course):
 def experiment_course_workload_count(course):
     L = 0
     if course.attribute == 1:
-        L = 0.045
+        L = 0.027
     elif course.attribute == 2:
         L = 0.020
     elif course.attribute == 3:
