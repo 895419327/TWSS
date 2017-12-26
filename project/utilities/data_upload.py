@@ -397,20 +397,14 @@ def teacher_add(request, user):
     password = generater.hexdigest()
     password = make_password(password)
 
-    # 如果是修改则使用旧密码
+    # 如果是修改则使用原密码 原身份
+    status = u'教师'
     if 'original_teacher_id' in request.POST:
         old = User.objects.get(id=request.POST['original_teacher_id'])
         password = old.password
+        status = old.status
 
     department = Department.objects.get(name=request.POST['department'])
-
-    # 教务员修改系主任信息后 系主任status会被重置为'教师' 需手动加上
-    status = u'教师'
-    departments = Department.objects.all()
-    for d in departments:
-        if d.head_of_department == request.POST['teacher_id']:
-            status = u'教师,系主任'
-            break
 
     gender = request.POST['gender']
     if gender == u'男':

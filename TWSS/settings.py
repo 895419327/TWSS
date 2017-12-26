@@ -27,7 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost',
                  'vicchen.club', 'www.vicchen.club',
-                 'dva-loveyou.top', 'www.dva-loveyou.top']
+                 'dva-loveyou.top', 'www.dva-loveyou.top',
+                 '10.113.81.66']
 
 
 # Application definition
