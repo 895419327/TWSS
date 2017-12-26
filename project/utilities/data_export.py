@@ -108,85 +108,124 @@ def workload_statistics_export(request, user):
         'font: height 560, name 黑体, bold on;'
         ' align: vert centre, horiz centre;'))
 
-    style = xlwt.XFStyle()
-    font = xlwt.Font()
-    font.name = u'宋体'
-    style.font = font
+    style = xlwt.easyxf('font: height 200, name 宋体, bold off;')
 
-    row = 4
+    style_center = xlwt.easyxf(
+        'font: height 300, name 宋体, bold off;'
+        ' align: vert centre, horiz centre;')
+
+    start_row = 4
     for teacher in teacher_list:
 
-        worksheet.write(row, 0, teacher.id, style)
-        worksheet.write(row, 1, teacher.name, style)
-        worksheet.write(row, 2, teacher.department.name, style)
-        worksheet.write(row, 3, teacher.title, style)
+        row_span = 1
 
+        row = start_row
         theory_course_list = TheoryCourse.objects.filter(teacher=teacher, year=year)
         theory_course_num = theory_course_list.count()
+        if theory_course_num >= row_span:
+            row_span = theory_course_num
         theory_course_period = 0
         theory_course_W = 0
         for course in theory_course_list:
+            worksheet.write(row, 5, course.name, style)
+            worksheet.write(row, 6, course.final_period, style)
+            worksheet.write(row, 7, round(course.workload, 2), style)
+
             theory_course_period += course.final_period
             theory_course_W += course.workload
+            row += 1
 
         worksheet.write(row, 5, theory_course_num, style)
         worksheet.write(row, 6, theory_course_period, style)
         worksheet.write(row, 7, round(theory_course_W, 2), style)
 
+        row = start_row
         experiment_course_list = ExperimentCourse.objects.filter(teacher=teacher, year=year)
         experiment_course_num = experiment_course_list.count()
+        if experiment_course_num >= row_span:
+            row_span = experiment_course_num
         experiment_course_period = 0
         experiment_course_W = 0
         for course in experiment_course_list:
+            worksheet.write(row, 5, course.name, style)
+            worksheet.write(row, 6, course.final_period, style)
+            worksheet.write(row, 7, round(course.workload, 2), style)
+
             experiment_course_period += course.final_period
             experiment_course_W += course.workload
+            row += 1
 
         worksheet.write(row, 9, experiment_course_num, style)
         worksheet.write(row, 10, experiment_course_period, style)
         worksheet.write(row, 11, round(experiment_course_W, 2), style)
 
+        row = start_row
         pratice_course_list = PraticeCourse.objects.filter(teacher=teacher, year=year)
         pratice_course_num = pratice_course_list.count()
+        if pratice_course_num >= row_span:
+            row_span = pratice_course_num
         pratice_course_period = 0
         pratice_course_W = 0
         for course in pratice_course_list:
+            worksheet.write(row, 13, course.name, style)
+            worksheet.write(row, 14, course.final_period, style)
+            worksheet.write(row, 15, round(course.workload, 2), style)
+
             pratice_course_period += course.final_period
             pratice_course_W += pratice_course_workload_count(course)
+            row += 1
 
         worksheet.write(row, 13, pratice_course_num, style)
         worksheet.write(row, 14, pratice_course_period, style)
         worksheet.write(row, 15, round(pratice_course_W, 2), style)
 
-        course_total_W = theory_course_W + experiment_course_W + pratice_course_W
-        worksheet.write(row, 17, round(course_total_W, 2), style)
-
+        row = start_row
         teaching_achievement_list = TeachingAchievement.objects.filter(teacher=teacher, year=year)
         teaching_achievement_sum = teaching_achievement_list.count()
+        if teaching_achievement_sum >= row_span:
+            row_span = teaching_achievement_sum
         teaching_achievement_W = 0
         for project in teaching_achievement_list:
+            worksheet.write(row, 19, project.name, style)
+            worksheet.write(row, 20, round(project.workload, 2), style)
+
             teaching_achievement_W += project.workload
+            row += 1
 
         worksheet.write(row, 19, teaching_achievement_sum, style)
         worksheet.write(row, 20, round(teaching_achievement_W, 2), style)
 
+        row = start_row
         teaching_project_list = TeachingProject.objects.filter(teacher=teacher, year=year)
         teaching_project_sum = teaching_project_list.count()
+        if teaching_project_sum >= row_span:
+            row_span = teaching_project_sum
         teaching_project_W = 0
         for project in teaching_project_list:
+            worksheet.write(row, 22, project.name, style)
+            worksheet.write(row, 23, round(project.workload, 2), style)
+
             teaching_project_W += project.workload
+            row += 1
 
         worksheet.write(row, 22, teaching_project_sum, style)
         worksheet.write(row, 23, round(teaching_project_W, 2), style)
 
+        row = start_row
         competition_guide_list = CompetitionGuide.objects.filter(teacher=teacher, year=year)
         competition_guide_sum = competition_guide_list.count()
         competition_guide_W = 0
         for project in competition_guide_list:
+            worksheet.write(row, 25, project.name, style)
+            worksheet.write(row, 26, round(project.workload, 2), style)
+
             competition_guide_W += project.workload
+            row += 1
 
         worksheet.write(row, 25, competition_guide_sum, style)
         worksheet.write(row, 26, round(competition_guide_W, 2), style)
 
+        row = start_row
         paper_guide_list = PaperGuide.objects.filter(teacher=teacher, year=year)
         paper_guide_sum = paper_guide_list.count()
         paper_guide_W = 0
@@ -196,17 +235,31 @@ def workload_statistics_export(request, user):
         worksheet.write(row, 28, paper_guide_sum, style)
         worksheet.write(row, 29, round(paper_guide_W, 2), style)
 
+        row = start_row
+        course_total_W = theory_course_W + experiment_course_W + pratice_course_W
+        worksheet.write_merge(row, row + row_span, 17, 17, round(course_total_W, 2), style_center)
+
         project_total_W = teaching_achievement_W + teaching_project_W + competition_guide_W + paper_guide_W
-        worksheet.write(row, 31, round(project_total_W, 2), style)
+        worksheet.write_merge(row, row + row_span, 31, 31, round(project_total_W, 2), style_center)
 
         total_W = project_total_W + course_total_W
-        worksheet.write(row, 33, round(total_W, 2), style)
+        worksheet.write_merge(row, row + row_span, 33, 33, round(total_W, 2), style_center)
 
-        row += 1
+        row = start_row
+        worksheet.write_merge(row, row + row_span, 0, 0, teacher.id, style_center)
+        worksheet.write_merge(row, row + row_span, 1, 1, teacher.name, style_center)
+        worksheet.write_merge(row, row + row_span, 2, 2, teacher.department.name, style_center)
+        worksheet.write_merge(row, row + row_span, 3, 3, teacher.title, style_center)
+
+        start_row += row_span + 1
 
     # 时间戳
     current_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
     worksheet.write(0, 32, u'导出时间：' + current_time, style)
+
+    worksheet.panes_frozen = True
+    worksheet.horz_split_pos = 4
+    worksheet.vert_split_pos = 4
 
     # 保存
     filename = BASE_DIR + '/media/excel/workload_statisitic/' + current_time + '.xls'

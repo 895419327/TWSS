@@ -31,6 +31,17 @@ def index(request):
 
 # TODO: 移动端可做成微信小程序
 
+
+# TODO: 修改权限
+
+# TODO: 实验课 上课/教辅  6：4
+
+# TODO：工作量导出为excel要具体课名
+
+# TODO：理论课 老师分上一节课 工作量怎么算
+
+# FIXME：样式问题 多浏览器兼容
+
 def login(request):
     request.encoding = 'utf-8'
 

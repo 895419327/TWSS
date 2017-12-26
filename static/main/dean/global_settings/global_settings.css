@@ -11,10 +11,12 @@
 
 .pre{
     float: left;
+    height: 20px;
     margin: 12px 0 0 100px;
 }
 
 .next{
     float: right;
+    height: 20px;
     margin: -28px 100px 0 0;
 }
