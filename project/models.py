@@ -51,8 +51,11 @@ class User(models.Model):
     title = models.CharField(max_length=16, null=True)
     # 所属系
     department = models.ForeignKey(Department)
-    # 身份 (教师/系主任/教务员)
-    status = models.CharField(max_length=16, default=u'教师')
+    # 权限 (教师/系主任/教务员/系统管理员)
+    auth_teacher = models.BooleanField(default=True)
+    auth_head_of_department = models.BooleanField(default=False)
+    auth_dean = models.BooleanField(default=False)
+    auth_admin = models.BooleanField(default=False)
     # 密码 md5加密后的字符串
     password = models.CharField(max_length=128)
     # 手机号
@@ -69,6 +72,17 @@ class User(models.Model):
     def __unicode__(self):
         return self.id + ' ' + self.name
 
+    def is_teacher(self):
+        return self.auth_teacher
+
+    def is_head_of_department(self):
+        return self.auth_head_of_department
+
+    def is_dean(self):
+        return self.auth_dean
+
+    def is_admin(self):
+        return self.auth_admin
 
 # 班级表
 class Class(models.Model):

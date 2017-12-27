@@ -5,73 +5,92 @@ body {
     color: #DDDDDD;
 }
 
-.content{
+.content {
     width: 800px;
     height: 360px;
     margin: 150px auto 0;
-    background-color: rgba(255,255,255,0.4);
+    background-color: rgba(255, 255, 255, 0.4);
     border-radius: 15px;
 }
 
-.content_left{
-    width: 349px;
+.content_left {
+    width: 500px;
     height: 360px;
-    padding: 40px 0 0 150px;
-    font-size: 48px;
-    color: #333333;
+    padding: 70px 0 0 0;
     float: left;
 }
 
-.info_desc_title{
-    color: #333333;
-    font-size: 24px;
-    margin-left: 50px;
-}
-
-.info_desc{
-    color: #333333;
-    font-size: 18px;
-    margin-left: 50px;
-}
-
-
-.content_right{
+.info_title {
     width: 300px;
+    margin: 0 auto 30px;
+    text-align: center;
+    font-size: 48px;
+    color: #333333;
+}
+
+.info_desc {
+    width: 300px;
+    margin: 10px auto;
+    text-align: center;
+    color: #333333;
+    font-size: 25px;
+}
+
+.content_right {
+    width: 299px;
     height: 360px;
     float: right;
+    border-left: 1px solid;
 }
 
-.select_bar{
+.select_bar {
     width: 300px;
     height: 119px;
     color: #333333;
     font-size: 24px;
-    background-color: rgba(255,255,255,0.3);
+    background-color: rgba(255, 255, 255, 0.3);
     text-align: center;
     line-height: 120px;
     cursor: pointer;
 }
 
-.select_bar:hover{
-    background-color: rgba(255,255,255,0.6);
+.select_bar:hover {
+    background-color: rgba(255, 255, 255, 0.6);
 }
 
-#firstbar{
+#firstbar {
     border-radius: 0 15px 0 0;
     border-bottom: 1px solid #eeeeee;
 }
 
-#lastbar{
+#lastbar {
     height: 120px;
     border-radius: 0 0 15px 0;
     border-top: 1px solid #eeeeee;
 }
 
-#overbar{
+#overbar {
     position: absolute;
     width: 0;
 }
 
-#overbar:hover{
-    background-color: rgba(255,255,255,0.3);
+#overbar:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.status_buttom {
+    width: 140px;
+    height: 50px;
+    margin: 25px auto 0;
+    line-height: 50px;
+    text-align: center;
+    font-size: 24px;
+    color: #111111;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+}
+
+.status_buttom:hover {
+    background: rgba(255, 255, 255, 0.7);
 }

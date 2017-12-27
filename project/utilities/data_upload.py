@@ -397,12 +397,20 @@ def teacher_add(request, user):
     password = generater.hexdigest()
     password = make_password(password)
 
+    # 设置默认身份
+    is_teacher = True
+    is_head_of_department = False
+    is_dean = False
+    is_admin = False
+
     # 如果是修改则使用原密码 原身份
-    status = u'教师'
     if 'original_teacher_id' in request.POST:
         old = User.objects.get(id=request.POST['original_teacher_id'])
         password = old.password
-        status = old.status
+        is_teacher = old.is_teacher()
+        is_head_of_department = old.is_head_of_department()
+        is_dean = old.is_dean()
+        is_admin = old.is_admin()
 
     department = Department.objects.get(name=request.POST['department'])
 
@@ -420,12 +428,16 @@ def teacher_add(request, user):
                birth_date=request.POST['birth_date'],
                title=request.POST['title'],
                department=department,
-               status=status,
                password=password,
                graduate=request.POST['graduate'],
                major=request.POST['major'],
                phone_number=request.POST['phone_number'],
-               email=request.POST['email'], )
+               email=request.POST['email'],
+               auth_teacher =is_teacher,
+               auth_head_of_department=is_head_of_department,
+               auth_dean=is_dean,
+               auth_admin=is_admin
+               )
     new.save()
 
     # 将原id账号下的项目转移至新账号
@@ -607,13 +619,12 @@ def change_head_of_department_upload(request, user):
     # 修改两账户身份
     original_head_id = department.head_of_department
     original_head = User.objects.get(id=original_head_id)
-    original_head.status = original_head.status.replace(',系主任', '')
+    original_head.auth_head_of_department = False
     original_head.save()
 
     new_head_id = request.POST['teacher'].split(' ')[1]
     new_head = User.objects.get(id=new_head_id)
-    if new_head.status.find('系主任') == -1:
-        new_head.status += ',系主任'
+    new_head.auth_head_of_department = True
     new_head.save()
 
     department.head_of_department = new_head_id

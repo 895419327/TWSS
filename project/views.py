@@ -5,12 +5,11 @@ import time
 
 from django.shortcuts import render
 from django.contrib.auth.hashers import check_password, make_password
-from hashlib import md5
 
 from project.logs.log import log
 from project.models import *
 from project.utilities.search import *
-from project.utilities.identify import check_identity
+from project.utilities.identify import *
 from project.utilities.workload_count import *
 
 from TWSS.settings import BASE_DIR
@@ -31,8 +30,6 @@ def index(request):
 
 # TODO: 移动端可做成微信小程序
 
-
-# TODO: 修改权限
 
 # TODO: 实验课 上课/教辅  6：4
 
@@ -59,38 +56,34 @@ def login(request):
             log('WARNING', 'Username Not Found', username_post, status_post, request.POST)
             return render(request, 'index/loginfailed.html')
 
-        # 如果密码错误
+        # 验证密码
         if not check_password(password_post, user.password):
             log('WARNING', 'Password Uncorrect', username_post, status_post, request.POST)
             return render(request, 'index/loginfailed.html')
 
-        # 如果身份错误
-        if user.status.find(status_post) == -1:
-            log('WARNING', 'Status Uncorrect', username_post, status_post, request.POST)
-            return render(request, 'index/loginfailed.html')
-
-        # 验证通过
-        # 记录
-        log('INFO', 'Login', user.name, user.id, status_post, request.POST)
-
-        # 生成并保存identify_code
-        identify_code_src = username_post + password_post + captcha
-        generater = md5(identify_code_src.encode("utf8"))
-        identify_code = generater.hexdigest()
-
+        # 账号密码验证通过
+        # 生成identify_code并保存
+        identify_code = generate_identify_code(user, username_post, password_post, captcha)
         user.identify_code = identify_code
         user.save()
 
-        # 返回相应页面
+        # 记录
+        log('INFO', 'Login', user.name, user.id, status_post, request.POST)
+
+        # 检查身份 返回相应页面
         notice = Notice.objects.get(id=1)
-        if status_post == u'教师':
+        if status_post == u'教师' and user.is_teacher():
             return render(request, 'main/teacher/teacher.html', locals())
-        if status_post == u'系主任':
+        elif status_post == u'系主任' and user.is_head_of_department():
             return render(request, 'main/head_of_department/head_of_department.html', locals())
-        if status_post == u'教务员':
+        elif status_post == u'教务员' and user.is_dean():
             return render(request, 'main/dean/dean.html', locals())
-        if status_post == u'系统管理员':
+        elif status_post == u'系统管理员' and user.is_admin():
             return render(request, 'main/admin/admin.html', locals())
+        # 身份验证失败
+        else:
+            log('WARNING', 'Status Uncorrect', username_post, status_post, request.POST)
+            return render(request, 'index/status_incorrect.html', locals())
 
     # 任何意外
     log('ERROR', 'Login Fail', request)
@@ -614,16 +607,14 @@ def department_management_modify(request, user):
 # 教师管理
 # 系主任有权调用
 def teacher_management(request, user):
-    status = user.status.split(',')
-
     department_list = []
     teacher_list = []
     # 若为系主任
-    if u'系主任' in status:
+    if user.is_head_of_department():
         department_list = Department.objects.filter(head_of_department=user.id)
         teacher_list = User.objects.filter(department=user.department)
     # 若为教务员
-    elif u'教务员' in status:
+    elif user.is_dean():
         export_all = True
         department_list = Department.objects.all()
         teacher_list = User.objects.all()
@@ -695,7 +686,6 @@ def class_management_add(request, user):
 # 系主任有权调用
 def workload_statistics(request, user):
     years = range(2016, int(GlobalValue.objects.get(key='current_year').value) + 1)
-    status = user.status.split(',')[1]
 
     year = GlobalValue.objects.get(key='current_year').value
     if request.POST['request_data']:
@@ -705,11 +695,11 @@ def workload_statistics(request, user):
     teacher_list = []
 
     # 若为系主任
-    if status == u'系主任':
+    if user.is_head_of_department():
         department_list = Department.objects.filter(head_of_department=user.id)
         teacher_list = User.objects.filter(department=user.department)
     # 若为教务员
-    elif status == u'教务员':
+    elif user.is_dean():
         export_all = True
         department_list = Department.objects.all()
         teacher_list = User.objects.all()
@@ -800,7 +790,7 @@ def data_import_a(request, user):
             password = generater.hexdigest()
             password = make_password(password)
 
-            new = User(id=teacher_id, name=name, password=password, department_id='471', status=u'教师')
+            new = User(id=teacher_id, name=name, password=password, department_id='471')
             new.save()
         except:
             print(value)

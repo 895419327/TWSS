@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block headmeta %}
+    <link rel="stylesheet" href={% static "index/loginfailed.css" %}>
+{% endblock %}
+
+{% block base_content %}
+    <div class="content">
+
+        <div class="content_left">
+            <div class="info_title">登录失败!</div>
+            <p class="info_desc">身份选择错误：</p>
+            <p class="info_desc">您不具有{{ status_post }}权限</p>
+        </div>
+
+        <div class="content_right">
+            <div class="info_desc" style="margin: 40px 0 0 0">以下是您具有的权限</div>
+            <div class="info_desc">点击即可进入系统</div>
+
+            {% if user.is_teacher %}
+                <div class="status_buttom">教师</div>
+            {% endif %}
+            {% if user.is_head_of_department %}
+                <div class="status_buttom">系主任</div>
+            {% endif %}
+            {% if user.is_dean %}
+                <div class="status_buttom">教务员</div>
+            {% endif %}
+            {% if user.is_admin %}
+                <div class="status_buttom">系统管理员</div>
+            {% endif %}
+        </div>
+
+    </div>
+
+    <form id="login_form" action="/main" method="post" autocomplete="off" hidden>
+        {% csrf_token %}
+        <input name="username" value="{{ username_post }}">
+        <input name="password" value="{{ password_post }}">
+        <input id="status" name="status">
+        <input name="captcha" value="{{ captcha }}">
+    </form>
+
+    <script>
+        $(document).ready(function () {
+            $('.status_buttom').click(function () {
+                $('#status').val($(this).text());
+                $('#login_form').submit();
+            });
+        });
+    </script>
+{% endblock %}
