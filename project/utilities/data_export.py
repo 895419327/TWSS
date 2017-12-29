@@ -28,7 +28,7 @@ def export(request):
 
 
 def download_help_pdf(request, user):
-    filename = BASE_DIR + '/media/help/' + '工作量统计系统使用帮助.pdf'
+    filename = BASE_DIR + '/media/help/' + 'help.pdf'
     file = open(filename, 'rb')
     response = HttpResponse(file.read())
     response['Content-Type'] = 'application/pdf'
