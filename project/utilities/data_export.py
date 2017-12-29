@@ -27,6 +27,15 @@ def export(request):
     return eval(requestfor)(request, user)
 
 
+def download_help_pdf(request, user):
+    filename = BASE_DIR + '/media/help/' + '工作量统计系统使用帮助.pdf'
+    file = open(filename, 'rb')
+    response = HttpResponse(file.read())
+    response['Content-Type'] = 'application/pdf'
+    response['Content-Disposition'] = 'attachment;filename="help.pdf"'
+    return response
+
+
 def teacher_management_export(request, user):
     department_id = request.POST['department_id']
     if department_id == 'all':

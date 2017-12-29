@@ -4,14 +4,26 @@
 
     <div class="content_title">公告</div>
 
+    <div class="export_all_button" onclick="download_help_pdf()"
+         style="height: 40px; line-height:40px;font-size: 16px; margin: -35px 90px 0 0">
+        使用帮助.pdf
+    </div>
+
     <div class="notice_area">
         <div class="notice">
             {{ notice.content }}
             <div class="notice_time">
-                {{ notice.post_time | date:'Y-n-d'}}
+                {{ notice.post_time | date:'Y-n-d' }}
             </div>
         </div>
     </div>
+
+    <form id="help_pdf_download_form" hidden method="post" action="/export" autocomplete="off">
+        {% csrf_token %}
+        <input type="hidden" name="username" value="{{ user.id }}">
+        <input type="hidden" name="identify_code" value="{{ user.identify_code }}">
+        <input type="hidden" name="requestfor" value="download_help_pdf">
+    </form>
 </div>
 
 <script>
@@ -22,4 +34,8 @@
         text = text.replace(/-&gt;/g, '->');
         notice.html(text);
     });
+
+    function download_help_pdf() {
+        $('#help_pdf_download_form').submit();
+    }
 </script>
