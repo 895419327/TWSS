@@ -18,7 +18,7 @@
     </div>
 
     <div class="login_contain">
-        <form id="login_form" action="/main" method="post" autocomplete="off">
+        <form id="login_form" action="/main" method="post" autocomplete="on">
             {% csrf_token %}
 
             <div class="input_row">
@@ -28,7 +28,7 @@
 
             <div class="input_row">
                 <div class="input_row_title">密 码</div>
-                <input id="password" name="password" type="password">
+                <input id="password" name="password" type="password" autocomplete="off">
             </div>
 
             <div class="input_row">
@@ -48,7 +48,7 @@
                 <div id="warnings"></div>
             </div>
 
-            <button id="login_button" type="button">登录</button>
+            <button id="login_button">登录</button>
         </form>
     </div>
 

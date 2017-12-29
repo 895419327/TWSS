@@ -82,7 +82,6 @@ def login(request):
             return render(request, 'main/admin/admin.html', locals())
         # 身份验证失败
         else:
-            log('WARNING', 'Status Uncorrect', username_post, status_post, request.POST)
             return render(request, 'index/status_incorrect.html', locals())
 
     # 任何意外
@@ -786,16 +785,22 @@ def data_import_a(request, user):
             name = value[0]
             teacher_id = str(value[1])
 
-            generater = md5(teacher_id.encode("utf8"))
-            password = generater.hexdigest()
-            password = make_password(password)
+            teacher_list = User.objects.filter(id=teacher_id)
+            if teacher_list.count() == 0:
+                p = teacher_id + 'zhengzhoudaxueshengmingkexuexueyuanjiaoshigongzuoliangtongjixitong'
+                generater = md5(p.encode("utf8"))
+                password = generater.hexdigest()
+                password = make_password(password)
 
-            new = User(id=teacher_id, name=name, password=password, department_id='471')
-            new.save()
+                new = User(id=teacher_id, name=name, password=password, department_id='471')
+                new.save()
+                print(teacher_id, name)
+
+
         except:
             print(value)
-    '''
 
+    '''
     '''
     # 导入TheoryCourse
     worksheet = workbook.sheet_by_name('TheoryCourse')

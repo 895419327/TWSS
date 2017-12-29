@@ -24,7 +24,7 @@ def log(*args):
                 querydict.pop('password')
             except KeyError:
                 pass
-            info += '\n' + str(querydict)
+            info += '     ' + str(querydict)
         else:
             info += '   ' + str(arg)
 

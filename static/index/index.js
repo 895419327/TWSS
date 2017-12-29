@@ -45,25 +45,17 @@ $(document).ready(function () {
         }, 300);
     });
 
-    // 输完验证码按回车 模拟点击登录按钮
-    captcha.bind('keydown', function (event) {
-        if (event.keyCode == '13') {
-            $('#login_button').trigger('click');
-        }
-    });
-
-
     // 点击登录
     $('#login_button').click(function () {
 
         // 检查账户名密码是否为空
         if (username.val() === '') {
             warnings.text('用户名不能为空');
-            return;
+            return false;
         }
         if (password.val() === '') {
             warnings.text('密码不能为空');
-            return;
+            return false;
         }
 
         // 校验验证码
@@ -74,7 +66,7 @@ $(document).ready(function () {
             warnings.text('验证码错误');
             //刷新验证码
             captcha_img.trigger('click');
-            return;
+            return false;
         }
 
         // 加长
