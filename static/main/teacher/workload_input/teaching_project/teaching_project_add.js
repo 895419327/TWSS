@@ -1,4 +1,7 @@
 $(document).ready(function () {
+
+    toCenter();
+
     $('.blur_area').css('filter', 'blur(10px)');
 
     $('.add_cross').click(function () {
@@ -11,20 +14,22 @@ $(document).ready(function () {
         $('.add_popup').hide();
     });
 
-     $('#project_type').change(function () {
+    $('#project_type').change(function () {
         var type = $(this).val();
         var level_select = $('#project_level');
         switch (type) {
             case '工程实践教育中心':
                 level_select.html(
                     "<option>国家级</option>"
-                ); break;
+                );
+                break;
             default:
                 level_select.html(
                     "<option>国家级</option>" +
                     "<option>省部级</option>" +
                     "<option>校级</option>"
-                ); break;
+                );
+                break;
 
         }
     });

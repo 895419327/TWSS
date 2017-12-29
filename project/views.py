@@ -714,8 +714,8 @@ def workload_statistics(request, user):
         paper_guide_W \
             = workload_count(teacher, year=year)
 
-        course_total_W = theory_course_W + pratice_course_W + experiment_course_W
-        project_total_W = teaching_achievement_W + teaching_project_W + competition_guide_W + paper_guide_W
+        course_total_W = round(theory_course_W + pratice_course_W + experiment_course_W, 2)
+        project_total_W = round(teaching_achievement_W + teaching_project_W + competition_guide_W + paper_guide_W, 2)
 
         workload = [teacher.department.id, teacher.name, teacher.id, teacher.title,
                     course_total_W, project_total_W]

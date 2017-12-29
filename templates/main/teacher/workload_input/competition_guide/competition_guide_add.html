@@ -2,7 +2,7 @@
 {% load myfilters %}
 <script src={% static 'main/teacher/workload_input/competition_guide/competition_guide_add.js' %}></script>
 
-<div class="add_popup" style="height: 400px">
+<div class="add_popup" style="height: 370px">
 
     <div class="add_cross"><img src={% static "main/resourse/cross.png" %}></div>
 
@@ -21,7 +21,7 @@
 
         <input type="hidden" id="location_year_post" name="location_year_post">
 
-        <div style="margin: 0 0 0 100px">
+        <div style="margin: 0 0 0 80px">
             <span>项目名称 </span>
             <input type="text" name="project_name" style="width: 470px" class="non_empty"
                    value="{{ modified_project.name }}">
@@ -32,7 +32,7 @@
             <input type="text" name="project_id" value="{{ modified_project.id }}">
         </div>
 
-        <div style="margin: 0 0 0 100px">
+        <div style="margin: 0 0 0 80px">
             <span>参赛学生 </span>
             {% if modified_project %}
                 <input type="text" name="project_students" style="width: 470px" class="non_empty"

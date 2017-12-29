@@ -1,5 +1,7 @@
 $(document).ready(function () {
 
+    toCenter();
+
     $('.blur_area').css('filter', 'blur(10px)');
 
     $('.add_cross').click(function () {
@@ -54,7 +56,7 @@ $(document).ready(function () {
             if ($(this).is(':checked'))
                 isChooseClass = true;
         });
-        if(!isChooseClass) {
+        if (!isChooseClass) {
             alert('请选择班级');
             return;
         }

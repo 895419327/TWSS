@@ -51,3 +51,10 @@ function MyAjax_Get(url, forwhat, data, towhere, extra_data) {
     requestdata.val('');
     extradata.val('');
 }
+
+function toCenter() {
+    var add_popup = $('.add_popup');
+    var height = add_popup.css('height');
+    height = height.replace('px', '');
+    add_popup.css('margin-top', '-' + height / 2 + 'px');
+}

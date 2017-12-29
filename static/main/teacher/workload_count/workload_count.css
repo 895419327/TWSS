@@ -1,28 +1,21 @@
-.workload_count_content {
-    width: 1030px;
-    min-height: 600px;
-    height: 100%;
-    background: red;
-}
-
 .workload_count_item {
-    width: 1000px;
+    width: 780px;
     margin: 10px auto 40px;
     text-align: center;
     box-shadow: 0 0 50px #aaaaaa;
 }
 
 .workload_count_item_title {
-    width: 220px;
-    font-size: 26px;
+    width: 170px;
+    font-size: 22px;
     color: #444444;
     background: #f0f0f0;
     float: left;
 }
 
 .workload_count_table {
-    width: 760px;
-    font-size: 20px;
+    width: 600px;
+    font-size: 18px;
     line-height: 72px;
     box-shadow: none;
     position: relative;
@@ -46,11 +39,11 @@
 }
 
 #workload_count_item_title_teaching {
-    height: 188px;
-    line-height: 188px;
+    height: 252px;
+    line-height: 252px;
 }
 
 #workload_count_item_title_research {
-    height: 238px;
-    line-height: 238px;
+    height: 318px;
+    line-height: 318px;
 }

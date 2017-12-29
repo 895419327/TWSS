@@ -1,4 +1,7 @@
 $(document).ready(function () {
+
+    toCenter();
+
     $('.blur_area').css('filter', 'blur(10px)');
 
     $('.add_cross').click(function () {

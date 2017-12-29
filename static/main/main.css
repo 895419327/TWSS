@@ -5,7 +5,7 @@ body {
 
 .top_bar {
     width: 100%;
-    height: 100px;
+    height: 80px;
     background: #262F40;
     position: fixed;
     top: 0;
@@ -14,22 +14,22 @@ body {
 }
 
 #logo {
-    height: 75px;
-    margin: 18px 0 0 80px;
+    height: 60px;
+    margin: 15px 0 0 60px;
     float: left;
 }
 
 .top_bar_right {
     width: 360px;
-    height: 80px;
-    margin: 20px 0 0;
+    height: 60px;
+    margin: 15px 0 0;
     float: right;
 }
 
 .welcome {
     width: 280px;
-    height: 50px;
-    line-height: 50px;
+    height: 40px;
+    line-height: 40px;
     font-size: 22px;
     color: #DDDDDD;
     text-align: right;
@@ -38,9 +38,9 @@ body {
 
 .logout, .logout a {
     width: 60px;
-    height: 50px;
+    height: 40px;
     padding: 0 0 0 10px;
-    line-height: 50px;
+    line-height: 40px;
     font-size: 16px;
     color: #DDDDDD;
     float: right;
@@ -70,24 +70,23 @@ body {
 }
 
 .content {
-    width: 1360px;
-    min-height: 750px;
-    margin: 100px auto 0;
-    float: left;
+    width: 1024px;
+    min-height: 500px;
+    margin: 80px 0 0 0;
 }
 
 .content_left {
-    width: 280px;
+    width: 200px;
     height: 100%;
-    min-height: 750px;
-    padding: 0px;
+    min-height: 500px;
+    padding: 0;
     background: #262F40;
     position: fixed;
     left: 0;
 }
 
 .copyright {
-    width: 280px;
+    width: 200px;
     position: fixed;
     bottom: 10px;
     text-align: center;
@@ -97,17 +96,17 @@ body {
 }
 
 .left_unit {
-    width: 280px;
-    min-height: 50px;
-    margin: 20px 0 0 0;
+    width: 200px;
+    min-height: 45px;
+    margin: 10px 0 0 0;
     float: right;
 }
 
 .unit_title {
-    width: 250px;
-    height: 50px;
-    font-size: 24px;
-    line-height: 50px;
+    width: 180px;
+    height: 38px;
+    font-size: 18px;
+    line-height: 38px;
     text-align: center;
     background: #EEEEEE;
     user-select: none;
@@ -121,18 +120,18 @@ body {
 }
 
 .unit_options {
-    width: 200px;
-    margin: 0 20px 0 0;
+    width: 150px;
+    margin: 0 10px 0 0;
     user-select: none;
     display: none;
     float: right;
 }
 
 .unit_detail {
-    width: 200px;
-    height: 45px;
-    font-size: 18px;
-    line-height: 45px;
+    width: 150px;
+    height: 35px;
+    font-size: 14px;
+    line-height: 35px;
     text-align: center;
     background: #DDDDDD;
     cursor: pointer;
@@ -143,12 +142,13 @@ body {
 }
 
 .content_right {
-    width: 1050px;
-    height: 100%;
+    width: 800px;
     min-height: 500px;
+    margin: 0 auto;
     padding: 10px 0 50px 0;
     position: relative;
-    float: right;
+    float: left;
+    left: 200px;
 }
 
 .even {
@@ -156,14 +156,14 @@ body {
 }
 
 .loading {
-    font-size: 18px;
+    font-size: 16px;
     position: fixed;
 }
 
 .content_button {
     width: 150px;
     height: 50px;
-    font-size: 20px;
+    font-size: 18px;
     line-height: 50px;
     text-align: center;
     background-color: rgba(255, 255, 255, 0.3);
@@ -179,7 +179,7 @@ body {
 select {
     height: 28px;
     line-height: 28px;
-    font-size: 20px;
+    font-size: 18px;
     background-color: rgba(255, 255, 255, 0.7);
 }
 
@@ -196,7 +196,7 @@ select {
     width: 250px;
     height: 40px;
     font-weight: bold;
-    font-size: 20px;
+    font-size: 18px;
     line-height: 40px;
     text-align: center;
     background: #ffffff;
@@ -206,7 +206,7 @@ select {
 .single_line_item_value {
     width: 450px;
     height: 40px;
-    font-size: 20px;
+    font-size: 18px;
     line-height: 40px;
     text-align: center;
     float: left;
@@ -216,30 +216,30 @@ select {
     width: 300px;
     height: 33px;
     padding: 0;
-    font-size: 20px;
+    font-size: 18px;
     border: none;
     background: rgba(255, 255, 255, 0.9);
 }
 
 .main_content {
-    width: 1030px;
-    min-height: 600px;
+    width: 780px;
+    min-height: 500px;
     height: 100%;
     margin: 20px auto;
 
 }
 
 .content_title {
-    width: 900px;
+    width: 780px;
     margin: 30px auto 0;
-    font-size: 32px;
+    font-size: 25px;
     text-align: center;
 }
 
 .notice_area {
     margin: 0 auto;
     padding: 0 50px;
-    font-size: 20px;
+    font-size: 16px;
 }
 
 .notice {
@@ -252,28 +252,33 @@ select {
     width: 200px;
 }
 
+.notice_editor_area{
+    width: 680px;
+    margin: 0 auto;
+}
+
 #notice_editor {
-    width: 1000px;
+    width: 680px;
     height: 400px;
     margin: 0 auto;
-    font-size: 20px;
+    font-size: 16px;
     resize: none;
 }
 
 .unsafe {
-    width: 700px;
+    width: 500px;
     margin: 50px auto;
-    font-size: 24px;
+    font-size: 20px;
     line-height: 50px;
     text-align: center;
 }
 
 .search_bar {
-    width: 985px;
+    width: 780px;
     height: 50px;
     margin: 30px auto;
     padding: 0 0 0 15px;
-    font-size: 20px;
+    font-size: 18px;
     line-height: 50px;
     background: #eeeeee;
     box-shadow: 0 0 30px #aaaaaa;
@@ -287,7 +292,7 @@ select {
 .search_button {
     width: 100px;
     height: 50px;
-    font-size: 21px;
+    font-size: 18px;
     line-height: 50px;
     text-align: center;
     float: right;
@@ -301,7 +306,7 @@ select {
 }
 
 table {
-    width: 1000px;
+    width: 780px;
     margin: 0 auto;
     text-align: center;
     box-shadow: 0 0 30px #aaaaaa;
@@ -311,16 +316,17 @@ table {
 table th {
     background: #ffffff;
     height: 38px;
-    font-size: 18px;
+    font-size: 16px;
     line-height: 38px;
     overflow: hidden;
 }
 
 table td {
     max-width: 120px;
-    height: 80px;
-    line-height: 32px;
-    font-size: 16px;
+    height: 40px;
+    line-height: 22px;
+    font-size: 14px;
+    padding: 12px 0;
 }
 
 table img {
@@ -349,12 +355,12 @@ table img:hover {
 }
 
 .add_button {
-    width: 1000px;
-    height: 60px;
+    width: 780px;
+    height: 50px;
     margin: 0 auto;
-    line-height: 60px;
+    line-height: 50px;
     text-align: center;
-    font-size: 24px;
+    font-size: 20px;
     /*border-top: 2px solid #d8d8d8;*/
     cursor: pointer;
 }
@@ -364,35 +370,37 @@ table img:hover {
 }
 
 .project_item {
-    width: 1000px;
+    width: 780px;
     min-height: 180px;
     height: 100%;
     margin: 0 auto;
 }
 
 .project_item_title {
-    font-size: 24px;
+    font-size: 20px;
     margin: 40px 0 15px 20px;
 }
 
 /* * * * * * */
 
 .add_popup {
-    width: 800px;
-    height: 600px;
-    margin: 0 0 0 100px;
-    font-size: 22px;
+    width: 780px;
+    height: 500px;
+    font-size: 18px;
     line-height: 30px;
     background: #f4f4f4;
     box-shadow: 0 0 50px #888888;
     position: fixed;
-    top: 200px;
+    top: 50%;
+    left: 50%;
+    margin-left: -300px;
+    z-index: 999;
 }
 
 .add_title {
-    width: 700px;
-    margin: 25px auto 40px;
-    font-size: 30px;
+    width: 780px;
+    margin: 25px auto;
+    font-size: 25px;
     text-align: center;
 }
 
@@ -418,7 +426,7 @@ table img:hover {
 .add_left {
     width: 350px;
     height: 500px;
-    margin: 0 0 0 100px;
+    margin: 0 0 0 80px;
     float: left;
 }
 
@@ -430,15 +438,16 @@ table img:hover {
 
 .add_popup select {
     width: 180px;
-    margin: 0 0 22px 0;
+    font-size: 18px;
+    margin: 0 0 17px 0;
 }
 
 .add_popup input {
     width: 170px;
-    height: 26px;
-    margin: 0 0 22px 0;
+    height: 24px;
+    margin: 0 0 17px 0;
     padding: 0 5px;
-    font-size: 20px;
+    font-size: 18px;
 }
 
 .courses_selector {
@@ -465,14 +474,14 @@ table img:hover {
     float: left;
 }
 
+.add_classes div {
+    height: 35px;
+}
+
 .add_classes input {
     height: 20px;
     width: 20px;
     padding: 0;
-}
-
-.add_classes div {
-    height: 36px;
 }
 
 .add_buttons_area {
@@ -507,8 +516,8 @@ table img:hover {
 
 .reset_password_button{
     position: absolute;
-    left: 100px;
-    top: 30px;
+    left: 80px;
+    top: 20px;
 }
 
 /* * * * * * */

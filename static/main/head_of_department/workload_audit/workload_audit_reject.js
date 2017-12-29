@@ -1,5 +1,7 @@
 $(document).ready(function () {
 
+    toCenter();
+
     $('.add_cross').click(function () {
         $('.add_popup').hide();
     });
