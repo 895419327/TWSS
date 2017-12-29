@@ -38,63 +38,62 @@
             <div class="search_button">查询</div>
         </div>
 
-        <div class="project_item">
+        <div>包括 专业/团队及实验中心类、课程类、工程实践教育中心、教学名师、大学生创新创业训练</div>
 
-            <table cellspacing="0">
-                <tr>
-                    <th>年份</th>
-                    <th>类型</th>
-                    <th>项目名称</th>
-                    <th>级别</th>
-                    <th>审核状态</th>
-                    <th>修改/删除</th>
-                </tr>
+        <table cellspacing="0">
+            <tr>
+                <th>年份</th>
+                <th>类型</th>
+                <th>项目名称</th>
+                <th>级别</th>
+                <th>审核状态</th>
+                <th>修改/删除</th>
+            </tr>
 
-                {% if project_list %}
-                    {% for project in project_list %}
-                        <tr>
-                            <td>{{ project.year }}年</td>
-                            <td>{{ project.type }}</td>
-                            <td>{{ project.name }}</td>
-                            <td>{{ project.level }}</td>
-
-                            {% if project.audit_status == 0 %}
-                                <td>未审核</td>
-                            {% elif project.audit_status == 1 %}
-                                <td class="audit_reject" style="cursor: pointer;">
-                                    审核未通过
-                                    <div class="reject_reason">{{ project.reject_reason }}</div>
-                                </td>
-                            {% elif project.audit_status == 2 %}
-                                <td>已审核</td>
-                            {% endif %}
-
-                            {% if project.audit_status < 2 %}
-                                <td>
-                                    <img class="teaching_project_modify" id="{{ project.id }}_modify"
-                                         src={% static "main/resourse/modify.png" %}>
-                                    <img class="teaching_project_delete" id="{{ project.id }}_delete"
-                                         src={% static "main/resourse/delete.png" %}>
-                                </td>
-                            {% else %}
-                                <td></td>
-                            {% endif %}
-                        </tr>
-                    {% endfor %}
-                {% else %}
+            {% if project_list %}
+                {% for project in project_list %}
                     <tr>
-                        <td colspan="6"><h2>暂&emsp;&emsp;&emsp;无</h2></td>
+                        <td>{{ project.year }}年</td>
+                        <td>{{ project.type }}</td>
+                        <td>{{ project.name }}</td>
+                        <td>{{ project.level }}</td>
+
+                        {% if project.audit_status == 0 %}
+                            <td>未审核</td>
+                        {% elif project.audit_status == 1 %}
+                            <td class="audit_reject" style="cursor: pointer;">
+                                审核未通过
+                                <div class="reject_reason">{{ project.reject_reason }}</div>
+                            </td>
+                        {% elif project.audit_status == 2 %}
+                            <td>已审核</td>
+                        {% endif %}
+
+                        {% if project.audit_status < 2 %}
+                            <td>
+                                <img class="teaching_project_modify" id="{{ project.id }}_modify"
+                                     src={% static "main/resourse/modify.png" %}>
+                                <img class="teaching_project_delete" id="{{ project.id }}_delete"
+                                     src={% static "main/resourse/delete.png" %}>
+                            </td>
+                        {% else %}
+                            <td></td>
+                        {% endif %}
                     </tr>
-                {% endif %}
-
+                {% endfor %}
+            {% else %}
                 <tr>
-                    <td colspan="6">
-                        <div class="add_button">新 增</div>
-                    </td>
+                    <td colspan="6"><h2>暂&emsp;&emsp;&emsp;无</h2></td>
                 </tr>
+            {% endif %}
 
-            </table>
-        </div>
+            <tr>
+                <td colspan="6">
+                    <div class="add_button">新 增</div>
+                </td>
+            </tr>
+
+        </table>
 
     </div>
 

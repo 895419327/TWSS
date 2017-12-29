@@ -307,7 +307,7 @@ select {
 
 table {
     width: 780px;
-    margin: 0 auto;
+    margin: 10px auto 0;
     text-align: center;
     box-shadow: 0 0 30px #aaaaaa;
     overflow: visible;
@@ -451,7 +451,7 @@ table img:hover {
 }
 
 .courses_selector {
-    height: 400px;
+    height: 330px;
     overflow-y: scroll;
     line-height: 38px;
 }
