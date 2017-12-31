@@ -24,6 +24,13 @@ $(document).ready(function () {
         MyAjax_Get('/getpage', 'workload_input_theory_course_add', null, '.theory_course_add_content', location);
     });
 
+    $('.theory_course_submit_audit').click(function () {
+        var id = this.id;
+        id = id.substring(0, id.length - 13);
+        var location = $('#location_year').val() + ',' + $('#location_semester').val();
+        MyAjax_Get('/upload', 'theory_course_submit_audit', id, null, location);
+    });
+
     $('.theory_course_modify').click(function () {
         var id = this.id;
         id = id.substring(0, id.length - 7);

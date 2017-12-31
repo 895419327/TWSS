@@ -437,14 +437,14 @@ def workload_audit_theory_course(request, user):
     audit_status_s = [u'所有', u'未审核', u'审核未通过', u'已审核']
 
     department = Department.objects.get(head_of_department=user.id)
-    course_list = TheoryCourse.objects.filter(department=department)
+    course_list = TheoryCourse.objects.filter(department=department, audit_status__gte=1)
     course_list, year, semester, audit_status = search_course_audit(request, course_list)
     return render(request, 'main/head_of_department/workload_audit/theory_course/theory_course_audit.html', locals())
 
 
 def workload_audit_theory_course_pass(request, user):
     course = TheoryCourse.objects.get(id=request.POST['request_data'])
-    course.audit_status = 2
+    course.audit_status = 3
     course.save()
     return workload_audit_theory_course(request, user)
 
@@ -456,7 +456,7 @@ def workload_audit_experiment_course(request, user):
     audit_status_s = [u'所有', u'未审核', u'审核未通过', u'已审核']
 
     department = Department.objects.get(head_of_department=user.id)
-    course_list = ExperimentCourse.objects.filter(department=department)
+    course_list = ExperimentCourse.objects.filter(department=department, audit_status__gte=1)
     course_list, year, semester, audit_status = search_course_audit(request, course_list)
     return render(request, 'main/head_of_department/workload_audit/experiment_course/experiment_course_audit.html',
                   locals())
@@ -464,7 +464,7 @@ def workload_audit_experiment_course(request, user):
 
 def workload_audit_experiment_course_pass(request, user):
     course = ExperimentCourse.objects.get(id=request.POST['request_data'])
-    course.audit_status = 2
+    course.audit_status = 3
     course.save()
     return workload_audit_experiment_course(request, user)
 
@@ -476,14 +476,14 @@ def workload_audit_pratice_course(request, user):
     audit_status_s = [u'所有', u'未审核', u'审核未通过', u'已审核']
 
     department = Department.objects.get(head_of_department=user.id)
-    course_list = PraticeCourse.objects.filter(department=department)
+    course_list = PraticeCourse.objects.filter(department=department, audit_status__gte=1)
     course_list, year, semester, audit_status = search_course_audit(request, course_list)
     return render(request, 'main/head_of_department/workload_audit/pratice_course/pratice_course_audit.html', locals())
 
 
 def workload_audit_pratice_course_pass(request, user):
     course = PraticeCourse.objects.get(id=request.POST['request_data'])
-    course.audit_status = 2
+    course.audit_status = 3
     course.save()
     return workload_audit_pratice_course(request, user)
 
@@ -495,7 +495,7 @@ def workload_audit_teaching_achievement(request, user):
     audit_status_s = [u'所有', u'未审核', u'审核未通过', u'已审核']
 
     department = Department.objects.get(head_of_department=user.id)
-    project_list = TeachingAchievement.objects.filter(department=department)
+    project_list = TeachingAchievement.objects.filter(department=department, audit_status__gte=1)
     project_list, year, audit_status = search_project_audit(request, project_list)
     return render(request,
                   'main/head_of_department/workload_audit/teaching_achievement/teaching_achievement_audit.html',
@@ -504,7 +504,7 @@ def workload_audit_teaching_achievement(request, user):
 
 def workload_audit_teaching_achievement_pass(request, user):
     course = TeachingAchievement.objects.get(id=request.POST['request_data'])
-    course.audit_status = 2
+    course.audit_status = 3
     course.save()
     return workload_audit_teaching_achievement(request, user)
 
@@ -516,7 +516,7 @@ def workload_audit_teaching_project(request, user):
     audit_status_s = [u'所有', u'未审核', u'审核未通过', u'已审核']
 
     department = Department.objects.get(head_of_department=user.id)
-    project_list = TeachingProject.objects.filter(department=department)
+    project_list = TeachingProject.objects.filter(department=department, audit_status__gte=1)
     project_list, year, audit_status = search_project_audit(request, project_list)
     return render(request, 'main/head_of_department/workload_audit/teaching_project/teaching_project_audit.html',
                   locals())
@@ -524,7 +524,7 @@ def workload_audit_teaching_project(request, user):
 
 def workload_audit_teaching_project_pass(request, user):
     course = TeachingProject.objects.get(id=request.POST['request_data'])
-    course.audit_status = 2
+    course.audit_status = 3
     course.save()
     return workload_audit_teaching_project(request, user)
 
@@ -536,7 +536,7 @@ def workload_audit_competition_guide(request, user):
     audit_status_s = [u'所有', u'未审核', u'审核未通过', u'已审核']
 
     department = Department.objects.get(head_of_department=user.id)
-    project_list = CompetitionGuide.objects.filter(department=department)
+    project_list = CompetitionGuide.objects.filter(department=department, audit_status__gte=1)
     project_list, year, audit_status = search_project_audit(request, project_list)
     return render(request, 'main/head_of_department/workload_audit/competition_guide/competition_guide_audit.html',
                   locals())
@@ -544,7 +544,7 @@ def workload_audit_competition_guide(request, user):
 
 def workload_audit_competition_guide_pass(request, user):
     course = CompetitionGuide.objects.get(id=request.POST['request_data'])
-    course.audit_status = 2
+    course.audit_status = 3
     course.save()
     return workload_audit_competition_guide(request, user)
 
@@ -556,14 +556,14 @@ def workload_audit_paper_guide(request, user):
     audit_status_s = [u'所有', u'未审核', u'审核未通过', u'已审核']
 
     department = Department.objects.get(head_of_department=user.id)
-    project_list = PaperGuide.objects.filter(department=department)
+    project_list = PaperGuide.objects.filter(department=department, audit_status__gte=1)
     project_list, year, audit_status = search_project_audit(request, project_list)
     return render(request, 'main/head_of_department/workload_audit/paper_guide/paper_guide_audit.html', locals())
 
 
 def workload_audit_paper_guide_pass(request, user):
     course = PaperGuide.objects.get(id=request.POST['request_data'])
-    course.audit_status = 2
+    course.audit_status = 3
     course.save()
     return workload_audit_paper_guide(request, user)
 

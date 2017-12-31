@@ -70,6 +70,8 @@ def change_password(request, user):
         return render(request, 'main/teacher/user_info/change_password.html', locals())
 
 
+# TODO: 检查是否可更改
+
 # Theory Course
 
 def theory_course_add(request, user):
@@ -119,10 +121,21 @@ def theory_course_add(request, user):
     return workload_input_theory_course(request, user)
 
 
+def theory_course_submit_audit(request, user):
+    course_id = request.POST['request_data']
+    course = TheoryCourse.objects.get(id=course_id)
+    if course.audit_status >= 2:
+        return False
+    else:
+        course.audit_status = 2
+        course.save()
+        return workload_input_theory_course(request, user)
+
+
 def theory_course_delete(request, user):
     course_id = request.POST['request_data']
     course = TheoryCourse.objects.get(id=course_id)
-    if course.audit_status == 2:
+    if course.audit_status >= 2:
         return False
     else:
         course.delete()
@@ -177,10 +190,21 @@ def experiment_course_add(request, user):
     return workload_input_experiment_course(request, user)
 
 
+def experiment_course_submit_audit(request, user):
+    course_id = request.POST['request_data']
+    course = ExperimentCourse.objects.get(id=course_id)
+    if course.audit_status >= 2:
+        return False
+    else:
+        course.audit_status = 2
+        course.save()
+        return workload_input_experiment_course(request, user)
+
+
 def experiment_course_delete(request, user):
     course_id = request.POST['request_data']
     course = ExperimentCourse.objects.get(id=course_id)
-    if course.audit_status == 2:
+    if course.audit_status >= 2:
         return False
     else:
         course.delete()
@@ -234,10 +258,21 @@ def pratice_course_add(request, user):
     return workload_input_pratice_course(request, user)
 
 
+def pratice_course_submit_audit(request, user):
+    course_id = request.POST['request_data']
+    course = PraticeCourse.objects.get(id=course_id)
+    if course.audit_status >= 2:
+        return False
+    else:
+        course.audit_status = 2
+        course.save()
+        return workload_input_pratice_course(request, user)
+
+
 def pratice_course_delete(request, user):
     course_id = request.POST['request_data']
     course = PraticeCourse.objects.get(id=course_id)
-    if course.audit_status == 2:
+    if course.audit_status >= 2:
         return False
     else:
         course.delete()
@@ -270,10 +305,21 @@ def teaching_achievement_add(request, user):
     return workload_input_teaching_achievement(request, user)
 
 
+def teaching_achievement_submit_audit(request, user):
+    project_id = request.POST['request_data']
+    project = TeachingAchievement.objects.get(id=project_id)
+    if project.audit_status >= 2:
+        return False
+    else:
+        project.audit_status = 2
+        project.save()
+        return workload_input_teaching_achievement(request, user)
+
+
 def teaching_achievement_delete(request, user):
     project_id = request.POST['request_data']
     project = TeachingAchievement.objects.get(id=project_id)
-    if project.audit_status == 2:
+    if project.audit_status >= 2:
         return False
     else:
         project.delete()
@@ -298,10 +344,21 @@ def teaching_project_add(request, user):
     return workload_input_teaching_project(request, user)
 
 
+def teaching_project_submit_audit(request, user):
+    project_id = request.POST['request_data']
+    project = TeachingProject.objects.get(id=project_id)
+    if project.audit_status >= 2:
+        return False
+    else:
+        project.audit_status = 2
+        project.save()
+        return workload_input_teaching_project(request, user)
+
+
 def teaching_project_delete(request, user):
     project_id = request.POST['request_data']
     project = TeachingProject.objects.get(id=project_id)
-    if project.audit_status == 2:
+    if project.audit_status >= 2:
         return False
     else:
         project.delete()
@@ -327,10 +384,21 @@ def competition_guide_add(request, user):
     return workload_input_competition_guide(request, user)
 
 
+def competition_guide_submit_audit(request, user):
+    project_id = request.POST['request_data']
+    project = CompetitionGuide.objects.get(id=project_id)
+    if project.audit_status >= 2:
+        return False
+    else:
+        project.audit_status = 2
+        project.save()
+        return workload_input_competition_guide(request, user)
+
+
 def competition_guide_delete(request, user):
     project_id = request.POST['request_data']
     project = CompetitionGuide.objects.get(id=project_id)
-    if project.audit_status == 2:
+    if project.audit_status >= 2:
         return False
     else:
         project.delete()
@@ -353,10 +421,21 @@ def paper_guide_add(request, user):
     return workload_input_paper_guide(request, user)
 
 
+def paper_guide_submit_audit(request, user):
+    project_id = request.POST['request_data']
+    project = PaperGuide.objects.get(id=project_id)
+    if project.audit_status >= 2:
+        return False
+    else:
+        project.audit_status = 2
+        project.save()
+        return workload_input_paper_guide(request, user)
+
+
 def paper_guide_delete(request, user):
     project_id = request.POST['request_data']
     project = PaperGuide.objects.get(id=project_id)
-    if project.audit_status == 2:
+    if project.audit_status >= 2:
         return False
     else:
         project.delete()
@@ -433,7 +512,7 @@ def teacher_add(request, user):
                major=request.POST['major'],
                phone_number=request.POST['phone_number'],
                email=request.POST['email'],
-               auth_teacher =is_teacher,
+               auth_teacher=is_teacher,
                auth_head_of_department=is_head_of_department,
                auth_dean=is_dean,
                auth_admin=is_admin

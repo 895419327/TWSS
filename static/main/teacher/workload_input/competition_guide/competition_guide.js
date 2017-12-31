@@ -15,6 +15,13 @@ $(document).ready(function () {
         MyAjax_Get('getpage', 'workload_input_competition_guide_add', null, '.competition_guide_add_content', location);
     });
 
+    $('.competition_guide_submit_audit').click(function () {
+        var id = this.id;
+        id = id.substring(0, id.length - 13);
+        var location = $('#location_year').val() + ',' + $('#location_semester').val();
+        MyAjax_Get('/upload', 'competition_guide_submit_audit', id, null, location);
+    });
+
     $('.competition_guide_modify').click(function () {
         var id = this.id;
         id = id.substring(0, id.length - 7);

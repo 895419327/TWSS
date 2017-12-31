@@ -15,6 +15,13 @@ $(document).ready(function () {
         MyAjax_Get('getpage', 'workload_input_paper_guide_add', null, '.paper_guide_add_content', location)
     });
 
+    $('.paper_guide_submit_audit').click(function () {
+        var id = this.id;
+        id = id.substring(0, id.length - 13);
+        var location = $('#location_year').val() + ',' + $('#location_semester').val();
+        MyAjax_Get('/upload', 'paper_guide_submit_audit', id, null, location);
+    });
+
     $('.paper_guide_modify').click(function () {
         var id = this.id;
         id = id.substring(0, id.length - 7);

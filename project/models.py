@@ -152,8 +152,8 @@ class Course(models.Model):
     # 实验课 (专业课实验/计算机上机实验/开放实验)
     # 实习/实训课 (市区内认识实习 / 外地认识实习、市区内生产实习 / 外地生产实习、毕业实习、毕业设计(论文))
     attribute = models.IntegerField(4, default=0)
-    # 审核状态 (未审核/审核未通过/已审核) (0/1/2)
-    audit_status = models.IntegerField(2, default=0)
+    # 审核状态 (未提交/审核未通过/未审核//已审核) (0/1/2/3)
+    audit_status = models.IntegerField(3, default=0)
     # 审核未通过原因
     reject_reason = models.CharField(max_length=64, null=True)
     # 工作量
@@ -176,7 +176,7 @@ class Project(models.Model):
     year = models.IntegerField(default=0000)
     # 类型
     # 教学成果 (教研论文/教改项目结项/教学成果/教材)
-    # 教学项目 (专业、团队及实验中心类/课程类/工程实践教育类/教学名师/大学生创新创业训练)
+    # 教学项目 (专业、团队及实验中心类/课程类/工程实践教育中心/教学名师/大学生创新创业训练)
     # 竞赛指导 (全国性大学生学科竞赛/省部级大学生竞赛)
     # 论文指导 (指导本科生发表学术论文)
     type = models.CharField(max_length=16)
@@ -193,7 +193,7 @@ class Project(models.Model):
     ############# 教学项目
     # 专业、团队及实验中心类 (国家级/省部级/校级)
     # 课程类      (国家级/省部级/校级)
-    # 工程实践教育类 (国家级)
+    # 工程实践教育中心 (国家级)
     # 教学名师    (国家级/省部级/校级)
     # 大学生创新创业训练 (国家级/省部级/校级)
     ############# 竞赛指导
@@ -205,8 +205,8 @@ class Project(models.Model):
     # 级别
     # 教学成果      (特等/一等/二等)
     rank = models.CharField(max_length=4, null=True)
-    # 审核状态 (未审核/审核未通过/已审核) (0/1/2)
-    audit_status = models.IntegerField(2, default=0)
+    # 审核状态 (未提交/审核未通过/未审核//已审核) (0/1/2/3)
+    audit_status = models.IntegerField(3, default=0)
     # 审核未通过原因
     reject_reason = models.CharField(max_length=64, null=True)
     # 工作量
@@ -276,8 +276,8 @@ class PaperGuide(models.Model):
     teacher = models.ForeignKey(User)
     # 所属系
     department = models.ForeignKey(Department)
-    # 审核状态 (未审核/审核未通过/已审核) (0/1/2)
-    audit_status = models.IntegerField(2, default=0)
+    # 审核状态 (未提交/审核未通过/未审核//已审核) (0/1/2/3)
+    audit_status = models.IntegerField(3, default=0)
     # 审核未通过原因
     reject_reason = models.CharField(max_length=32, null=True)
     # 工作量

@@ -252,7 +252,7 @@ select {
     width: 200px;
 }
 
-.notice_editor_area{
+.notice_editor_area {
     width: 680px;
     margin: 0 auto;
 }
@@ -341,6 +341,15 @@ table img:hover {
     opacity: 0.9;
 }
 
+.theory_course_submit_audit{
+    cursor: pointer;
+}
+
+.audit_reject {
+    color: red;
+    cursor: pointer;
+}
+
 .reject_reason {
     width: 250px;
     height: auto;
@@ -377,8 +386,8 @@ table img:hover {
 }
 
 .project_item_title {
-    font-size: 20px;
-    margin: 40px 0 15px 20px;
+    font-size: 18px;
+    margin: 40px 0 5px 20px;
 }
 
 /* * * * * * */
@@ -514,7 +523,7 @@ table img:hover {
     float: right;
 }
 
-.reset_password_button{
+.reset_password_button {
     position: absolute;
     left: 80px;
     top: 20px;

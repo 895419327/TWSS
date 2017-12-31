@@ -87,14 +87,21 @@
                         <td class="course_classes">{{ course.classes | get_class_name }}</td>
                         <td>{{ course.student_sum }}</td>
                         <td>{{ course.final_period }} / {{ course.plan_period }}</td>
+
                         {% if course.audit_status == 0 %}
-                            <td>未审核</td>
+                            <td>
+                                <button class="theory_course_submit_audit" id="{{ course.id }}_submit_audit">
+                                    提交审核
+                                </button>
+                            </td>
                         {% elif course.audit_status == 1 %}
-                            <td class="audit_reject" style="cursor: pointer;">
+                            <td class="audit_reject">
                                 审核未通过
                                 <div class="reject_reason">{{ course.reject_reason }}</div>
                             </td>
                         {% elif course.audit_status == 2 %}
+                            <td>等待审核</td>
+                        {% elif course.audit_status == 3 %}
                             <td>已审核</td>
                         {% endif %}
 

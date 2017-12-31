@@ -78,27 +78,23 @@
                                 <td>{{ project.students }}</td>
                                 <td>{{ project.level }}</td>
 
-                                {% if project.audit_status == 0 %}
-                                    <td>未审核</td>
-                                    <td>
-                                        <button class="competition_guide_audit_pass" id="{{ project.id }}_pass">通过
-                                        </button>
-                                        <button class="competition_guide_audit_reject" id="{{ project.id }}_reject">驳回
-                                        </button>
-                                    </td>
-                                {% elif project.audit_status == 1 %}
-                                    <td>审核未通过</td>
-                                    <td>
-                                        <button class="competition_guide_audit_pass" id="{{ project.id }}_pass">通过
-                                        </button>
-                                    </td>
-                                {% elif project.audit_status == 2 %}
-                                    <td>已审核</td>
-                                    <td>
-                                        <button class="competition_guide_audit_reject" id="{{ project.id }}_reject">驳回
-                                        </button>
-                                    </td>
-                                {% endif %}
+                                {% if project.audit_status == 1 %}
+                                <td>审核未通过</td>
+                            {% elif project.audit_status == 2 %}
+                                <td>未审核</td>
+                                <td>
+                                    <button class="competition_guide_audit_pass" id="{{ project.id }}_pass">通过
+                                    </button>
+                                    <button class="competition_guide_audit_reject" id="{{ project.id }}_reject">驳回
+                                    </button>
+                                </td>
+                            {% elif project.audit_status == 3 %}
+                                <td>已审核</td>
+                                <td>
+                                    <button class="competition_guide_audit_reject" id="{{ project.id }}_reject">驳回
+                                    </button>
+                                </td>
+                            {% endif %}
                             </tr>
                         {% endif %}
                     {% endfor %}
@@ -135,7 +131,9 @@
                             <td>{{ project.students }}</td>
                             <td>{{ project.level }}</td>
 
-                            {% if project.audit_status == 0 %}
+                            {% if project.audit_status == 1 %}
+                                <td>审核未通过</td>
+                            {% elif project.audit_status == 2 %}
                                 <td>未审核</td>
                                 <td>
                                     <button class="competition_guide_audit_pass" id="{{ project.id }}_pass">通过
@@ -143,13 +141,7 @@
                                     <button class="competition_guide_audit_reject" id="{{ project.id }}_reject">驳回
                                     </button>
                                 </td>
-                            {% elif project.audit_status == 1 %}
-                                <td>审核未通过</td>
-                                <td>
-                                    <button class="competition_guide_audit_pass" id="{{ project.id }}_pass">通过
-                                    </button>
-                                </td>
-                            {% elif project.audit_status == 2 %}
+                            {% elif project.audit_status == 3 %}
                                 <td>已审核</td>
                                 <td>
                                     <button class="competition_guide_audit_reject" id="{{ project.id }}_reject">驳回

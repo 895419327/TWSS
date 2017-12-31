@@ -23,6 +23,13 @@ $(document).ready(function () {
         MyAjax_Get('getpage', 'workload_input_pratice_course_add', null, '.pratice_course_add_content', location)
     });
 
+    $('.pratice_course_submit_audit').click(function () {
+        var id = this.id;
+        id = id.substring(0, id.length - 13);
+        var location = $('#location_year').val() + ',' + $('#location_semester').val();
+        MyAjax_Get('/upload', 'pratice_course_submit_audit', id, null, location);
+    });
+
     $('.pratice_course_modify').click(function () {
         var id = this.id;
         id = id.substring(0, id.length - 7);

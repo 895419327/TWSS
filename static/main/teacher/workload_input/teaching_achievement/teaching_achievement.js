@@ -15,6 +15,14 @@ $(document).ready(function () {
         MyAjax_Get('getpage', 'workload_input_teaching_achievement_add', null, '.teaching_achievement_add_content', location);
     });
 
+    $('.teaching_achievement_submit_audit').click(function () {
+        var id = this.id;
+        id = id.substring(0, id.length - 13);
+        var location = $('#location_year').val() + ',' + $('#location_semester').val();
+        MyAjax_Get('/upload', 'teaching_achievement_submit_audit', id, null, location);
+    });
+
+
     $('.teaching_achievement_modify').click(function () {
         var id = this.id;
         id = id.substring(0, id.length - 7);

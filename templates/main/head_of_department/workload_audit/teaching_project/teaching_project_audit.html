@@ -75,27 +75,26 @@
                                 </td>
                                 <td>{{ project.level }}</td>
 
-                                {% if project.audit_status == 0 %}
+                                {% if project.audit_status == 1 %}
+                                    <td>审核未通过</td>
+                                {% elif project.audit_status == 2 %}
                                     <td>未审核</td>
                                     <td>
                                         <button class="teaching_project_audit_pass" id="{{ project.id }}_pass">通过
                                         </button>
-                                        <button class="teaching_project_audit_reject" id="{{ project.id }}_reject">驳回
+                                        <button class="teaching_project_audit_reject" id="{{ project.id }}_reject">
+                                            驳回
                                         </button>
                                     </td>
-                                {% elif project.audit_status == 1 %}
-                                    <td>审核未通过</td>
-                                    <td>
-                                        <button class="teaching_project_audit_pass" id="{{ project.id }}_pass">通过
-                                        </button>
-                                    </td>
-                                {% elif project.audit_status == 2 %}
+                                {% elif project.audit_status == 3 %}
                                     <td>已审核</td>
                                     <td>
-                                        <button class="teaching_project_audit_reject" id="{{ project.id }}_reject">驳回
+                                        <button class="teaching_project_audit_reject" id="{{ project.id }}_reject">
+                                            驳回
                                         </button>
                                     </td>
                                 {% endif %}
+
                             </tr>
                         {% endif %}
                     {% endfor %}
@@ -130,7 +129,9 @@
                             </td>
                             <td>{{ project.level }}</td>
 
-                            {% if project.audit_status == 0 %}
+                            {% if project.audit_status == 1 %}
+                                <td>审核未通过</td>
+                            {% elif project.audit_status == 2 %}
                                 <td>未审核</td>
                                 <td>
                                     <button class="teaching_project_audit_pass" id="{{ project.id }}_pass">通过
@@ -138,13 +139,7 @@
                                     <button class="teaching_project_audit_reject" id="{{ project.id }}_reject">驳回
                                     </button>
                                 </td>
-                            {% elif project.audit_status == 1 %}
-                                <td>审核未通过</td>
-                                <td>
-                                    <button class="teaching_project_audit_pass" id="{{ project.id }}_pass">通过
-                                    </button>
-                                </td>
-                            {% elif project.audit_status == 2 %}
+                            {% elif project.audit_status == 3 %}
                                 <td>已审核</td>
                                 <td>
                                     <button class="teaching_project_audit_reject" id="{{ project.id }}_reject">驳回
@@ -159,7 +154,7 @@
     </div>
 
     <div class="project_item">
-        <div class="project_item_title">工程实践教育类</div>
+        <div class="project_item_title">工程实践教育中心</div>
 
         <table cellspacing="0">
             <tr>
@@ -173,7 +168,7 @@
 
             {% if project_list %}
                 {% for project in project_list %}
-                    {% if project.type == '工程实践教育类' %}
+                    {% if project.type == '工程实践教育中心' %}
                         <tr>
                             <td>{{ project.year }}年</td>
                             <td>{{ project.name }}</td>
@@ -183,7 +178,9 @@
                             </td>
                             <td>{{ project.level }}</td>
 
-                            {% if project.audit_status == 0 %}
+                            {% if project.audit_status == 1 %}
+                                <td>审核未通过</td>
+                            {% elif project.audit_status == 2 %}
                                 <td>未审核</td>
                                 <td>
                                     <button class="teaching_project_audit_pass" id="{{ project.id }}_pass">通过
@@ -191,13 +188,7 @@
                                     <button class="teaching_project_audit_reject" id="{{ project.id }}_reject">驳回
                                     </button>
                                 </td>
-                            {% elif project.audit_status == 1 %}
-                                <td>审核未通过</td>
-                                <td>
-                                    <button class="teaching_project_audit_pass" id="{{ project.id }}_pass">通过
-                                    </button>
-                                </td>
-                            {% elif project.audit_status == 2 %}
+                            {% elif project.audit_status == 3 %}
                                 <td>已审核</td>
                                 <td>
                                     <button class="teaching_project_audit_reject" id="{{ project.id }}_reject">驳回
@@ -236,7 +227,9 @@
                             </td>
                             <td>{{ project.level }}</td>
 
-                            {% if project.audit_status == 0 %}
+                            {% if project.audit_status == 1 %}
+                                <td>审核未通过</td>
+                            {% elif project.audit_status == 2 %}
                                 <td>未审核</td>
                                 <td>
                                     <button class="teaching_project_audit_pass" id="{{ project.id }}_pass">通过
@@ -244,13 +237,7 @@
                                     <button class="teaching_project_audit_reject" id="{{ project.id }}_reject">驳回
                                     </button>
                                 </td>
-                            {% elif project.audit_status == 1 %}
-                                <td>审核未通过</td>
-                                <td>
-                                    <button class="teaching_project_audit_pass" id="{{ project.id }}_pass">通过
-                                    </button>
-                                </td>
-                            {% elif project.audit_status == 2 %}
+                            {% elif project.audit_status == 3 %}
                                 <td>已审核</td>
                                 <td>
                                     <button class="teaching_project_audit_reject" id="{{ project.id }}_reject">驳回
@@ -289,7 +276,9 @@
                             </td>
                             <td>{{ project.level }}</td>
 
-                            {% if project.audit_status == 0 %}
+                            {% if project.audit_status == 1 %}
+                                <td>审核未通过</td>
+                            {% elif project.audit_status == 2 %}
                                 <td>未审核</td>
                                 <td>
                                     <button class="teaching_project_audit_pass" id="{{ project.id }}_pass">通过
@@ -297,13 +286,7 @@
                                     <button class="teaching_project_audit_reject" id="{{ project.id }}_reject">驳回
                                     </button>
                                 </td>
-                            {% elif project.audit_status == 1 %}
-                                <td>审核未通过</td>
-                                <td>
-                                    <button class="teaching_project_audit_pass" id="{{ project.id }}_pass">通过
-                                    </button>
-                                </td>
-                            {% elif project.audit_status == 2 %}
+                            {% elif project.audit_status == 3 %}
                                 <td>已审核</td>
                                 <td>
                                     <button class="teaching_project_audit_reject" id="{{ project.id }}_reject">驳回

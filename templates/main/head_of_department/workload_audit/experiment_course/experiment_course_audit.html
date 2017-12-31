@@ -102,18 +102,16 @@
                     </td>
                     <td>{{ course.student_sum }}</td>
                     <td>{{ course.final_period }} / {{ course.plan_period }}</td>
-                    {% if course.audit_status == 0 %}
+
+                    {% if course.audit_status == 1 %}
+                        <td>审核未通过</td>
+                    {% elif course.audit_status == 2 %}
                         <td>未审核</td>
                         <td>
                             <button class="experiment_course_audit_pass" id="{{ course.id }}_pass">通过</button>
                             <button class="experiment_course_audit_reject" id="{{ course.id }}_reject">驳回</button>
                         </td>
-                    {% elif course.audit_status == 1 %}
-                        <td>审核未通过</td>
-                        <td>
-                            <button class="experiment_course_audit_pass" id="{{ course.id }}_pass">通过</button>
-                        </td>
-                    {% elif course.audit_status == 2 %}
+                    {% elif course.audit_status == 3 %}
                         <td>已审核</td>
                         <td>
                             <button class="experiment_course_audit_reject" id="{{ course.id }}_reject">驳回</button>

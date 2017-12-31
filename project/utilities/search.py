@@ -151,32 +151,32 @@ def search_course_audit(request, cource_list):
         audit_status = request.POST['location_audit_status_post']
         if audit_status == u'所有':
             pass
-        if audit_status == u'未审核':
-            cource_list = cource_list.filter(audit_status=0)
-        if audit_status == u'审核未通过':
+        elif audit_status == u'审核未通过':
             cource_list = cource_list.filter(audit_status=1)
-        if audit_status == u'已审核':
+        elif audit_status == u'未审核':
             cource_list = cource_list.filter(audit_status=2)
+        elif audit_status == u'已审核':
+            cource_list = cource_list.filter(audit_status=3)
     elif 'audit_status' in request.POST:
         audit_status = request.POST['audit_status']
         if audit_status == u'所有':
             pass
-        if audit_status == u'未审核':
-            cource_list = cource_list.filter(audit_status=0)
-        if audit_status == u'审核未通过':
+        elif audit_status == u'审核未通过':
             cource_list = cource_list.filter(audit_status=1)
-        if audit_status == u'已审核':
+        elif audit_status == u'未审核':
             cource_list = cource_list.filter(audit_status=2)
+        elif audit_status == u'已审核':
+            cource_list = cource_list.filter(audit_status=3)
     elif 'extra_data' in request.POST and request.POST['extra_data'] != '':
         audit_status = request.POST['extra_data'].split(',')[2]
         if audit_status == u'所有':
             pass
-        if audit_status == u'未审核':
-            cource_list = cource_list.filter(audit_status=0)
-        if audit_status == u'审核未通过':
+        elif audit_status == u'审核未通过':
             cource_list = cource_list.filter(audit_status=1)
-        if audit_status == u'已审核':
+        elif audit_status == u'未审核':
             cource_list = cource_list.filter(audit_status=2)
+        elif audit_status == u'已审核':
+            cource_list = cource_list.filter(audit_status=3)
     else:
         audit_status = u'所有'
 
@@ -212,32 +212,32 @@ def search_project_audit(request, project_list):
         audit_status = request.POST['location_audit_status_post']
         if audit_status == u'所有':
             pass
-        if audit_status == u'未审核':
-            project_list = project_list.filter(audit_status=0)
-        if audit_status == u'审核未通过':
+        elif audit_status == u'审核未通过':
             project_list = project_list.filter(audit_status=1)
-        if audit_status == u'已审核':
+        elif audit_status == u'未审核':
             project_list = project_list.filter(audit_status=2)
+        elif audit_status == u'已审核':
+            project_list = project_list.filter(audit_status=3)
     elif 'audit_status' in request.POST:
         audit_status = request.POST['audit_status']
         if audit_status == u'所有':
             pass
-        if audit_status == u'未审核':
-            project_list = project_list.filter(audit_status=0)
-        if audit_status == u'审核未通过':
+        elif audit_status == u'审核未通过':
             project_list = project_list.filter(audit_status=1)
-        if audit_status == u'已审核':
+        elif audit_status == u'未审核':
             project_list = project_list.filter(audit_status=2)
+        elif audit_status == u'已审核':
+            project_list = project_list.filter(audit_status=3)
     elif 'extra_data' in request.POST and request.POST['extra_data'] != '':
         audit_status = request.POST['extra_data'].split(',')[1]
         if audit_status == u'所有':
             pass
-        if audit_status == u'未审核':
-            project_list = project_list.filter(audit_status=0)
-        if audit_status == u'审核未通过':
+        elif audit_status == u'审核未通过':
             project_list = project_list.filter(audit_status=1)
-        if audit_status == u'已审核':
+        elif audit_status == u'未审核':
             project_list = project_list.filter(audit_status=2)
+        elif audit_status == u'已审核':
+            project_list = project_list.filter(audit_status=3)
     else:
         audit_status = u'所有'
 
