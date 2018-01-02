@@ -37,6 +37,10 @@ def index(request):
 
 # FIXME：样式问题 多浏览器兼容
 
+# TODO: 教师详情 显示相关课程
+
+# TODO: 刷新工作量
+
 def login(request):
     request.encoding = 'utf-8'
 
@@ -58,7 +62,7 @@ def login(request):
 
         # 验证密码
         if not check_password(password_post, user.password):
-            log('WARNING', 'Password Uncorrect', username_post, status_post, request.POST)
+            log('WARNING', 'Password Uncorrect', username_post, user.name, status_post, request.POST)
             return render(request, 'index/loginfailed.html')
 
         # 账号密码验证通过
@@ -358,6 +362,12 @@ def teacher_workload_count(request, user):
     if request.POST['request_data']:
         year = request.POST['request_data'][:4]
 
+    is_audit = True
+    if request.POST['extra_data']:
+        audit_status = request.POST['extra_data']
+        if audit_status == u'所有':
+            is_audit = False
+
     theory_course_W, \
     experiment_course_W, \
     pratice_course_W, \
@@ -365,7 +375,7 @@ def teacher_workload_count(request, user):
     teaching_project_W, \
     competition_guide_W, \
     paper_guide_W \
-        = workload_count(user, year=year)
+        = workload_count(user, year=year, is_audit=is_audit)
 
     course_total_W = round(theory_course_W + pratice_course_W + experiment_course_W, 2)
     project_total_W = round(teaching_achievement_W + teaching_project_W + competition_guide_W + paper_guide_W, 2)
@@ -690,6 +700,20 @@ def workload_statistics(request, user):
     if request.POST['request_data']:
         year = request.POST['request_data'][:4]
 
+    is_audit = True
+    sortby = ''
+
+    if request.POST['extra_data']:
+        extra_data = request.POST['extra_data']
+        if extra_data:
+            extra_data = extra_data.split(',')
+            sortby = extra_data[0]
+            audit_status = extra_data[1]
+            if audit_status == u'所有':
+                is_audit = False
+
+
+
     department_list = []
     teacher_list = []
 
@@ -712,7 +736,7 @@ def workload_statistics(request, user):
         teaching_project_W, \
         competition_guide_W, \
         paper_guide_W \
-            = workload_count(teacher, year=year)
+            = workload_count(teacher, year=year, is_audit=is_audit)
 
         course_total_W = round(theory_course_W + pratice_course_W + experiment_course_W, 2)
         project_total_W = round(teaching_achievement_W + teaching_project_W + competition_guide_W + paper_guide_W, 2)
@@ -721,7 +745,7 @@ def workload_statistics(request, user):
                     course_total_W, project_total_W]
         workload_list.append(workload)
 
-    sortby = request.POST['extra_data']
+
     if not sortby:
         sortby = 'teacher'
 

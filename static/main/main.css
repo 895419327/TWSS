@@ -355,6 +355,7 @@ table img:hover {
     height: auto;
     margin: 0 0 0 -70px;
     padding: 5px 10px;
+    color: #333333;
     background: rgba(255, 255, 255, 0.8);
     box-shadow: 0 0 25px #aaaaaa;
     text-align: left;
@@ -387,7 +388,7 @@ table img:hover {
 
 .project_item_title {
     font-size: 18px;
-    margin: 40px 0 5px 20px;
+    margin: 40px 0 0 20px;
 }
 
 /* * * * * * */
@@ -542,6 +543,7 @@ table img:hover {
 .export_button {
     width: 70px;
     height: 35px;
+    margin: 0 0 10px 0;
     font-size: 18px;
     line-height: 35px;
     text-align: center;

@@ -6,6 +6,7 @@ $(document).ready(function () {
 
     $('.search_button').click(function () {
         var year = $('#workload_statistics_year').val();
+        var audit_status = $('#workload_statistics_audit_status').val();
         var sortby = $('#workload_statistics_sortby').val();
         switch (sortby) {
             case "按教职工号":
@@ -21,7 +22,7 @@ $(document).ready(function () {
                 sortby = 'teacher';
         }
         $('.main_content').prepend('<div class="loading">正在计算...</div>');
-        MyAjax_Get('/getpage', 'workload_statistics', year, '.content_right', sortby);
+        MyAjax_Get('/getpage', 'workload_statistics', year, '.content_right', sortby + ',' + audit_status);
     });
 
     $('.sort_type').click(function () {

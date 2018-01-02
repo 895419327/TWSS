@@ -7,7 +7,7 @@
 
     <div class="content_title">工作量计算</div>
 
-    <div class="search_bar" style="width: 370px">
+    <div class="search_bar" style="width: 580px">
         <div class="search_bar_item">
             <span>学年</span>
             <select id="workload_count_year">
@@ -20,8 +20,23 @@
             </select>
         </div>
 
+        <div class="search_bar_item">
+            <span>审核状态</span>
+            <select id="workload_count_audit_status">
+                {% if is_audit %}
+                    <option>已审核</option>
+                    <option>所有</option>
+                {% else %}
+                    <option>所有</option>
+                    <option>已审核</option>
+                {% endif %}
+            </select>
+        </div>
+
         <div class="search_button">查询</div>
     </div>
+
+    <div class="project_item_title">默认只计算已审核工作量，可在上方选择 "审核状态:所有" 查看所有工作量</div>
 
     <div class="workload_count_item">
         <div class="workload_count_item_title" id="workload_count_item_title_teaching">教学工作量</div>

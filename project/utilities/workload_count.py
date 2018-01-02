@@ -26,8 +26,8 @@ def theory_course_workload_count(course):
     if course.student_sum <= 60:
         K = 1.0
     else:
-        K = 1 + 0.6 * math.log(course.student_sum/60)
-        
+        K = 1 + 0.6 * math.log(course.student_sum / 60)
+
     workload = int(course.final_period) * K
     workload = round(workload, 2)
     return workload
@@ -170,7 +170,7 @@ def papar_guide_workload_count(project):
     return 15
 
 
-def workload_count(teacher, course=True, project=True, year=2017):
+def workload_count(teacher, year=2017, is_audit=True, course=True, project=True):
     theory_course_W = 0
     experiment_course_W = 0
     pratice_course_W = 0
@@ -183,16 +183,22 @@ def workload_count(teacher, course=True, project=True, year=2017):
     if course:
         # Theory Course
         theory_course_list = TheoryCourse.objects.filter(teacher=teacher, year=year)
+        if is_audit:
+            theory_course_list = theory_course_list.filter(audit_status=3)
         for course in theory_course_list:
             theory_course_W += course.workload
 
         # Experiment Course
         experiment_course_list = ExperimentCourse.objects.filter(teacher=teacher, year=year)
+        if is_audit:
+            experiment_course_list = experiment_course_list.filter(audit_status=3)
         for course in experiment_course_list:
             experiment_course_W += course.workload
 
         # Pratice Course
         pratice_course_list = PraticeCourse.objects.filter(teacher=teacher, year=year)
+        if is_audit:
+            pratice_course_list = pratice_course_list.filter(audit_status=3)
         for course in pratice_course_list:
             course.workload = pratice_course_workload_count(course)
             course.save()
@@ -206,21 +212,29 @@ def workload_count(teacher, course=True, project=True, year=2017):
     if project:
         # Teaching Achievement
         teaching_achievement_list = TeachingAchievement.objects.filter(teacher=teacher, year=year)
+        if is_audit:
+            teaching_achievement_list = teaching_achievement_list.filter(audit_status=3)
         for project in teaching_achievement_list:
             teaching_achievement_W += project.workload
 
         # Teaching Project
         teaching_project_list = TeachingProject.objects.filter(teacher=teacher, year=year)
+        if is_audit:
+            teaching_project_list = teaching_project_list.filter(audit_status=3)
         for project in teaching_project_list:
             teaching_project_W += project.workload
 
         # Competition Guide
         competition_guide_list = CompetitionGuide.objects.filter(teacher=teacher, year=year)
+        if is_audit:
+            competition_guide_list = competition_guide_list.filter(audit_status=3)
         for project in competition_guide_list:
             competition_guide_W += project.workload
 
         # Paper Guide
         paper_guide_list = PaperGuide.objects.filter(teacher=teacher, year=year)
+        if is_audit:
+            paper_guide_list = paper_guide_list.filter(audit_status=3)
         for project in paper_guide_list:
             paper_guide_W += project.workload
 
