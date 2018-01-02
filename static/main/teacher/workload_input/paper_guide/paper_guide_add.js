@@ -32,7 +32,7 @@ $(document).ready(function () {
             form.ajaxSubmit({
                 target: '.content_right',
                 error: function () {
-                    alert('连接服务器失败');
+                    alert('error');
                 }
             });
         } else {

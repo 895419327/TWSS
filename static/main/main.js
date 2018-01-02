@@ -41,7 +41,7 @@ function MyAjax_Get(url, forwhat, data, towhere, extra_data) {
     form.ajaxSubmit({
         target: towhere,
         error: function () {
-            alert('连接服务器失败');
+            alert('error');
         }
     });
 

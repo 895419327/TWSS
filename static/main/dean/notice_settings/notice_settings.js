@@ -25,7 +25,7 @@ $(document).ready(function () {
                         alert('设置成功!')
                 },
                 error: function () {
-                    alert('连接服务器失败');
+                    alert('error');
                 }
             })
         });
