@@ -1,6 +1,7 @@
 import math
 from project.models import *
 
+
 # 新增课程时
 # 各数据是从request里得到的
 # 因此类型都为str
@@ -55,7 +56,7 @@ def pratice_course_workload_count(course):
     if course.attribute == 3:
         S = 0.09
 
-    teacher_num = len(PraticeCourse.objects.filter(course_id=course.course_id))
+    teacher_num = PraticeCourse.objects.filter(course_id=course.course_id, year=course.year).count()
     # 一门实习实训课有多个老师 第一次录入时 此时该记录仍未存入数据库 teacher_num为0
     if teacher_num == 0:
         teacher_num = 1
