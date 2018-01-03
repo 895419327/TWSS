@@ -7,26 +7,22 @@
 
     <div class="add_title">指定 {{ department.name }} 新系主任</div>
 
-    <form id="department_management_add_form" method="post" action="/upload" name="department_management"
-          autocomplete="off">
-        {% csrf_token %}
-        <input type="hidden" name="username" value="{{ user.id }}">
-        <input type="hidden" name="identify_code" value="{{ user.identify_code }}">
-        <input type="hidden" name="requestfor" value="change_head_of_department_upload">
+    <form id="department_management_add_form" method="post" action="/upload" autocomplete="off">
+        <div class="hidden">
+            {% csrf_token %}
+            <input type="hidden" name="username" value="{{ user.id }}">
+            <input type="hidden" name="identify_code" value="{{ user.identify_code }}">
+            <input type="hidden" name="requestfor" value="change_head_of_department_upload">
+            <input type="hidden" name="department_id" value="{{ department.id }}">
+        </div>
 
         <div class="add_left">
-
-            <div hidden>
-                <span>所修改专业</span>
-                <input type="text" hidden name="department_id" value="{{ department.id }}">
-            </div>
 
             <div style="margin: 0 0 0 -40px">
                 <span>原系主任 </span>
                 <input type="text" style="width: 200px"
                        value="{{ original_head.name }} {{ original_head.id }}" disabled>
             </div>
-
 
         </div>
 

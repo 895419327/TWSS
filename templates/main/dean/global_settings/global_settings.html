@@ -30,18 +30,21 @@
             </div>
         </div>
 
-        <form id="global_settings_form" method="post" action="/upload" hidden>
-            {% csrf_token %}
-            <input name="username" value="{{ user.id }}">
-            <input name="identify_code" value="{{ user.identify_code }}">
-            <input name="requestfor" value="global_setting">
+        <div class="hidden">
+            <form id="global_settings_form" method="post" action="/upload">
+                {% csrf_token %}
+                <input name="username" value="{{ user.id }}">
+                <input name="identify_code" value="{{ user.identify_code }}">
+                <input name="requestfor" value="global_setting">
 
-            <input name="year" id="year_upload">
-            <input name="semester" id="semester_upload">
+                <input name="year" id="year_upload">
+                <input name="semester" id="semester_upload">
 
-        </form>
+            </form>
+        </div>
 
-        <div class="content_button" id="global_settings_form_submit" style="margin: 50px auto; float: none;" hidden>保存</div>
+        <div class="content_button hidden" id="global_settings_form_submit" style="margin: 50px auto; float: none;">保存
+        </div>
     </div>
 
 </div>

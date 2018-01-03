@@ -8,18 +8,17 @@
     <div class="add_title">驳回原因</div>
 
     <form id="workload_audit_reject_form" method="post" action="/upload" autocomplete="off">
-        {% csrf_token %}
-        <input type="hidden" name="username" value="{{ user.id }}">
-        <input type="hidden" name="identify_code" value="{{ user.identify_code }}">
-        <input type="hidden" id="reject_form_requestfor" name="requestfor" value="workload_audit_reject">
-
-        <input type="hidden" name="project_type" value="{{ project_type }}">
-        <input type="hidden" name="project_id" value="{{ project_id }}">
-
-        <input type="hidden" id="location_year_post" name="location_year_post">
-        <input type="hidden" id="location_semester_post" name="location_semester_post">
-        <input hidden id="location_audit_status_post" name="location_audit_status_post">
-
+        <div class="hidden">
+            {% csrf_token %}
+            <input type="hidden" name="username" value="{{ user.id }}">
+            <input type="hidden" name="identify_code" value="{{ user.identify_code }}">
+            <input type="hidden" id="reject_form_requestfor" name="requestfor" value="workload_audit_reject">
+            <input type="hidden" name="project_type" value="{{ project_type }}">
+            <input type="hidden" name="project_id" value="{{ project_id }}">
+            <input type="hidden" id="location_year_post" name="location_year_post">
+            <input type="hidden" id="location_semester_post" name="location_semester_post">
+            <input type="hidden" id="location_audit_status_post" name="location_audit_status_post">
+        </div>
 
         <style type="text/css">
             .audit_reject_reason {

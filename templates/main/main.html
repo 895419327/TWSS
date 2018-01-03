@@ -2,7 +2,7 @@
 {% load staticfiles %}
 
 {% block headmeta %}
-    <link rel="stylesheet" href={% static "main/main.css" %}>
+    <link rel="stylesheet" href={% static "main/main_.css" %}>
 
 {% endblock %}
 
@@ -47,7 +47,7 @@
     </div>
 
     <!--全局表单-->
-    <form id="request_form" method="POST" autocomplete="off" hidden>
+    <form id="request_form" method="POST" autocomplete="off" class="hidden">
         {% csrf_token %}
         <input name="identify_code" value={{ identify_code }}>
         <input name="username" value="{{ username_post }}">

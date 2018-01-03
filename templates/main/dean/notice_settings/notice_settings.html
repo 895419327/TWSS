@@ -14,7 +14,7 @@
 
         </div>
 
-        <div class="notice_editor_area" hidden>
+        <div class="notice_editor_area hidden">
             <form id="notice_edit_form" method="post" action="/upload">
                 {% csrf_token %}
                 <input type="hidden" name="username" value="{{ user.id }}">

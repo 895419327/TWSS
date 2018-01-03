@@ -59,13 +59,15 @@
         {% endfor %}
     </div>
 
-    <form id="teacher_management_export_form" hidden method="post" action="/export" autocomplete="off">
-        {% csrf_token %}
-        <input type="hidden" name="username" value="{{ user.id }}">
-        <input type="hidden" name="identify_code" value="{{ user.identify_code }}">
-        <input type="hidden" name="requestfor" value="teacher_management_export">
-        <input type="hidden" name="department_id" id="export_department">
-    </form>
+    <div class="hidden">
+        <form id="teacher_management_export_form" class="hidden" method="post" action="/export" autocomplete="off">
+            {% csrf_token %}
+            <input type="hidden" name="username" value="{{ user.id }}">
+            <input type="hidden" name="identify_code" value="{{ user.identify_code }}">
+            <input type="hidden" name="requestfor" value="teacher_management_export">
+            <input type="hidden" name="department_id" id="export_department">
+        </form>
+    </div>
 
     <div class="teacher_management_add_content">
 

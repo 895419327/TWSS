@@ -14,22 +14,24 @@
     {% if modified_teacher %}
         <div class="add_buttons reset_password_button">重置密码</div>
 
-        <form id="reset_password_form" method="POST" action="/upload" hidden>
-            {% csrf_token %}
-            <input name="username" value="{{ user.id }}">
-            <input name="identify_code" value={{ user.identify_code }}>
-            <input name="requestfor" value="reset_password">
-            <input id="reset_teacher_id" name="reset_teacher_id">
-        </form>
+        <div class="hidden">
+            <form id="reset_password_form" method="POST" action="/upload">
+                {% csrf_token %}
+                <input name="username" value="{{ user.id }}">
+                <input name="identify_code" value={{ user.identify_code }}>
+                <input name="requestfor" value="reset_password">
+                <input id="reset_teacher_id" name="reset_teacher_id">
+            </form>
+        </div>
     {% endif %}
 
-    <form id="teacher_management_add_form" method="post" action="/upload" name="teacher_management"
-          autocomplete="off">
-        {% csrf_token %}
-        <input type="hidden" name="username" value="{{ user.id }}">
-        <input type="hidden" name="identify_code" value="{{ user.identify_code }}">
-        <input type="hidden" name="requestfor" value="teacher_add">
-
+    <form id="teacher_management_add_form" method="post" action="/upload" autocomplete="off">
+        <div class="hidden">
+            {% csrf_token %}
+            <input type="hidden" name="username" value="{{ user.id }}">
+            <input type="hidden" name="identify_code" value="{{ user.identify_code }}">
+            <input type="hidden" name="requestfor" value="teacher_add">
+        </div>
         <div class="add_left">
             <div>
                 <span>教工号 </span>
@@ -38,7 +40,7 @@
             </div>
 
             {% if modified_teacher %}
-                <div>
+                <div class="hidden">
                     <input type="hidden" name="original_teacher_id" id="original_teacher_id"
                            value="{{ modified_teacher.id }}">
                 </div>
@@ -46,7 +48,8 @@
 
             <div>
                 <span>姓 名 </span>
-                <input type="text" name="name" id="teacher_name" style="width: 200px; margin-left: 15px" class="non_empty"
+                <input type="text" name="name" id="teacher_name" style="width: 200px; margin-left: 15px"
+                       class="non_empty"
                        value="{{ modified_teacher.name }}">
             </div>
 

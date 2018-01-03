@@ -11,17 +11,18 @@
         <div class="add_title">新 增</div>
     {% endif %}
 
-    <form id="class_management_add_form" method="post" action="/upload" name="class_management"
-          autocomplete="off">
-        {% csrf_token %}
-        <input type="hidden" name="username" value="{{ user.id }}">
-        <input type="hidden" name="identify_code" value="{{ user.identify_code }}">
-        <input type="hidden" name="requestfor" value="class_add">
-        {% if modified_class %}
-            <input type="hidden" name="request_data" value="{{ modified_class.grade }}">
-        {% else %}
-            <input type="hidden" name="request_data" value="{{ location_grade }}">
-        {% endif %}
+    <form id="class_management_add_form" method="post" action="/upload" autocomplete="off">
+        <div class="hidden">
+            {% csrf_token %}
+            <input type="hidden" name="username" value="{{ user.id }}">
+            <input type="hidden" name="identify_code" value="{{ user.identify_code }}">
+            <input type="hidden" name="requestfor" value="class_add">
+            {% if modified_class %}
+                <input type="hidden" name="request_data" value="{{ modified_class.grade }}">
+            {% else %}
+                <input type="hidden" name="request_data" value="{{ location_grade }}">
+            {% endif %}
+        </div>
 
 
         <div class="add_left">
@@ -54,7 +55,7 @@
             </div>
 
             {% if modified_class %}
-                <div>
+                <div class="hidden">
                     <input type="hidden" name="original_class_id" style="width: 200px"
                            value="{{ modified_class.id }}">
                 </div>

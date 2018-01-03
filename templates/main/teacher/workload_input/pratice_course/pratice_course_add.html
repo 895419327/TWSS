@@ -12,14 +12,16 @@
         <div class="add_title">新 增</div>
     {% endif %}
 
-    <form id="pratice_course_add_form" method="post" action="/upload" name="pratice_course" autocomplete="off">
-        {% csrf_token %}
-        <input type="hidden" name="username" value="{{ user.id }}">
-        <input type="hidden" name="identify_code" value="{{ user.identify_code }}">
-        <input type="hidden" name="requestfor" value="pratice_course_add">
-
-        <input type="hidden" id="location_year_post" name="location_year_post">
-        <input type="hidden" id="location_semester_post" name="location_semester_post">
+    <form id="pratice_course_add_form" method="post" action="/upload" autocomplete="off">
+        <div class="hidden">
+            {% csrf_token %}
+            <input type="hidden" name="username" value="{{ user.id }}">
+            <input type="hidden" name="identify_code" value="{{ user.identify_code }}">
+            <input type="hidden" name="requestfor" value="pratice_course_add">
+            <input type="hidden" id="location_year_post" name="location_year_post">
+            <input type="hidden" id="location_semester_post" name="location_semester_post">
+            <input type="hidden" name="id" id="id" value="{{ modified_course.id }}">
+        </div>
 
         <div class="add_left">
             <div>
@@ -107,10 +109,6 @@
                        value="{{ modified_course.course_id }}">
             </div>
 
-            <div hidden>
-                <span>id</span>
-                <input type="hidden" name="id" id="id" value="{{ modified_course.id }}">
-            </div>
 
             <div>
                 <span>计划天数 </span>

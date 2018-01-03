@@ -7,10 +7,12 @@
     <div class="content_title">用户信息</div>
 
     <form id="user_info_form" method="post" action="/upload" style="margin: 30px auto 0" autocomplete="off">
-        {% csrf_token %}
-        <input type="hidden" name="username" value="{{ user.id }}">
-        <input type="hidden" name="identify_code" value="{{ user.identify_code }}">
-        <input type="hidden" name="requestfor" value="user_info">
+        <div class="hidden">
+            {% csrf_token %}
+            <input type="hidden" name="username" value="{{ user.id }}">
+            <input type="hidden" name="identify_code" value="{{ user.identify_code }}">
+            <input type="hidden" name="requestfor" value="user_info">
+        </div>
 
         <div class="single_line_item">
             <div class="single_line_item_title">用户名</div>
@@ -24,12 +26,14 @@
 
         <div class="single_line_item">
             <div class="single_line_item_title">性别</div>
-            <div class="single_line_item_value" id="user_info_gender_selector" name="gender">{{ user.gender | gender_tostr }}</div>
+            <div class="single_line_item_value" id="user_info_gender_selector"
+                 name="gender">{{ user.gender | gender_tostr }}</div>
         </div>
 
         <div class="single_line_item">
             <div class="single_line_item_title">所属系</div>
-            <div class="single_line_item_value" id="user_info_department_selector" name="department">{{ user.department.name }}</div>
+            <div class="single_line_item_value" id="user_info_department_selector"
+                 name="department">{{ user.department.name }}</div>
         </div>
 
         <div class="single_line_item">
@@ -54,7 +58,8 @@
 
         <div class="single_line_item">
             <div class="single_line_item_title">手机号</div>
-            <div class="single_line_item_value single_line_item_can_modify" name="phone_number">{{ user.phone_number }}</div>
+            <div class="single_line_item_value single_line_item_can_modify"
+                 name="phone_number">{{ user.phone_number }}</div>
         </div>
 
         <div class="single_line_item">

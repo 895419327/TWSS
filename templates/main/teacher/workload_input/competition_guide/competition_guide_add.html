@@ -12,24 +12,20 @@
         <div class="add_title">新 增</div>
     {% endif %}
 
-    <form id="competition_guide_add_form" method="post" action="/upload" name="competition_guide"
-          autocomplete="off">
-        {% csrf_token %}
-        <input type="hidden" name="username" value="{{ user.id }}">
-        <input type="hidden" name="identify_code" value="{{ user.identify_code }}">
-        <input type="hidden" name="requestfor" value="competition_guide_add">
-
-        <input type="hidden" id="location_year_post" name="location_year_post">
+    <form id="competition_guide_add_form" method="post" action="/upload" autocomplete="off">
+        <div class="hidden">
+            {% csrf_token %}
+            <input type="hidden" name="username" value="{{ user.id }}">
+            <input type="hidden" name="identify_code" value="{{ user.identify_code }}">
+            <input type="hidden" name="requestfor" value="competition_guide_add">
+            <input type="hidden" id="location_year_post" name="location_year_post">
+            <input type="hidden" name="project_id" value="{{ modified_project.id }}">
+        </div>
 
         <div style="margin: 0 0 0 80px">
             <span>项目名称 </span>
             <input type="text" name="project_name" style="width: 470px" class="non_empty"
                    value="{{ modified_project.name }}">
-        </div>
-
-        <div hidden>
-            <span>项目编号</span>
-            <input type="text" name="project_id" value="{{ modified_project.id }}">
         </div>
 
         <div style="margin: 0 0 0 80px">
