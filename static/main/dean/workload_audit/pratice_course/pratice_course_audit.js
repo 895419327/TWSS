@@ -4,6 +4,13 @@ $(document).ready(function () {
 
     $('tr:even').addClass('even');
 
+    var classes = $('.course_classes');
+    classes.each(function () {
+        var str = $(this).html();
+        str = str.replace(/\n/g, '<br>');
+        $(this).html(str);
+    });
+
     $('.pratice_course_audit_pass').click(function () {
         var id = this.id;
         id = id.substring(0, id.length - 5);
