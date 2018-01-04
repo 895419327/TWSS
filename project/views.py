@@ -280,7 +280,6 @@ def workload_input_teaching_achievement_add(request, user):
     if request.POST['extra_data']:
         location = request.POST['extra_data'].split(',')
         year = location[0]
-        semester = location[1]
     if request.POST['request_data']:
         modified_project = TeachingAchievement.objects.get(id=request.POST['request_data'])
 
@@ -302,7 +301,6 @@ def workload_input_teaching_project_add(request, user):
     if request.POST['extra_data']:
         location = request.POST['extra_data'].split(',')
         year = location[0]
-        semester = location[1]
     if request.POST['request_data']:
         modified_project = TeachingProject.objects.get(id=request.POST['request_data'])
     type_list = [u'专业、团队及实验中心类', u'课程类', u'工程实践教育中心', u'教学名师', u'大学生创新创业训练']
@@ -325,7 +323,6 @@ def workload_input_competition_guide_add(request, user):
     if request.POST['extra_data']:
         location = request.POST['extra_data'].split(',')
         year = location[0]
-        semester = location[1]
     if request.POST['request_data']:
         modified_project = CompetitionGuide.objects.get(id=request.POST['request_data'])
     return render(request, 'main/teacher/workload_input/competition_guide/competition_guide_add.html', locals())
@@ -346,7 +343,6 @@ def workload_input_paper_guide_add(request, user):
     if request.POST['extra_data']:
         location = request.POST['extra_data'].split(',')
         year = location[0]
-        semester = location[1]
 
     modified_project = ''
     if request.POST['request_data']:
