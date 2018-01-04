@@ -198,7 +198,7 @@ def search_project_audit(request, project_list):
         elif year != u'所有':
             project_list = project_list.filter(year=year)
     elif 'extra_data' in request.POST and request.POST['extra_data'] != '':
-        year = request.POST['extra_data']
+        year = request.POST['extra_data'].split(',')[0]
         if year == u'所有':
             pass
         else:
