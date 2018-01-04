@@ -1,18 +1,19 @@
 {% load staticfiles %}
 {% load myfilters %}
-<script src={% static "main/head_of_department/workload_audit/pratice_course/pratice_course_audit.js" %}></script>
+<script src={% static "main/dean/workload_audit/theory_course/theory_course_audit.js" %}></script>
 
 <div class="main_content">
 
-    <div class="content_title">实习/实训课 审核</div>
+    <div class="content_title">理论课 审核</div>
 
-    <div class="search_bar" style="width: 765px">
-        <form id="pratice_course_audit_search_form" method="post" action="/getpage" autocomplete="off">
+
+    <div class="search_bar" style="width: 765px;">
+        <form id="theory_course_audit_search_form" method="post" action="/getpage" autocomplete="off">
             <div class="hidden">
                 {% csrf_token %}
                 <input type="hidden" name="username" value="{{ user.id }}">
                 <input type="hidden" name="identify_code" value="{{ user.identify_code }}">
-                <input type="hidden" name="requestfor" value="workload_audit_pratice_course">
+                <input type="hidden" name="requestfor" value="workload_audit_theory_course">
                 <input type="hidden" id="location_year" value="{{ year }}">
                 <input type="hidden" id="location_semester" value="{{ semester }}">
                 <input type="hidden" id="location_audit_status" value="{{ audit_status }}">
@@ -63,16 +64,19 @@
 
     <table cellspacing="0">
         <tr>
+            {#            <th width="35px"><input type="checkbox" style="zoom: 1.3"></th>#}
             <th>学年/学期</th>
             <th>课程名</th>
             <th>教师</th>
             <th>课程属性</th>
             <th>上课班级</th>
             <th>人数</th>
-            <th>天数</th>
+            <th>学时</th>
             <th>审核状态</th>
             <th>操作</th>
         </tr>
+
+
         {% if course_list %}
             {% for course in course_list %}
                 <tr>
@@ -90,11 +94,11 @@
                         <div>{{ course.teacher.id }}</div>
                     </td>
                     {% if course.attribute == 1 %}
-                        <td>市区内认识实习</td>
+                        <td>必修</td>
                     {% elif course.attribute == 2 %}
-                        <td>外地认识实习、市区内生产实习</td>
+                        <td>选修</td>
                     {% elif course.attribute == 3 %}
-                        <td>外地生产实习、毕业实习、毕业设计(论文)</td>
+                        <td>限选</td>
                     {% endif %}
                     <td>
                         <div>{{ course.classes | get_class_name }}</div>
@@ -104,16 +108,17 @@
 
                     {% if course.audit_status == 1 %}
                         <td>审核未通过</td>
+                        <td></td>
                     {% elif course.audit_status == 2 %}
                         <td>未审核</td>
                         <td>
-                            <button class="pratice_course_audit_pass" id="{{ course.id }}_pass">通过</button>
-                            <button class="pratice_course_audit_reject" id="{{ course.id }}_reject">驳回</button>
+                            <button class="theory_course_audit_pass" id="{{ course.id }}_pass">通过</button>
+                            <button class="theory_course_audit_reject" id="{{ course.id }}_reject">驳回</button>
                         </td>
                     {% elif course.audit_status == 3 %}
                         <td>已审核</td>
                         <td>
-                            <button class="pratice_course_audit_reject" id="{{ course.id }}_reject">驳回</button>
+                            <button class="theory_course_audit_reject" id="{{ course.id }}_reject">驳回</button>
                         </td>
                     {% endif %}
                 </tr>
@@ -131,7 +136,6 @@
                 <td></td>
             </tr>
         {% endif %}
-
     </table>
 
     <div class="workload_audit_reject_content">
@@ -139,4 +143,3 @@
     </div>
 
 </div>
-

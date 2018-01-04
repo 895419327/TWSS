@@ -34,7 +34,7 @@
 
     </div>
 
-    <form id="login_form" action="/main" method="post" autocomplete="off" class="hidden">
+    <form id="login_form" action="/main" method="post" autocomplete="off" style="display: none">
         {% csrf_token %}
         <input name="username" value="{{ username_post }}">
         <input name="password" value="{{ password_post }}">

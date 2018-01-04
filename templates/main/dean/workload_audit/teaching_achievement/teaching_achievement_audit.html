@@ -1,6 +1,6 @@
 {% load staticfiles %}
 {% load myfilters %}
-<script src={% static "main/head_of_department/workload_audit/teaching_achievement/teaching_achievement_audit.js" %}></script>
+<script src={% static "main/dean/workload_audit/teaching_achievement/teaching_achievement_audit.js" %}></script>
 
 
 <div class="main_content">
@@ -76,6 +76,7 @@
 
                             {% if project.audit_status == 1 %}
                                 <td>审核未通过</td>
+                                <td></td>
                             {% elif project.audit_status == 2 %}
                                 <td>未审核</td>
                                 <td>
@@ -125,6 +126,7 @@
 
                             {% if project.audit_status == 1 %}
                                 <td>审核未通过</td>
+                                <td></td>
                             {% elif project.audit_status == 2 %}
                                 <td>未审核</td>
                                 <td>
@@ -174,6 +176,7 @@
 
                             {% if project.audit_status == 1 %}
                                 <td>审核未通过</td>
+                                <td></td>
                             {% elif project.audit_status == 2 %}
                                 <td>未审核</td>
                                 <td>
@@ -223,6 +226,7 @@
 
                             {% if project.audit_status == 1 %}
                                 <td>审核未通过</td>
+                                <td></td>
                             {% elif project.audit_status == 2 %}
                                 <td>未审核</td>
                                 <td>
