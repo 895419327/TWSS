@@ -2,10 +2,11 @@ from time import localtime, strftime
 from TWSS.settings import BASE_DIR
 
 from django.http.request import QueryDict
-# TODO: 修改日志路径 备份路径 MEDIA路径 不放在TWSS文件夹里
+
+
 def log(*args):
     date = strftime('%Y%m%d', localtime())
-    filename = BASE_DIR + '/project/logs/' + date + '.txt'
+    filename = BASE_DIR + '/../TWSS_logs/' + date + '.log'
     file = open(filename, 'a+', encoding='utf-8')
 
     time = strftime("%H:%M:%S", localtime())

@@ -139,3 +139,6 @@ MEDIA_URL = '/media/'
 MEDIA_DIRS = (
     [os.path.join(BASE_DIR, 'media')]
 )
+
+
+DATABASE_BACKUPS_DIR = BASE_DIR + '/../TWSS_database_backups/'

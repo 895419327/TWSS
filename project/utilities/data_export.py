@@ -1,18 +1,15 @@
 import time
 
-from django.shortcuts import render
-from django.http import HttpResponse, StreamingHttpResponse
-
-import xlwt
 import xlrd
+import xlwt
+from django.http import HttpResponse
+from django.shortcuts import render
 from xlutils.copy import copy
 
 from TWSS.settings import BASE_DIR
-
-from project.models import *
-from project.logs.log import log
-from project.utilities.workload_count import *
 from project.utilities.identify import check_identity
+from project.utilities.log import log
+from project.utilities.workload_count import *
 
 
 def export(request):

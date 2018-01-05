@@ -3,16 +3,13 @@
 import os
 import time
 
+from django.contrib.auth.hashers import make_password, check_password
 from django.shortcuts import render
-from django.contrib.auth.hashers import check_password, make_password
 
-from project.logs.log import log
-from project.models import *
-from project.utilities.search import *
+from TWSS.settings import DATABASE_BACKUPS_DIR
 from project.utilities.identify import *
+from project.utilities.search import *
 from project.utilities.workload_count import *
-
-from TWSS.settings import BASE_DIR
 
 
 def index(request):
@@ -771,14 +768,13 @@ def workload_K_value(request, user):
 # # # ADMIN # # #
 
 def database_management(request, user):
-    buckups_dir = BASE_DIR + '/project/database_backups'
     backup_infos = []
-    for root, dirs, files in os.walk(buckups_dir):
+    for root, dirs, files in os.walk(DATABASE_BACKUPS_DIR):
         for file in files:
-            create_time = os.path.getctime(buckups_dir + '/' + file)
+            create_time = os.path.getctime(DATABASE_BACKUPS_DIR + file)
             create_time_r = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(create_time))
 
-            size = os.path.getsize(buckups_dir + '/' + file)
+            size = os.path.getsize(DATABASE_BACKUPS_DIR + file)
             size = size / 1000
 
             info = (create_time, file, create_time_r, size)

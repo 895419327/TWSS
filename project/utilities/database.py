@@ -3,14 +3,13 @@
 import os
 import time
 
-from TWSS.settings import BASE_DIR, DATABASES
-
+from django.http import HttpResponse
 from django.shortcuts import render
-from django.http import HttpResponse, StreamingHttpResponse
 
-from project.logs.log import log
-from project.utilities.identify import check_identity
+from TWSS.settings import BASE_DIR, DATABASES, DATABASE_BACKUPS_DIR
 from project.views import database_management
+from project.utilities.identify import check_identity
+from project.utilities.log import log
 
 
 def database(request):
@@ -34,9 +33,9 @@ def database_backup(request):
     if request.POST['filename']:
         filename = request.POST['filename']
     else:
-        filename = time.strftime('%Y-%m-%d-%H:%M:%S', time.localtime())
+        filename = time.strftime('%Y%m%d-%H%M%S', time.localtime())
 
-    full_filename = BASE_DIR + '/project/database_backups/' + filename + '.sql'
+    full_filename = DATABASE_BACKUPS_DIR + filename + '.sql'
 
     database_password = DATABASES['default']['PASSWORD']
     os.system('mysqldump -uroot -p' + database_password + ' twss > ' + full_filename)
@@ -53,17 +52,17 @@ def database_backup(request):
 
 def buckup_download(request):
     filename = request.POST['buckup_id']
-    file = open(BASE_DIR + '/project/database_backups/' + filename, encoding='utf-8')
+    file = open(DATABASE_BACKUPS_DIR + filename, encoding='utf-8')
 
     response = HttpResponse(file.read())
     response['Content-Type'] = 'application/octet-stream'
-    response['Content-Disposition'] = 'attachment;filename="{0}.sql"'.format(filename)
+    response['Content-Disposition'] = 'attachment;filename="{0}"'.format(filename)
     return response
 
 
 def buckup_delete(request, user):
     filename = request.POST['request_data']
-    full_filename = BASE_DIR + '/project/database_backups/' + filename
+    full_filename = DATABASE_BACKUPS_DIR + filename
 
     os.remove(full_filename)
 

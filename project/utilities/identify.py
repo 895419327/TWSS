@@ -2,7 +2,7 @@
 
 from hashlib import md5
 from project.models import User
-from project.logs.log import log
+from project.utilities.log import log
 
 
 def generate_identify_code(user, username, encrypted_password, captcha):
