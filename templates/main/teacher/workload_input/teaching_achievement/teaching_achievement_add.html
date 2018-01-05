@@ -2,7 +2,12 @@
 {% load myfilters %}
 <script src={% static 'main/teacher/workload_input/teaching_achievement/teaching_achievement_add.js' %}></script>
 
-<div class="add_popup" style="height: 320px">
+<div class="add_popup"
+        {% if modified_project and modified_project.type != '教研论文' %}
+     style="height: 320px;"
+        {% else %}
+     style="height: 360px;"
+        {% endif %}>
 
     <div class="add_cross"><img src={% static "main/resourse/cross.png" %}></div>
 
@@ -22,14 +27,7 @@
             <input type="hidden" name="project_id" value="{{ modified_project.id }}">
         </div>
 
-        <div style="margin: 0 0 0 80px;">
-            <span>项目名称 </span>
-            <input type="text" name="project_name" style="width: 470px" class="non_empty"
-                   value="{{ modified_project.name }}">
-        </div>
-
-
-        <div class="add_left">
+        <div class="add_left" style="height: 45px">
             <div>
                 <span>类别 </span>
                 <select name="type" id="project_type">
@@ -60,6 +58,63 @@
                     {% endif %}
                 </select>
             </div>
+        </div>
+        <div class="add_right" style="height: 45px">
+            <div style="margin: 0 0 0 -45px">
+                <span>鉴定年份 </span>
+                <select name="year">
+                    {% if modified_project %}
+                        <option>{{ modified_project.year }}年</option>
+                        {% for y in years %}
+                            {% if y != modified_project.year %}
+                                <option>{{ y }}年</option>
+                            {% endif %}
+                        {% endfor %}
+                    {% elif location %}
+                        {% if year != '所有' %}
+                            <option>{{ year }}年</option>
+                        {% endif %}
+                        {% for y in years %}
+                            {% if y != year|stoi %}
+                                <option>{{ y }}年</option>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                </select>
+            </div>
+        </div>
+
+        <div style="margin: 0 0 0 80px;">
+            {% if modified_project and modified_project.type != '教研论文' %}
+                <span id="project_name_text">项目名称 </span>
+            {% else %}
+                <span id="project_name_text">论文名称 </span>
+            {% endif %}
+            <input type="text" name="project_name" style="width: 470px" class="non_empty"
+                   value="{{ modified_project.name }}">
+        </div>
+
+        <div id="periodical_area"
+                {% if modified_project and modified_project.type != '教研论文' %}
+             class="hidden"
+                {% endif %}>
+
+            <span style="margin: 0 0 0 80px;">
+                <span>发表期刊 </span>
+                <input type="text" name="periodical" style="width: 185px"
+                       value="{{ modified_project.periodical }}">
+            </span>
+
+            <span style="margin: 0 0 0 20px;">
+                <span>年鉴期</span>
+                <input type="text" name="periodical_issue" style="width: 185px;"
+                       value="{{ modified_project.periodical_issue }}">
+            </span>
+
+        </div>
+
+
+        <div class="add_left">
 
             <div>
                 <span>级别 </span>
@@ -105,30 +160,7 @@
 
         <div class="add_right">
 
-            <div style="margin: 0 0 0 -45px">
-                <span>鉴定年份 </span>
-                <select name="year">
-                    {% if modified_project %}
-                        <option>{{ modified_project.year }}年</option>
-                        {% for y in years %}
-                            {% if y != modified_project.year %}
-                                <option>{{ y }}年</option>
-                            {% endif %}
-                        {% endfor %}
-                    {% elif location %}
-                        {% if year != '所有' %}
-                            <option>{{ year }}年</option>
-                        {% endif %}
-                        {% for y in years %}
-                            {% if y != year|stoi %}
-                                <option>{{ y }}年</option>
-                            {% endif %}
-                        {% endfor %}
-                    {% endif %}
-                </select>
-            </div>
-
-            <div id="project_rank_area"
+            <div id="project_rank_area" style="margin: 0 0 0 -45px"
                     {% if modified_project.type != '教学成果' %}
                  class="hidden"
                     {% endif %}>

@@ -285,16 +285,30 @@ def teaching_achievement_add(request, user):
     else:
         project_id = str(int(time.time())) + user.id
 
+    project_type = request.POST['type']
+
     rank = ''
     if 'rank' in request.POST:
         rank = request.POST['rank']
-    project_type = request.POST['type']
     if project_type != u'教学成果':
         rank = ''
+
+    periodical = ''
+    periodical_issue = ''
+    if 'periodical' in request.POST:
+        periodical = request.POST['periodical']
+    if 'periodical_issue' in request.POST:
+        periodical_issue = request.POST['periodical_issue']
+    if project_type != u'教研论文':
+        periodical = ''
+        periodical_issue = ''
+
 
     new = TeachingAchievement(id=project_id,
                               name=request.POST['project_name'],
                               type=project_type,
+                              periodical=periodical,
+                              periodical_issue=periodical_issue,
                               level=request.POST['level'],
                               rank=rank,
                               year=request.POST['year'][:4],

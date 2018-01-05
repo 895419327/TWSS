@@ -8,7 +8,7 @@
     <div class="content_title">数据库管理</div>
 
     <div class="project_item">
-        <div class="project_item_title">数据库备份</div>
+        <div class="project_item_title" style="margin-bottom: 10px">数据库备份</div>
 
         <div style="margin: 0 0 5px 20px;">数据库备份会在服务器存储一份备份，并提供一份备份以供下载另行存储</div>
         <div style="margin: 0 0 5px 20px;">输入文件名后点击"数据库备份"按钮即可备份</div>
@@ -24,7 +24,7 @@
                 <input type="hidden" name="requestfor" value="database_backup">
 
                 <input id="database_dump_filename" name="filename" placeholder="放空则默认为以日期命名">
-                <input id="database_dump_filetype" value=".json" readonly>
+                <input id="database_dump_filetype" value=".sql" readonly>
             </form>
 
             <div id="database_dump_button">数据库备份</div>
@@ -33,7 +33,7 @@
 
     <div class="project_item" style="margin-top: 80px;">
 
-        <div class="project_item_title">自动备份</div>
+        <div class="project_item_title" style="margin-bottom: 10px">自动备份</div>
 
         <div style="font-size: 18px; margin: 20px 0 0 0">
             <span id="changed_mark" style="position: absolute" hidden>*</span>
@@ -52,16 +52,15 @@
 
     </div>
 
-    <div class="project_item" style="margin-top: -50px">
-        <div class="project_item_title">备份记录</div>
-        <div style="margin: 0 0 15px 20px;">数据库恢复会将服务器数据库恢复至所选备份，未先行备份的数据会丢失，因此强烈推荐先将现行数据备份后再进行恢复操作</div>
+    <div class="project_item">
+        <div class="project_item_title" style="margin-bottom: 10px">备份记录</div>
 
         <table cellspacing="0">
             <tr>
-                <th width="300px">文件名</th>
-                <th width="250px">备份时间</th>
-                <th width="150px">大小</th>
-                <th width="200px">操作</th>
+                <th>文件名</th>
+                <th>备份时间</th>
+                <th>大小</th>
+                <th>操作</th>
             </tr>
 
             {% if backup_infos %}

@@ -3,7 +3,7 @@
 import os
 import time
 
-from TWSS.settings import BASE_DIR
+from TWSS.settings import BASE_DIR, DATABASES
 
 from django.shortcuts import render
 from django.http import HttpResponse, StreamingHttpResponse
@@ -38,7 +38,8 @@ def database_backup(request):
 
     full_filename = BASE_DIR + '/project/database_backups/' + filename + '.sql'
 
-    os.system('mysqldump -uroot -pzql twss > ' + full_filename)
+    database_password = DATABASES['default']['PASSWORD']
+    os.system('mysqldump -uroot -p' + database_password + ' twss > ' + full_filename)
 
     os.system('chmod 444 ' + full_filename)
 

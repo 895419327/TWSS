@@ -59,7 +59,7 @@ class User(models.Model):
     # 密码 md5加密后的字符串
     password = models.CharField(max_length=128)
     # 手机号
-    phone_number = models.CharField(max_length=11, null=True)
+    phone_number = models.CharField(max_length=16, null=True)
     # 邮箱
     email = models.CharField(max_length=32, null=True)
     # identify_code
@@ -202,10 +202,7 @@ class Project(models.Model):
     ############# 论文指导
     # 指导本科学术论文 (SCI/核心期刊/一般期刊)
     level = models.CharField(max_length=64, null=True)
-    # 级别
-    # 教学成果      (特等/一等/二等)
-    rank = models.CharField(max_length=4, null=True)
-    # 审核状态 (未提交/审核未通过/未审核//已审核) (0/1/2/3)
+    # 审核状态 (未提交/审核未通过/未审核/已审核) (0/1/2/3)
     audit_status = models.IntegerField(3, default=0)
     # 审核未通过原因
     reject_reason = models.CharField(max_length=64, null=True)
@@ -243,6 +240,13 @@ class PraticeCourse(Course):
 
 # 教学成果
 class TeachingAchievement(Project):
+    # 级别
+    # 教学成果      (特等/一等/二等)
+    rank = models.CharField(max_length=4, null=True)
+    # 发表期刊
+    periodical = models.CharField(max_length=64, null=True)
+    # 年鉴期
+    periodical_issue = models.CharField(max_length=32, null=True)
     class Meta:
         # 数据表名
         db_table = 'TWSS_TeachingAchievement'

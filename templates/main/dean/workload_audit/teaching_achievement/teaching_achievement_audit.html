@@ -67,7 +67,11 @@
                     {% if project.type == '教研论文' %}
                         <tr>
                             <td>{{ project.year }}年</td>
-                            <td>{{ project.name }}</td>
+                            <td>
+                                {{ project.name }}
+                                <br>
+                                《{{ project.periodical }}》 {{ project.periodical_issue }}
+                            </td>
                             <td>
                                 <div>{{ project.teacher.name }}</div>
                                 <div>{{ project.teacher.id }}</div>
@@ -104,12 +108,12 @@
 
         <table cellspacing="0">
             <tr>
-                <th width="120px">鉴定年份</th>
-                <th width="300px">项目名称</th>
-                <th width="60px">教师</th>
-                <th width="150px">级别</th>
-                <th width="100px">审核状态</th>
-                <th width="100px">操作</th>
+                <th>鉴定年份</th>
+                <th>项目名称</th>
+                <th>教师</th>
+                <th>级别</th>
+                <th>审核状态</th>
+                <th>操作</th>
             </tr>
 
             {% if project_list %}
@@ -154,12 +158,12 @@
 
         <table cellspacing="0">
             <tr>
-                <th width="120px">鉴定年份</th>
-                <th width="300px">项目名称</th>
-                <th width="60px">教师</th>
-                <th width="150px">级别</th>
-                <th width="100px">审核状态</th>
-                <th width="100px">操作</th>
+                <th>鉴定年份</th>
+                <th>项目名称</th>
+                <th>教师</th>
+                <th>级别</th>
+                <th>审核状态</th>
+                <th>操作</th>
             </tr>
 
             {% if project_list %}
@@ -204,12 +208,12 @@
 
         <table cellspacing="0">
             <tr>
-                <th width="120px">鉴定年份</th>
-                <th width="300px">项目名称</th>
-                <th width="60px">教师</th>
-                <th width="150px">级别</th>
-                <th width="100px">审核状态</th>
-                <th width="100px">操作</th>
+                <th>鉴定年份</th>
+                <th>项目名称</th>
+                <th>教师</th>
+                <th>级别</th>
+                <th>审核状态</th>
+                <th>操作</th>
             </tr>
 
             {% if project_list %}
