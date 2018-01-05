@@ -20,12 +20,12 @@
 
                     <table cellspacing="0">
                         <tr>
-                            <th width="120px">教师编号</th>
-                            <th width="100px">教师姓名</th>
-                            <th width="80px">职称</th>
-                            <th width="100px">联系方式</th>
-                            <th width="120px">邮箱</th>
-                            <th width="100px">操作</th>
+                            <th>教师编号</th>
+                            <th>教师姓名</th>
+                            <th>职称</th>
+                            <th>联系方式</th>
+                            <th>邮箱</th>
+                            <th>操作</th>
                         </tr>
 
                         {% if teacher_list %}
@@ -38,10 +38,12 @@
                                         <td>{{ teacher.phone_number }}</td>
                                         <td>{{ teacher.email }}</td>
                                         <td>
+                                            <img class="teacher_management_detail" id="{{ teacher.id }}_detail"
+                                                 title="详细信息" src={% static "main/resourse/document.png" %}>
                                             <img class="teacher_management_modify" id="{{ teacher.id }}_modify"
-                                                 src={% static "main/resourse/modify.png" %}>
+                                                 title="修改" src={% static "main/resourse/modify.png" %}>
                                             <img class="teacher_management_delete" id="{{ teacher.id }}_delete"
-                                                 src={% static "main/resourse/delete.png" %}>
+                                                 title="删除" src={% static "main/resourse/delete.png" %}>
                                         </td>
                                     </tr>
                                 {% endif %}

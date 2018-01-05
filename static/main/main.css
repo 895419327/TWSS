@@ -385,9 +385,9 @@ table img:hover {
 
 .project_item {
     width: 780px;
-    min-height: 180px;
+    min-height: 150px;
     height: 100%;
-    margin: 0 auto;
+    margin: 0 auto 30px;
 }
 
 .project_item_title {

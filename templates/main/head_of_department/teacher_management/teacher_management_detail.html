@@ -1,0 +1,399 @@
+{% load staticfiles %}
+{% load myfilters %}
+<script src={% static 'main/head_of_department/teacher_management/teacher_management_detail.js' %}></script>
+
+<div class="add_popup" style="height: 100%; width: 830px; overflow-y: scroll">
+
+    <div class="add_cross"><img src={% static "main/resourse/cross.png" %}></div>
+
+    <div class="add_title">详细信息</div>
+
+    <div class="add_left" style="height: 150px">
+        <div>
+            <span>教工号: </span>
+            <span>{{ teacher.id }}</span>
+        </div>
+
+        <div>
+            <span>姓名: </span>
+            <span>{{ teacher.name }}</span>
+        </div>
+
+        <div>
+            <span style="font-size: 17px">毕业院校: </span>
+            <span>{{ teacher.graduate }}</span>
+        </div>
+
+        <div>
+            <span>职称: </span>
+            <span>{{ teacher.title }}</span>
+        </div>
+
+        <div>
+            <span>手机号: </span>
+            <span>{{ teacher.phone_number }}</span>
+        </div>
+    </div>
+
+    <div class="add_right" style="height: 150px">
+
+        <div>
+            <span>所属系: </span>
+            <span>{{ teacher.department.name }}</span>
+        </div>
+
+        <div>
+            <span>性别: </span>
+            {% if teacher.gender == 1 %}
+                <span>男</span>
+            {% elif modified_teacher.gender == 2 %}
+                <span>女</span>
+            {% else %}
+                <span>未记录</span>
+            {% endif %}
+        </div>
+
+        <div>
+            <span>专业: </span>
+            <span>{{ teacher.major }}</span>
+        </div>
+
+        <div>
+            <span style="font-size: 17px">出生日期: </span>
+            <span>{{ teacher.birth_date | date:'Y-n-d' }}</span>
+        </div>
+
+        <div>
+            <span>邮箱: </span>
+            <span>{{ teacher.email }}</span>
+        </div>
+    </div>
+
+    <div style="width: 780px; margin: 200px 0 0 20px;">
+
+
+        {% if theory_course_list %}
+            <div class="project_item">
+                <div class="project_item_title">理论课</div>
+                <table cellspacing="0">
+                    <tr>
+                        <th>学年/学期</th>
+                        <th>课程名</th>
+                        <th>教师</th>
+                        <th>课程属性</th>
+                        <th>上课班级</th>
+                        <th>人数</th>
+                        <th>学时</th>
+                        <th>审核状态</th>
+                    </tr>
+                    {% for course in theory_course_list %}
+                        <tr>
+                            <td>
+                                <div>{{ course.year }}-{{ course.year | add:1 }}学年</div>
+                                <div>第{{ course.semester|itoc }}学期</div>
+                            </td>
+                            <td>
+                                <div>{{ course.name }}</div>
+                                <div>{{ course.course_id }}</div>
+                            </td>
+                            <td>
+                                <div>{{ course.teacher.name }}</div>
+                                <div>{{ course.teacher.id }}</div>
+                            </td>
+                            {% if course.attribute == 1 %}
+                                <td>必修</td>
+                            {% elif course.attribute == 2 %}
+                                <td>选修</td>
+                            {% elif course.attribute == 3 %}
+                                <td>限选</td>
+                            {% endif %}
+                            <td>
+                                <div class="course_classes">{{ course.classes | get_class_name }}</div>
+                            </td>
+                            <td>{{ course.student_sum }}</td>
+                            <td>{{ course.final_period }} / {{ course.plan_period }}</td>
+
+                            {% if course.audit_status == 0 %}
+                                <td>未提交</td>
+                            {% elif course.audit_status == 1 %}
+                                <td>审核未通过</td>
+                            {% elif course.audit_status == 2 %}
+                                <td>未审核</td>
+                            {% elif course.audit_status == 3 %}
+                                <td>已审核</td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        {% endif %}
+
+        {% if experiment_course_list %}
+            <div class="project_item">
+                <div class="project_item_title">实验课</div>
+                <table cellspacing="0">
+                    <tr>
+                        <th>学年/学期</th>
+                        <th>课程名</th>
+                        <th>教师</th>
+                        <th>类别</th>
+                        <th>上课班级</th>
+                        <th>人数</th>
+                        <th>学时</th>
+                        <th>审核状态</th>
+                    </tr>
+                    {% for course in experiment_course_list %}
+                        <tr>
+                            <td>
+                                <div>{{ course.year }}-{{ course.year | add:1 }}学年</div>
+                                <div>第{{ course.semester|itoc }}学期</div>
+                            </td>
+                            <td>
+                                <div>{{ course.name }}</div>
+                                <div>{{ course.course_id }}</div>
+                            </td>
+                            <td>
+                                <div>{{ course.teacher.name }}</div>
+                                <div>{{ course.teacher.id }}</div>
+                            </td>
+                            {% if course.attribute == 1 %}
+                                <td>专业课实验</td>
+                            {% elif course.attribute == 2 %}
+                                <td>计算机上机实验</td>
+                            {% elif course.attribute == 3 %}
+                                <td>开放实验</td>
+                            {% endif %}
+                            <td>
+                                <div class="course_classes">{{ course.classes | get_class_name }}</div>
+                            </td>
+                            <td>{{ course.student_sum }}</td>
+                            <td>{{ course.final_period }} / {{ course.plan_period }}</td>
+
+                            {% if course.audit_status == 0 %}
+                                <td>未提交</td>
+                            {% elif course.audit_status == 1 %}
+                                <td>审核未通过</td>
+                            {% elif course.audit_status == 2 %}
+                                <td>未审核</td>
+                            {% elif course.audit_status == 3 %}
+                                <td>已审核</td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        {% endif %}
+
+        {% if pratice_course_list %}
+            <div class="project_item">
+                <div class="project_item_title">实习/实训</div>
+                <table cellspacing="0">
+                    <tr>
+                        <th>学年/学期</th>
+                        <th>课程名</th>
+                        <th>教师</th>
+                        <th>课程属性</th>
+                        <th>上课班级</th>
+                        <th>人数</th>
+                        <th>天数</th>
+                        <th>审核状态</th>
+                    </tr>
+                    {% for course in pratice_course_list %}
+                        <tr>
+                            <td>
+                                <div>{{ course.year }}-{{ course.year | add:1 }}学年</div>
+                                <div>第{{ course.semester|itoc }}学期</div>
+                            </td>
+                            <td>
+                                <div>{{ course.name }}</div>
+                                <div>{{ course.course_id }}</div>
+                            </td>
+                            <td>
+                                <div>{{ course.teacher.name }}</div>
+                                <div>{{ course.teacher.id }}</div>
+                            </td>
+                            {% if course.attribute == 1 %}
+                                <td>市区内认识实习</td>
+                            {% elif course.attribute == 2 %}
+                                <td>外地认识实习、市区内生产实习</td>
+                            {% elif course.attribute == 3 %}
+                                <td>外地生产实习、毕业实习、毕业设计(论文)</td>
+                            {% endif %}
+                            <td>
+                                <div class="course_classes">{{ course.classes | get_class_name }}</div>
+                            </td>
+                            <td>{{ course.student_sum }}</td>
+                            <td>{{ course.final_period }} / {{ course.plan_period }}</td>
+
+                            {% if course.audit_status == 0 %}
+                                <td>未提交</td>
+                            {% elif course.audit_status == 1 %}
+                                <td>审核未通过</td>
+                            {% elif course.audit_status == 2 %}
+                                <td>未审核</td>
+                            {% elif course.audit_status == 3 %}
+                                <td>已审核</td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        {% endif %}
+
+        {% if teaching_achievement_list %}
+            <div class="project_item">
+                <div class="project_item_title">教学成果</div>
+                <table cellspacing="0">
+                    <tr>
+                        <th>鉴定年份</th>
+                        <th>类型</th>
+                        <th>题目</th>
+                        <th>教师</th>
+                        <th>级别</th>
+                        <th>审核状态</th>
+                    </tr>
+                    {% for project in teaching_achievement_list %}
+                        <tr>
+                            <td>{{ project.year }}年</td>
+                            <td>{{ project.type }}</td>
+                            <td>{{ project.name }}</td>
+                            <td>
+                                <div>{{ project.teacher.name }}</div>
+                                <div>{{ project.teacher.id }}</div>
+                            </td>
+                            <td>
+                                {{ project.level }}
+                                {% if project.type == '教学成果' %}
+                                    {{ project.rank }}
+                                {% endif %}
+                            </td>
+
+                            {% if project.audit_status == 0 %}
+                                <td>未提交</td>
+                            {% elif project.audit_status == 1 %}
+                                <td>审核未通过</td>
+                            {% elif project.audit_status == 2 %}
+                                <td>未审核</td>
+                            {% elif project.audit_status == 3 %}
+                                <td>已审核</td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        {% endif %}
+
+        {% if teaching_project_list %}
+            <div class="project_item">
+                <div class="project_item_title">本科工程教学项目</div>
+                <table cellspacing="0">
+                    <tr>
+                        <th>年份</th>
+                        <th>类型</th>
+                        <th>项目名称</th>
+                        <th>教师</th>
+                        <th>级别</th>
+                        <th>审核状态</th>
+                    </tr>
+                    {% for project in teaching_project_list %}
+                        <tr>
+                            <td>{{ project.year }}年</td>
+                            <td>{{ project.type }}</td>
+                            <td>{{ project.name }}</td>
+                            <td>
+                                <div>{{ project.teacher.name }}</div>
+                                <div>{{ project.teacher.id }}</div>
+                            </td>
+                            <td>{{ project.level }}</td>
+
+                            {% if project.audit_status == 0 %}
+                                <td>未提交</td>
+                            {% elif project.audit_status == 1 %}
+                                <td>审核未通过</td>
+                            {% elif project.audit_status == 2 %}
+                                <td>未审核</td>
+                            {% elif project.audit_status == 3 %}
+                                <td>已审核</td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        {% endif %}
+
+        {% if competition_guide_list %}
+            <div class="project_item">
+                <div class="project_item_title">指导竞赛</div>
+                <table cellspacing="0">
+                    <tr>
+                        <th>年份</th>
+                        <th>类型</th>
+                        <th>项目名称</th>
+                        <th>教师</th>
+                        <th>参赛学生</th>
+                        <th>级别</th>
+                        <th>审核状态</th>
+                    </tr>
+                    {% for project in competition_guide_list %}
+                        <tr>
+                            <td>{{ project.year }}年</td>
+                            <td>{{ project.type }}</td>
+                            <td>{{ project.name }}</td>
+                            <td>
+                                <div>{{ project.teacher.name }}</div>
+                                <div>{{ project.teacher.id }}</div>
+                            </td>
+                            <td>{{ project.students }}</td>
+                            <td>{{ project.level }}</td>
+
+                            {% if project.audit_status == 0 %}
+                                <td>未提交</td>
+                            {% elif project.audit_status == 1 %}
+                                <td>审核未通过</td>
+                            {% elif project.audit_status == 2 %}
+                                <td>未审核</td>
+                            {% elif project.audit_status == 3 %}
+                                <td>已审核</td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        {% endif %}
+
+        {% if papar_guide_list %}
+            <div class="project_item">
+                <div class="project_item_title">指导毕业论文</div>
+                <table cellspacing="0">
+                    <tr>
+                        <th>年份</th>
+                        <th>教师</th>
+                        <th>学生姓名</th>
+                        <th>审核状态</th>
+                    </tr>
+                    {% for project in papar_guide_list %}
+                        <tr>
+                            <td>{{ project.year }}年</td>
+                            <td>
+                                <div>{{ project.teacher.name }}</div>
+                                <div>{{ project.teacher.id }}</div>
+                            </td>
+                            <td>{{ project.student }}</td>
+
+                            {% if project.audit_status == 0 %}
+                                <td>未提交</td>
+                            {% elif project.audit_status == 1 %}
+                                <td>审核未通过</td>
+                            {% elif project.audit_status == 2 %}
+                                <td>未审核</td>
+                            {% elif project.audit_status == 3 %}
+                                <td>已审核</td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        {% endif %}
+
+    </div>
+</div>

@@ -41,6 +41,8 @@ def index(request):
 
 # TODO: 刷新工作量
 
+# TODO: eval 换 global.get
+
 def login(request):
     request.encoding = 'utf-8'
 
@@ -619,6 +621,21 @@ def teacher_management_add(request, user):
     if request.POST['request_data']:
         modified_teacher = User.objects.get(id=request.POST['request_data'])
     return render(request, 'main/head_of_department/teacher_management/teacher_management_add.html', locals())
+
+
+def teacher_management_detail(request, user):
+    teacher_id = request.POST['request_data']
+    teacher = User.objects.get(id=teacher_id)
+
+    theory_course_list = TheoryCourse.objects.filter(teacher=teacher)
+    experiment_course_list = ExperimentCourse.objects.filter(teacher=teacher)
+    pratice_course_list = PraticeCourse.objects.filter(teacher=teacher)
+    teaching_achievement_list = TeachingAchievement.objects.filter(teacher=teacher)
+    teaching_project_list = TeachingProject.objects.filter(teacher=teacher)
+    competition_guide_list = CompetitionGuide.objects.filter(teacher=teacher)
+    papar_guide_list = PaperGuide.objects.filter(teacher=teacher)
+
+    return render(request, 'main/head_of_department/teacher_management/teacher_management_detail.html', locals())
 
 
 # 班级管理

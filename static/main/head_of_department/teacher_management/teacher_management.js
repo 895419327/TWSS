@@ -8,10 +8,16 @@ $(document).ready(function () {
         MyAjax_Get('getpage', 'teacher_management_add', null, '.teacher_management_add_content')
     });
 
+    $('.teacher_management_detail').click(function () {
+        var id = this.id;
+        id = id.substring(0, id.length - 7);
+        MyAjax_Get('/getpage', 'teacher_management_detail', id, '.teacher_management_add_content');
+    });
+
     $('.teacher_management_modify').click(function () {
         var id = this.id;
         id = id.substring(0, id.length - 7);
-        MyAjax_Get('getpage', 'teacher_management_add', id, '.teacher_management_add_content');
+        MyAjax_Get('/getpage', 'teacher_management_add', id, '.teacher_management_add_content');
     });
 
     $('.teacher_management_delete').click(function () {
