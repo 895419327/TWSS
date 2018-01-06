@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import os
+import sys
 import time
 
 from django.http import HttpResponse
@@ -21,26 +22,12 @@ def database(request):
 
     requestfor = request.POST['requestfor']
     log('INFO', 'DataUpload', user.name, user.id, requestfor, request.POST)
-    if requestfor == 'database_backup':
-        return database_backup(request)
-    if requestfor == 'backup_download':
-        return buckup_download(request)
-    if requestfor == 'buckup_delete':
-        return buckup_delete(request, user)
+    return getattr(sys.modules[__name__], requestfor)(request, user)
 
 
-def database_backup(request):
-    if request.POST['filename']:
-        filename = request.POST['filename']
-    else:
-        filename = time.strftime('%Y%m%d-%H%M%S', time.localtime())
-
-    full_filename = DATABASE_BACKUPS_DIR + filename + '.sql'
-
-    database_password = DATABASES['default']['PASSWORD']
-    os.system('mysqldump -uroot -p' + database_password + ' twss > ' + full_filename)
-
-    os.system('chmod 444 ' + full_filename)
+def database_backup_manual(request, user):
+    filename = request.POST['filename']
+    full_filename, filename = do_database_backup(filename)
 
     file = open(full_filename, encoding='utf-8')
     # response = StreamingHttpResponse(file.read())
@@ -50,8 +37,21 @@ def database_backup(request):
     return response
 
 
-def buckup_download(request):
-    filename = request.POST['buckup_id']
+def do_database_backup(filename):
+    if not filename:
+        filename = time.strftime('%Y%m%d-%H%M%S', time.localtime())
+
+    full_filename = DATABASE_BACKUPS_DIR + filename + '.sql'
+
+    database_password = DATABASES['default']['PASSWORD']
+    os.system('/usr/local/mysql/bin/mysqldump -uroot -p' + database_password + ' twss > ' + full_filename)
+    os.system('chmod 444 ' + full_filename)
+
+    return full_filename, filename
+
+
+def backup_download(request, user):
+    filename = request.POST['backup_id']
     file = open(DATABASE_BACKUPS_DIR + filename, encoding='utf-8')
 
     response = HttpResponse(file.read())
@@ -60,7 +60,7 @@ def buckup_download(request):
     return response
 
 
-def buckup_delete(request, user):
+def backup_delete(request, user):
     filename = request.POST['request_data']
     full_filename = DATABASE_BACKUPS_DIR + filename
 

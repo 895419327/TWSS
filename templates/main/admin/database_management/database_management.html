@@ -21,7 +21,7 @@
                 {% csrf_token %}
                 <input type="hidden" name="username" value="{{ user.id }}">
                 <input type="hidden" name="identify_code" value="{{ user.identify_code }}">
-                <input type="hidden" name="requestfor" value="database_backup">
+                <input type="hidden" name="requestfor" value="database_backup_manual">
 
                 <input id="database_dump_filename" name="filename" placeholder="放空则默认为以日期命名">
                 <input id="database_dump_filetype" value=".sql" readonly>
@@ -47,7 +47,7 @@
             </select>
             <span> 进行自动备份</span>
 
-            <button style="font-size: 16px; margin: 0 0 0 10px; cursor: pointer">保存</button>
+            <button style="font-size: 16px; margin: 0 0 0 10px; cursor: pointer" onclick="alert('懒得写了，现在每天备份')">保存</button>
         </div>
 
     </div>
@@ -88,7 +88,7 @@
         <input type="hidden" name="identify_code" value="{{ user.identify_code }}">
         <input name="requestfor" id="backup_operation_form_requestfor">
 
-        <input name="buckup_id" id="buckup_id">
+        <input name="backup_id" id="backup_id">
     </form>
 
 </div>

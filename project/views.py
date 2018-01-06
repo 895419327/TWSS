@@ -23,9 +23,6 @@ def index(request):
 # TODO: 测试覆盖
 
 
-# TODO: 防爆破 输入多次密码错误后封ip
-
-
 # TODO: 移动端可做成微信小程序
 
 
