@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import os
+import sys
 import time
 
 from django.contrib.auth.hashers import make_password, check_password
@@ -32,13 +33,7 @@ def index(request):
 
 # TODO：理论课 老师分上一节课 工作量怎么算
 
-# FIXME：样式问题 多浏览器兼容
-
-# TODO: 教师详情 显示相关课程
-
 # TODO: 刷新工作量
-
-# TODO: eval 换 global.get
 
 def login(request):
     request.encoding = 'utf-8'
@@ -103,7 +98,7 @@ def getpage(request):
     requestfor = request.POST['requestfor']
     # 记录
     log('INFO', 'GetPage', user.name, user.id, requestfor, request.POST)
-    return eval(requestfor)(request, user)
+    return getattr(sys.modules[__name__], requestfor)(request, user)
 
 
 #####  教师  #####
@@ -378,8 +373,6 @@ def teacher_workload_count(request, user):
 
 
 # ##### 系主任 #####
-# TODO: 考虑在系主任查看工作量统计时只统计已审核工作量
-
 
 def workload_audit_reject_page(request, user):
     data = request.POST['request_data'].split(',')

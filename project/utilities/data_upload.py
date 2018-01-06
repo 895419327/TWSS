@@ -30,7 +30,7 @@ def upload(request):
         log('INFO', 'DataUpload', user.name, user.id, requestfor)
     else:
         log('INFO', 'DataUpload', user.name, user.id, requestfor, request.POST)
-    return eval(requestfor)(request, user)
+    return getattr(sys.modules[__name__], requestfor)(request, user)
 
 
 # TODO: 更改前要检查数据合法性

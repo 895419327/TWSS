@@ -1,3 +1,4 @@
+import sys
 import time
 
 import xlrd
@@ -21,7 +22,7 @@ def export(request):
 
     requestfor = request.POST['requestfor']
     log('INFO', 'DataExport', user.name, user.id, requestfor, request.POST)
-    return eval(requestfor)(request, user)
+    return getattr(sys.modules[__name__], requestfor)(request, user)
 
 
 def download_help_pdf(request, user):
