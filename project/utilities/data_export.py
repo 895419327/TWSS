@@ -71,7 +71,7 @@ def teacher_management_export(request, user):
         worksheet.write(row, 1, teacher.department.name, style)
         worksheet.write(row, 2, teacher.name, style)
         worksheet.write(row, 3, gender, style)
-        worksheet.write(row, 4, str(teacher.birth_date), style)
+        worksheet.write(row, 4, teacher.birth_date, style)
         worksheet.write(row, 5, teacher.title, style)
         worksheet.write(row, 6, teacher.graduate, style)
         worksheet.write(row, 7, teacher.major, style)

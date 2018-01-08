@@ -42,7 +42,7 @@ class User(models.Model):
     # 性别 (未记录/男/女)
     gender = models.IntegerField(2, default=0, null=True)
     # 出生日期 (yyyy-mm-dd)
-    birth_date = models.DateField(default='1949-10-01', null=True)
+    birth_date = models.CharField(max_length=16, null=True)
     # 毕业院校
     graduate = models.CharField(max_length=16, null=True)
     # 专业

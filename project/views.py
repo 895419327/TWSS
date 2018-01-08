@@ -106,9 +106,6 @@ def notice_page(request, user):
 
 
 def user_info_user_info(request, user):
-    # 玄学bug
-    # 没有这行修改后出生日期不显示 其他项没问题
-    birth_date = str(user.birth_date)
     return render(request, 'main/teacher/user_info/user_info.html', locals())
 
 

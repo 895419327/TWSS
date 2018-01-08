@@ -44,7 +44,8 @@ def do_database_backup(filename):
     full_filename = DATABASE_BACKUPS_DIR + filename + '.sql'
 
     database_password = DATABASES['default']['PASSWORD']
-    os.system('/usr/local/mysql/bin/mysqldump -uroot -p' + database_password + ' twss > ' + full_filename)
+
+    os.system('mysqldump -uroot -p' + database_password + ' twss > ' + full_filename)
     os.system('chmod 444 ' + full_filename)
 
     return full_filename, filename
