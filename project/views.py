@@ -32,6 +32,10 @@ def index(request):
 
 # TODO: 刷新工作量
 
+# TODO: 长列表 抬头动画
+
+# TODO: 数据库还原
+
 def login(request):
     request.encoding = 'utf-8'
 
@@ -365,6 +369,10 @@ def teacher_workload_count(request, user):
     project_total_W = round(teaching_achievement_W + teaching_project_W + competition_guide_W + paper_guide_W, 2)
     return render(request, 'main/teacher/workload_count/workload_count.html', locals())
 
+
+# TODO: Pass合并成像Reject那样
+
+# TODO: Pass和Reject都改到data_upload.py里
 
 # ##### 系主任 #####
 
@@ -776,6 +784,82 @@ def data_import(request, user):
 
 
 def data_import_a(request, user):
+    theory_course_list = TheoryCourse.objects.filter(audit_status__lte=2)
+    experiment_course_list = ExperimentCourse.objects.filter(audit_status__lte=2)
+    pratice_course_list = PraticeCourse.objects.filter(audit_status__lte=2)
+
+    class_list = Class.objects.all()
+
+    for course in theory_course_list:
+        pre_student_sum = course.student_sum
+
+        student_sum = 0
+        classes = course.classes.split(',')
+        for clas in class_list:
+            if clas.id in classes:
+                student_sum += clas.sum
+        if pre_student_sum != 0:
+            course.student_sum = student_sum
+            course.save()
+
+            if pre_student_sum != course.student_sum:
+                print('different', pre_student_sum, course.student_sum)
+            else:
+                print('same', pre_student_sum, course.student_sum)
+
+
+            workload = round( theory_course_workload_count(course),2)
+            if workload != course.workload:
+                # course.workload = workload
+                # course.save()
+                print(course.__unicode__(), course.workload, workload)
+
+    for course in experiment_course_list:
+        pre_student_sum = course.student_sum
+
+        student_sum = 0
+        classes = course.classes.split(',')
+        for clas in class_list:
+            if clas.id in classes:
+                student_sum += clas.sum
+        if pre_student_sum != 0:
+            course.student_sum = student_sum
+            course.save()
+
+            if pre_student_sum != course.student_sum:
+                print('different', pre_student_sum, course.student_sum)
+            else:
+                print('same', pre_student_sum, course.student_sum)
+
+
+            workload = round(experiment_course_workload_count(course),2)
+            if workload != course.workload:
+                # course.workload = workload
+                # course.save()
+                print(course.__unicode__(), course.workload, workload)
+
+    for course in pratice_course_list:
+        pre_student_sum = course.student_sum
+
+        student_sum = 0
+        classes = course.classes.split(',')
+        for clas in class_list:
+            if clas.id in classes:
+                student_sum += clas.sum
+        if pre_student_sum != 0:
+            course.student_sum = student_sum
+            course.save()
+
+            if pre_student_sum != course.student_sum:
+                print('different', pre_student_sum, course.student_sum)
+            else:
+                print('same', pre_student_sum, course.student_sum)
+
+            workload = round(pratice_course_workload_count(course),2)
+            if workload != course.workload:
+                # course.workload = workload
+                # course.save()
+                print(course.__unicode__(), course.workload, workload)
     # import xlrd
     # workbook = xlrd.open_workbook('/users/vicchen/downloads/data.xlsx')
 

@@ -84,6 +84,7 @@ class User(models.Model):
     def is_admin(self):
         return self.auth_admin
 
+
 # 班级表
 class Class(models.Model):
     # 班级编号
@@ -164,7 +165,7 @@ class Course(models.Model):
         abstract = True
 
     def __unicode__(self):
-        return self.course_id + ' ' + self.name + self.teacher.name
+        return self.course_id + ' ' + self.name + ' ' + self.teacher.name
 
 
 # 项目表 父类
@@ -214,7 +215,7 @@ class Project(models.Model):
         abstract = True
 
     def __unicode__(self):
-        return self.name + self.teacher.name
+        return self.name + ' ' + self.teacher.name
 
 
 # 理论课
@@ -247,6 +248,7 @@ class TeachingAchievement(Project):
     periodical = models.CharField(max_length=64, null=True)
     # 年鉴期
     periodical_issue = models.CharField(max_length=32, null=True)
+
     class Meta:
         # 数据表名
         db_table = 'TWSS_TeachingAchievement'
