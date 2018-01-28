@@ -70,7 +70,7 @@ def change_password(request, user):
         return render(request, 'main/teacher/user_info/change_password.html', locals())
 
 
-# TODO: 检查是否可更改
+# TODO: 检查是否有更改权限
 
 # Theory Course
 

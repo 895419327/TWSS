@@ -810,8 +810,8 @@ def data_import_a(request, user):
 
             workload = round( theory_course_workload_count(course),2)
             if workload != course.workload:
-                # course.workload = workload
-                # course.save()
+                course.workload = workload
+                course.save()
                 print(course.__unicode__(), course.workload, workload)
 
     for course in experiment_course_list:
@@ -834,8 +834,8 @@ def data_import_a(request, user):
 
             workload = round(experiment_course_workload_count(course),2)
             if workload != course.workload:
-                # course.workload = workload
-                # course.save()
+                course.workload = workload
+                course.save()
                 print(course.__unicode__(), course.workload, workload)
 
     for course in pratice_course_list:
@@ -857,8 +857,8 @@ def data_import_a(request, user):
 
             workload = round(pratice_course_workload_count(course),2)
             if workload != course.workload:
-                # course.workload = workload
-                # course.save()
+                course.workload = workload
+                course.save()
                 print(course.__unicode__(), course.workload, workload)
     # import xlrd
     # workbook = xlrd.open_workbook('/users/vicchen/downloads/data.xlsx')

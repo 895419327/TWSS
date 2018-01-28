@@ -1,6 +1,8 @@
 from project.models import GlobalValue
 
 # TODO: 可简化 合并
+# main.html 全局表单增加serach_year, seach_semester, search_audit_status, search_type
+
 
 def search_course(request, cource_list):
     year = ''
